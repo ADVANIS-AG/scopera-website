@@ -1,0 +1,57 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import CtaBanner from '../components/CtaBanner.astro';
+const team = [
+  { name: 'Thomas', rolle: 'CEO', statement: 'Ich glaube an Technologie, die man nicht erklären muss, weil sie einfach funktioniert.' },
+  { name: 'Sven', rolle: 'CTO', statement: 'Die beste Architektur ist die, die morgen noch Antworten hat auf Fragen, die heute niemand stellt.' },
+  { name: 'Joel', rolle: 'Senior AI Architect', statement: 'AI wird dann stark, wenn sie sich in bestehende Systeme einfügt statt neue Silos zu bauen.' },
+  { name: 'Alex', rolle: 'AI Architect', statement: 'Gute Lösungen erkennt man daran, dass die Nutzer nach einer Woche nicht mehr ohne wollen.' },
+  { name: 'Sarah', rolle: 'AI Consultant', statement: 'Mein Job ist übersetzen: aus Geschäftsproblemen werden Anforderungen, aus Technologie wird Nutzen.' },
+];
+const dna = [
+  ['Wir vereinfachen', 'Keine unnötige Komplexität.'],
+  ['Wir liefern', 'Keine endlosen Konzepte.'],
+  ['Wir übernehmen Verantwortung', 'Nicht Projekt. Partnerschaft.'],
+  ['Wir entwickeln mit AI', 'Nicht trotz AI.'],
+  ['Wir denken unternehmerisch', 'Nicht technisch.'],
+  ['Wir schaffen Vertrauen', 'Immer.'],
+];
+---
+<BaseLayout title="Über uns | kurzerhand." description="kurzerhand ist eine Marke der ADVANIS AG: ein Team aus AI-Architekten und Beratern, das Unternehmen von der Strategie bis zum Betrieb begleitet.">
+  <section style="padding: 88px 0 64px;">
+    <div class="wrap">
+      <p class="eyebrow">Über uns</p>
+      <h1>Neu als Marke. Nicht neu im Geschäft<span class="dot">.</span></h1>
+      <p class="lede">kurzerhand ist eine Marke der ADVANIS AG, einem Schweizer Beratungsunternehmen mit über 28 Jahren Erfahrung und mehr als 300 begleiteten Unternehmen. Wir haben kurzerhand gegründet, weil AI eine neue Art zu arbeiten möglich macht: schneller, direkter, mit Produkten statt Projekten.</p>
+    </div>
+  </section>
+  <section>
+    <div class="wrap">
+      <p class="eyebrow">Woran wir uns halten</p>
+      <h2>Sechs Sätze. Kein Kleingedrucktes.</h2>
+      {dna.map(([satz, erg]) => (
+        <div style="display:flex; gap:16px; align-items:baseline; flex-wrap:wrap; padding: 14px 0; border-top: 1px solid var(--line);">
+          <strong style="font-size: clamp(18px, 2.4vw, 24px); letter-spacing: -.02em;">{satz}<span class="dot">.</span></strong>
+          <span class="soft">{erg}</span>
+        </div>
+      ))}
+    </div>
+  </section>
+  <section>
+    <div class="wrap">
+      <p class="eyebrow">Team</p>
+      <h2>Menschen, die liefern.</h2>
+      <div class="karten" style="grid-template-columns: repeat(3, 1fr);">
+        {team.map(t => (
+          <div class="karte">
+            <div aria-hidden="true" style="width:52px; height:52px; border:1px solid var(--line); background: var(--band); display:flex; align-items:center; justify-content:center; font-weight:800; font-size:20px; margin-bottom:12px;">{t.name.charAt(0)}</div>
+            <h3>{t.name}</h3>
+            <p class="tag">{t.rolle}</p>
+            <p style="font-size:14px;" class="soft">«{t.statement}»</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+  <CtaBanner titel="Lernen Sie uns kennen." text="Am schnellsten merkt man im Gespräch, ob es passt. Wir freuen uns darauf." />
+</BaseLayout>

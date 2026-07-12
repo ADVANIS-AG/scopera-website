@@ -1,0 +1,20 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { ADRESSE } from '../config';
+---
+<BaseLayout title="Datenschutz | kurzerhand." description="Datenschutzerklärung von kurzerhand, einer Marke der ADVANIS AG.">
+  <section style="padding: 88px 0;">
+    <div class="wrap" style="max-width: 720px;">
+      <h1 style="font-size: clamp(30px, 5vw, 44px);">Datenschutzerklärung</h1>
+      <p class="soft">Stand: Juli 2026. Diese Erklärung richtet sich nach dem Schweizer Datenschutzgesetz (DSG) und, soweit anwendbar, der DSGVO.</p>
+      <h3 style="margin-top:28px;">Verantwortliche Stelle</h3>
+      <p>ADVANIS AG, {ADRESSE}. Erreichbar über die Kontaktseite.</p>
+      <h3 style="margin-top:28px;">Welche Daten wir bearbeiten</h3>
+      <p><strong>Server-Logs:</strong> Beim Besuch dieser Webseite verarbeitet unser Hosting-Anbieter technisch notwendige Daten (IP-Adresse, Zeitpunkt, abgerufene Seite) zur Auslieferung und Sicherheit. Diese Daten werden nicht mit anderen Quellen verknüpft.</p>
+      <p><strong>Kontaktformular:</strong> Wenn Sie uns über das Formular schreiben, werden die eingegebenen Daten (Name, Firma, E-Mail, Nachricht) über den Dienst Formspree an uns übermittelt und ausschliesslich zur Bearbeitung Ihrer Anfrage verwendet.</p>
+      <p><strong>Keine Cookies, kein Tracking:</strong> Diese Webseite setzt keine Cookies und verwendet keine Analyse- oder Werbedienste.</p>
+      <h3 style="margin-top:28px;">Ihre Rechte</h3>
+      <p>Sie haben das Recht auf Auskunft, Berichtigung und Löschung Ihrer Personendaten. Wenden Sie sich dazu an die verantwortliche Stelle.</p>
+    </div>
+  </section>
+</BaseLayout>

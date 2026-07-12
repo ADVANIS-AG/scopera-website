@@ -1,0 +1,43 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { KONTAKT_EMAIL, FORMSPREE_ENDPOINT, BOOKING_URL } from '../config';
+const formularAktiv = FORMSPREE_ENDPOINT.length > 0;
+const emailAktiv = !KONTAKT_EMAIL.startsWith('PLATZHALTER');
+---
+<BaseLayout title="Kontakt | kurzerhand." description="Termin buchen oder Nachricht schreiben: Der erste Schritt zu Ihrer AI-Lösung dauert 30 Minuten.">
+  <section style="padding: 88px 0 64px;">
+    <div class="wrap">
+      <p class="eyebrow">Kontakt</p>
+      <h1>Reden wir<span class="dot">.</span></h1>
+      <p class="lede">30 Minuten genügen für eine ehrliche Einschätzung: Was ist möglich, was kostet es ungefähr, wie schnell geht es. Unverbindlich.</p>
+    </div>
+  </section>
+  <section>
+    <div class="wrap">
+      <div class="karten-2">
+        <div class="karte" style="padding: 26px;">
+          <h3>Termin buchen</h3>
+          <p style="font-size:14px;" class="soft">Der direkteste Weg: Wählen Sie einen Termin, der Ihnen passt.</p>
+          {BOOKING_URL
+            ? <a class="btn" href={BOOKING_URL}>Termin wählen</a>
+            : <p class="soft" style="font-size:14px;"><strong>Online-Buchung folgt in Kürze.</strong> Bis dahin erreichen Sie uns über das Formular{emailAktiv ? ' oder per E-Mail' : ''}.</p>}
+        </div>
+        <div class="karte" style="padding: 26px;">
+          <h3>Nachricht schreiben</h3>
+          {formularAktiv ? (
+            <form method="POST" action={FORMSPREE_ENDPOINT} style="display:grid; gap:12px;">
+              <label style="font-size:13px; font-weight:600;">Name<br /><input name="name" required style="width:100%; padding:10px; border:1px solid var(--line); background:var(--ground); color:var(--ink); font:inherit;" /></label>
+              <label style="font-size:13px; font-weight:600;">Firma<br /><input name="firma" style="width:100%; padding:10px; border:1px solid var(--line); background:var(--ground); color:var(--ink); font:inherit;" /></label>
+              <label style="font-size:13px; font-weight:600;">E-Mail<br /><input name="email" type="email" required style="width:100%; padding:10px; border:1px solid var(--line); background:var(--ground); color:var(--ink); font:inherit;" /></label>
+              <label style="font-size:13px; font-weight:600;">Nachricht<br /><textarea name="nachricht" rows="5" required style="width:100%; padding:10px; border:1px solid var(--line); background:var(--ground); color:var(--ink); font:inherit;"></textarea></label>
+              <button class="btn" type="submit" style="border:none; cursor:pointer;">Senden</button>
+            </form>
+          ) : (
+            <p class="soft" style="font-size:14px;"><strong>Das Formular wird gerade eingerichtet.</strong> {emailAktiv ? <>Schreiben Sie uns direkt: <a href={`mailto:${KONTAKT_EMAIL}`}>{KONTAKT_EMAIL}</a></> : 'Die Kontaktdaten folgen in Kürze.'}</p>
+          )}
+        </div>
+      </div>
+      {emailAktiv && <p class="soft" style="margin-top:18px; font-size:14px;">Oder direkt per E-Mail: <a href={`mailto:${KONTAKT_EMAIL}`}>{KONTAKT_EMAIL}</a></p>}
+    </div>
+  </section>
+</BaseLayout>
