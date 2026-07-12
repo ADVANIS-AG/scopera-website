@@ -1,0 +1,26 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { getCollection } from 'astro:content';
+const artikel = (await getCollection('insights')).sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf());
+const datumFmt = new Intl.DateTimeFormat('de-CH', { day: 'numeric', month: 'long', year: 'numeric' });
+---
+<BaseLayout title="Insights | kurzerhand." description="Klartext zu AI im Unternehmen: was funktioniert, was nicht, und woran Sie den Unterschied erkennen.">
+  <section style="padding: 88px 0 64px;">
+    <div class="wrap">
+      <p class="eyebrow">Insights</p>
+      <h1>Klartext zu AI<span class="dot">.</span></h1>
+      <p class="lede">Keine Trends, keine Panik. Was in Schweizer Unternehmen wirklich funktioniert.</p>
+    </div>
+  </section>
+  <section>
+    <div class="wrap">
+      {artikel.map(a => (
+        <article style="padding: 22px 0; border-top: 1px solid var(--line);">
+          <p class="eyebrow">{datumFmt.format(a.data.pubDate)}</p>
+          <h2 style="margin: 6px 0 8px;"><a href={`/insights/${a.id.replace(/\.md$/, '')}`} style="text-decoration:none;">{a.data.title}</a></h2>
+          <p class="soft" style="max-width: 46em;">{a.data.description}</p>
+        </article>
+      ))}
+    </div>
+  </section>
+</BaseLayout>

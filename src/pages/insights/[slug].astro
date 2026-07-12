@@ -1,0 +1,25 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { getCollection, render } from 'astro:content';
+export async function getStaticPaths() {
+  const artikel = await getCollection('insights');
+  return artikel.map(a => ({ params: { slug: a.id.replace(/\.md$/, '') }, props: { a } }));
+}
+const { a } = Astro.props;
+const { Content } = await render(a);
+const datumFmt = new Intl.DateTimeFormat('de-CH', { day: 'numeric', month: 'long', year: 'numeric' });
+---
+<BaseLayout title={`${a.data.title} | kurzerhand.`} description={a.data.description}>
+  <section style="padding: 88px 0 40px;">
+    <div class="wrap" style="max-width: 760px;">
+      <p class="eyebrow">{datumFmt.format(a.data.pubDate)}</p>
+      <h1 style="font-size: clamp(30px, 5vw, 48px);">{a.data.title}</h1>
+    </div>
+  </section>
+  <section style="border-bottom: none;">
+    <div class="wrap" style="max-width: 760px; font-size: 17px;">
+      <Content />
+      <p style="margin-top: 40px;"><a href="/insights">← Alle Insights</a></p>
+    </div>
+  </section>
+</BaseLayout>
