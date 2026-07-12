@@ -3,9 +3,11 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 import SaeulenGrid from '../components/SaeulenGrid.astro';
 import QuerschnittBaender from '../components/QuerschnittBaender.astro';
 import CtaBanner from '../components/CtaBanner.astro';
+import HeroBild from '../components/HeroBild.astro';
+import BergLinie from '../components/BergLinie.astro';
 ---
 <BaseLayout title="kurzerhand. | AI-Lösungen, die einfach laufen" description="AI-Lösungen für Schweizer Unternehmen: von der Strategie bis zum laufenden Betrieb. Geliefert in Wochen, nicht Monaten. Eine Marke der ADVANIS AG.">
-  <section style="padding: 96px 0 72px; border-bottom: 2px solid var(--ink);">
+  <section style="padding: 96px 0 72px; border-bottom: none;">
     <div class="wrap">
       <p class="eyebrow">AI für Schweizer Unternehmen</p>
       <h1>AI-Lösungen, die einfach laufen<span class="dot">.</span></h1>
@@ -16,6 +18,8 @@ import CtaBanner from '../components/CtaBanner.astro';
       </p>
     </div>
   </section>
+
+  <HeroBild src="/bilder/hero-start.jpg" alt="Sonnenaufgang über dem Nebelmeer, Blick vom Pilatus Richtung Vierwaldstättersee" />
 
   <section>
     <div class="wrap">
@@ -66,6 +70,10 @@ import CtaBanner from '../components/CtaBanner.astro';
       </div>
       <p style="margin-top:18px;"><a href="/plattform">Zur Plattform und allen Lösungen →</a></p>
     </div>
+  </section>
+
+  <section style="border-bottom: none; padding: 56px 0 0;">
+    <div class="wrap"><BergLinie /></div>
   </section>
 
   <CtaBanner titel="Reden wir über Ihren ersten Use Case." text="30 Minuten genügen, um herauszufinden, wo AI in Ihrem Unternehmen am schnellsten Wirkung zeigt. Unverbindlich, konkret, auf Augenhöhe." />

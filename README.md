@@ -28,6 +28,20 @@ npm run check      # Typ- und Template-Pruefung
 - `src/pages/` — alle Routen; `src/content/insights/` — Blog-Artikel als Markdown
 - `docs/superpowers/` — Design-Spec und Implementierungsplan
 
+## Bildnachweise
+
+Alle Fotos via Unsplash (Unsplash-Lizenz: kommerzielle Nutzung erlaubt, keine Attribution noetig — Nennung als Geste):
+
+- `hero-start.jpg` — Simon Infanger (unsplash.com/photos/hTC80VIVxoY)
+- `hero-leistungen.jpg` — Ivy Tang (unsplash.com/photos/hB5wHFb9JpQ)
+- `hero-plattform.jpg` — Minh Duc (unsplash.com/photos/lQIUbkn6jj4)
+- `hero-pakete.jpg` — Annie Spratt (unsplash.com/photos/Csxx4yz6uaU)
+- `hero-insights.jpg` — Alan Bowman (unsplash.com/photos/Jy8PdNvEp2w)
+- `hero-ueber-uns.jpg` — Roger Benz (unsplash.com/photos/TL1lSPPCkj8)
+- `hero-kontakt.jpg` — Wojciech Wyszkowski (unsplash.com/photos/Cscz8tPogHw)
+
+SVG-Grafiken (BergLinie, NetzGrafik, PfadGrafik) sind Eigenentwicklungen im Brand-Stil.
+
 ## Konventionen
 
 Schweizer Hochdeutsch, kein «ß», keine em-Dashes in `src/`. Tonalitaet nach ADVANIS-Styleguide: direkt, keine Superlative, keine Floskeln.

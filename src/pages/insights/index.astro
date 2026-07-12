@@ -1,17 +1,19 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import { getCollection } from 'astro:content';
+import HeroBild from '../../components/HeroBild.astro';
 const artikel = (await getCollection('insights')).sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf());
 const datumFmt = new Intl.DateTimeFormat('de-CH', { day: 'numeric', month: 'long', year: 'numeric' });
 ---
 <BaseLayout title="Insights | kurzerhand." description="Klartext zu AI im Unternehmen: was funktioniert, was nicht, und woran Sie den Unterschied erkennen.">
-  <section style="padding: 88px 0 64px;">
+  <section style="padding: 88px 0 64px; border-bottom: none;">
     <div class="wrap">
       <p class="eyebrow">Insights</p>
       <h1>Klartext zu AI<span class="dot">.</span></h1>
       <p class="lede">Keine Trends, keine Panik. Was in Schweizer Unternehmen wirklich funktioniert.</p>
     </div>
   </section>
+  <HeroBild src="/bilder/hero-insights.jpg" alt="Bergsee im Morgennebel, dahinter werden die Gipfel sichtbar" />
   <section>
     <div class="wrap">
       {artikel.map(a => (

@@ -1,6 +1,8 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
 import CtaBanner from '../components/CtaBanner.astro';
+import HeroBild from '../components/HeroBild.astro';
+import NetzGrafik from '../components/NetzGrafik.astro';
 const features = [
   ['AI Agents', 'Assistenten, die Aufgaben erledigen statt nur antworten: mit Zugriff auf Ihre Daten, Regeln und Systeme.'],
   ['Workflows', 'Automatisierte Abläufe über Systemgrenzen hinweg, mit Freigaben durch Menschen, wo es darauf ankommt.'],
@@ -17,17 +19,19 @@ const faelle = [
 ];
 ---
 <BaseLayout title="Plattform und Lösungen | kurzerhand." description="Die Enterprise AI Platform von kurzerhand: AI Agents, Workflows, Knowledge, Integrationen. Und die Lösungen, die bereits darauf laufen.">
-  <section style="padding: 88px 0 64px;">
+  <section style="padding: 88px 0 64px; border-bottom: none;">
     <div class="wrap">
       <p class="eyebrow">Plattform</p>
       <h1>Wir fangen nie bei null an<span class="dot">.</span></h1>
       <p class="lede">Jede kurzerhand-Lösung steht auf unserer Enterprise AI Platform: erprobt, sicher, White-Label-fähig. Darum sind wir schnell, ohne leichtfertig zu sein.</p>
     </div>
   </section>
+  <HeroBild src="/bilder/hero-plattform.jpg" alt="Handwerker arbeitet konzentriert an einem Werkstück in seiner Werkstatt" />
   <section>
     <div class="wrap">
       <p class="eyebrow">Was die Plattform mitbringt</p>
       <h2>Das Fundament jeder Lösung.</h2>
+      <div style="margin: 8px 0 26px;"><NetzGrafik /></div>
       <div class="karten" style="grid-template-columns: repeat(3, 1fr);">
         {features.map(([t, x]) => (
           <div class="karte">

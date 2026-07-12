@@ -2,6 +2,8 @@
 import BaseLayout from '../layouts/BaseLayout.astro';
 import PaketGrid from '../components/PaketGrid.astro';
 import CtaBanner from '../components/CtaBanner.astro';
+import HeroBild from '../components/HeroBild.astro';
+import PfadGrafik from '../components/PfadGrafik.astro';
 const faq = [
   ['Wie schnell geht es wirklich?', 'Der erste funktionierende Stand steht in der Regel nach wenigen Tagen, die produktive Lösung nach zwei bis sechs Wochen, je nach Umfang und Integrationen. Sie sehen von Anfang an Zwischenstände statt Statusberichte.'],
   ['Wem gehört der Code?', 'Ihnen. Individuelle Entwicklungen gehen in Ihr Eigentum über. Die Plattform nutzen Sie als Lizenz, bei White-Label auch unter Ihrer eigenen Marke.'],
@@ -11,15 +13,17 @@ const faq = [
 ];
 ---
 <BaseLayout title="Pakete | kurzerhand." description="Vier Pakete von Starter bis White-Label. Einsteigen, wachsen, skalieren: immer mit klarem Rahmen und ohne Überraschungen.">
-  <section style="padding: 88px 0 64px;">
+  <section style="padding: 88px 0 64px; border-bottom: none;">
     <div class="wrap">
       <p class="eyebrow">Pakete</p>
       <h1>Einsteigen, wachsen, skalieren<span class="dot">.</span></h1>
       <p class="lede">Jedes Engagement beginnt mit einem klaren Rahmen: Umfang, Zeit und Budget vereinbart, bevor wir starten. Keine Überraschungen, kein Kleingedrucktes.</p>
     </div>
   </section>
+  <HeroBild src="/bilder/hero-pakete.jpg" alt="Wegweiser mit mehreren Richtungen vor einem Alpenpanorama" />
   <section>
     <div class="wrap">
+      <div style="margin: 0 0 26px;"><PfadGrafik /></div>
       <PaketGrid />
     </div>
   </section>

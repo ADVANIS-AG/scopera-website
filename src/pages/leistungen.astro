@@ -3,6 +3,8 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 import SaeulenGrid from '../components/SaeulenGrid.astro';
 import QuerschnittBaender from '../components/QuerschnittBaender.astro';
 import CtaBanner from '../components/CtaBanner.astro';
+import HeroBild from '../components/HeroBild.astro';
+import BergLinie from '../components/BergLinie.astro';
 const details = [
   { titel: 'Strategy', text: 'Wir starten nicht mit Technologie, sondern mit Ihrem Geschäft: Wo entsteht mit AI echter Mehrwert? Assessments zeigen Potenziale und Risiken, Roadmaps machen sie planbar, Governance by Design sorgt dafür, dass Datenschutz und Compliance von Anfang an eingebaut sind statt nachgerüstet.' },
   { titel: 'Enterprise AI Platform', text: 'Unsere Plattform bringt mit, was jedes AI-Vorhaben braucht: AI Agents, Workflows, Wissensmanagement, Integrationen in Ihre Systeme (Microsoft 365, Dynamics, SAP, Salesforce) und Analytics. Multi-Tenant, White-Label-fähig, betrieben in der Schweiz oder in Ihrer Umgebung.' },
@@ -17,13 +19,14 @@ const ablauf = [
 ];
 ---
 <BaseLayout title="Leistungen | kurzerhand." description="AI Strategy, Enterprise AI Platform, Managed AI und Enablement: vier Säulen, getragen von Trust, Governance und Vibe Engineering.">
-  <section style="padding: 88px 0 64px;">
+  <section style="padding: 88px 0 64px; border-bottom: none;">
     <div class="wrap">
       <p class="eyebrow">Leistungen</p>
       <h1>Vier Säulen. Ein Versprechen<span class="dot">.</span></h1>
       <p class="lede">Alles aus einer Hand: von der ersten Idee bis zum Betrieb, der nie stillsteht. Getragen von Prinzipien, die jede Leistung durchziehen.</p>
     </div>
   </section>
+  <HeroBild src="/bilder/hero-leistungen.jpg" alt="Drei Wanderer unterwegs auf einem Grat, dahinter eine weite Bergkette" />
   <section>
     <div class="wrap">
       <SaeulenGrid />
@@ -45,6 +48,7 @@ const ablauf = [
     <div class="wrap">
       <p class="eyebrow">So arbeiten wir</p>
       <h2>Vier Schritte. Kein Wasserfall.</h2>
+      <div style="margin: 8px 0 26px;"><BergLinie /></div>
       <div class="karten">
         {ablauf.map(([t, x], i) => (
           <div class="karte">
