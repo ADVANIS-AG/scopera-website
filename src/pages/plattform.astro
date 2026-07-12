@@ -1,0 +1,58 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import CtaBanner from '../components/CtaBanner.astro';
+const features = [
+  ['AI Agents', 'Assistenten, die Aufgaben erledigen statt nur antworten: mit Zugriff auf Ihre Daten, Regeln und Systeme.'],
+  ['Workflows', 'Automatisierte Abläufe über Systemgrenzen hinweg, mit Freigaben durch Menschen, wo es darauf ankommt.'],
+  ['Knowledge', 'Ihr Firmenwissen, durchsuchbar und nutzbar: Dokumente, Systeme und Erfahrung an einem Ort.'],
+  ['Integrationen', 'Microsoft 365, Dynamics 365, SAP, Salesforce und mehr: wir docken an, was Sie schon haben.'],
+  ['Analytics', 'Nutzung, Qualität und Kosten jeder AI-Funktion, transparent im Dashboard.'],
+  ['Governance', 'Rollen, Audit-Log, Feldverschlüsselung, DSG/DSGVO-Werkzeuge: eingebaut, nicht angeflanscht.'],
+];
+const faelle = [
+  { tag: 'Sicherheitstechnik', titel: 'Projektmanagement statt D365-Modul', text: 'Ein Schweizer Sicherheitstechnik-Unternehmen ersetzt sein Dynamics-365-Projektmodul: Offerten mit Kalkulation, Projektstrukturen, Service-Disposition mit mobilem Rapport und Kundenunterschrift, vollständige D365-Integration. Vom Konzept zur getesteten Anwendung in Tagen.' },
+  { tag: 'Bauwirtschaft', titel: 'Branchen-Plattform mit Lizenzmodell', text: 'Multi-Tenant-Plattform für die Bauwirtschaft: Onboarding-Wizard, Rollenmodell für alle Beteiligten vom Generalunternehmer bis zum Lieferanten, DSG/DSGVO-Modul und White-Label-Fähigkeit für Partner.' },
+  { tag: 'Human Resources', titel: 'HR-Plattform mit AI-Assistent', text: 'Interne HR-Plattform mit Microsoft-365-Integration, Analytics-Dashboards und AI-Assistent mit Governance-Regeln: Schulungen, Zertifikate und Prozesse an einem Ort.' },
+  { tag: 'Portale', titel: 'Self-Service für Kunden und Partner', text: 'Produktionsreife Blaupause für Kundenportale: vier Portale auf einer Plattform, von der öffentlichen Landing Page über Verwaltung und Partnerzugang bis zum Teilnehmerbereich mit Magic-Link-Login.' },
+];
+---
+<BaseLayout title="Plattform und Lösungen | kurzerhand." description="Die Enterprise AI Platform von kurzerhand: AI Agents, Workflows, Knowledge, Integrationen. Und die Lösungen, die bereits darauf laufen.">
+  <section style="padding: 88px 0 64px;">
+    <div class="wrap">
+      <p class="eyebrow">Plattform</p>
+      <h1>Wir fangen nie bei null an<span class="dot">.</span></h1>
+      <p class="lede">Jede kurzerhand-Lösung steht auf unserer Enterprise AI Platform: erprobt, sicher, White-Label-fähig. Darum sind wir schnell, ohne leichtfertig zu sein.</p>
+    </div>
+  </section>
+  <section>
+    <div class="wrap">
+      <p class="eyebrow">Was die Plattform mitbringt</p>
+      <h2>Das Fundament jeder Lösung.</h2>
+      <div class="karten" style="grid-template-columns: repeat(3, 1fr);">
+        {features.map(([t, x]) => (
+          <div class="karte">
+            <h3>{t}</h3>
+            <p style="font-size:14px;" class="soft">{x}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+  <section>
+    <div class="wrap">
+      <p class="eyebrow">Fallbeispiele</p>
+      <h2>Läuft bereits.</h2>
+      <div class="karten-2">
+        {faelle.map(f => (
+          <div class="karte">
+            <span class="tag">{f.tag}</span>
+            <h3>{f.titel}</h3>
+            <p style="font-size:14px;" class="soft">{f.text}</p>
+          </div>
+        ))}
+      </div>
+      <p class="soft" style="margin-top:16px; font-size:13px;">Aus Diskretion nennen wir hier keine Kundennamen. Im Gespräch zeigen wir gerne mehr.</p>
+    </div>
+  </section>
+  <CtaBanner titel="Sehen statt glauben." text="Wir zeigen Ihnen die Plattform und ein Fallbeispiel aus Ihrer Branche. Live, nicht auf Folien." />
+</BaseLayout>

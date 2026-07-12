@@ -1,0 +1,39 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import PaketGrid from '../components/PaketGrid.astro';
+import CtaBanner from '../components/CtaBanner.astro';
+const faq = [
+  ['Wie schnell geht es wirklich?', 'Der erste funktionierende Stand steht in der Regel nach wenigen Tagen, die produktive Lösung nach zwei bis sechs Wochen, je nach Umfang und Integrationen. Sie sehen von Anfang an Zwischenstände statt Statusberichte.'],
+  ['Wem gehört der Code?', 'Ihnen. Individuelle Entwicklungen gehen in Ihr Eigentum über. Die Plattform nutzen Sie als Lizenz, bei White-Label auch unter Ihrer eigenen Marke.'],
+  ['Wo liegen unsere Daten?', 'Standardmässig in der Schweiz. Auf Wunsch in Ihrer eigenen Cloud oder On-Premises. Die Modellwahl (auch Schweizer und europäische Anbieter) treffen wir gemeinsam und dokumentieren sie.'],
+  ['Ersetzt ihr unsere IT?', 'Nein, wir ergänzen sie. Wir integrieren uns in bestehende Systeme und übergeben so, dass Ihre IT jederzeit mitreden und übernehmen kann.'],
+  ['Was ist Vibe Engineering?', 'Unsere Art zu arbeiten: Wir entwickeln mit AI, auf einer erprobten Plattform, in kurzen Zyklen mit täglich sichtbarem Fortschritt. Sie müssen den Begriff nicht kennen. Sie merken ihn am Tempo.'],
+];
+---
+<BaseLayout title="Pakete | kurzerhand." description="Vier Pakete von Starter bis White-Label. Einsteigen, wachsen, skalieren: immer mit klarem Rahmen und ohne Überraschungen.">
+  <section style="padding: 88px 0 64px;">
+    <div class="wrap">
+      <p class="eyebrow">Pakete</p>
+      <h1>Einsteigen, wachsen, skalieren<span class="dot">.</span></h1>
+      <p class="lede">Jedes Engagement beginnt mit einem klaren Rahmen: Umfang, Zeit und Budget vereinbart, bevor wir starten. Keine Überraschungen, kein Kleingedrucktes.</p>
+    </div>
+  </section>
+  <section>
+    <div class="wrap">
+      <PaketGrid />
+    </div>
+  </section>
+  <section>
+    <div class="wrap">
+      <p class="eyebrow">Häufige Fragen</p>
+      <h2>Klartext.</h2>
+      {faq.map(([f, a]) => (
+        <details style="border-top: 1px solid var(--line); padding: 14px 0;">
+          <summary style="font-weight: 700; cursor: pointer; font-size: 17px;">{f}</summary>
+          <p class="soft" style="margin-top: 10px; max-width: 46em;">{a}</p>
+        </details>
+      ))}
+    </div>
+  </section>
+  <CtaBanner titel="Welches Paket passt?" text="Sagen Sie uns, was Sie vorhaben. Wir sagen Ihnen ehrlich, welches Paket es braucht und welches nicht." />
+</BaseLayout>

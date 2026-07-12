@@ -1,0 +1,60 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import SaeulenGrid from '../components/SaeulenGrid.astro';
+import QuerschnittBaender from '../components/QuerschnittBaender.astro';
+import CtaBanner from '../components/CtaBanner.astro';
+const details = [
+  { titel: 'Strategy', text: 'Wir starten nicht mit Technologie, sondern mit Ihrem Geschäft: Wo entsteht mit AI echter Mehrwert? Assessments zeigen Potenziale und Risiken, Roadmaps machen sie planbar, Governance by Design sorgt dafür, dass Datenschutz und Compliance von Anfang an eingebaut sind statt nachgerüstet.' },
+  { titel: 'Enterprise AI Platform', text: 'Unsere Plattform bringt mit, was jedes AI-Vorhaben braucht: AI Agents, Workflows, Wissensmanagement, Integrationen in Ihre Systeme (Microsoft 365, Dynamics, SAP, Salesforce) und Analytics. Multi-Tenant, White-Label-fähig, betrieben in der Schweiz oder in Ihrer Umgebung.' },
+  { titel: 'Managed AI', text: 'Nach dem Go-live fängt unsere Arbeit erst an. Wir überwachen Qualität und Kosten, halten Modelle und Integrationen aktuell und verbessern die Lösung kontinuierlich. Sie bekommen einen Betrieb, der mitdenkt, mit klaren Reaktionszeiten.' },
+  { titel: 'Enablement', text: 'Die beste Lösung nützt nichts, wenn niemand sie nutzt. Wir schulen Ihre Teams, begleiten die Einführung und gestalten Employee und Customer Experience so, dass die neue Arbeitsweise selbstverständlich wird.' },
+];
+const ablauf = [
+  ['Verstehen', 'Wir hören zu, schauen uns Ihre Prozesse an und finden den Use Case mit dem besten Verhältnis von Aufwand zu Wirkung.'],
+  ['Bauen', 'AI-natives Entwickeln auf unserer Plattform: erster funktionierender Stand in Tagen, produktive Lösung in Wochen.'],
+  ['Betreiben', 'Monitoring, Support und Governance im laufenden Betrieb. Verlässlich und messbar.'],
+  ['Weiterentwickeln', 'Ihre Lösung lernt dazu: neue Anforderungen, neue Modelle, neue Möglichkeiten, laufend integriert.'],
+];
+---
+<BaseLayout title="Leistungen | kurzerhand." description="AI Strategy, Enterprise AI Platform, Managed AI und Enablement: vier Säulen, getragen von Trust, Governance und Vibe Engineering.">
+  <section style="padding: 88px 0 64px;">
+    <div class="wrap">
+      <p class="eyebrow">Leistungen</p>
+      <h1>Vier Säulen. Ein Versprechen<span class="dot">.</span></h1>
+      <p class="lede">Alles aus einer Hand: von der ersten Idee bis zum Betrieb, der nie stillsteht. Getragen von Prinzipien, die jede Leistung durchziehen.</p>
+    </div>
+  </section>
+  <section>
+    <div class="wrap">
+      <SaeulenGrid />
+      <QuerschnittBaender />
+    </div>
+  </section>
+  <section>
+    <div class="wrap">
+      <p class="eyebrow">Im Detail</p>
+      {details.map(d => (
+        <div style="padding: 22px 0; border-top: 1px solid var(--line);">
+          <h3 style="font-size: 22px;">{d.titel}<span class="dot">.</span></h3>
+          <p class="soft" style="max-width: 46em;">{d.text}</p>
+        </div>
+      ))}
+    </div>
+  </section>
+  <section>
+    <div class="wrap">
+      <p class="eyebrow">So arbeiten wir</p>
+      <h2>Vier Schritte. Kein Wasserfall.</h2>
+      <div class="karten">
+        {ablauf.map(([t, x], i) => (
+          <div class="karte">
+            <p class="tag">Schritt {i + 1}</p>
+            <h3>{t}</h3>
+            <p style="font-size:14px;" class="soft">{x}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+  <CtaBanner titel="Welcher Use Case zuerst?" text="Bringen Sie einen Prozess mit, der Sie nervt. Wir sagen Ihnen in 30 Minuten, ob und wie schnell AI ihn übernehmen kann." />
+</BaseLayout>
