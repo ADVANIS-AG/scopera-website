@@ -1,0 +1,16 @@
+---
+const saeulen = [
+  { titel: 'Strategy', punkte: ['AI Strategy', 'Assessments', 'Roadmaps', 'Governance by Design'] },
+  { titel: 'Enterprise AI Platform', punkte: ['AI Agents', 'Workflows', 'Knowledge', 'Integrationen und Analytics'] },
+  { titel: 'Managed AI', punkte: ['Monitoring', 'Support', 'Continuous Improvement', 'AI Lifecycle'] },
+  { titel: 'Enablement', punkte: ['Training', 'Change und Adoption', 'CX und EX'] },
+];
+---
+<div class="karten">
+  {saeulen.map(s => (
+    <div class="karte" style="border-top: 4px solid var(--ink);">
+      <h3>{s.titel}</h3>
+      <ul>{s.punkte.map(p => <li>{p}</li>)}</ul>
+    </div>
+  ))}
+</div>

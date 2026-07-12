@@ -1,0 +1,16 @@
+---
+import { BOOKING_URL } from '../config';
+interface Props { titel: string; text: string; }
+const { titel, text } = Astro.props;
+const ziel = BOOKING_URL || '/kontakt';
+---
+<section>
+  <div class="wrap">
+    <h2>{titel}</h2>
+    <p class="lede soft">{text}</p>
+    <p style="display:flex; gap:12px; flex-wrap:wrap; margin-top:22px;">
+      <a class="btn" href={ziel}>Termin buchen</a>
+      <a class="btn-ghost" href="/kontakt">Oder schreiben Sie uns</a>
+    </p>
+  </div>
+</section>

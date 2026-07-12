@@ -1,0 +1,17 @@
+---
+const pakete = [
+  { name: 'Starter', text: 'Der schnelle Einstieg: ein klar umrissener Use Case, fixer Rahmen, spürbares Ergebnis in Wochen.' },
+  { name: 'Professional', text: 'Mehrere Module, SSO und API-Zugang. Für Unternehmen, die nach dem ersten Erfolg ausbauen.' },
+  { name: 'Enterprise', text: 'Unbegrenzt skalierbar, mit Managed AI, Governance-Betrieb und garantierten Reaktionszeiten.' },
+  { name: 'White-Label', text: 'Eigene Marke, eigene Domain, Reseller-Modell. Für Partner, die auf unserer Plattform aufbauen.' },
+];
+---
+<div class="karten">
+  {pakete.map(p => (
+    <div class="karte">
+      <h3>{p.name}</h3>
+      <p style="font-size:14px;" class="soft">{p.text}</p>
+      <p class="tag" style="margin-top:8px;">Preis auf Anfrage</p>
+    </div>
+  ))}
+</div>

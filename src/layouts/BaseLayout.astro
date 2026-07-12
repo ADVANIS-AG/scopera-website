@@ -1,0 +1,59 @@
+---
+import '../styles/global.css';
+import { SITE_NAME, BOOKING_URL } from '../config';
+interface Props { title: string; description: string; }
+const { title, description } = Astro.props;
+const terminZiel = BOOKING_URL || '/kontakt';
+const nav = [
+  ['/leistungen', 'Leistungen'],
+  ['/plattform', 'Plattform'],
+  ['/pakete', 'Pakete'],
+  ['/insights', 'Insights'],
+  ['/ueber-uns', 'Über uns'],
+];
+---
+<!doctype html>
+<html lang="de-CH">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>{title}</title>
+  <meta name="description" content={description} />
+  <meta property="og:title" content={title} />
+  <meta property="og:description" content={description} />
+  <meta property="og:type" content="website" />
+  <link rel="canonical" href={new URL(Astro.url.pathname, Astro.site)} />
+</head>
+<body>
+  <header class="site">
+    <div class="nav">
+      <a class="wortmarke" href="/">kurzerhand<span class="dot">.</span></a>
+      <button class="burger" aria-expanded="false" aria-controls="nav-links">Menü</button>
+      <ul class="nav-links" id="nav-links">
+        {nav.map(([href, label]) => <li><a href={href}>{label}</a></li>)}
+        <li><a class="btn" href={terminZiel}>Termin buchen</a></li>
+      </ul>
+    </div>
+  </header>
+  <main><slot /></main>
+  <footer class="site">
+    <div class="wrap">
+      <nav>
+        {nav.map(([href, label]) => <a href={href}>{label}</a>)}
+        <a href="/kontakt">Kontakt</a>
+        <a href="/impressum">Impressum</a>
+        <a href="/datenschutz">Datenschutz</a>
+      </nav>
+      <p class="absender">{SITE_NAME} ist eine Marke der <a href="https://www.advanis.ch">ADVANIS AG</a>. Schweizer Qualität, AI-native Umsetzung.</p>
+    </div>
+  </footer>
+  <script>
+    const b = document.querySelector('.burger');
+    const l = document.getElementById('nav-links');
+    b?.addEventListener('click', () => {
+      const offen = l?.classList.toggle('offen');
+      b.setAttribute('aria-expanded', String(!!offen));
+    });
+  </script>
+</body>
+</html>

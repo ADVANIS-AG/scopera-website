@@ -1,3 +1,72 @@
 ---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import SaeulenGrid from '../components/SaeulenGrid.astro';
+import QuerschnittBaender from '../components/QuerschnittBaender.astro';
+import CtaBanner from '../components/CtaBanner.astro';
 ---
-<h1>bald.</h1>
+<BaseLayout title="kurzerhand. | AI-Lösungen, die einfach laufen" description="AI-Lösungen für Schweizer Unternehmen: von der Strategie bis zum laufenden Betrieb. Geliefert in Wochen, nicht Monaten. Eine Marke der ADVANIS AG.">
+  <section style="padding: 96px 0 72px; border-bottom: 2px solid var(--ink);">
+    <div class="wrap">
+      <p class="eyebrow">AI für Schweizer Unternehmen</p>
+      <h1>AI-Lösungen, die einfach laufen<span class="dot">.</span></h1>
+      <p class="lede">Wir bauen intelligente Anwendungen für Unternehmen, die keine Lust auf monatelange IT-Projekte haben. Geliefert in Wochen. Kurzerhand, aber nie leichtfertig.</p>
+      <p style="display:flex; gap:12px; flex-wrap:wrap; margin-top:26px;">
+        <a class="btn" href="/kontakt">Termin buchen</a>
+        <a class="btn-ghost" href="/plattform">Was wir gebaut haben</a>
+      </p>
+    </div>
+  </section>
+
+  <section>
+    <div class="wrap">
+      <p class="eyebrow">Warum kurzerhand</p>
+      <h2>Verlässlich. Schnell. Wirtschaftlich. Sie müssen nicht mehr wählen.</h2>
+      <div class="karten" style="grid-template-columns: repeat(3, 1fr);">
+        <div class="karte">
+          <h3>Verlässlich<span class="dot">.</span></h3>
+          <p style="font-size:14px;" class="soft">Schweizer Hosting, DSG/DSGVO-konform, nachvollziehbare Modellwahl. Und ein Partner, der nach dem Go-live nicht verschwindet.</p>
+        </div>
+        <div class="karte">
+          <h3>Schnell<span class="dot">.</span></h3>
+          <p style="font-size:14px;" class="soft">Wir entwickeln AI-nativ auf einer erprobten Plattform. Was andere in Monaten planen, steht bei uns in Wochen im Betrieb.</p>
+        </div>
+        <div class="karte">
+          <h3>Wirtschaftlich<span class="dot">.</span></h3>
+          <p style="font-size:14px;" class="soft">Weniger Aufwand pro Lösung heisst tiefere Kosten. Sie zahlen für Ergebnisse, nicht für Konzeptpapiere.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <div class="wrap">
+      <p class="eyebrow">Was wir tun</p>
+      <h2>Von der Strategie bis zum kontinuierlich lernenden AI-Betrieb.</h2>
+      <SaeulenGrid />
+      <QuerschnittBaender />
+      <p style="margin-top:18px;"><a href="/leistungen">Alle Leistungen im Detail →</a></p>
+    </div>
+  </section>
+
+  <section>
+    <div class="wrap">
+      <p class="eyebrow">Beweise statt Versprechen</p>
+      <h2>Läuft bereits. Bei Unternehmen wie Ihrem.</h2>
+      <div class="karten-2">
+        <div class="karte">
+          <span class="tag">Fallbeispiel</span>
+          <h3>Sicherheitstechnik: D365-Projektmodul ersetzt</h3>
+          <p style="font-size:14px;" class="soft">Ein Schweizer Sicherheitstechnik-Unternehmen steuert Projekte, Offerten und Service-Einsätze jetzt in einer massgeschneiderten App. Gebaut in Tagen, integriert mit Dynamics 365.</p>
+        </div>
+        <div class="karte">
+          <span class="tag">Plattform</span>
+          <h3>Enterprise AI Platform</h3>
+          <p style="font-size:14px;" class="soft">Multi-Tenant, AI-Gateway, White-Label-fähig, DSG/DSGVO-ready. Das Fundament, auf dem jede unserer Lösungen steht.</p>
+        </div>
+      </div>
+      <p style="margin-top:18px;"><a href="/plattform">Zur Plattform und allen Lösungen →</a></p>
+    </div>
+  </section>
+
+  <CtaBanner titel="Reden wir über Ihren ersten Use Case." text="30 Minuten genügen, um herauszufinden, wo AI in Ihrem Unternehmen am schnellsten Wirkung zeigt. Unverbindlich, konkret, auf Augenhöhe." />
+</BaseLayout>

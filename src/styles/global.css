@@ -1,0 +1,72 @@
+:root {
+  --ground:#F7F6F2; --ink:#141311; --ink-soft:#4E4B44; --line:#D9D6CC;
+  --accent:#0048C6; --accent-ink:#FFFFFF; --card:#FFFFFF; --band:#ECEAE3;
+}
+@media (prefers-color-scheme: dark) {
+  :root {
+    --ground:#12120F; --ink:#F2F0EA; --ink-soft:#A7A398; --line:#33322C;
+    --accent:#4D82F3; --accent-ink:#0B0B09; --card:#1B1A16; --band:#1F1E19;
+  }
+}
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body {
+  margin: 0; background: var(--ground); color: var(--ink);
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+  line-height: 1.55; -webkit-font-smoothing: antialiased;
+}
+.wrap { max-width: 1080px; margin: 0 auto; padding: 0 24px; }
+.eyebrow { font-size: 12px; letter-spacing: .14em; text-transform: uppercase; color: var(--ink-soft); font-weight: 500; }
+.dot { color: var(--accent); }
+h1 { font-size: clamp(38px, 7vw, 72px); font-weight: 800; letter-spacing: -.04em; line-height: 1.0; margin: 16px 0 24px; text-wrap: balance; }
+h2 { font-size: clamp(26px, 4vw, 38px); font-weight: 700; letter-spacing: -.025em; margin: 10px 0 20px; text-wrap: balance; }
+h3 { font-size: 17px; font-weight: 700; letter-spacing: -.01em; margin: 0 0 10px; }
+p { margin: 0 0 14px; }
+.lede { font-size: 18px; max-width: 40em; }
+.soft { color: var(--ink-soft); }
+a { color: inherit; }
+section { padding: 64px 0; border-bottom: 1px solid var(--line); }
+.btn {
+  display: inline-block; background: var(--accent); color: var(--accent-ink);
+  padding: 12px 22px; font-weight: 700; text-decoration: none; font-size: 15px;
+  border: 1px solid var(--accent);
+}
+.btn:hover { filter: brightness(1.08); }
+.btn-ghost {
+  display: inline-block; background: transparent; color: var(--ink);
+  padding: 12px 22px; font-weight: 700; text-decoration: none; font-size: 15px;
+  border: 1px solid var(--ink);
+}
+.karten { display: grid; grid-template-columns: repeat(4, 1fr); gap: 14px; }
+.karten-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+.karte { background: var(--card); border: 1px solid var(--line); padding: 20px 18px; }
+.karte ul { list-style: none; margin: 0; padding: 0; }
+.karte li { padding: 5px 0; border-top: 1px solid var(--line); font-size: 14px; color: var(--ink-soft); }
+.tag { display: inline-block; font-size: 11px; letter-spacing: .1em; text-transform: uppercase; color: var(--accent); font-weight: 600; margin-bottom: 8px; }
+/* Header */
+header.site { border-bottom: 2px solid var(--ink); background: var(--ground); position: sticky; top: 0; z-index: 10; }
+.nav { display: flex; align-items: center; justify-content: space-between; padding: 14px 24px; max-width: 1080px; margin: 0 auto; position: relative; }
+.wortmarke { font-weight: 800; font-size: 22px; letter-spacing: -.03em; text-decoration: none; }
+.nav-links { display: flex; align-items: center; gap: 22px; list-style: none; margin: 0; padding: 0; }
+.nav-links a { text-decoration: none; font-size: 15px; font-weight: 500; }
+.nav-links a:hover { color: var(--accent); }
+.nav-links .btn { padding: 9px 16px; }
+.burger { display: none; background: none; border: 1px solid var(--ink); padding: 8px 10px; font: inherit; color: var(--ink); cursor: pointer; }
+/* Footer */
+footer.site { padding: 40px 0 60px; }
+footer.site nav { display: flex; flex-wrap: wrap; gap: 18px; margin-bottom: 18px; }
+footer.site nav a { font-size: 14px; text-decoration: none; color: var(--ink-soft); }
+footer.site nav a:hover { color: var(--accent); }
+.absender { font-size: 13px; color: var(--ink-soft); }
+@media (max-width: 760px) {
+  .karten { grid-template-columns: 1fr 1fr; }
+  .karten-2 { grid-template-columns: 1fr; }
+  .burger { display: block; }
+  .nav-links { display: none; position: absolute; top: 100%; left: 0; right: 0;
+    flex-direction: column; align-items: flex-start; background: var(--ground);
+    border-bottom: 2px solid var(--ink); padding: 16px 24px 20px; gap: 14px; }
+  .nav-links.offen { display: flex; }
+}
+@media (max-width: 460px) { .karten { grid-template-columns: 1fr; } }
+@media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }
+:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
