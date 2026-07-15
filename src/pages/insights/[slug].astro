@@ -8,6 +8,7 @@ export async function getStaticPaths() {
 const { a } = Astro.props;
 const { Content } = await render(a);
 const datumFmt = new Intl.DateTimeFormat('de-CH', { day: 'numeric', month: 'long', year: 'numeric' });
+const base = import.meta.env.BASE_URL;
 ---
 <BaseLayout title={`${a.data.title} | kurzerhand.`} description={a.data.description}>
   <section style="padding: 88px 0 40px;">
@@ -19,7 +20,7 @@ const datumFmt = new Intl.DateTimeFormat('de-CH', { day: 'numeric', month: 'long
   <section style="border-bottom: none;">
     <div class="wrap" style="max-width: 760px; font-size: 17px;">
       <Content />
-      <p style="margin-top: 40px;"><a href="/insights">← Alle Insights</a></p>
+      <p style="margin-top: 40px;"><a href={`${base}insights`}>← Alle Insights</a></p>
     </div>
   </section>
 </BaseLayout>

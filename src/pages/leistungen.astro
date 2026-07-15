@@ -17,6 +17,7 @@ const ablauf = [
   ['Betreiben', 'Monitoring, Support und Governance im laufenden Betrieb. Verlässlich und messbar.'],
   ['Weiterentwickeln', 'Ihre Lösung lernt dazu: neue Anforderungen, neue Modelle, neue Möglichkeiten, laufend integriert.'],
 ];
+const base = import.meta.env.BASE_URL;
 ---
 <BaseLayout title="Leistungen | kurzerhand." description="Business & AI Strategy, Enterprise AI Platform, Managed AI und Enablement: vier Säulen, getragen von Trust, Governance und Vibe Engineering.">
   <section style="padding: 88px 0 64px; border-bottom: none;">
@@ -26,7 +27,7 @@ const ablauf = [
       <p class="lede">Alles aus einer Hand: von der ersten Idee bis zum Betrieb, der nie stillsteht. Getragen von Prinzipien, die jede Leistung durchziehen.</p>
     </div>
   </section>
-  <HeroBild src="/bilder/hero-leistungen.jpg" alt="Drei Wanderer unterwegs auf einem Grat, dahinter eine weite Bergkette" />
+  <HeroBild src={`${base}bilder/hero-leistungen.jpg`} alt="Drei Wanderer unterwegs auf einem Grat, dahinter eine weite Bergkette" />
   <section>
     <div class="wrap">
       <SaeulenGrid />

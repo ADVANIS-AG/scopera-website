@@ -18,6 +18,7 @@ const dna = [
   ['Wir denken unternehmerisch', 'Nicht technisch.'],
   ['Wir schaffen Vertrauen', 'Immer.'],
 ];
+const base = import.meta.env.BASE_URL;
 ---
 <BaseLayout title="Über uns | kurzerhand." description="kurzerhand ist eine Marke der ADVANIS AG: ein Team aus AI-Architekten und Beratern, das Unternehmen von der Strategie bis zum Betrieb begleitet.">
   <section style="padding: 88px 0 64px; border-bottom: none;">
@@ -27,7 +28,7 @@ const dna = [
       <p class="lede">kurzerhand ist eine Marke der ADVANIS AG, einem Schweizer Beratungsunternehmen mit über 28 Jahren Erfahrung und mehr als 300 begleiteten Unternehmen. Wir haben kurzerhand gegründet, weil AI eine neue Art zu arbeiten möglich macht: schneller, direkter, mit Produkten statt Projekten.</p>
     </div>
   </section>
-  <HeroBild src="/bilder/hero-ueber-uns.jpg" alt="Eine Seilschaft steigt gemeinsam und gesichert über ein Schneefeld" />
+  <HeroBild src={`${base}bilder/hero-ueber-uns.jpg`} alt="Eine Seilschaft steigt gemeinsam und gesichert über ein Schneefeld" />
   <section>
     <div class="wrap">
       <p class="eyebrow">Woran wir uns halten</p>

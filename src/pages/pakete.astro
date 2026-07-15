@@ -11,6 +11,7 @@ const faq = [
   ['Ersetzt ihr unsere IT?', 'Nein, wir ergänzen sie. Wir integrieren uns in bestehende Systeme und übergeben so, dass Ihre IT jederzeit mitreden und übernehmen kann.'],
   ['Was ist Vibe Engineering?', 'Unsere Art zu arbeiten: Wir entwickeln mit AI, auf einer erprobten Plattform, in kurzen Zyklen mit täglich sichtbarem Fortschritt. Sie müssen den Begriff nicht kennen. Sie merken ihn am Tempo.'],
 ];
+const base = import.meta.env.BASE_URL;
 ---
 <BaseLayout title="Pakete | kurzerhand." description="Vier Pakete von Starter bis White-Label. Einsteigen, wachsen, skalieren: immer mit klarem Rahmen und ohne Überraschungen.">
   <section style="padding: 88px 0 64px; border-bottom: none;">
@@ -20,7 +21,7 @@ const faq = [
       <p class="lede">Jedes Engagement beginnt mit einem klaren Rahmen: Umfang, Zeit und Budget vereinbart, bevor wir starten. Keine Überraschungen, kein Kleingedrucktes.</p>
     </div>
   </section>
-  <HeroBild src="/bilder/hero-pakete.jpg" alt="Wegweiser mit mehreren Richtungen vor einem Alpenpanorama" />
+  <HeroBild src={`${base}bilder/hero-pakete.jpg`} alt="Wegweiser mit mehreren Richtungen vor einem Alpenpanorama" />
   <section>
     <div class="wrap">
       <div style="margin: 0 0 26px;"><PfadGrafik /></div>

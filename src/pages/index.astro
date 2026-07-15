@@ -5,6 +5,7 @@ import QuerschnittBaender from '../components/QuerschnittBaender.astro';
 import CtaBanner from '../components/CtaBanner.astro';
 import HeroBild from '../components/HeroBild.astro';
 import BergLinie from '../components/BergLinie.astro';
+const base = import.meta.env.BASE_URL;
 ---
 <BaseLayout title="kurzerhand. | AI-Lösungen, die einfach laufen" description="AI-Lösungen für Schweizer Unternehmen: von der Strategie bis zum laufenden Betrieb. Geliefert in Wochen, nicht Monaten. Eine Marke der ADVANIS AG.">
   <section style="padding: 96px 0 72px; border-bottom: none;">
@@ -13,13 +14,13 @@ import BergLinie from '../components/BergLinie.astro';
       <h1>AI-Lösungen, die einfach laufen<span class="dot">.</span></h1>
       <p class="lede">Wir bauen intelligente Anwendungen für Unternehmen, die keine Lust auf monatelange IT-Projekte haben. Geliefert in Wochen. Kurzerhand, aber nie leichtfertig.</p>
       <p style="display:flex; gap:12px; flex-wrap:wrap; margin-top:26px;">
-        <a class="btn" href="/kontakt">Termin buchen</a>
-        <a class="btn-ghost" href="/plattform">Was wir gebaut haben</a>
+        <a class="btn" href={`${base}kontakt`}>Termin buchen</a>
+        <a class="btn-ghost" href={`${base}plattform`}>Was wir gebaut haben</a>
       </p>
     </div>
   </section>
 
-  <HeroBild src="/bilder/hero-start.jpg" alt="Sonnenaufgang über dem Nebelmeer, Blick vom Pilatus Richtung Vierwaldstättersee" />
+  <HeroBild src={`${base}bilder/hero-start.jpg`} alt="Sonnenaufgang über dem Nebelmeer, Blick vom Pilatus Richtung Vierwaldstättersee" />
 
   <section>
     <div class="wrap">
@@ -48,7 +49,7 @@ import BergLinie from '../components/BergLinie.astro';
       <h2>Von der Strategie bis zum kontinuierlich lernenden AI-Betrieb.</h2>
       <SaeulenGrid />
       <QuerschnittBaender />
-      <p style="margin-top:18px;"><a href="/leistungen">Alle Leistungen im Detail →</a></p>
+      <p style="margin-top:18px;"><a href={`${base}leistungen`}>Alle Leistungen im Detail →</a></p>
     </div>
   </section>
 
@@ -68,7 +69,7 @@ import BergLinie from '../components/BergLinie.astro';
           <p style="font-size:14px;" class="soft">Multi-Tenant, AI-Gateway, White-Label-fähig, DSG/DSGVO-ready. Das Fundament, auf dem jede unserer Lösungen steht.</p>
         </div>
       </div>
-      <p style="margin-top:18px;"><a href="/plattform">Zur Plattform und allen Lösungen →</a></p>
+      <p style="margin-top:18px;"><a href={`${base}plattform`}>Zur Plattform und allen Lösungen →</a></p>
     </div>
   </section>
 

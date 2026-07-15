@@ -17,6 +17,7 @@ const faelle = [
   { tag: 'Human Resources', titel: 'HR-Plattform mit AI-Assistent', text: 'Interne HR-Plattform mit Microsoft-365-Integration, Analytics-Dashboards und AI-Assistent mit Governance-Regeln: Schulungen, Zertifikate und Prozesse an einem Ort.' },
   { tag: 'Portale', titel: 'Self-Service für Kunden und Partner', text: 'Produktionsreife Blaupause für Kundenportale: vier Portale auf einer Plattform, von der öffentlichen Landing Page über Verwaltung und Partnerzugang bis zum Teilnehmerbereich mit Magic-Link-Login.' },
 ];
+const base = import.meta.env.BASE_URL;
 ---
 <BaseLayout title="Plattform und Lösungen | kurzerhand." description="Die Enterprise AI Platform von kurzerhand: AI Agents, Workflows, Knowledge, Integrationen. Und die Lösungen, die bereits darauf laufen.">
   <section style="padding: 88px 0 64px; border-bottom: none;">
@@ -26,7 +27,7 @@ const faelle = [
       <p class="lede">Jede kurzerhand-Lösung steht auf unserer Enterprise AI Platform: erprobt, sicher, White-Label-fähig. Darum sind wir schnell, ohne leichtfertig zu sein.</p>
     </div>
   </section>
-  <HeroBild src="/bilder/hero-plattform.jpg" alt="Handwerker arbeitet konzentriert an einem Werkstück in seiner Werkstatt" />
+  <HeroBild src={`${base}bilder/hero-plattform.jpg`} alt="Handwerker arbeitet konzentriert an einem Werkstück in seiner Werkstatt" />
   <section>
     <div class="wrap">
       <p class="eyebrow">Was die Plattform mitbringt</p>

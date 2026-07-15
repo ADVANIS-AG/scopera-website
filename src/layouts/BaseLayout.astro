@@ -3,13 +3,14 @@ import '../styles/global.css';
 import { SITE_NAME, BOOKING_URL } from '../config';
 interface Props { title: string; description: string; }
 const { title, description } = Astro.props;
-const terminZiel = BOOKING_URL || '/kontakt';
+const base = import.meta.env.BASE_URL;
+const terminZiel = BOOKING_URL || `${base}kontakt`;
 const nav = [
-  ['/leistungen', 'Leistungen'],
-  ['/plattform', 'Plattform'],
-  ['/pakete', 'Pakete'],
-  ['/insights', 'Insights'],
-  ['/ueber-uns', 'Über uns'],
+  ['leistungen', 'Leistungen'],
+  ['plattform', 'Plattform'],
+  ['pakete', 'Pakete'],
+  ['insights', 'Insights'],
+  ['ueber-uns', 'Über uns'],
 ];
 ---
 <!doctype html>
@@ -27,10 +28,10 @@ const nav = [
 <body>
   <header class="site">
     <div class="nav">
-      <a class="wortmarke" href="/">kurzerhand<span class="dot">.</span></a>
+      <a class="wortmarke" href={base}>kurzerhand<span class="dot">.</span></a>
       <button class="burger" aria-expanded="false" aria-controls="nav-links">Menü</button>
       <ul class="nav-links" id="nav-links">
-        {nav.map(([href, label]) => <li><a href={href}>{label}</a></li>)}
+        {nav.map(([href, label]) => <li><a href={base + href}>{label}</a></li>)}
         <li><a class="btn" href={terminZiel}>Termin buchen</a></li>
       </ul>
     </div>
@@ -39,10 +40,10 @@ const nav = [
   <footer class="site">
     <div class="wrap">
       <nav>
-        {nav.map(([href, label]) => <a href={href}>{label}</a>)}
-        <a href="/kontakt">Kontakt</a>
-        <a href="/impressum">Impressum</a>
-        <a href="/datenschutz">Datenschutz</a>
+        {nav.map(([href, label]) => <a href={base + href}>{label}</a>)}
+        <a href={`${base}kontakt`}>Kontakt</a>
+        <a href={`${base}impressum`}>Impressum</a>
+        <a href={`${base}datenschutz`}>Datenschutz</a>
       </nav>
       <p class="absender">{SITE_NAME} ist eine Marke der <a href="https://www.advanis.ch">ADVANIS AG</a>. Schweizer Qualität, AI-native Umsetzung.</p>
     </div>
