@@ -1,6 +1,6 @@
 ---
 import '../styles/global.css';
-import { SITE_NAME, BOOKING_URL } from '../config';
+import { SITE_NAME, BOOKING_URL, PLAUSIBLE_DOMAIN, WORKER_ENDPOINT } from '../config';
 interface Props { title: string; description: string; }
 const { title, description } = Astro.props;
 const base = import.meta.env.BASE_URL;
@@ -24,6 +24,7 @@ const nav = [
   <meta property="og:description" content={description} />
   <meta property="og:type" content="website" />
   <link rel="canonical" href={new URL(Astro.url.pathname, Astro.site)} />
+  {PLAUSIBLE_DOMAIN && <script is:inline defer data-domain={PLAUSIBLE_DOMAIN} src="https://plausible.io/js/script.js"></script>}
 </head>
 <body>
   <header class="site">
@@ -56,5 +57,38 @@ const nav = [
       b.setAttribute('aria-expanded', String(!!offen));
     });
   </script>
+  {WORKER_ENDPOINT && (
+    <script is:inline define:vars={{ workerEndpoint: WORKER_ENDPOINT, base }}>
+      (function () {
+        var path = location.pathname.startsWith(base) ? '/' + location.pathname.slice(base.length) : location.pathname;
+        path = path.replace(/\/+$/, '') || '/';
+
+        var sessionId = sessionStorage.getItem('scopera_sid');
+        if (!sessionId) {
+          sessionId = crypto.randomUUID ? crypto.randomUUID() : Date.now() + '-' + Math.random().toString(36).slice(2);
+          sessionStorage.setItem('scopera_sid', sessionId);
+        }
+
+        var start = performance.now();
+        var sent = false;
+        function send() {
+          if (sent) return;
+          sent = true;
+          var durationMs = Math.round(performance.now() - start);
+          var payload = JSON.stringify({ sessionId: sessionId, path: path, durationMs: durationMs });
+          if (navigator.sendBeacon) {
+            navigator.sendBeacon(workerEndpoint + '/beacon', new Blob([payload], { type: 'application/json' }));
+          } else {
+            fetch(workerEndpoint + '/beacon', { method: 'POST', body: payload, headers: { 'Content-Type': 'application/json' }, keepalive: true });
+          }
+        }
+
+        document.addEventListener('visibilitychange', function () {
+          if (document.visibilityState === 'hidden') send();
+        });
+        window.addEventListener('pagehide', send);
+      })();
+    </script>
+  )}
 </body>
 </html>

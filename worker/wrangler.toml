@@ -1,0 +1,28 @@
+name = "scopera-lead-gateway"
+main = "src/index.ts"
+compatibility_date = "2026-07-31"
+
+# PLATZHALTER: eure Cloudflare Account-ID einsetzen (Cloudflare Dashboard -> Workers & Pages -> rechte Spalte).
+# account_id = "PLATZHALTER_ACCOUNT_ID"
+
+[[kv_namespaces]]
+binding = "SESSIONS"
+# PLATZHALTER: reale Namespace-ID nach `npm run kv:create-sessions` hier eintragen.
+id = "PLATZHALTER_KV_NAMESPACE_ID"
+
+[vars]
+# Kommagetrennte Liste erlaubter Origins fuer CORS, z.B. "https://scopera.ai,https://advanis-ag.github.io"
+ALLOWED_ORIGIN = "PLATZHALTER_ALLOWED_ORIGIN"
+# Basis-URL der Schweizer CRM-API, z.B. "https://api.eurcrm.ch"
+CRM_API_BASE_URL = "PLATZHALTER_CRM_API_BASE_URL"
+# Pfad fuer die Lookup-/Such-Funktion (bekannt/unbekannt-Abgleich), sobald API-Doku vorliegt.
+CRM_LOOKUP_PATH = "PLATZHALTER_CRM_LOOKUP_PATH"
+# Pfad zum Anlegen eines neuen Leads.
+CRM_LEAD_PATH = "PLATZHALTER_CRM_LEAD_PATH"
+# Score-Schwelle, ab der ein Besuch automatisch als Lead uebertragen wird (siehe Plan: Startwert 50).
+LEAD_SCORE_THRESHOLD = "50"
+
+# Geheime Werte NICHT hier eintragen (Datei ist versioniert). Stattdessen:
+#   npx wrangler secret put CRM_API_KEY
+#   npx wrangler secret put APOLLO_WEBHOOK_SECRET
+#   npx wrangler secret put TURNSTILE_SECRET_KEY

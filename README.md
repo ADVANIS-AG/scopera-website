@@ -14,10 +14,11 @@ npm run check      # Typ- und Template-Pruefung
 
 ## Vor dem Launch (Checkliste)
 
-- [ ] `src/config.ts` befuellen: KONTAKT_EMAIL, FORMSPREE_ENDPOINT, BOOKING_URL, ADRESSE, UID
+- [ ] `src/config.ts` befuellen: KONTAKT_EMAIL, BOOKING_URL, ADRESSE, UID, PLAUSIBLE_DOMAIN, WORKER_ENDPOINT, TURNSTILE_SITE_KEY
 - [ ] Domains scopera.ch / scopera.ai / scopera.at registrieren, Custom Domain + DNS auf GitHub Pages zeigen, `base` in `astro.config.mjs` auf `/` zuruecksetzen
 - [ ] Team-Nachnamen und Fotos auf /ueber-uns ergaenzen (`src/pages/ueber-uns.astro`)
 - [ ] GL-Naming-Entscheid bestaetigt
+- [ ] `worker/` deployen (siehe `worker/README.md`): KV-Namespace, CRM-Endpunkte und Secrets setzen, danach `WORKER_ENDPOINT` oben befuellen
 
 ## Struktur
 
@@ -27,6 +28,7 @@ npm run check      # Typ- und Template-Pruefung
 - `src/components/` — CtaBanner, SaeulenGrid, QuerschnittBaender, PaketGrid
 - `src/pages/` — alle Routen; `src/content/insights/` — Blog-Artikel als Markdown
 - `docs/superpowers/` — Design-Spec und Implementierungsplan
+- `worker/` — eigenstaendiges Cloudflare-Worker-Projekt (Lead-Gateway: Tracking-Beacon, Kontaktformular, CRM-Anbindung), eigenes `package.json`/Deploy, siehe `worker/README.md`
 
 ## Bildnachweise
 

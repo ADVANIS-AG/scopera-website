@@ -1,8 +1,8 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
-import { KONTAKT_EMAIL, FORMSPREE_ENDPOINT, BOOKING_URL } from '../config';
+import { KONTAKT_EMAIL, WORKER_ENDPOINT, TURNSTILE_SITE_KEY, BOOKING_URL } from '../config';
 import HeroBild from '../components/HeroBild.astro';
-const formularAktiv = FORMSPREE_ENDPOINT.length > 0;
+const formularAktiv = WORKER_ENDPOINT.length > 0;
 const emailAktiv = !KONTAKT_EMAIL.startsWith('PLATZHALTER');
 const base = import.meta.env.BASE_URL;
 ---
@@ -28,13 +28,56 @@ const base = import.meta.env.BASE_URL;
         <div class="karte" style="padding: 26px;">
           <h3>Nachricht schreiben</h3>
           {formularAktiv ? (
-            <form method="POST" action={FORMSPREE_ENDPOINT} style="display:grid; gap:12px;">
-              <label style="font-size:13px; font-weight:600;">Name<br /><input name="name" required style="width:100%; padding:10px; border:1px solid var(--line); background:var(--ground); color:var(--ink); font:inherit;" /></label>
-              <label style="font-size:13px; font-weight:600;">Firma<br /><input name="firma" style="width:100%; padding:10px; border:1px solid var(--line); background:var(--ground); color:var(--ink); font:inherit;" /></label>
-              <label style="font-size:13px; font-weight:600;">E-Mail<br /><input name="email" type="email" required style="width:100%; padding:10px; border:1px solid var(--line); background:var(--ground); color:var(--ink); font:inherit;" /></label>
-              <label style="font-size:13px; font-weight:600;">Nachricht<br /><textarea name="nachricht" rows="5" required style="width:100%; padding:10px; border:1px solid var(--line); background:var(--ground); color:var(--ink); font:inherit;"></textarea></label>
-              <button class="btn" type="submit" style="border:none; cursor:pointer;">Senden</button>
-            </form>
+            <>
+              {TURNSTILE_SITE_KEY && <script is:inline src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>}
+              <form id="kontakt-form" style="display:grid; gap:12px;">
+                <label style="font-size:13px; font-weight:600;">Name<br /><input name="name" required style="width:100%; padding:10px; border:1px solid var(--line); background:var(--ground); color:var(--ink); font:inherit;" /></label>
+                <label style="font-size:13px; font-weight:600;">Firma<br /><input name="firma" style="width:100%; padding:10px; border:1px solid var(--line); background:var(--ground); color:var(--ink); font:inherit;" /></label>
+                <label style="font-size:13px; font-weight:600;">E-Mail<br /><input name="email" type="email" required style="width:100%; padding:10px; border:1px solid var(--line); background:var(--ground); color:var(--ink); font:inherit;" /></label>
+                <label style="font-size:13px; font-weight:600;">Nachricht<br /><textarea name="nachricht" rows="5" required style="width:100%; padding:10px; border:1px solid var(--line); background:var(--ground); color:var(--ink); font:inherit;"></textarea></label>
+                {TURNSTILE_SITE_KEY && <div class="cf-turnstile" data-sitekey={TURNSTILE_SITE_KEY}></div>}
+                <button class="btn" type="submit" style="border:none; cursor:pointer;">Senden</button>
+                <p id="kontakt-status" class="soft" style="font-size:14px;" hidden></p>
+              </form>
+              <script is:inline define:vars={{ workerEndpoint: WORKER_ENDPOINT }}>
+                const form = document.getElementById('kontakt-form');
+                const status = document.getElementById('kontakt-status');
+                form?.addEventListener('submit', async (event) => {
+                  event.preventDefault();
+                  const button = form.querySelector('button[type="submit"]');
+                  const data = new FormData(form);
+                  const turnstileToken = data.get('cf-turnstile-response') || '';
+                  const payload = {
+                    name: data.get('name'),
+                    firma: data.get('firma'),
+                    email: data.get('email'),
+                    nachricht: data.get('nachricht'),
+                    turnstileToken,
+                  };
+                  button.setAttribute('disabled', 'true');
+                  status.hidden = true;
+                  try {
+                    const res = await fetch(workerEndpoint + '/contact', {
+                      method: 'POST',
+                      headers: { 'Content-Type': 'application/json' },
+                      body: JSON.stringify(payload),
+                    });
+                    const result = await res.json().catch(() => ({}));
+                    if (res.ok && result.ok) {
+                      form.reset();
+                      status.textContent = 'Danke für Ihre Nachricht. Wir melden uns in Kürze.';
+                    } else {
+                      status.textContent = 'Das hat leider nicht geklappt. Bitte versuchen Sie es erneut oder schreiben Sie uns direkt.';
+                    }
+                  } catch {
+                    status.textContent = 'Das hat leider nicht geklappt. Bitte versuchen Sie es erneut oder schreiben Sie uns direkt.';
+                  } finally {
+                    button.removeAttribute('disabled');
+                    status.hidden = false;
+                  }
+                });
+              </script>
+            </>
           ) : (
             <p class="soft" style="font-size:14px;"><strong>Das Formular wird gerade eingerichtet.</strong> {emailAktiv ? <>Schreiben Sie uns direkt: <a href={`mailto:${KONTAKT_EMAIL}`}>{KONTAKT_EMAIL}</a></> : 'Die Kontaktdaten folgen in Kürze.'}</p>
           )}
