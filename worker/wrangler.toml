@@ -10,8 +10,29 @@ binding = "SESSIONS"
 # PLATZHALTER: reale Namespace-ID nach `npm run kv:create-sessions` hier eintragen.
 id = "PLATZHALTER_KV_NAMESPACE_ID"
 
+[[kv_namespaces]]
+binding = "ADMIN_STORE"
+# PLATZHALTER: reale Namespace-ID nach `npm run kv:create-admin-store` hier eintragen.
+id = "PLATZHALTER_ADMIN_STORE_NAMESPACE_ID"
+
+[[analytics_engine_datasets]]
+binding = "VISITOR_EVENTS"
+# Muss mit src/analytics.ts VISITOR_EVENTS_DATASET uebereinstimmen. Wird beim ersten Schreiben
+# automatisch angelegt, keine manuelle Erstellung noetig.
+dataset = "scopera_visitor_events"
+
+# Admin-UI (worker/public/admin/) als statische Dateien, siehe Plan. run_worker_first stellt
+# sicher, dass /admin/api/* immer den Worker-Code erreicht (Auth + dynamische Logik) statt als
+# 404-Static-Asset-Lookup zu enden; alle anderen /admin/*-Pfade (z.B. /admin, /admin/index.html)
+# werden automatisch als statische Datei ausgeliefert.
+[assets]
+directory = "./public"
+binding = "ASSETS"
+run_worker_first = ["/admin/api/*"]
+
 [vars]
 # Kommagetrennte Liste erlaubter Origins fuer CORS, z.B. "https://scopera.ai,https://advanis-ag.github.io"
+# Kann zusaetzlich zur Laufzeit im Admin-Panel unter Security Settings ueberschrieben werden (ADMIN_STORE).
 ALLOWED_ORIGIN = "PLATZHALTER_ALLOWED_ORIGIN"
 # Basis-URL der Schweizer CRM-API, z.B. "https://api.eurcrm.ch"
 CRM_API_BASE_URL = "PLATZHALTER_CRM_API_BASE_URL"
@@ -22,7 +43,18 @@ CRM_LEAD_PATH = "PLATZHALTER_CRM_LEAD_PATH"
 # Score-Schwelle, ab der ein Besuch automatisch als Lead uebertragen wird (siehe Plan: Startwert 50).
 LEAD_SCORE_THRESHOLD = "50"
 
+# --- Admin-Bereich (/admin/*), siehe Plan "Admin-/Betriebs-Dashboard" ---
+# Cloudflare-Account-ID, fuer die Workers-Analytics-Engine-SQL-API (Konto-, nicht Zonen-Ebene).
+CF_ACCOUNT_ID = "PLATZHALTER_CF_ACCOUNT_ID"
+# Zone-ID von scopera.ai/scopera.ch, fuer IP-Access-Rules und Rate-Limiting-API.
+CF_ZONE_ID = "PLATZHALTER_CF_ZONE_ID"
+# Team-Domain aus Cloudflare Zero Trust (z.B. "advanis.cloudflareaccess.com"), fuer die Access-JWT-Pruefung.
+CF_ACCESS_TEAM_DOMAIN = "PLATZHALTER_CF_ACCESS_TEAM_DOMAIN"
+# AUD-Tag der Access-Application fuer admin.scopera.ai (Zero Trust -> Access -> Applications -> Overview).
+CF_ACCESS_AUD = "PLATZHALTER_CF_ACCESS_AUD"
+
 # Geheime Werte NICHT hier eintragen (Datei ist versioniert). Stattdessen:
 #   npx wrangler secret put CRM_API_KEY
 #   npx wrangler secret put APOLLO_WEBHOOK_SECRET
 #   npx wrangler secret put TURNSTILE_SECRET_KEY
+#   npx wrangler secret put CF_API_TOKEN

@@ -1,5 +1,7 @@
 export interface Env {
   SESSIONS: KVNamespace;
+  ADMIN_STORE: KVNamespace;
+  VISITOR_EVENTS: AnalyticsEngineDataset;
   ALLOWED_ORIGIN: string;
   CRM_API_BASE_URL: string;
   CRM_API_KEY: string;
@@ -8,6 +10,11 @@ export interface Env {
   APOLLO_WEBHOOK_SECRET: string;
   TURNSTILE_SECRET_KEY: string;
   LEAD_SCORE_THRESHOLD: string;
+  CF_API_TOKEN: string;
+  CF_ACCOUNT_ID: string;
+  CF_ZONE_ID: string;
+  CF_ACCESS_TEAM_DOMAIN: string;
+  CF_ACCESS_AUD: string;
 }
 
 export interface PageVisit {
@@ -73,4 +80,20 @@ export interface CrmLeadResult {
   ok: boolean;
   id?: string;
   error?: string;
+}
+
+/** Verifizierte Identitaet aus dem Cloudflare-Access-JWT (siehe src/admin/auth.ts). */
+export interface AccessIdentity {
+  email: string;
+}
+
+export interface FailedLeadRecord {
+  id: string;
+  payload: CrmLeadPayload;
+  error: string;
+  createdAt: number;
+}
+
+export interface CorsConfig {
+  allowedOrigins: string[];
 }

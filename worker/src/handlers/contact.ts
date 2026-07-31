@@ -1,4 +1,6 @@
+import { recordLeadEvent } from "../analytics";
 import { createLead, lookupExisting } from "../crm-client";
+import { jsonResponse } from "../lib/json";
 import { verifyTurnstile } from "../lib/turnstile";
 import type { ContactFormPayload, Env } from "../types";
 
@@ -38,6 +40,7 @@ export async function handleContact(request: Request, env: Env): Promise<Respons
   // gegen bestehende CRM-Kontakte pruefen, um keine Dubletten anzulegen.
   const lookup = await lookupExisting(env, { email: body.email, companyName: body.firma });
   if (lookup.exists) {
+    recordLeadEvent(env, { source: "contact-form", company: body.firma, contactEmail: body.email }, "existing");
     return jsonResponse({ ok: true, existing: true }, 200);
   }
 
@@ -50,11 +53,4 @@ export async function handleContact(request: Request, env: Env): Promise<Respons
   });
 
   return jsonResponse({ ok: result.ok, error: result.error }, result.ok ? 200 : 502);
-}
-
-function jsonResponse(data: unknown, status: number): Response {
-  return new Response(JSON.stringify(data), {
-    status,
-    headers: { "Content-Type": "application/json" },
-  });
 }

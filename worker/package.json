@@ -7,7 +7,11 @@
     "dev": "wrangler dev",
     "deploy": "wrangler deploy",
     "typecheck": "tsc --noEmit",
-    "kv:create-sessions": "wrangler kv namespace create SESSIONS"
+    "kv:create-sessions": "wrangler kv namespace create SESSIONS",
+    "kv:create-admin-store": "wrangler kv namespace create ADMIN_STORE"
+  },
+  "dependencies": {
+    "jose": "^5.9.0"
   },
   "devDependencies": {
     "@cloudflare/workers-types": "^5.20260730.1",

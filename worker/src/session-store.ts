@@ -1,3 +1,4 @@
+import { recordLeadEvent, recordVisitorEvent } from "./analytics";
 import { createLead, lookupExisting } from "./crm-client";
 import { REPEAT_VISIT_BONUS, REPEAT_VISIT_WINDOW_MS, scorePages } from "./lead-scoring";
 import type { CompanyMatch, Env, PageVisit, SessionState } from "./types";
@@ -52,6 +53,7 @@ export async function recordPageview(env: Env, ip: string, sessionId: string, pa
   session.score = scorePages(session.pages);
   await saveSession(env, session);
   await rememberIpToSession(env, ip, sessionId);
+  recordVisitorEvent(env, session);
   await maybeSubmitLead(env, session);
   return session;
 }
@@ -75,6 +77,7 @@ export async function tagCompanyForIp(env: Env, ip: string, company: Omit<Compan
     expirationTtl: COMPANY_HISTORY_TTL_SECONDS,
   });
 
+  recordVisitorEvent(env, session);
   await maybeSubmitLead(env, session);
   return session;
 }
@@ -91,6 +94,7 @@ async function maybeSubmitLead(env: Env, session: SessionState): Promise<void> {
   });
   if (lookup.exists) {
     console.info(`Firma "${session.company?.name}" bereits im CRM bekannt (${lookup.recordId}) - kein neuer Lead`);
+    recordLeadEvent(env, { source: "company-identification", company: session.company?.name, score: session.score }, "existing");
     session.leadSubmitted = true;
     await saveSession(env, session);
     return;

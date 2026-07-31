@@ -1,0 +1,75 @@
+<!doctype html>
+<html lang="de-CH">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>SCOPERA — Betriebs-Dashboard</title>
+  <link rel="stylesheet" href="/admin/admin.css" />
+</head>
+<body>
+  <header>
+    <h1>SCOPERA<span class="dot">.</span> Betriebs-Dashboard</h1>
+    <nav>
+      <button class="tab-btn" data-tab="visitors">Besucher</button>
+      <button class="tab-btn" data-tab="leads">CRM-Integration</button>
+      <button class="tab-btn" data-tab="security">Security</button>
+    </nav>
+  </header>
+
+  <main>
+    <section id="tab-visitors" class="tab">
+      <h2>Letzte Firmenbesuche</h2>
+      <p class="soft">Aus Workers Analytics Engine, aktualisiert bei jedem Seitenaufruf.</p>
+      <table>
+        <thead><tr><th>Firma / IP</th><th>Quelle</th><th>Score</th><th>Seiten</th><th>Zeitpunkt</th></tr></thead>
+        <tbody id="visitors-body"><tr><td colspan="5" class="soft">Lädt…</td></tr></tbody>
+      </table>
+    </section>
+
+    <section id="tab-leads" class="tab" hidden>
+      <h2>Lead-Übertragungen</h2>
+      <table>
+        <thead><tr><th>Firma / Kontakt</th><th>Quelle</th><th>Ergebnis</th><th>Score</th><th>Zeitpunkt</th></tr></thead>
+        <tbody id="leads-body"><tr><td colspan="5" class="soft">Lädt…</td></tr></tbody>
+      </table>
+
+      <h2>Fehlgeschlagen — wartet auf Retry</h2>
+      <table>
+        <thead><tr><th>Firma / Kontakt</th><th>Fehler</th><th>Angelegt</th><th></th></tr></thead>
+        <tbody id="failed-leads-body"><tr><td colspan="4" class="soft">Lädt…</td></tr></tbody>
+      </table>
+
+      <h2>CRM-Status</h2>
+      <p id="crm-status" class="soft">Prüfe…</p>
+    </section>
+
+    <section id="tab-security" class="tab" hidden>
+      <h2>Erlaubte Origins (CORS)</h2>
+      <p class="soft">Eine URL pro Zeile, jeweils mit https://. Wirkt sofort auf /beacon und /contact.</p>
+      <textarea id="cors-origins" rows="4"></textarea>
+      <button id="cors-save">Speichern</button>
+      <span id="cors-status" class="soft"></span>
+
+      <h2>Gesperrte IP-Adressen</h2>
+      <div class="inline-form">
+        <input id="ip-input" placeholder="z.B. 203.0.113.4" />
+        <input id="ip-notes" placeholder="Notiz (optional)" />
+        <button id="ip-add">Sperren</button>
+      </div>
+      <table>
+        <thead><tr><th>IP</th><th>Notiz</th><th></th></tr></thead>
+        <tbody id="ip-rules-body"><tr><td colspan="3" class="soft">Lädt…</td></tr></tbody>
+      </table>
+
+      <h2>Rate-Limits</h2>
+      <p class="soft" id="rate-limit-hint"></p>
+      <table>
+        <thead><tr><th>Beschreibung</th><th>Anfragen/Zeitraum</th></tr></thead>
+        <tbody id="rate-limits-body"><tr><td colspan="2" class="soft">Lädt…</td></tr></tbody>
+      </table>
+    </section>
+  </main>
+
+  <script src="/admin/admin.js"></script>
+</body>
+</html>
