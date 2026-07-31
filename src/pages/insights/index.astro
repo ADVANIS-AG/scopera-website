@@ -6,7 +6,7 @@ const artikel = (await getCollection('insights')).sort((a, b) => b.data.pubDate.
 const datumFmt = new Intl.DateTimeFormat('de-CH', { day: 'numeric', month: 'long', year: 'numeric' });
 const base = import.meta.env.BASE_URL;
 ---
-<BaseLayout title="Insights | kurzerhand." description="Klartext zu AI im Unternehmen: was funktioniert, was nicht, und woran Sie den Unterschied erkennen.">
+<BaseLayout title="Insights | SCOPERA." description="Klartext zu AI im Unternehmen: was funktioniert, was nicht, und woran Sie den Unterschied erkennen.">
   <section style="padding: 88px 0 64px; border-bottom: none;">
     <div class="wrap">
       <p class="eyebrow">Insights</p>
@@ -14,7 +14,7 @@ const base = import.meta.env.BASE_URL;
       <p class="lede">Keine Trends, keine Panik. Was in Schweizer Unternehmen wirklich funktioniert.</p>
     </div>
   </section>
-  <HeroBild src={`${base}bilder/hero-insights.jpg`} alt="Bergsee im Morgennebel, dahinter werden die Gipfel sichtbar" />
+  <HeroBild src={`${base}bilder/hero-insights.jpg`} alt="Schwarz-weiss-Aufnahme eines Orchesters auf der Bühne eines grossen Konzertsaals" />
   <section>
     <div class="wrap">
       {artikel.map(a => (

@@ -1,6 +1,6 @@
-# kurzerhand.ch
+# scopera.ai
 
-Marketing-Webseite der Brand «kurzerhand.» (eine Marke der ADVANIS AG). Astro, statischer Output.
+Marketing-Webseite der Brand «SCOPERA» — Swiss Cognitive Operation Platform, Engineering, Robotics & Agentic (powered by ADVANIS AG). Astro, statischer Output.
 
 ## Entwicklung
 
@@ -15,7 +15,7 @@ npm run check      # Typ- und Template-Pruefung
 ## Vor dem Launch (Checkliste)
 
 - [ ] `src/config.ts` befuellen: KONTAKT_EMAIL, FORMSPREE_ENDPOINT, BOOKING_URL, ADRESSE, UID
-- [ ] Domain kurzerhand.ch registrieren, Hosting waehlen (Infomaniak/Cloudflare Pages), dist/ deployen
+- [ ] Domains scopera.ch / scopera.ai / scopera.at registrieren, Custom Domain + DNS auf GitHub Pages zeigen, `base` in `astro.config.mjs` auf `/` zuruecksetzen
 - [ ] Team-Nachnamen und Fotos auf /ueber-uns ergaenzen (`src/pages/ueber-uns.astro`)
 - [ ] GL-Naming-Entscheid bestaetigt
 
@@ -32,15 +32,15 @@ npm run check      # Typ- und Template-Pruefung
 
 Alle Fotos via Unsplash (Unsplash-Lizenz: kommerzielle Nutzung erlaubt, keine Attribution noetig — Nennung als Geste):
 
-- `hero-start.jpg` — Simon Infanger (unsplash.com/photos/hTC80VIVxoY)
-- `hero-leistungen.jpg` — Ivy Tang (unsplash.com/photos/hB5wHFb9JpQ)
-- `hero-plattform.jpg` — Minh Duc (unsplash.com/photos/lQIUbkn6jj4)
-- `hero-pakete.jpg` — Annie Spratt (unsplash.com/photos/Csxx4yz6uaU)
-- `hero-insights.jpg` — Alan Bowman (unsplash.com/photos/Jy8PdNvEp2w)
-- `hero-ueber-uns.jpg` — Roger Benz (unsplash.com/photos/TL1lSPPCkj8)
-- `hero-kontakt.jpg` — Wojciech Wyszkowski (unsplash.com/photos/Cscz8tPogHw)
+- `hero-start.jpg` — Shinzan Murray (unsplash.com/photos/wTZPNaMhakk)
+- `hero-leistungen.jpg` — Robert Katzki (unsplash.com/photos/8J3TaXShe-s)
+- `hero-plattform.jpg` — Lucas Alexander (unsplash.com/photos/njaQKSM365I)
+- `hero-pakete.jpg` — Valentin Karisch (unsplash.com/photos/igNLOmbJBhg)
+- `hero-insights.jpg` — Arindam Mahanta (unsplash.com/photos/VEOk8qUl9DU)
+- `hero-ueber-uns.jpg` — Manuel Nägeli (unsplash.com/photos/7CcPLtywRso)
+- `hero-kontakt.jpg` — Aurora Song (unsplash.com/photos/TZP_LpztcQE)
 
-SVG-Grafiken (BergLinie, NetzGrafik, PfadGrafik) sind Eigenentwicklungen im Brand-Stil.
+SVG-Grafiken (KlangLinie, NetzGrafik, PfadGrafik) sind Eigenentwicklungen im Brand-Stil.
 
 ## Konventionen
 

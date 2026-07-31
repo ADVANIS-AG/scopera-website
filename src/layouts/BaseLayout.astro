@@ -28,7 +28,7 @@ const nav = [
 <body>
   <header class="site">
     <div class="nav">
-      <a class="wortmarke" href={base}>kurzerhand<span class="dot">.</span></a>
+      <a class="wortmarke" href={base}>{SITE_NAME}<span class="dot">.</span></a>
       <button class="burger" aria-expanded="false" aria-controls="nav-links">Menü</button>
       <ul class="nav-links" id="nav-links">
         {nav.map(([href, label]) => <li><a href={base + href}>{label}</a></li>)}
@@ -45,7 +45,7 @@ const nav = [
         <a href={`${base}impressum`}>Impressum</a>
         <a href={`${base}datenschutz`}>Datenschutz</a>
       </nav>
-      <p class="absender">{SITE_NAME} ist eine Marke der <a href="https://www.advanis.ch">ADVANIS AG</a>. Schweizer Qualität, AI-native Umsetzung.</p>
+      <p class="absender">{SITE_NAME} — powered by <a href="https://www.advanis.ch">ADVANIS</a>. Schweizer Qualität, AI-native Umsetzung.</p>
     </div>
   </footer>
   <script>

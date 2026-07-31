@@ -2,7 +2,7 @@
 import BaseLayout from '../layouts/BaseLayout.astro';
 import CtaBanner from '../components/CtaBanner.astro';
 import HeroBild from '../components/HeroBild.astro';
-import BergLinie from '../components/BergLinie.astro';
+import KlangLinie from '../components/KlangLinie.astro';
 const team = [
   { name: 'Thomas', rolle: 'AI Value Engineer', statement: 'Ich glaube an Technologie, die man nicht erklären muss, weil sie einfach funktioniert.' },
   { name: 'Sven', rolle: 'AI Strategist', statement: 'Die beste Architektur ist die, die morgen noch Antworten hat auf Fragen, die heute niemand stellt.' },
@@ -20,15 +20,15 @@ const dna = [
 ];
 const base = import.meta.env.BASE_URL;
 ---
-<BaseLayout title="Über uns | kurzerhand." description="kurzerhand ist eine Marke der ADVANIS AG: ein Team aus AI-Architekten und Beratern, das Unternehmen von der Strategie bis zum Betrieb begleitet.">
+<BaseLayout title="Über uns | SCOPERA." description="SCOPERA ist die AI-Marke der ADVANIS AG: ein Team aus AI-Architekten und Beratern, das Unternehmen von der Strategie bis zum Betrieb begleitet.">
   <section style="padding: 88px 0 64px; border-bottom: none;">
     <div class="wrap">
       <p class="eyebrow">Über uns</p>
       <h1>Neu als Marke. Nicht neu im Geschäft<span class="dot">.</span></h1>
-      <p class="lede">kurzerhand ist eine Marke der ADVANIS AG, einem Schweizer Beratungsunternehmen mit über 28 Jahren Erfahrung und mehr als 300 begleiteten Unternehmen. Wir haben kurzerhand gegründet, weil AI eine neue Art zu arbeiten möglich macht: schneller, direkter, mit Produkten statt Projekten.</p>
+      <p class="lede">SCOPERA steht für Swiss Cognitive Operation Platform, Engineering, Robotics & Agentic — powered by ADVANIS AG, einem Schweizer Beratungsunternehmen mit über 28 Jahren Erfahrung und mehr als 300 begleiteten Unternehmen. Wir haben SCOPERA aufgebaut, weil AI eine neue Art zu arbeiten möglich macht: schneller, direkter, mit Produkten statt Projekten.</p>
     </div>
   </section>
-  <HeroBild src={`${base}bilder/hero-ueber-uns.jpg`} alt="Eine Seilschaft steigt gemeinsam und gesichert über ein Schneefeld" />
+  <HeroBild src={`${base}bilder/hero-ueber-uns.jpg`} alt="Zwei Geigerinnen im Orchester spielen im Zusammenspiel, im Hintergrund die Dirigentin" />
   <section>
     <div class="wrap">
       <p class="eyebrow">Woran wir uns halten</p>
@@ -58,7 +58,7 @@ const base = import.meta.env.BASE_URL;
     </div>
   </section>
   <section style="border-bottom: none; padding: 56px 0 0;">
-    <div class="wrap"><BergLinie /></div>
+    <div class="wrap"><KlangLinie /></div>
   </section>
   <CtaBanner titel="Lernen Sie uns kennen." text="Am schnellsten merkt man im Gespräch, ob es passt. Wir freuen uns darauf." />
 </BaseLayout>

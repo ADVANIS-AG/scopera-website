@@ -4,15 +4,15 @@ import SaeulenGrid from '../components/SaeulenGrid.astro';
 import QuerschnittBaender from '../components/QuerschnittBaender.astro';
 import CtaBanner from '../components/CtaBanner.astro';
 import HeroBild from '../components/HeroBild.astro';
-import BergLinie from '../components/BergLinie.astro';
+import KlangLinie from '../components/KlangLinie.astro';
 const base = import.meta.env.BASE_URL;
 ---
-<BaseLayout title="kurzerhand. | AI-Lösungen, die einfach laufen" description="AI-Lösungen für Schweizer Unternehmen: von der Strategie bis zum laufenden Betrieb. Geliefert in Wochen, nicht Monaten. Eine Marke der ADVANIS AG.">
+<BaseLayout title="SCOPERA. | AI-Lösungen, die einfach laufen" description="AI-Lösungen für Schweizer Unternehmen: von der Strategie bis zum laufenden Betrieb. Geliefert in Wochen, nicht Monaten. SCOPERA — powered by ADVANIS.">
   <section style="padding: 96px 0 72px; border-bottom: none;">
     <div class="wrap">
       <p class="eyebrow">AI für Schweizer Unternehmen</p>
       <h1>AI-Lösungen, die einfach laufen<span class="dot">.</span></h1>
-      <p class="lede">Wir bauen intelligente Anwendungen für Unternehmen, die keine Lust auf monatelange IT-Projekte haben. Geliefert in Wochen. Kurzerhand, aber nie leichtfertig.</p>
+      <p class="lede">Wir bauen intelligente Anwendungen für Unternehmen, die keine Lust auf monatelange IT-Projekte haben. Geliefert in Wochen. Präzise orchestriert, nie dem Zufall überlassen.</p>
       <p style="display:flex; gap:12px; flex-wrap:wrap; margin-top:26px;">
         <a class="btn" href={`${base}kontakt`}>Termin buchen</a>
         <a class="btn-ghost" href={`${base}plattform`}>Was wir gebaut haben</a>
@@ -20,11 +20,11 @@ const base = import.meta.env.BASE_URL;
     </div>
   </section>
 
-  <HeroBild src={`${base}bilder/hero-start.jpg`} alt="Sonnenaufgang über dem Nebelmeer, Blick vom Pilatus Richtung Vierwaldstättersee" />
+  <HeroBild src={`${base}bilder/hero-start.jpg`} alt="Vergoldete Kuppeldecke eines historischen Opernhauses mit Kronleuchter und Rängen" />
 
   <section>
     <div class="wrap">
-      <p class="eyebrow">Warum kurzerhand</p>
+      <p class="eyebrow">Warum SCOPERA</p>
       <h2>Verlässlich. Schnell. Wirtschaftlich. Sie müssen nicht mehr wählen.</h2>
       <div class="karten" style="grid-template-columns: repeat(3, 1fr);">
         <div class="karte">
@@ -74,7 +74,7 @@ const base = import.meta.env.BASE_URL;
   </section>
 
   <section style="border-bottom: none; padding: 56px 0 0;">
-    <div class="wrap"><BergLinie /></div>
+    <div class="wrap"><KlangLinie /></div>
   </section>
 
   <CtaBanner titel="Reden wir über Ihren ersten Use Case." text="30 Minuten genügen, um herauszufinden, wo AI in Ihrem Unternehmen am schnellsten Wirkung zeigt. Unverbindlich, konkret, auf Augenhöhe." />

@@ -2,11 +2,11 @@
 import BaseLayout from '../layouts/BaseLayout.astro';
 import { ADRESSE, UID, KONTAKT_EMAIL } from '../config';
 ---
-<BaseLayout title="Impressum | kurzerhand." description="Impressum von kurzerhand, einer Marke der ADVANIS AG.">
+<BaseLayout title="Impressum | SCOPERA." description="Impressum von SCOPERA, powered by ADVANIS AG.">
   <section style="padding: 88px 0;">
     <div class="wrap" style="max-width: 720px;">
       <h1 style="font-size: clamp(30px, 5vw, 44px);">Impressum</h1>
-      <p><strong>kurzerhand</strong> ist eine Marke der ADVANIS AG.</p>
+      <p><strong>SCOPERA</strong> ist eine Marke der ADVANIS AG.</p>
       <p>ADVANIS AG<br />{ADRESSE}<br />UID: {UID}</p>
       <p>Kontakt: {KONTAKT_EMAIL.startsWith('PLATZHALTER') ? 'siehe Kontaktseite' : KONTAKT_EMAIL}</p>
       <p class="soft" style="font-size:14px;">Inhaltlich verantwortlich: ADVANIS AG. Alle Angaben ohne Gewähr.</p>
