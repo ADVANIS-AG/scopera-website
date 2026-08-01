@@ -23,7 +23,7 @@ npm run check      # Typ- und Template-Pruefung
 ## Struktur
 
 - `src/config.ts` — alle veraenderlichen Werte an einer Stelle (Platzhalter bis Launch)
-- `src/styles/global.css` — Design-Tokens (Light/Dark) und Basisstile
+- `src/styles/global.css` — Design-Tokens (Loge: dunkel Standard, helle Variante per Umschalter) und Basisstile
 - `src/layouts/BaseLayout.astro` — Head/SEO, Header/Nav, Footer
 - `src/components/` — CtaBanner, SaeulenGrid, QuerschnittBaender, PaketGrid
 - `src/pages/` — alle Routen; `src/content/insights/` — Blog-Artikel als Markdown
@@ -36,13 +36,17 @@ Alle Fotos via Unsplash (Unsplash-Lizenz: kommerzielle Nutzung erlaubt, keine At
 
 - `hero-start.jpg` — Shinzan Murray (unsplash.com/photos/wTZPNaMhakk)
 - `hero-leistungen.jpg` — Robert Katzki (unsplash.com/photos/8J3TaXShe-s)
-- `hero-plattform.jpg` — Lucas Alexander (unsplash.com/photos/njaQKSM365I)
+- `hero-plattform.jpg` (Seite `/produkt`) — Lucas Alexander (unsplash.com/photos/njaQKSM365I)
 - `hero-pakete.jpg` — Valentin Karisch (unsplash.com/photos/igNLOmbJBhg)
 - `hero-insights.jpg` — Arindam Mahanta (unsplash.com/photos/VEOk8qUl9DU)
 - `hero-ueber-uns.jpg` — Manuel Nägeli (unsplash.com/photos/7CcPLtywRso)
 - `hero-kontakt.jpg` — Aurora Song (unsplash.com/photos/TZP_LpztcQE)
+- `leistungen-assessment.jpg` — Josh Hild (unsplash.com/photos/f_ok0989Jng)
+- `leistungen-readiness.jpg` — Beth Rufener (unsplash.com/photos/OgqntOgPUP4)
+- `leistungen-workshop.jpg` — Larisa Birta (unsplash.com/photos/slbOcNlWNHA)
+- `leistungen-vibe.jpg` — Jens Thekkeveettil (unsplash.com/photos/dBWvUqBoOU8)
 
-SVG-Grafiken (KlangLinie, NetzGrafik, PfadGrafik) sind Eigenentwicklungen im Brand-Stil.
+SVG-Grafiken (KlangLinie, NetzGrafik, PfadGrafik, `src/components/icons/*`) sind Eigenentwicklungen im Brand-Stil.
 
 ## Konventionen
 

@@ -5,11 +5,40 @@ import QuerschnittBaender from '../components/QuerschnittBaender.astro';
 import CtaBanner from '../components/CtaBanner.astro';
 import HeroBild from '../components/HeroBild.astro';
 import KlangLinie from '../components/KlangLinie.astro';
-const details = [
-  { titel: 'Strategy', text: 'Wir starten nicht mit Technologie, sondern mit Ihrem Geschäft: Wo entsteht mit AI echter Mehrwert? Assessments zeigen Potenziale und Risiken, Roadmaps machen sie planbar, Governance by Design sorgt dafür, dass Datenschutz und Compliance von Anfang an eingebaut sind statt nachgerüstet.' },
-  { titel: 'Enterprise AI Platform', text: 'Unsere Plattform bringt mit, was jedes AI-Vorhaben braucht: AI Agents, Workflows, Wissensmanagement, Integrationen in Ihre Systeme (Microsoft 365, Dynamics, SAP, Salesforce) und Analytics. Multi-Tenant, White-Label-fähig, betrieben in der Schweiz oder in Ihrer Umgebung.' },
-  { titel: 'Managed AI', text: 'Nach dem Go-live fängt unsere Arbeit erst an. Wir überwachen Qualität und Kosten, halten Modelle und Integrationen aktuell und verbessern die Lösung kontinuierlich. Sie bekommen einen Betrieb, der mitdenkt, mit klaren Reaktionszeiten.' },
-  { titel: 'Enablement', text: 'Die beste Lösung nützt nichts, wenn niemand sie nutzt. Wir schulen Ihre Teams, begleiten die Einführung und gestalten Employee und Customer Experience so, dass die neue Arbeitsweise selbstverständlich wird.' },
+import IconMagnify from '../components/icons/IconMagnify.astro';
+import IconTuningFork from '../components/icons/IconTuningFork.astro';
+import IconTogether from '../components/icons/IconTogether.astro';
+import IconSpark from '../components/icons/IconSpark.astro';
+
+const angebote = [
+  {
+    titel: 'KI Potenzial Assessment',
+    Icon: IconMagnify,
+    bild: 'leistungen-assessment.jpg',
+    alt: 'Hände spielen Klavier, im Hintergrund ein aufgeschlagenes Notenheft',
+    text: 'Wir schauen uns Ihre Prozesse an und zeigen konkret, wo AI den grössten Hebel hat — mit Aufwand-Wirkung-Einschätzung, nicht mit Buzzwords.',
+  },
+  {
+    titel: 'AI Readiness Assessment',
+    Icon: IconTuningFork,
+    bild: 'leistungen-readiness.jpg',
+    alt: 'Eine Geige liegt bereit auf verwitterten Holzdielen',
+    text: 'Sind Ihre Daten, Systeme und Prozesse bereit für AI? Wir prüfen ehrlich, was heute schon geht und was zuerst aufgeräumt werden muss.',
+  },
+  {
+    titel: 'AI Strategie Workshop',
+    Icon: IconTogether,
+    bild: 'leistungen-workshop.jpg',
+    alt: 'Geigerinnen und Geiger spielen im Ensemble, Hände und Instrumente im Zusammenspiel',
+    text: 'Ein Tag, ein Raum, eine Roadmap: Wir erarbeiten gemeinsam mit Ihrem Team, welche AI-Initiativen zuerst Sinn ergeben.',
+  },
+  {
+    titel: 'Vibe your Issue',
+    Icon: IconSpark,
+    bild: 'leistungen-vibe.jpg',
+    alt: 'Saxophon in dynamischem Bühnenlicht, warme Farben',
+    text: 'Bringen Sie ein konkretes Problem mit, wir lösen es live mit AI-nativer Entwicklung — Sie sehen in Stunden, nicht Wochen, ob und wie es geht.',
+  },
 ];
 const ablauf = [
   ['Verstehen', 'Wir hören zu, schauen uns Ihre Prozesse an und finden den Use Case mit dem besten Verhältnis von Aufwand zu Wirkung.'],
@@ -19,12 +48,12 @@ const ablauf = [
 ];
 const base = import.meta.env.BASE_URL;
 ---
-<BaseLayout title="Leistungen | SCOPERA." description="Business & AI Strategy, Enterprise AI Platform, Managed AI und Enablement: vier Säulen, getragen von Trust, Governance und Agentic Engineering.">
+<BaseLayout title="Leistungen | SCOPERA." description="Beratung, die auch ohne unsere Plattform trägt: Assessments, Workshops und Formate, die Klarheit schaffen, bevor Sie investieren.">
   <section style="padding: 88px 0 64px; border-bottom: none;">
     <div class="wrap">
       <p class="eyebrow">Leistungen</p>
-      <h1>Vier Säulen. Ein Versprechen<span class="dot">.</span></h1>
-      <p class="lede">Alles aus einer Hand: von der ersten Idee bis zum Betrieb, der nie stillsteht. Getragen von Prinzipien, die jede Leistung durchziehen.</p>
+      <h1>Beratung, die auch ohne unsere Plattform trägt<span class="dot">.</span></h1>
+      <p class="lede">Strategie, Assessments, Workshops: Sie können unsere Beratung parallel zur Plattform nutzen oder unabhängig davon buchen. Beides schafft Klarheit, bevor Sie investieren.</p>
     </div>
   </section>
   <HeroBild src={`${base}bilder/hero-leistungen.jpg`} alt="Sinfonieorchester spielt vor vollem Konzertsaal, Blick von der Bühne auf das Publikum" />
@@ -36,13 +65,22 @@ const base = import.meta.env.BASE_URL;
   </section>
   <section>
     <div class="wrap">
-      <p class="eyebrow">Im Detail</p>
-      {details.map(d => (
-        <div style="padding: 22px 0; border-top: 1px solid var(--line);">
-          <h3 style="font-size: 22px;">{d.titel}<span class="dot">.</span></h3>
-          <p class="soft" style="max-width: 46em;">{d.text}</p>
-        </div>
-      ))}
+      <p class="eyebrow">Unsere Beratungsformate</p>
+      <h2>Vier Wege, konkret zu werden.</h2>
+      <div class="split-reihen">
+        {angebote.map(a => (
+          <div class="split-reihe">
+            <div class="split-bild">
+              <img src={`${base}bilder/${a.bild}`} alt={a.alt} loading="lazy" />
+            </div>
+            <div class="split-text">
+              <a.Icon />
+              <h3>{a.titel}<span class="dot">.</span></h3>
+              <p class="soft" style="font-size:14px;">{a.text}</p>
+            </div>
+          </div>
+        ))}
+      </div>
     </div>
   </section>
   <section>

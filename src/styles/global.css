@@ -59,6 +59,20 @@ section { padding: 64px 0; border-bottom: 1px solid var(--line); }
 .pull-quote { margin: 0; border-left: 4px solid var(--accent); padding: 4px 0 4px 28px; }
 .pull-quote p { font-size: clamp(22px, 3.4vw, 32px); font-weight: 700; letter-spacing: -.02em; line-height: 1.25; margin: 0 0 14px; text-wrap: balance; }
 .pull-quote cite { font-style: normal; font-size: 14px; color: var(--ink-soft); }
+/* Split-Screen-Reihen (z.B. Beratungsangebote auf /leistungen) */
+.split-reihen { display: grid; gap: 14px; margin-top: 8px; }
+.split-reihe { display: grid; grid-template-columns: 1fr 1fr; border: 1px solid var(--line); border-radius: var(--radius); overflow: hidden; }
+.split-reihe .split-bild { overflow: hidden; }
+.split-reihe .split-bild img { display: block; width: 100%; height: 100%; min-height: 280px; object-fit: cover; }
+.split-reihe .split-text { padding: 36px; display: flex; flex-direction: column; justify-content: center; background: var(--card); }
+.split-reihe .split-text .ikon { margin-bottom: 10px; }
+.split-reihe:nth-child(even) { direction: rtl; }
+.split-reihe:nth-child(even) > * { direction: ltr; }
+@media (max-width: 760px) {
+  .split-reihe { grid-template-columns: 1fr; direction: ltr; }
+  .split-reihe .split-bild img { min-height: 200px; }
+  .split-reihe .split-text { padding: 26px; }
+}
 /* Bildmaterial */
 .hero-bild { margin: 0; border-bottom: 2px solid var(--ink); overflow: hidden; }
 .hero-bild img { display: block; width: 100%; height: clamp(240px, 40vw, 440px); object-fit: cover; will-change: transform; }
