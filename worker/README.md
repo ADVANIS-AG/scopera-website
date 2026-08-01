@@ -48,6 +48,23 @@ Intern, nur über `admin.scopera.ai` erreichbar und durch Cloudflare Access gesc
   Cloudflare-Access-Logins noch schreibt es zuverlässig in Analytics Engine — Endverifikation braucht
   einen echten Deploy (siehe Verifikation im Plan).
 
+## Admin-Bereich lokal testen, solange Cloudflare Access noch nicht eingerichtet ist
+
+`/admin/api/*` ist standardmässig **fail-closed** — ohne echtes Access-Setup bekommt niemand Zugriff,
+auch nicht lokal. Für den Testmodus gibt es einen expliziten, sicher eingegrenzten Dev-Bypass:
+
+```bash
+cp .dev.vars.example .dev.vars
+# In .dev.vars die Zeile "# DEV_BYPASS_ADMIN_AUTH=true" auskommentieren (# entfernen)
+npm run dev
+```
+
+Danach ist `http://localhost:8787/admin/` ohne Login erreichbar. Warum das nicht versehentlich in
+Produktion landen kann: `.dev.vars` ist per `.gitignore` nie im Repo, und `wrangler deploy` liest
+diese Datei nachweislich nicht (nur `wrangler dev` tut das) — die Variable existiert unter einem
+echten Deploy schlicht nicht, siehe `src/admin/auth.ts`. Jede Nutzung wird zusätzlich laut geloggt
+(`console.warn`), damit sie nie unbemerkt bleibt.
+
 ## Setup
 
 ```bash

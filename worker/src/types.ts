@@ -15,6 +15,8 @@ export interface Env {
   CF_ZONE_ID: string;
   CF_ACCESS_TEAM_DOMAIN: string;
   CF_ACCESS_AUD: string;
+  /** NUR ueber .dev.vars setzbar (siehe .gitignore) - existiert bei `wrangler deploy` nie. */
+  DEV_BYPASS_ADMIN_AUTH?: string;
 }
 
 export interface PageVisit {

@@ -33,7 +33,7 @@ const base = import.meta.env.BASE_URL;
       <p class="eyebrow">Was die Plattform mitbringt</p>
       <h2>Das Fundament jeder Lösung.</h2>
       <div style="margin: 8px 0 26px;"><NetzGrafik /></div>
-      <div class="karten" style="grid-template-columns: repeat(3, 1fr);">
+      <div class="karten-3">
         {features.map(([t, x]) => (
           <div class="karte">
             <h3>{t}</h3>
@@ -41,6 +41,14 @@ const base = import.meta.env.BASE_URL;
           </div>
         ))}
       </div>
+    </div>
+  </section>
+  <section style="border-bottom: none;">
+    <div class="wrap">
+      <blockquote class="pull-quote">
+        <p>AI wird dann stark, wenn sie sich in bestehende Systeme einfügt statt neue Silos zu bauen.</p>
+        <cite>Joel, AI Architect bei SCOPERA</cite>
+      </blockquote>
     </div>
   </section>
   <section>

@@ -15,6 +15,28 @@
     <rect x="998" y="42" width="44" height="36" />
     <rect x="998" y="167" width="44" height="36" />
   </g>
+  <g fill="var(--accent)">
+    <circle class="fluss-punkt" r="4" style="offset-path: path('M600,120 L180,60'); animation-delay: 0s;" />
+    <circle class="fluss-punkt" r="4" style="offset-path: path('M600,120 L180,190'); animation-delay: .5s;" />
+    <circle class="fluss-punkt" r="4" style="offset-path: path('M600,120 L470,40'); animation-delay: 1s;" />
+    <circle class="fluss-punkt" r="4" style="offset-path: path('M600,120 L760,200'); animation-delay: 1.5s;" />
+    <circle class="fluss-punkt" r="4" style="offset-path: path('M600,120 L1020,60'); animation-delay: 2s;" />
+    <circle class="fluss-punkt" r="4" style="offset-path: path('M600,120 L1020,185'); animation-delay: 2.5s;" />
+  </g>
   <circle cx="600" cy="120" r="26" fill="var(--accent)" />
   <circle cx="600" cy="120" r="8" fill="var(--accent-ink)" />
 </svg>
+<style>
+  .fluss-punkt {
+    animation: scopera-fliessen 3s ease-in-out infinite;
+  }
+  @keyframes scopera-fliessen {
+    0% { offset-distance: 0%; opacity: 0; }
+    10% { opacity: 1; }
+    90% { opacity: 1; }
+    100% { offset-distance: 100%; opacity: 0; }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .fluss-punkt { animation: none; opacity: 0; }
+  }
+</style>

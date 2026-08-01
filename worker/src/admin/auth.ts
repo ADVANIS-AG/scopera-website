@@ -17,6 +17,15 @@ function getJwks(teamDomain: string) {
  *  Projekt gilt hier: fehlt die Konfiguration oder schlaegt die Pruefung fehl, wird der Zugriff
  *  verweigert (fail-closed), nicht uebersprungen - das ist die eigentliche Sicherheitsgrenze. */
 export async function verifyAccessIdentity(request: Request, env: Env): Promise<AccessIdentity | null> {
+  // Nur fuer lokale Entwicklung: DEV_BYPASS_ADMIN_AUTH kann ausschliesslich ueber `.dev.vars`
+  // gesetzt werden (siehe .dev.vars.example), eine Datei, die laut .gitignore nie committet wird
+  // und die `wrangler deploy` nachweislich nicht liest (nur `wrangler dev`) - kann also nicht
+  // versehentlich in Produktion landen. Laut ausgeben, damit es im Log nie unbemerkt bleibt.
+  if (env.DEV_BYPASS_ADMIN_AUTH === "true") {
+    console.warn("DEV_BYPASS_ADMIN_AUTH aktiv - Access-Pruefung uebersprungen (nur lokal moeglich)");
+    return { email: "dev-bypass@localhost" };
+  }
+
   if (!env.CF_ACCESS_TEAM_DOMAIN || env.CF_ACCESS_TEAM_DOMAIN.startsWith("PLATZHALTER")) {
     console.warn("CF_ACCESS_TEAM_DOMAIN nicht konfiguriert - Admin-Bereich bleibt gesperrt");
     return null;

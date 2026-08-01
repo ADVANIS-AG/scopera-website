@@ -45,7 +45,7 @@ const base = import.meta.env.BASE_URL;
     <div class="wrap">
       <p class="eyebrow">Team</p>
       <h2>Menschen, die liefern.</h2>
-      <div class="karten" style="grid-template-columns: repeat(3, 1fr);">
+      <div class="karten-3">
         {team.map(t => (
           <div class="karte">
             <div aria-hidden="true" style="width:52px; height:52px; border:1px solid var(--line); background: var(--band); display:flex; align-items:center; justify-content:center; font-weight:800; font-size:20px; margin-bottom:12px;">{t.name.charAt(0)}</div>

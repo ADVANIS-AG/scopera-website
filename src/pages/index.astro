@@ -5,6 +5,9 @@ import QuerschnittBaender from '../components/QuerschnittBaender.astro';
 import CtaBanner from '../components/CtaBanner.astro';
 import HeroBild from '../components/HeroBild.astro';
 import KlangLinie from '../components/KlangLinie.astro';
+import IconFermate from '../components/icons/IconFermate.astro';
+import IconAccelerando from '../components/icons/IconAccelerando.astro';
+import IconBalance from '../components/icons/IconBalance.astro';
 const base = import.meta.env.BASE_URL;
 ---
 <BaseLayout title="SCOPERA. | AI-Lösungen, die einfach laufen" description="AI-Lösungen für Schweizer Unternehmen: von der Strategie bis zum laufenden Betrieb. Geliefert in Wochen, nicht Monaten. SCOPERA — powered by ADVANIS.">
@@ -17,6 +20,11 @@ const base = import.meta.env.BASE_URL;
         <a class="btn" href={`${base}kontakt`}>Termin buchen</a>
         <a class="btn-ghost" href={`${base}plattform`}>Was wir gebaut haben</a>
       </p>
+      <div class="stat-bar">
+        <div class="stat"><strong>28</strong><span>Jahre Erfahrung</span></div>
+        <div class="stat"><strong>300+</strong><span>Unternehmen begleitet</span></div>
+        <div class="stat"><strong>ADVANIS</strong><span>Schweizer Beratungsunternehmen</span></div>
+      </div>
     </div>
   </section>
 
@@ -26,16 +34,19 @@ const base = import.meta.env.BASE_URL;
     <div class="wrap">
       <p class="eyebrow">Warum SCOPERA</p>
       <h2>Verlässlich. Schnell. Wirtschaftlich. Sie müssen nicht mehr wählen.</h2>
-      <div class="karten" style="grid-template-columns: repeat(3, 1fr);">
+      <div class="karten-3">
         <div class="karte">
+          <IconFermate />
           <h3>Verlässlich<span class="dot">.</span></h3>
           <p style="font-size:14px;" class="soft">Schweizer Hosting, DSG/DSGVO-konform, nachvollziehbare Modellwahl. Und ein Partner, der nach dem Go-live nicht verschwindet.</p>
         </div>
         <div class="karte">
+          <IconAccelerando />
           <h3>Schnell<span class="dot">.</span></h3>
           <p style="font-size:14px;" class="soft">Wir entwickeln AI-nativ auf einer erprobten Plattform. Was andere in Monaten planen, steht bei uns in Wochen im Betrieb.</p>
         </div>
         <div class="karte">
+          <IconBalance />
           <h3>Wirtschaftlich<span class="dot">.</span></h3>
           <p style="font-size:14px;" class="soft">Weniger Aufwand pro Lösung heisst tiefere Kosten. Sie zahlen für Ergebnisse, nicht für Konzeptpapiere.</p>
         </div>

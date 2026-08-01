@@ -1,3 +1,8 @@
 CRM_API_KEY=PLATZHALTER_CRM_API_KEY
 APOLLO_WEBHOOK_SECRET=PLATZHALTER_APOLLO_WEBHOOK_SECRET
 TURNSTILE_SECRET_KEY=PLATZHALTER_TURNSTILE_SECRET_KEY
+
+# Nur zum lokalen Testen des Admin-Bereichs, solange Cloudflare Access noch nicht eingerichtet ist.
+# Wird von `wrangler deploy` nie gelesen (nur `wrangler dev`), landet also nie in Produktion.
+# Auskommentiert lassen, wenn nicht gebraucht.
+# DEV_BYPASS_ADMIN_AUTH=true

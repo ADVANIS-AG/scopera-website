@@ -1,16 +1,24 @@
 ---
+import IconBaton from './icons/IconBaton.astro';
+import IconStaff from './icons/IconStaff.astro';
+import IconResonance from './icons/IconResonance.astro';
+import IconTogether from './icons/IconTogether.astro';
+
 const saeulen = [
-  { titel: 'Strategy', punkte: ['AI Strategy', 'Assessments', 'Roadmaps', 'Governance by Design'] },
-  { titel: 'Enterprise AI Platform', punkte: ['AI Agents', 'Workflows', 'Knowledge', 'Integrationen und Analytics'] },
-  { titel: 'Managed AI', punkte: ['Monitoring', 'Support', 'Continuous Improvement', 'AI Lifecycle'] },
-  { titel: 'Enablement', punkte: ['Training', 'Change und Adoption', 'Customer Experience', 'Employee Experience'] },
+  { titel: 'Strategy', Icon: IconBaton, punkte: ['AI Strategy', 'Assessments', 'Roadmaps', 'Governance by Design'] },
+  { titel: 'Enterprise AI Platform', Icon: IconStaff, punkte: ['AI Agents', 'Workflows', 'Knowledge', 'Integrationen und Analytics'] },
+  { titel: 'Managed AI', Icon: IconResonance, punkte: ['Monitoring', 'Support', 'Continuous Improvement', 'AI Lifecycle'] },
+  { titel: 'Enablement', Icon: IconTogether, punkte: ['Training', 'Change und Adoption', 'Customer Experience', 'Employee Experience'] },
 ];
 ---
 <div class="karten">
   {saeulen.map(s => (
-    <div class="karte" style="border-top: 4px solid var(--ink);">
-      <h3>{s.titel}</h3>
+    <details class="karte" style="border-top: 4px solid var(--ink);">
+      <summary>
+        <s.Icon />
+        <h3>{s.titel}</h3>
+      </summary>
       <ul>{s.punkte.map(p => <li>{p}</li>)}</ul>
-    </div>
+    </details>
   ))}
 </div>
