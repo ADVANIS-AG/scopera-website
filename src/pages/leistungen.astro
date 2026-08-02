@@ -9,35 +9,48 @@ import IconMagnify from '../components/icons/IconMagnify.astro';
 import IconTuningFork from '../components/icons/IconTuningFork.astro';
 import IconTogether from '../components/icons/IconTogether.astro';
 import IconSpark from '../components/icons/IconSpark.astro';
+import { BOOKING_URL } from '../config';
 
+// Zuordnung Angebot -> Ansprechperson + individueller Buchungslink. Aktuell Platzhalter, siehe
+// README-Launch-Checkliste. `bookingUrl` leer = CTA faellt auf den allgemeinen Buchungslink zurueck,
+// `name`, der mit "PLATZHALTER" beginnt, wird nicht angezeigt (gleiches Muster wie src/config.ts).
+// Gleiche Form laesst sich 1:1 auf /pakete oder weitere Seiten uebertragen.
 const angebote = [
   {
     titel: 'KI Potenzial Assessment',
     Icon: IconMagnify,
     bild: 'leistungen-assessment.jpg',
     alt: 'Hände spielen Klavier, im Hintergrund ein aufgeschlagenes Notenheft',
-    text: 'Wir schauen uns Ihre Prozesse an und zeigen konkret, wo AI den grössten Hebel hat — mit Aufwand-Wirkung-Einschätzung, nicht mit Buzzwords.',
+    text: 'Wir schauen uns Ihre Prozesse an und zeigen konkret, wo AI den grössten Hebel hat — mit Aufwand-Wirkung-Einschätzung, nicht mit Buzzwords. In einem halben Tag erhalten Sie eine priorisierte Liste möglicher Use Cases samt grober Aufwandschätzung.',
+    ctaText: 'Assessment anfragen',
+    kontakt: { name: 'PLATZHALTER_NAME_ASSESSMENT', rolle: 'PLATZHALTER_ROLLE_ASSESSMENT', bookingUrl: '' },
   },
   {
     titel: 'AI Readiness Assessment',
     Icon: IconTuningFork,
     bild: 'leistungen-readiness.jpg',
     alt: 'Eine Geige liegt bereit auf verwitterten Holzdielen',
-    text: 'Sind Ihre Daten, Systeme und Prozesse bereit für AI? Wir prüfen ehrlich, was heute schon geht und was zuerst aufgeräumt werden muss.',
+    text: 'Sind Ihre Daten, Systeme und Prozesse bereit für AI? Wir prüfen ehrlich, was heute schon geht und was zuerst aufgeräumt werden muss. Am Ende steht ein klarer Massnahmenplan, keine Grundsatzdiskussion.',
+    ctaText: 'Bereitschaft prüfen lassen',
+    kontakt: { name: 'PLATZHALTER_NAME_READINESS', rolle: 'PLATZHALTER_ROLLE_READINESS', bookingUrl: '' },
   },
   {
     titel: 'AI Strategie Workshop',
     Icon: IconTogether,
     bild: 'leistungen-workshop.jpg',
     alt: 'Geigerinnen und Geiger spielen im Ensemble, Hände und Instrumente im Zusammenspiel',
-    text: 'Ein Tag, ein Raum, eine Roadmap: Wir erarbeiten gemeinsam mit Ihrem Team, welche AI-Initiativen zuerst Sinn ergeben.',
+    text: 'Ein Tag, ein Raum, eine Roadmap: Wir erarbeiten gemeinsam mit Ihrem Team, welche AI-Initiativen zuerst Sinn ergeben. Sie verlassen den Workshop mit einer priorisierten Liste und einem realistischen Zeitplan, nicht mit einer Präsentation.',
+    ctaText: 'Workshop buchen',
+    kontakt: { name: 'PLATZHALTER_NAME_WORKSHOP', rolle: 'PLATZHALTER_ROLLE_WORKSHOP', bookingUrl: '' },
   },
   {
     titel: 'Vibe your Issue',
     Icon: IconSpark,
     bild: 'leistungen-vibe.jpg',
     alt: 'Saxophon in dynamischem Bühnenlicht, warme Farben',
-    text: 'Bringen Sie ein konkretes Problem mit, wir lösen es live mit AI-nativer Entwicklung — Sie sehen in Stunden, nicht Wochen, ob und wie es geht.',
+    text: 'Bringen Sie ein konkretes Problem mit, wir lösen es live mit AI-nativer Entwicklung — Sie sehen in Stunden, nicht Wochen, ob und wie es geht. Kein Angebot, keine Vorlaufzeit: wir setzen uns hin und probieren es.',
+    ctaText: 'Issue einreichen',
+    kontakt: { name: 'PLATZHALTER_NAME_VIBE', rolle: 'PLATZHALTER_ROLLE_VIBE', bookingUrl: '' },
   },
 ];
 const ablauf = [
@@ -47,6 +60,7 @@ const ablauf = [
   ['Weiterentwickeln', 'Ihre Lösung lernt dazu: neue Anforderungen, neue Modelle, neue Möglichkeiten, laufend integriert.'],
 ];
 const base = import.meta.env.BASE_URL;
+const terminZielFallback = BOOKING_URL || `${base}kontakt`;
 ---
 <BaseLayout title="Leistungen | SCOPERA." description="Beratung, die auch ohne unsere Plattform trägt: Assessments, Workshops und Formate, die Klarheit schaffen, bevor Sie investieren.">
   <section style="padding: 88px 0 64px; border-bottom: none;">
@@ -77,6 +91,12 @@ const base = import.meta.env.BASE_URL;
               <a.Icon />
               <h3>{a.titel}<span class="dot">.</span></h3>
               <p class="soft" style="font-size:14px;">{a.text}</p>
+              {!a.kontakt.name.startsWith('PLATZHALTER') && (
+                <p class="soft" style="font-size:12px; margin-top:2px;">Ansprechperson: {a.kontakt.name}{a.kontakt.rolle && !a.kontakt.rolle.startsWith('PLATZHALTER') ? `, ${a.kontakt.rolle}` : ''}</p>
+              )}
+              <p style="margin-top:16px;">
+                <a class="btn" href={a.kontakt.bookingUrl || terminZielFallback}>{a.ctaText} →</a>
+              </p>
             </div>
           </div>
         ))}

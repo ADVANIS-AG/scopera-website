@@ -13,12 +13,10 @@ const saeulen = [
 ---
 <div class="karten">
   {saeulen.map(s => (
-    <details class="karte" style="border-top: 4px solid var(--ink);">
-      <summary>
-        <s.Icon />
-        <h3>{s.titel}</h3>
-      </summary>
+    <div class="karte" style="border-top: 4px solid var(--ink);">
+      <s.Icon />
+      <h3>{s.titel}</h3>
       <ul>{s.punkte.map(p => <li>{p}</li>)}</ul>
-    </details>
+    </div>
   ))}
 </div>

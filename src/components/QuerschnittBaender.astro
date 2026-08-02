@@ -7,9 +7,9 @@ const baender = [
 ---
 <div style="display:grid; gap:12px; margin-top:14px;">
   {baender.map(b => (
-    <details style={`border:1px solid ${b.motor ? 'var(--accent)' : 'var(--line)'}; border-radius: var(--radius); background:${b.motor ? 'var(--accent)' : 'var(--band)'}; color:${b.motor ? 'var(--accent-ink)' : 'inherit'}; padding: 12px 16px;`}>
-      <summary style="font-size:12px; letter-spacing:.12em; text-transform:uppercase; cursor:pointer;">{b.label}</summary>
-      <p style="font-size:14px; opacity:.9; margin:10px 0 0;">{b.text}</p>
-    </details>
+    <div style={`display:flex; gap:14px; align-items:baseline; flex-wrap:wrap; padding:12px 16px; border:1px solid ${b.motor ? 'var(--accent)' : 'var(--line)'}; border-radius: var(--radius); background:${b.motor ? 'var(--accent)' : 'var(--band)'}; color:${b.motor ? 'var(--accent-ink)' : 'inherit'};`}>
+      <strong style="font-size:12px; letter-spacing:.12em; text-transform:uppercase; white-space:nowrap;">{b.label}</strong>
+      <span style="font-size:14px; opacity:.9;">{b.text}</span>
+    </div>
   ))}
 </div>

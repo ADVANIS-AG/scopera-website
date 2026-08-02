@@ -45,9 +45,6 @@ section { padding: 64px 0; border-bottom: 1px solid var(--line); }
 .karte { background: var(--card); border: 1px solid var(--line); border-radius: var(--radius); padding: 20px 18px; }
 .karte ul { list-style: none; margin: 12px 0 0; padding: 0; }
 .karte li { padding: 5px 0; border-top: 1px solid var(--line); font-size: 14px; color: var(--ink-soft); }
-.karte summary { cursor: pointer; }
-.karte summary::-webkit-details-marker { color: var(--accent); }
-.karte summary h3 { display: inline; }
 .tag { display: inline-block; font-size: 11px; letter-spacing: .1em; text-transform: uppercase; color: var(--accent); font-weight: 600; margin-bottom: 8px; }
 .ikon { width: 28px; height: 28px; color: var(--accent); margin-bottom: 12px; }
 /* Kennzahlen-Leiste (z.B. unter dem Home-Hero) */
