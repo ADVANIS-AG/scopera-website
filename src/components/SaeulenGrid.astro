@@ -3,12 +3,27 @@ import IconBaton from './icons/IconBaton.astro';
 import IconStaff from './icons/IconStaff.astro';
 import IconResonance from './icons/IconResonance.astro';
 import IconTogether from './icons/IconTogether.astro';
+import { defaultLang, type Lang } from '../i18n/ui';
+interface Props { lang?: Lang; }
+const { lang = defaultLang } = Astro.props;
 
 const saeulen = [
-  { titel: 'Strategy', Icon: IconBaton, punkte: ['AI Strategy', 'Assessments', 'Roadmaps', 'Governance by Design'] },
-  { titel: 'Enterprise AI Platform', Icon: IconStaff, punkte: ['AI Agents', 'Workflows', 'Knowledge', 'Integrationen und Analytics'] },
-  { titel: 'Managed AI', Icon: IconResonance, punkte: ['Monitoring', 'Operational Intelligence', 'Support', 'AI Lifecycle'] },
-  { titel: 'Enablement', Icon: IconTogether, punkte: ['Training', 'Change und Adoption', 'Customer Experience', 'Employee Experience'] },
+  {
+    titel: 'Strategy', Icon: IconBaton,
+    punkte: { de: ['AI Strategy', 'Assessments', 'Roadmaps', 'Governance by Design'], en: ['AI Strategy', 'Assessments', 'Roadmaps', 'Governance by Design'] },
+  },
+  {
+    titel: 'Enterprise AI Platform', Icon: IconStaff,
+    punkte: { de: ['AI Agents', 'Workflows', 'Knowledge', 'Integrationen und Analytics'], en: ['AI Agents', 'Workflows', 'Knowledge', 'Integrations and Analytics'] },
+  },
+  {
+    titel: 'Managed AI', Icon: IconResonance,
+    punkte: { de: ['Monitoring', 'Operational Intelligence', 'Support', 'AI Lifecycle'], en: ['Monitoring', 'Operational Intelligence', 'Support', 'AI Lifecycle'] },
+  },
+  {
+    titel: 'Enablement', Icon: IconTogether,
+    punkte: { de: ['Training', 'Change und Adoption', 'Customer Experience', 'Employee Experience'], en: ['Training', 'Change and Adoption', 'Customer Experience', 'Employee Experience'] },
+  },
 ];
 ---
 <div class="karten">
@@ -16,7 +31,7 @@ const saeulen = [
     <div class="karte" style="border-top: 4px solid var(--ink);">
       <s.Icon />
       <h3>{s.titel}</h3>
-      <ul>{s.punkte.map(p => <li>{p}</li>)}</ul>
+      <ul>{s.punkte[lang].map(p => <li>{p}</li>)}</ul>
     </div>
   ))}
 </div>

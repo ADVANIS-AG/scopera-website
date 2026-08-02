@@ -4,21 +4,59 @@ import IconLink from './icons/IconLink.astro';
 import IconZyklus from './icons/IconZyklus.astro';
 import IconFreiraum from './icons/IconFreiraum.astro';
 import IconLayer from './icons/IconLayer.astro';
+import { defaultLang, type Lang } from '../i18n/ui';
+interface Props { lang?: Lang; }
+const { lang = defaultLang } = Astro.props;
 
 const personas = [
-  { titel: 'Geschäftsführung', Icon: IconHorizon, text: 'Das Unternehmen zukunftsfähig machen, ohne das Tagesgeschäft zu riskieren.' },
-  { titel: 'Digitalisierung & IT', Icon: IconLink, text: 'Digitalisierung vorantreiben, ohne Lizenz-Wildwuchs oder Schatten-IT.' },
-  { titel: 'Marketing', Icon: IconZyklus, text: 'Marketing-Prozesse automatisieren, ohne eine neue Agentur zu brauchen.' },
-  { titel: 'Vertrieb & Service', Icon: IconFreiraum, text: 'Dem Team mehr Zeit für Kundenkontakt zurückgeben.' },
-  { titel: 'Provider & Dienstleister', Icon: IconLayer, text: 'Die eigene Kundschaft mit einer eigenen Plattform bedienen, White-Label.' },
+  {
+    Icon: IconHorizon,
+    titel: { de: 'Geschäftsführung', en: 'Executive Leadership' },
+    text: {
+      de: 'Das Unternehmen zukunftsfähig machen, ohne das Tagesgeschäft zu riskieren.',
+      en: 'Future-proof the company without risking day-to-day business.',
+    },
+  },
+  {
+    Icon: IconLink,
+    titel: { de: 'Digitalisierung & IT', en: 'Digital & IT' },
+    text: {
+      de: 'Digitalisierung vorantreiben, ohne Lizenz-Wildwuchs oder Schatten-IT.',
+      en: 'Drive digitalization without license sprawl or shadow IT.',
+    },
+  },
+  {
+    Icon: IconZyklus,
+    titel: { de: 'Marketing', en: 'Marketing' },
+    text: {
+      de: 'Marketing-Prozesse automatisieren, ohne eine neue Agentur zu brauchen.',
+      en: 'Automate marketing processes without needing a new agency.',
+    },
+  },
+  {
+    Icon: IconFreiraum,
+    titel: { de: 'Vertrieb & Service', en: 'Sales & Service' },
+    text: {
+      de: 'Dem Team mehr Zeit für Kundenkontakt zurückgeben.',
+      en: 'Give your team more time for customer contact.',
+    },
+  },
+  {
+    Icon: IconLayer,
+    titel: { de: 'Provider & Dienstleister', en: 'Providers & Resellers' },
+    text: {
+      de: 'Die eigene Kundschaft mit einer eigenen Plattform bedienen, White-Label.',
+      en: 'Serve your own customers with your own platform, white-label.',
+    },
+  },
 ];
 ---
 <div class="karten-5">
   {personas.map(p => (
     <div class="karte">
       <p.Icon />
-      <h3>{p.titel}</h3>
-      <p style="font-size:14px;" class="soft">{p.text}</p>
+      <h3>{p.titel[lang]}</h3>
+      <p style="font-size:14px;" class="soft">{p.text[lang]}</p>
     </div>
   ))}
 </div>

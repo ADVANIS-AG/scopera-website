@@ -1,9 +1,9 @@
 ---
-import BaseLayout from '../layouts/BaseLayout.astro';
-import CtaBanner from '../components/CtaBanner.astro';
-import HeroBild from '../components/HeroBild.astro';
-import NetzGrafik from '../components/NetzGrafik.astro';
-import MandantenGrafik from '../components/MandantenGrafik.astro';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import CtaBanner from '../../components/CtaBanner.astro';
+import HeroBild from '../../components/HeroBild.astro';
+import NetzGrafik from '../../components/NetzGrafik.astro';
+import MandantenGrafik from '../../components/MandantenGrafik.astro';
 const features = [
   ['AI Agents', 'Assistenten, die Aufgaben erledigen statt nur antworten: mit Zugriff auf Ihre Daten, Regeln und Systeme.'],
   ['Workflows', 'Automatisierte Abläufe über Systemgrenzen hinweg, mit Freigaben durch Menschen, wo es darauf ankommt.'],
@@ -19,6 +19,7 @@ const faelle = [
   { tag: 'Portale', titel: 'Self-Service für Kunden und Partner', text: 'Produktionsreife Blaupause für Kundenportale: vier Portale auf einer Plattform, von der öffentlichen Landing Page über Verwaltung und Partnerzugang bis zum Teilnehmerbereich mit Magic-Link-Login.' },
 ];
 const base = import.meta.env.BASE_URL;
+const lang = 'de';
 ---
 <BaseLayout title="Produkt | SCOPERA." description="Die Enterprise AI Platform von SCOPERA: AI Agents, Workflows, Knowledge, Integrationen. Und die Lösungen, die bereits darauf laufen.">
   <section style="padding: 88px 0 64px; border-bottom: none;">
@@ -50,7 +51,7 @@ const base = import.meta.env.BASE_URL;
       <h2>Ein Mandant kann eine Abteilung sein.</h2>
       <div style="margin: 8px 0 26px;"><MandantenGrafik /></div>
       <p class="soft" style="max-width: 46em;">Vertrieb, Marketing, HR: Jede Abteilung kann als eigener Mandant auf derselben Datenbasis arbeiten, sauber getrennt, ohne eigene Infrastruktur. Das gleiche Prinzip, mit dem Provider mehrere Kundinnen bedienen, funktioniert auch innerhalb eines einzigen Unternehmens.</p>
-      <p style="margin-top:16px;"><a href={`${base}partner`}>Mehr zum Provider-Modell →</a></p>
+      <p style="margin-top:16px;"><a href={`${base}de/partner`}>Mehr zum Provider-Modell →</a></p>
     </div>
   </section>
   <section style="border-bottom: none;">
@@ -77,5 +78,5 @@ const base = import.meta.env.BASE_URL;
       <p class="soft" style="margin-top:16px; font-size:13px;">Aus Diskretion nennen wir hier keine Kundennamen. Im Gespräch zeigen wir gerne mehr.</p>
     </div>
   </section>
-  <CtaBanner titel="Sehen statt glauben." text="Wir zeigen Ihnen die Plattform und ein Fallbeispiel aus Ihrer Branche. Live, nicht auf Folien." />
+  <CtaBanner lang={lang} titel="Sehen statt glauben." text="Wir zeigen Ihnen die Plattform und ein Fallbeispiel aus Ihrer Branche. Live, nicht auf Folien." />
 </BaseLayout>

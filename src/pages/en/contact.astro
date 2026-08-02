@@ -6,37 +6,37 @@ const formularAktiv = WORKER_ENDPOINT.length > 0;
 const emailAktiv = !KONTAKT_EMAIL.startsWith('PLATZHALTER');
 const base = import.meta.env.BASE_URL;
 ---
-<BaseLayout title="Kontakt | SCOPERA." description="Termin buchen oder Nachricht schreiben: Der erste Schritt zu Ihrer AI-Lösung dauert 30 Minuten.">
+<BaseLayout title="Contact | SCOPERA." description="Book a call or send a message: the first step toward your AI solution takes 30 minutes.">
   <section style="padding: 88px 0 64px; border-bottom: none;">
     <div class="wrap">
-      <p class="eyebrow">Kontakt</p>
-      <h1>Reden wir<span class="dot">.</span></h1>
-      <p class="lede">30 Minuten genügen für eine ehrliche Einschätzung: Was ist möglich, was kostet es ungefähr, wie schnell geht es. Unverbindlich.</p>
+      <p class="eyebrow">Contact</p>
+      <h1>Let's talk<span class="dot">.</span></h1>
+      <p class="lede">30 minutes is enough for an honest assessment: what's possible, roughly what it costs, how fast it can go. No obligation.</p>
     </div>
   </section>
-  <HeroBild src={`${base}bilder/hero-kontakt.jpg`} alt="Goldverzierte Opernlogen mit Gästen, warm beleuchtet" />
+  <HeroBild src={`${base}bilder/hero-kontakt.jpg`} alt="Gilded opera boxes with guests, warmly lit" />
   <section>
     <div class="wrap">
       <div class="karten-2">
         <div class="karte" style="padding: 26px;">
-          <h3>Termin buchen</h3>
-          <p style="font-size:14px;" class="soft">Der direkteste Weg: Wählen Sie einen Termin, der Ihnen passt.</p>
+          <h3>Book a call</h3>
+          <p style="font-size:14px;" class="soft">The most direct way: pick a time that works for you.</p>
           {BOOKING_URL
-            ? <a class="btn" href={BOOKING_URL}>Termin wählen</a>
-            : <p class="soft" style="font-size:14px;"><strong>Online-Buchung folgt in Kürze.</strong> Bis dahin erreichen Sie uns über das Formular{emailAktiv ? ' oder per E-Mail' : ''}.</p>}
+            ? <a class="btn" href={BOOKING_URL}>Choose a time</a>
+            : <p class="soft" style="font-size:14px;"><strong>Online booking coming soon.</strong> Until then, reach us via the form{emailAktiv ? ' or by email' : ''}.</p>}
         </div>
         <div class="karte" style="padding: 26px;">
-          <h3>Nachricht schreiben</h3>
+          <h3>Send a message</h3>
           {formularAktiv ? (
             <>
               {TURNSTILE_SITE_KEY && <script is:inline src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>}
               <form id="kontakt-form" style="display:grid; gap:12px;">
                 <label style="font-size:13px; font-weight:600;">Name<br /><input name="name" required style="width:100%; padding:10px; border:1px solid var(--line); background:var(--ground); color:var(--ink); font:inherit;" /></label>
-                <label style="font-size:13px; font-weight:600;">Firma<br /><input name="firma" style="width:100%; padding:10px; border:1px solid var(--line); background:var(--ground); color:var(--ink); font:inherit;" /></label>
-                <label style="font-size:13px; font-weight:600;">E-Mail<br /><input name="email" type="email" required style="width:100%; padding:10px; border:1px solid var(--line); background:var(--ground); color:var(--ink); font:inherit;" /></label>
-                <label style="font-size:13px; font-weight:600;">Nachricht<br /><textarea name="nachricht" rows="5" required style="width:100%; padding:10px; border:1px solid var(--line); background:var(--ground); color:var(--ink); font:inherit;"></textarea></label>
+                <label style="font-size:13px; font-weight:600;">Company<br /><input name="firma" style="width:100%; padding:10px; border:1px solid var(--line); background:var(--ground); color:var(--ink); font:inherit;" /></label>
+                <label style="font-size:13px; font-weight:600;">Email<br /><input name="email" type="email" required style="width:100%; padding:10px; border:1px solid var(--line); background:var(--ground); color:var(--ink); font:inherit;" /></label>
+                <label style="font-size:13px; font-weight:600;">Message<br /><textarea name="nachricht" rows="5" required style="width:100%; padding:10px; border:1px solid var(--line); background:var(--ground); color:var(--ink); font:inherit;"></textarea></label>
                 {TURNSTILE_SITE_KEY && <div class="cf-turnstile" data-sitekey={TURNSTILE_SITE_KEY}></div>}
-                <button class="btn" type="submit" style="border:none; cursor:pointer;">Senden</button>
+                <button class="btn" type="submit" style="border:none; cursor:pointer;">Send</button>
                 <p id="kontakt-status" class="soft" style="font-size:14px;" hidden></p>
               </form>
               <script is:inline define:vars={{ workerEndpoint: WORKER_ENDPOINT }}>
@@ -65,12 +65,12 @@ const base = import.meta.env.BASE_URL;
                     const result = await res.json().catch(() => ({}));
                     if (res.ok && result.ok) {
                       form.reset();
-                      status.textContent = 'Danke für Ihre Nachricht. Wir melden uns in Kürze.';
+                      status.textContent = "Thanks for your message. We'll be in touch shortly.";
                     } else {
-                      status.textContent = 'Das hat leider nicht geklappt. Bitte versuchen Sie es erneut oder schreiben Sie uns direkt.';
+                      status.textContent = "That didn't work, unfortunately. Please try again or write to us directly.";
                     }
                   } catch {
-                    status.textContent = 'Das hat leider nicht geklappt. Bitte versuchen Sie es erneut oder schreiben Sie uns direkt.';
+                    status.textContent = "That didn't work, unfortunately. Please try again or write to us directly.";
                   } finally {
                     button.removeAttribute('disabled');
                     status.hidden = false;
@@ -79,11 +79,11 @@ const base = import.meta.env.BASE_URL;
               </script>
             </>
           ) : (
-            <p class="soft" style="font-size:14px;"><strong>Das Formular wird gerade eingerichtet.</strong> {emailAktiv ? <>Schreiben Sie uns direkt: <a href={`mailto:${KONTAKT_EMAIL}`}>{KONTAKT_EMAIL}</a></> : 'Die Kontaktdaten folgen in Kürze.'}</p>
+            <p class="soft" style="font-size:14px;"><strong>The form is currently being set up.</strong> {emailAktiv ? <>Write to us directly: <a href={`mailto:${KONTAKT_EMAIL}`}>{KONTAKT_EMAIL}</a></> : 'Contact details coming soon.'}</p>
           )}
         </div>
       </div>
-      {emailAktiv && <p class="soft" style="margin-top:18px; font-size:14px;">Oder direkt per E-Mail: <a href={`mailto:${KONTAKT_EMAIL}`}>{KONTAKT_EMAIL}</a></p>}
+      {emailAktiv && <p class="soft" style="margin-top:18px; font-size:14px;">Or directly by email: <a href={`mailto:${KONTAKT_EMAIL}`}>{KONTAKT_EMAIL}</a></p>}
     </div>
   </section>
 </BaseLayout>

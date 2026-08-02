@@ -1,0 +1,120 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import SaeulenGrid from '../../components/SaeulenGrid.astro';
+import QuerschnittBaender from '../../components/QuerschnittBaender.astro';
+import CtaBanner from '../../components/CtaBanner.astro';
+import HeroBild from '../../components/HeroBild.astro';
+import KlangLinie from '../../components/KlangLinie.astro';
+import IconMagnify from '../../components/icons/IconMagnify.astro';
+import IconTuningFork from '../../components/icons/IconTuningFork.astro';
+import IconTogether from '../../components/icons/IconTogether.astro';
+import IconSpark from '../../components/icons/IconSpark.astro';
+import { BOOKING_URL } from '../../config';
+
+const angebote = [
+  {
+    titel: 'AI Potential Assessment',
+    Icon: IconMagnify,
+    bild: 'leistungen-assessment.jpg',
+    alt: 'Hands playing piano, an open sheet music book in the background',
+    text: "We look at your processes and show concretely where AI has the biggest leverage, with an effort-vs-impact estimate, not buzzwords. Within half a day you get a prioritized list of possible use cases with a rough effort estimate.",
+    ctaText: 'Request an assessment',
+    kontakt: { name: 'PLATZHALTER_NAME_ASSESSMENT', rolle: 'PLATZHALTER_ROLLE_ASSESSMENT', bookingUrl: '' },
+  },
+  {
+    titel: 'AI Readiness Assessment',
+    Icon: IconTuningFork,
+    bild: 'leistungen-readiness.jpg',
+    alt: 'A violin resting on weathered wooden floorboards',
+    text: 'Are your data, systems and processes ready for AI? We honestly check what already works today and what needs to be cleaned up first. The result is a clear action plan, not a philosophical debate.',
+    ctaText: 'Get your readiness checked',
+    kontakt: { name: 'PLATZHALTER_NAME_READINESS', rolle: 'PLATZHALTER_ROLLE_READINESS', bookingUrl: '' },
+  },
+  {
+    titel: 'AI Strategy Workshop',
+    Icon: IconTogether,
+    bild: 'leistungen-workshop.jpg',
+    alt: 'Violinists playing together as an ensemble, hands and instruments in interplay',
+    text: 'One day, one room, one roadmap: we work with your team to figure out which AI initiatives make sense first. You leave the workshop with a prioritized list and a realistic timeline, not a slide deck.',
+    ctaText: 'Book a workshop',
+    kontakt: { name: 'PLATZHALTER_NAME_WORKSHOP', rolle: 'PLATZHALTER_ROLLE_WORKSHOP', bookingUrl: '' },
+  },
+  {
+    titel: 'Vibe your Issue',
+    Icon: IconSpark,
+    bild: 'leistungen-vibe.jpg',
+    alt: 'Saxophone in dynamic stage lighting, warm colors',
+    text: "Bring us a concrete problem, we solve it live with AI-native development, you see in hours, not weeks, whether and how it works. No proposal, no lead time: we just sit down and try it.",
+    ctaText: 'Submit an issue',
+    kontakt: { name: 'PLATZHALTER_NAME_VIBE', rolle: 'PLATZHALTER_ROLLE_VIBE', bookingUrl: '' },
+  },
+];
+const ablauf = [
+  ['Understand', 'We listen, look at your processes and find the use case with the best ratio of effort to impact.'],
+  ['Build', 'AI-native development on our platform: a first working version in days, a production solution in weeks.'],
+  ['Operate', 'Monitoring, support and governance in live operation. Reliable and measurable.'],
+  ['Evolve', 'Your solution keeps learning: new requirements, new models, new possibilities, continuously integrated.'],
+];
+const base = import.meta.env.BASE_URL;
+const lang = 'en';
+const terminZielFallback = BOOKING_URL || `${base}en/contact`;
+---
+<BaseLayout title="Services | SCOPERA." description="Consulting that stands on its own without our platform: assessments, workshops and formats that create clarity before you invest.">
+  <section style="padding: 88px 0 64px; border-bottom: none;">
+    <div class="wrap">
+      <p class="eyebrow">Services</p>
+      <h1>Consulting that stands on its own without our platform<span class="dot">.</span></h1>
+      <p class="lede">Strategy, assessments, workshops: use our consulting alongside the platform, or book it independently. Both create clarity before you invest.</p>
+    </div>
+  </section>
+  <HeroBild src={`${base}bilder/hero-leistungen.jpg`} alt="Symphony orchestra playing before a full concert hall, view from the stage toward the audience" />
+  <section>
+    <div class="wrap">
+      <SaeulenGrid lang={lang} />
+      <QuerschnittBaender lang={lang} />
+    </div>
+  </section>
+  <section>
+    <div class="wrap">
+      <p class="eyebrow">Our consulting formats</p>
+      <h2>Four ways to get concrete.</h2>
+      <div class="split-reihen">
+        {angebote.map(a => (
+          <div class="split-reihe">
+            <div class="split-bild">
+              <img src={`${base}bilder/${a.bild}`} alt={a.alt} loading="lazy" />
+            </div>
+            <div class="split-text">
+              <a.Icon />
+              <h3>{a.titel}<span class="dot">.</span></h3>
+              <p class="soft" style="font-size:14px;">{a.text}</p>
+              {!a.kontakt.name.startsWith('PLATZHALTER') && (
+                <p class="soft" style="font-size:12px; margin-top:2px;">Contact: {a.kontakt.name}{a.kontakt.rolle && !a.kontakt.rolle.startsWith('PLATZHALTER') ? `, ${a.kontakt.rolle}` : ''}</p>
+              )}
+              <p style="margin-top:16px;">
+                <a class="btn" href={a.kontakt.bookingUrl || terminZielFallback}>{a.ctaText} →</a>
+              </p>
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+  <section>
+    <div class="wrap">
+      <p class="eyebrow">How we work</p>
+      <h2>Four steps. No waterfall.</h2>
+      <div style="margin: 8px 0 26px;"><KlangLinie /></div>
+      <div class="karten">
+        {ablauf.map(([t, x], i) => (
+          <div class="karte">
+            <p class="tag">Step {i + 1}</p>
+            <h3>{t}</h3>
+            <p style="font-size:14px;" class="soft">{x}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+  <CtaBanner lang={lang} titel="Which use case first?" text="Bring us a process that's bothering you. We'll tell you in 30 minutes whether and how fast AI can take it over." />
+</BaseLayout>

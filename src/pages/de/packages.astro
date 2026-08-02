@@ -1,9 +1,9 @@
 ---
-import BaseLayout from '../layouts/BaseLayout.astro';
-import PaketGrid from '../components/PaketGrid.astro';
-import CtaBanner from '../components/CtaBanner.astro';
-import HeroBild from '../components/HeroBild.astro';
-import PfadGrafik from '../components/PfadGrafik.astro';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import PaketGrid from '../../components/PaketGrid.astro';
+import CtaBanner from '../../components/CtaBanner.astro';
+import HeroBild from '../../components/HeroBild.astro';
+import PfadGrafik from '../../components/PfadGrafik.astro';
 const faq = [
   ['Wie schnell geht es wirklich?', 'Der erste funktionierende Stand steht in der Regel nach wenigen Tagen, die produktive Lösung nach zwei bis sechs Wochen, je nach Umfang und Integrationen. Sie sehen von Anfang an Zwischenstände statt Statusberichte.'],
   ['Bin ich an eine Lizenz gebunden?', 'Nein. Editionen wählen Sie nach Bedarf, monatlich anpassbar nach oben oder unten. Keine Jahresverträge, keine Lizenz-Zwangsjacke.'],
@@ -13,6 +13,7 @@ const faq = [
   ['Was ist Agentic Engineering?', 'Unsere Art zu arbeiten: Wir entwickeln mit AI, auf einer erprobten Plattform, in kurzen Zyklen mit täglich sichtbarem Fortschritt. Sie müssen den Begriff nicht kennen. Sie merken ihn am Tempo.'],
 ];
 const base = import.meta.env.BASE_URL;
+const lang = 'de';
 ---
 <BaseLayout title="Pakete | SCOPERA." description="Vier Pakete von Starter bis White-Label. Einsteigen, wachsen, skalieren: immer mit klarem Rahmen und ohne Überraschungen.">
   <section style="padding: 88px 0 64px; border-bottom: none;">
@@ -26,8 +27,8 @@ const base = import.meta.env.BASE_URL;
   <section>
     <div class="wrap">
       <div style="margin: 0 0 26px;"><PfadGrafik /></div>
-      <PaketGrid />
-      <p style="margin-top:18px;"><a href={`${base}partner`}>Mehr zum Provider-Modell →</a></p>
+      <PaketGrid lang={lang} />
+      <p style="margin-top:18px;"><a href={`${base}de/partner`}>Mehr zum Provider-Modell →</a></p>
     </div>
   </section>
   <section>
@@ -42,5 +43,14 @@ const base = import.meta.env.BASE_URL;
       ))}
     </div>
   </section>
-  <CtaBanner titel="Welches Paket passt?" text="Sagen Sie uns, was Sie vorhaben. Wir sagen Ihnen ehrlich, welches Paket es braucht und welches nicht." />
+  <CtaBanner lang={lang} titel="Welches Paket passt?" text="Sagen Sie uns, was Sie vorhaben. Wir sagen Ihnen ehrlich, welches Paket es braucht und welches nicht." />
+  <script type="application/ld+json" is:inline set:html={JSON.stringify({
+    '@context': 'https://schema.org',
+    '@type': 'FAQPage',
+    mainEntity: faq.map(([f, a]) => ({
+      '@type': 'Question',
+      name: f,
+      acceptedAnswer: { '@type': 'Answer', text: a },
+    })),
+  })} />
 </BaseLayout>

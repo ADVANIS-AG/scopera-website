@@ -4,5 +4,19 @@ import sitemap from '@astrojs/sitemap';
 export default defineConfig({
   site: 'https://scopera.ai',
   base: '/kurzerhand.ch/',
-  integrations: [sitemap()],
+  integrations: [
+    sitemap({
+      i18n: {
+        defaultLocale: 'de',
+        locales: { de: 'de', en: 'en' },
+      },
+    }),
+  ],
+  i18n: {
+    defaultLocale: 'de',
+    locales: ['de', 'en'],
+    routing: {
+      prefixDefaultLocale: true,
+    },
+  },
 });

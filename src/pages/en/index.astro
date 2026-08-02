@@ -1,0 +1,103 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import SaeulenGrid from '../../components/SaeulenGrid.astro';
+import PersonaGrid from '../../components/PersonaGrid.astro';
+import QuerschnittBaender from '../../components/QuerschnittBaender.astro';
+import CtaBanner from '../../components/CtaBanner.astro';
+import HeroBild from '../../components/HeroBild.astro';
+import KlangLinie from '../../components/KlangLinie.astro';
+import IconFermate from '../../components/icons/IconFermate.astro';
+import IconAccelerando from '../../components/icons/IconAccelerando.astro';
+import IconBalance from '../../components/icons/IconBalance.astro';
+const base = import.meta.env.BASE_URL;
+const lang = 'en';
+---
+<BaseLayout title="SCOPERA. | AI solutions that just work" description="AI solutions for companies in Switzerland and DACH: from strategy to day-to-day operations. Delivered in weeks, not months. SCOPERA — powered by ADVANIS.">
+  <section style="padding: 96px 0 72px; border-bottom: none;">
+    <div class="wrap">
+      <p class="eyebrow">AI for Swiss and DACH companies</p>
+      <h1>AI solutions that just work<span class="dot">.</span></h1>
+      <p class="lede">We build intelligent applications for companies in Switzerland and DACH who don't have a large IT department and don't want months-long IT projects. Custom-built in weeks, or ready to use immediately as a proven solution.</p>
+      <p style="display:flex; gap:12px; flex-wrap:wrap; margin-top:26px;">
+        <a class="btn" href={`${base}en/contact`}>Book a call</a>
+        <a class="btn-ghost" href={`${base}en/product`}>See what we've built</a>
+      </p>
+      <div class="stat-bar">
+        <div class="stat"><strong>28</strong><span>Years of experience</span></div>
+        <div class="stat"><strong>300+</strong><span>Companies guided</span></div>
+        <div class="stat"><strong>ADVANIS</strong><span>Swiss consulting firm</span></div>
+        <div class="stat"><strong>CH</strong><span>Hosted in Switzerland, worldwide on request</span></div>
+      </div>
+    </div>
+  </section>
+
+  <HeroBild src={`${base}bilder/hero-start.jpg`} alt="Gilded dome ceiling of a historic opera house with chandelier and tiers of boxes" />
+
+  <section>
+    <div class="wrap">
+      <p class="eyebrow">Who it's for</p>
+      <h2>Who benefits most in your company.</h2>
+      <PersonaGrid lang={lang} />
+    </div>
+  </section>
+
+  <section>
+    <div class="wrap">
+      <p class="eyebrow">Why SCOPERA</p>
+      <h2>Reliable. Fast. Cost-effective. You no longer have to choose.</h2>
+      <div class="karten-3">
+        <div class="karte">
+          <IconFermate />
+          <h3>Reliable<span class="dot">.</span></h3>
+          <p style="font-size:14px;" class="soft">Swiss hosting, FADP/GDPR compliant, traceable model choice. And a partner who doesn't disappear after go-live.</p>
+        </div>
+        <div class="karte">
+          <IconAccelerando />
+          <h3>Fast<span class="dot">.</span></h3>
+          <p style="font-size:14px;" class="soft">We develop AI-native on a proven platform. What others plan for months, we have running in weeks.</p>
+        </div>
+        <div class="karte">
+          <IconBalance />
+          <h3>Cost-effective<span class="dot">.</span></h3>
+          <p style="font-size:14px;" class="soft">Less effort per solution means lower cost. You pay for results, not concept papers.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <div class="wrap">
+      <p class="eyebrow">What we do</p>
+      <h2>From strategy to continuously learning AI operations.</h2>
+      <SaeulenGrid lang={lang} />
+      <QuerschnittBaender lang={lang} />
+      <p style="margin-top:18px;"><a href={`${base}en/services`}>All services in detail →</a></p>
+    </div>
+  </section>
+
+  <section>
+    <div class="wrap">
+      <p class="eyebrow">Proof, not promises</p>
+      <h2>Already running. At companies like yours.</h2>
+      <div class="karten-2">
+        <div class="karte">
+          <span class="tag">Case study</span>
+          <h3>Security technology: replaced D365 project module</h3>
+          <p style="font-size:14px;" class="soft">A Swiss security technology company now manages projects, quotes and service assignments in a custom-built app. Built in days, integrated with Dynamics 365.</p>
+        </div>
+        <div class="karte">
+          <span class="tag">Platform</span>
+          <h3>Enterprise AI Platform</h3>
+          <p style="font-size:14px;" class="soft">Multi-tenant, AI gateway, white-label capable, FADP/GDPR-ready. The foundation every one of our solutions is built on.</p>
+        </div>
+      </div>
+      <p style="margin-top:18px;"><a href={`${base}en/product`}>To the product and all solutions →</a></p>
+    </div>
+  </section>
+
+  <section style="border-bottom: none; padding: 56px 0 0;">
+    <div class="wrap"><KlangLinie /></div>
+  </section>
+
+  <CtaBanner lang={lang} titel="Let's talk about your first use case." text="30 minutes is enough to find out where AI has the fastest impact in your company. No obligation, concrete, at eye level." />
+</BaseLayout>

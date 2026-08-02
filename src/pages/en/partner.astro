@@ -1,0 +1,59 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import CtaBanner from '../../components/CtaBanner.astro';
+import HeroBild from '../../components/HeroBild.astro';
+import KaskadeGrafik from '../../components/KaskadeGrafik.astro';
+import IconLayer from '../../components/icons/IconLayer.astro';
+import IconPartition from '../../components/icons/IconPartition.astro';
+import IconTicket from '../../components/icons/IconTicket.astro';
+
+const nutzen = [
+  { titel: 'White-Label', Icon: IconLayer, text: 'Your own brand, your own domain, your own pricing. Your customers see you, not us.' },
+  { titel: 'Tenant separation', Icon: IconPartition, text: 'Shared platform, cleanly separated tenant data. Encrypted, indexed, with backups on request.' },
+  { titel: 'One license', Icon: IconTicket, text: 'One license for ADVANIS, you as the provider and your tenants together. Billed monthly, no surprises.' },
+];
+const base = import.meta.env.BASE_URL;
+const lang = 'en';
+---
+<BaseLayout title="Partner | SCOPERA." description="Become a provider on the SCOPERA platform: your own brand, your own customers, our technology in the background.">
+  <section style="padding: 88px 0 64px; border-bottom: none;">
+    <div class="wrap">
+      <p class="eyebrow">For Providers &amp; Resellers</p>
+      <h1>Your brand. Our platform<span class="dot">.</span></h1>
+      <p class="lede">You have the customers, we deliver the technology: an Enterprise AI Platform in the background, white-label under your name up front.</p>
+    </div>
+  </section>
+  <HeroBild src={`${base}bilder/hero-partner.jpg`} alt="Gilded auditorium of an opera house with several tiers of boxes stacked above one another" />
+  <section>
+    <div class="wrap">
+      <p class="eyebrow">The model</p>
+      <h2>One platform, used many times over.</h2>
+      <div style="margin: 8px 0 26px;"><KaskadeGrafik /></div>
+      <p class="soft" style="max-width: 46em;">ADVANIS operates SCOPERA. You use the platform as a provider for your own customers: with your own brand, your own domain and your own pricing model. Your tenants see you, not us.</p>
+    </div>
+  </section>
+  <section>
+    <div class="wrap">
+      <p class="eyebrow">Concretely</p>
+      <h2>What you get as a provider.</h2>
+      <div class="karten-3">
+        {nutzen.map(n => (
+          <div class="karte">
+            <n.Icon />
+            <h3>{n.titel}</h3>
+            <p style="font-size:14px;" class="soft">{n.text}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+  <section style="border-bottom: none;">
+    <div class="wrap">
+      <blockquote class="pull-quote">
+        <p>You sell the solution. We make sure it keeps running, today and in a year.</p>
+        <cite>ADVANIS, AI Trusted Advisor</cite>
+      </blockquote>
+    </div>
+  </section>
+  <CtaBanner lang={lang} titel="Become a provider." text="Tell us about your customers. We'll show you what white-label could look like for you, concretely." />
+</BaseLayout>

@@ -1,0 +1,20 @@
+---
+const base = import.meta.env.BASE_URL;
+---
+<!doctype html>
+<html lang="de">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>SCOPERA.</title>
+  <meta name="robots" content="noindex" />
+  <script is:inline define:vars={{ base }}>
+    var ziel = (navigator.language || '').toLowerCase().startsWith('en') ? 'en' : 'de';
+    location.replace(base + ziel + '/');
+  </script>
+  <meta http-equiv="refresh" content={`0; url=${base}de/`} />
+</head>
+<body>
+  <p><a href={`${base}de/`}>Deutsch</a> · <a href={`${base}en/`}>English</a></p>
+</body>
+</html>

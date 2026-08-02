@@ -1,17 +1,46 @@
 ---
+import { defaultLang, type Lang } from '../i18n/ui';
+interface Props { lang?: Lang; }
+const { lang = defaultLang } = Astro.props;
+
 const pakete = [
-  { name: 'Starter', text: 'Der schnelle Einstieg: ein klar umrissener Use Case, fixer Rahmen, spürbares Ergebnis in Wochen.' },
-  { name: 'Professional', text: 'Mehrere Module, SSO und API-Zugang. Für Unternehmen, die nach dem ersten Erfolg ausbauen.' },
-  { name: 'Enterprise', text: 'Unbegrenzt skalierbar, mit Managed AI, Governance-Betrieb und garantierten Reaktionszeiten.' },
-  { name: 'White-Label', text: 'Eigene Marke, eigene Domain, Reseller-Modell. Für Partner, die auf unserer Plattform aufbauen.' },
+  {
+    name: 'Starter',
+    text: {
+      de: 'Der schnelle Einstieg: ein klar umrissener Use Case, fixer Rahmen, spürbares Ergebnis in Wochen.',
+      en: 'The quick start: one clearly scoped use case, a fixed frame, a result you can feel in weeks.',
+    },
+  },
+  {
+    name: 'Professional',
+    text: {
+      de: 'Mehrere Module, SSO und API-Zugang. Für Unternehmen, die nach dem ersten Erfolg ausbauen.',
+      en: 'Multiple modules, SSO and API access. For companies expanding after their first success.',
+    },
+  },
+  {
+    name: 'Enterprise',
+    text: {
+      de: 'Unbegrenzt skalierbar, mit Managed AI, Governance-Betrieb und garantierten Reaktionszeiten.',
+      en: 'Unlimited scale, with Managed AI, governed operations and guaranteed response times.',
+    },
+  },
+  {
+    name: 'White-Label',
+    text: {
+      de: 'Eigene Marke, eigene Domain, Reseller-Modell. Für Partner, die auf unserer Plattform aufbauen.',
+      en: 'Your own brand, your own domain, reseller model. For partners building on our platform.',
+    },
+  },
 ];
+const preisAufAnfrage = { de: 'Preis auf Anfrage', en: 'Price on request' };
 ---
 <div class="karten">
   {pakete.map(p => (
     <div class="karte">
       <h3>{p.name}</h3>
-      <p style="font-size:14px;" class="soft">{p.text}</p>
-      <p class="tag" style="margin-top:8px;">Preis auf Anfrage</p>
+      <p style="font-size:14px;" class="soft">{p.text[lang]}</p>
+      <p class="tag" style="margin-top:8px;">{preisAufAnfrage[lang]}</p>
     </div>
   ))}
 </div>

@@ -1,0 +1,82 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import CtaBanner from '../../components/CtaBanner.astro';
+import HeroBild from '../../components/HeroBild.astro';
+import NetzGrafik from '../../components/NetzGrafik.astro';
+import MandantenGrafik from '../../components/MandantenGrafik.astro';
+const features = [
+  ['AI Agents', 'Assistants that get tasks done instead of just answering: with access to your data, rules and systems.'],
+  ['Workflows', 'Automated processes across system boundaries, with human approvals where they matter.'],
+  ['Knowledge', 'Your company knowledge, searchable and usable: documents, systems and experience in one place.'],
+  ['Integrations', 'Microsoft 365, Dynamics 365, SAP, Salesforce and more: we connect to what you already have.'],
+  ['Analytics', 'Usage, quality and cost of every AI function, transparent in a dashboard.'],
+  ['Governance', 'Roles, department separation, field-level encryption, FADP/GDPR tooling. Automated tests, backups and an audit log included.'],
+];
+const faelle = [
+  { tag: 'Security technology', titel: 'Project management instead of a D365 module', text: 'A Swiss security technology company replaced its Dynamics 365 project module: quotes with costing, project structures, service dispatch with mobile reports and customer signatures, full D365 integration. From concept to tested application in days.' },
+  { tag: 'Construction', titel: 'Industry platform with a licensing model', text: 'Multi-tenant platform for the construction industry: onboarding wizard, role model for everyone involved from general contractor to supplier, FADP/GDPR module and white-label capability for partners.' },
+  { tag: 'Human Resources', titel: 'HR platform with an AI assistant', text: 'Internal HR platform with Microsoft 365 integration, analytics dashboards and an AI assistant with governance rules: training, certificates and processes in one place.' },
+  { tag: 'Portals', titel: 'Self-service for customers and partners', text: 'Production-ready blueprint for customer portals: four portals on one platform, from the public landing page through administration and partner access to the participant area with magic-link login.' },
+];
+const base = import.meta.env.BASE_URL;
+const lang = 'en';
+---
+<BaseLayout title="Product | SCOPERA." description="SCOPERA's Enterprise AI Platform: AI Agents, Workflows, Knowledge, Integrations. And the solutions already running on it.">
+  <section style="padding: 88px 0 64px; border-bottom: none;">
+    <div class="wrap">
+      <p class="eyebrow">Product</p>
+      <h1>We never start from zero<span class="dot">.</span></h1>
+      <p class="lede">Every SCOPERA solution is built on our Enterprise AI Platform: proven, secure, white-label capable. That's why we're fast without being reckless.</p>
+    </div>
+  </section>
+  <HeroBild src={`${base}bilder/hero-plattform.jpg`} alt="Illuminated music stand with a score, musicians in the dark in the background" />
+  <section>
+    <div class="wrap">
+      <p class="eyebrow">What the platform brings</p>
+      <h2>The foundation of every solution.</h2>
+      <div style="margin: 8px 0 26px;"><NetzGrafik /></div>
+      <div class="karten-3">
+        {features.map(([t, x]) => (
+          <div class="karte">
+            <h3>{t}</h3>
+            <p style="font-size:14px;" class="soft">{x}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+  <section>
+    <div class="wrap">
+      <p class="eyebrow">Multi-tenancy</p>
+      <h2>A tenant can be a department.</h2>
+      <div style="margin: 8px 0 26px;"><MandantenGrafik /></div>
+      <p class="soft" style="max-width: 46em;">Sales, marketing, HR: any department can work as its own tenant on the same data basis, cleanly separated, without its own infrastructure. The same principle that lets providers serve multiple customers also works inside a single company.</p>
+      <p style="margin-top:16px;"><a href={`${base}en/partner`}>More on the provider model →</a></p>
+    </div>
+  </section>
+  <section style="border-bottom: none;">
+    <div class="wrap">
+      <blockquote class="pull-quote">
+        <p>AI gets powerful when it fits into existing systems instead of building new silos.</p>
+        <cite>Joel, AI Architect at SCOPERA</cite>
+      </blockquote>
+    </div>
+  </section>
+  <section>
+    <div class="wrap">
+      <p class="eyebrow">Case studies</p>
+      <h2>Already running.</h2>
+      <div class="karten-2">
+        {faelle.map(f => (
+          <div class="karte">
+            <span class="tag">{f.tag}</span>
+            <h3>{f.titel}</h3>
+            <p style="font-size:14px;" class="soft">{f.text}</p>
+          </div>
+        ))}
+      </div>
+      <p class="soft" style="margin-top:16px; font-size:13px;">Out of discretion, we don't name clients here. We're happy to show you more in a conversation.</p>
+    </div>
+  </section>
+  <CtaBanner lang={lang} titel="Seeing is believing." text="We'll show you the platform and a case study from your industry. Live, not on slides." />
+</BaseLayout>

@@ -1,0 +1,21 @@
+# SCOPERA
+
+> SCOPERA is the Enterprise AI Platform by ADVANIS AG for companies in Switzerland and DACH: AI agents, workflows, knowledge and governance on one platform, plus consulting to design, build and operate custom AI applications quickly.
+
+SCOPERA is powered by ADVANIS AG, a Swiss consulting firm with over 28 years of experience and more than 300 companies guided. SCOPERA stands for Swiss Cognitive Operation Platform, Engineering, Robotics & Agentic. The site is available in German (default) and English; every URL below has a German equivalent at the same path under /de/ instead of /en/.
+
+## Product
+
+- [Product](https://scopera.ai/kurzerhand.ch/en/product/): The Enterprise AI Platform — AI Agents, Workflows, Knowledge, Integrations, Analytics, Governance — and case studies of solutions running on it.
+- [Packages](https://scopera.ai/kurzerhand.ch/en/packages/): Starter, Professional, Enterprise and White-Label packages, plus frequently asked questions about pricing, data location and ownership.
+- [Partner](https://scopera.ai/kurzerhand.ch/en/partner/): How providers and resellers use SCOPERA to serve their own customers under their own brand (white-label, multi-tenant).
+
+## Services
+
+- [Services](https://scopera.ai/kurzerhand.ch/en/services/): Consulting formats that stand on their own without the platform — AI Potential Assessment, AI Readiness Assessment, AI Strategy Workshop, Vibe your Issue.
+
+## Company
+
+- [About](https://scopera.ai/kurzerhand.ch/en/about/): Company principles and the team behind SCOPERA.
+- [Contact](https://scopera.ai/kurzerhand.ch/en/contact/): Book a call or send a message.
+- [Insights](https://scopera.ai/kurzerhand.ch/en/insights/): Articles on AI-native development and what actually works for Swiss companies.

@@ -1,0 +1,22 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { ADRESSE } from '../../config';
+---
+<BaseLayout title="Privacy | SCOPERA." description="Privacy policy of SCOPERA, a brand of ADVANIS AG.">
+  <section style="padding: 88px 0;">
+    <div class="wrap" style="max-width: 720px;">
+      <h1 style="font-size: clamp(30px, 5vw, 44px);">Privacy Policy</h1>
+      <p class="soft">Last updated: July 2026. This policy is based on the Swiss Federal Act on Data Protection (FADP) and, where applicable, the GDPR.</p>
+      <h3 style="margin-top:28px;">Data controller</h3>
+      <p>ADVANIS AG, {ADRESSE}. Reachable via the contact page.</p>
+      <h3 style="margin-top:28px;">What data we process</h3>
+      <p><strong>Server logs:</strong> When you visit this website, our hosting provider processes technically necessary data (IP address, timestamp, page accessed) for delivery and security. This data is not linked with other sources.</p>
+      <p><strong>Contact form:</strong> If you write to us via the form, the data you enter (name, company, email, message) is transmitted to us via our own infrastructure hosted on Cloudflare. We check whether your company or contact is already recorded in our CRM to avoid duplicate entries; your inquiry is then stored there as a contact request and used exclusively to process it. Cloudflare Turnstile is also used to protect against spam, checking technical characteristics of your device without personally identifying you.</p>
+      <p><strong>Analytics:</strong> We use the web analytics service Plausible to anonymously evaluate visitor traffic (pages viewed, time on site, origin). Plausible doesn't set cookies, doesn't process personal data and doesn't build user profiles, so no consent is required.</p>
+      <p><strong>Visit and interest data (own infrastructure):</strong> In addition, we record which pages you visit and for how long, via our own infrastructure, also hosted on Cloudflare. This uses a random, purely session-bound identifier in your browser's session storage (sessionStorage), not a persistent cookie; the identifier disappears automatically when you close the tab. This data is processed together with your technically transmitted IP address for a short period to estimate visitors' business interest in our services; it is not shared with advertising networks.</p>
+      <p><strong>No advertising services:</strong> This website does not use advertising or remarketing services and no personal tracking.</p>
+      <h3 style="margin-top:28px;">Your rights</h3>
+      <p>You have the right to access, correct and delete your personal data. Please contact the data controller to exercise these rights.</p>
+    </div>
+  </section>
+</BaseLayout>

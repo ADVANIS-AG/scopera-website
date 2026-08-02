@@ -2,12 +2,12 @@
 import BaseLayout from '../../../layouts/BaseLayout.astro';
 import { getCollection, render } from 'astro:content';
 export async function getStaticPaths() {
-  const artikel = await getCollection('insights');
+  const artikel = await getCollection('insightsEn');
   return artikel.map(a => ({ params: { slug: a.id.replace(/\.md$/, '') }, props: { a } }));
 }
 const { a } = Astro.props;
 const { Content } = await render(a);
-const datumFmt = new Intl.DateTimeFormat('de-CH', { day: 'numeric', month: 'long', year: 'numeric' });
+const datumFmt = new Intl.DateTimeFormat('en-GB', { day: 'numeric', month: 'long', year: 'numeric' });
 const base = import.meta.env.BASE_URL;
 ---
 <BaseLayout title={`${a.data.title} | SCOPERA.`} description={a.data.description}>
@@ -20,7 +20,7 @@ const base = import.meta.env.BASE_URL;
   <section style="border-bottom: none;">
     <div class="wrap" style="max-width: 760px; font-size: 17px;">
       <Content />
-      <p style="margin-top: 40px;"><a href={`${base}de/insights`}>← Alle Insights</a></p>
+      <p style="margin-top: 40px;"><a href={`${base}en/insights`}>← All Insights</a></p>
     </div>
   </section>
   <script type="application/ld+json" is:inline set:html={JSON.stringify({
@@ -29,7 +29,7 @@ const base = import.meta.env.BASE_URL;
     headline: a.data.title,
     description: a.data.description,
     datePublished: a.data.pubDate.toISOString(),
-    inLanguage: 'de-CH',
+    inLanguage: 'en',
     author: { '@type': 'Organization', name: 'SCOPERA' },
     publisher: { '@type': 'Organization', name: 'SCOPERA' },
   })} />

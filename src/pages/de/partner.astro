@@ -1,11 +1,11 @@
 ---
-import BaseLayout from '../layouts/BaseLayout.astro';
-import CtaBanner from '../components/CtaBanner.astro';
-import HeroBild from '../components/HeroBild.astro';
-import KaskadeGrafik from '../components/KaskadeGrafik.astro';
-import IconLayer from '../components/icons/IconLayer.astro';
-import IconPartition from '../components/icons/IconPartition.astro';
-import IconTicket from '../components/icons/IconTicket.astro';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import CtaBanner from '../../components/CtaBanner.astro';
+import HeroBild from '../../components/HeroBild.astro';
+import KaskadeGrafik from '../../components/KaskadeGrafik.astro';
+import IconLayer from '../../components/icons/IconLayer.astro';
+import IconPartition from '../../components/icons/IconPartition.astro';
+import IconTicket from '../../components/icons/IconTicket.astro';
 
 const nutzen = [
   { titel: 'White-Label', Icon: IconLayer, text: 'Eigene Marke, eigene Domain, eigenes Pricing. Ihre Kundschaft sieht Sie, nicht uns.' },
@@ -13,6 +13,7 @@ const nutzen = [
   { titel: 'Eine Lizenz', Icon: IconTicket, text: 'Eine Lizenz für ADVANIS, Sie als Provider und Ihre Mandanten gemeinsam. Monatlich abgerechnet, ohne Überraschungen.' },
 ];
 const base = import.meta.env.BASE_URL;
+const lang = 'de';
 ---
 <BaseLayout title="Partner | SCOPERA." description="Werden Sie Provider auf der SCOPERA-Plattform: eigene Marke, eigene Kundschaft, unsere Technologie im Hintergrund.">
   <section style="padding: 88px 0 64px; border-bottom: none;">
@@ -54,5 +55,5 @@ const base = import.meta.env.BASE_URL;
       </blockquote>
     </div>
   </section>
-  <CtaBanner titel="Werden Sie Provider." text="Erzählen Sie uns von Ihrer Kundschaft. Wir zeigen Ihnen, wie White-Label für Sie konkret aussehen könnte." />
+  <CtaBanner lang={lang} titel="Werden Sie Provider." text="Erzählen Sie uns von Ihrer Kundschaft. Wir zeigen Ihnen, wie White-Label für Sie konkret aussehen könnte." />
 </BaseLayout>

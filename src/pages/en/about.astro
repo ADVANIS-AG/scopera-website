@@ -1,0 +1,65 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import CtaBanner from '../../components/CtaBanner.astro';
+import HeroBild from '../../components/HeroBild.astro';
+import KlangLinie from '../../components/KlangLinie.astro';
+const team = [
+  { name: 'Thomas', rolle: 'AI Value Engineer', statement: "I believe in technology you don't need to explain, because it simply works." },
+  { name: 'Sven', rolle: 'AI Strategist', statement: 'The best architecture is the one that still has answers tomorrow to questions nobody is asking today.' },
+  { name: 'Joel', rolle: 'AI Architect', statement: 'AI gets powerful when it fits into existing systems instead of building new silos.' },
+  { name: 'Alex', rolle: 'AI Tech Consultant', statement: "You can tell a good solution by the fact that users don't want to go back after a week." },
+  { name: 'Sarah', rolle: 'AI Consultant', statement: 'My job is translation: business problems become requirements, technology becomes value.' },
+];
+const dna = [
+  ['We simplify', 'No unnecessary complexity.'],
+  ['We deliver', 'No endless concepts.'],
+  ['We take responsibility', 'Not a project. A partnership.'],
+  ['We develop with AI', 'Not despite AI.'],
+  ['We think entrepreneurially', 'Not technically.'],
+  ['We build trust', 'Always.'],
+];
+const base = import.meta.env.BASE_URL;
+const lang = 'en';
+---
+<BaseLayout title="About | SCOPERA." description="SCOPERA is the AI brand of ADVANIS AG: a team of AI architects and consultants who guide companies from strategy to operations.">
+  <section style="padding: 88px 0 64px; border-bottom: none;">
+    <div class="wrap">
+      <p class="eyebrow">About</p>
+      <h1>New as a brand. Not new to the business<span class="dot">.</span></h1>
+      <p class="lede">SCOPERA stands for Swiss Cognitive Operation Platform, Engineering, Robotics & Agentic, powered by ADVANIS AG, a Swiss consulting firm with over 28 years of experience and more than 300 companies guided. We built SCOPERA because AI makes a new way of working possible: faster, more direct, with products instead of projects.</p>
+    </div>
+  </section>
+  <HeroBild src={`${base}bilder/hero-ueber-uns.jpg`} alt="Two violinists in the orchestra playing together, the conductor in the background" />
+  <section>
+    <div class="wrap">
+      <p class="eyebrow">What we stand by</p>
+      <h2>Six sentences. No fine print.</h2>
+      {dna.map(([satz, erg]) => (
+        <div style="display:flex; gap:16px; align-items:baseline; flex-wrap:wrap; padding: 14px 0; border-top: 1px solid var(--line);">
+          <strong style="font-size: clamp(18px, 2.4vw, 24px); letter-spacing: -.02em;">{satz}<span class="dot">.</span></strong>
+          <span class="soft">{erg}</span>
+        </div>
+      ))}
+    </div>
+  </section>
+  <section>
+    <div class="wrap">
+      <p class="eyebrow">Team</p>
+      <h2>People who deliver.</h2>
+      <div class="karten-3">
+        {team.map(t => (
+          <div class="karte">
+            <div aria-hidden="true" style="width:52px; height:52px; border:1px solid var(--line); background: var(--band); display:flex; align-items:center; justify-content:center; font-weight:800; font-size:20px; margin-bottom:12px;">{t.name.charAt(0)}</div>
+            <h3>{t.name}</h3>
+            <p class="tag">{t.rolle}</p>
+            <p style="font-size:14px;" class="soft">«{t.statement}»</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+  <section style="border-bottom: none; padding: 56px 0 0;">
+    <div class="wrap"><KlangLinie /></div>
+  </section>
+  <CtaBanner lang={lang} titel="Get to know us." text="The fastest way to know if it's a fit is a conversation. We're looking forward to it." />
+</BaseLayout>

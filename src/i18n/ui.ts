@@ -1,0 +1,44 @@
+export const ui = {
+  de: {
+    'nav.services': 'Leistungen',
+    'nav.product': 'Produkt',
+    'nav.packages': 'Pakete',
+    'nav.partner': 'Partner',
+    'nav.insights': 'Insights',
+    'nav.about': 'Über uns',
+    'nav.contact': 'Kontakt',
+    'nav.imprint': 'Impressum',
+    'nav.privacy': 'Datenschutz',
+    'nav.book': 'Termin buchen',
+    'nav.menu': 'Menü',
+    'cta.write': 'Oder schreiben Sie uns',
+    'theme.toggle': 'Helles/dunkles Erscheinungsbild umschalten',
+    'lang.toggle': 'English version',
+    'footer.absender': 'powered by',
+    'footer.claim': 'Schweizer Qualität, AI-native Umsetzung.',
+    'org.description': 'SCOPERA ist die Enterprise-AI-Plattform der ADVANIS AG für Unternehmen in der Schweiz und DACH.',
+  },
+  en: {
+    'nav.services': 'Services',
+    'nav.product': 'Product',
+    'nav.packages': 'Packages',
+    'nav.partner': 'Partner',
+    'nav.insights': 'Insights',
+    'nav.about': 'About',
+    'nav.contact': 'Contact',
+    'nav.imprint': 'Imprint',
+    'nav.privacy': 'Privacy',
+    'nav.book': 'Book a call',
+    'nav.menu': 'Menu',
+    'cta.write': 'Or send us a message',
+    'theme.toggle': 'Switch between light and dark appearance',
+    'lang.toggle': 'Deutsche Version',
+    'footer.absender': 'powered by',
+    'footer.claim': 'Swiss quality, AI-native delivery.',
+    'org.description': 'SCOPERA is the Enterprise AI Platform by ADVANIS AG for companies in Switzerland and DACH.',
+  },
+} as const;
+
+export type Lang = keyof typeof ui;
+export type UiKey = keyof (typeof ui)['de'];
+export const defaultLang: Lang = 'de';

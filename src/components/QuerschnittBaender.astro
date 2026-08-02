@@ -1,15 +1,40 @@
 ---
+import { defaultLang, type Lang } from '../i18n/ui';
+interface Props { lang?: Lang; }
+const { lang = defaultLang } = Astro.props;
+
 const baender = [
-  { label: 'Trust und Governance', text: 'Schweizer Hosting, DSG/DSGVO, Nachvollziehbarkeit und Modellwahl. Nicht als Hindernis, sondern als Enabler.', motor: false },
-  { label: 'Agentic Engineering', text: 'Unsere Delivery Engine: AI-natives Entwickeln auf erprobter Plattform. Der Grund, warum wir liefern, während andere planen.', motor: true },
-  { label: 'Continuous Innovation', text: 'AI ist nie fertig. Jede Lösung lernt weiter, jeden Monat ein Stück besser.', motor: false },
+  {
+    label: { de: 'Trust und Governance', en: 'Trust and Governance' },
+    text: {
+      de: 'Schweizer Hosting, DSG/DSGVO, Nachvollziehbarkeit und Modellwahl. Nicht als Hindernis, sondern als Enabler.',
+      en: 'Swiss hosting, FADP/GDPR, traceability and model choice. Not a hurdle, but an enabler.',
+    },
+    motor: false,
+  },
+  {
+    label: { de: 'Agentic Engineering', en: 'Agentic Engineering' },
+    text: {
+      de: 'Unsere Delivery Engine: AI-natives Entwickeln auf erprobter Plattform. Der Grund, warum wir liefern, während andere planen.',
+      en: 'Our delivery engine: AI-native development on a proven platform. The reason we deliver while others are still planning.',
+    },
+    motor: true,
+  },
+  {
+    label: { de: 'Continuous Innovation', en: 'Continuous Innovation' },
+    text: {
+      de: 'AI ist nie fertig. Jede Lösung lernt weiter, jeden Monat ein Stück besser.',
+      en: 'AI is never finished. Every solution keeps learning, a little better every month.',
+    },
+    motor: false,
+  },
 ];
 ---
 <div style="display:grid; gap:12px; margin-top:14px;">
   {baender.map(b => (
     <div style={`display:flex; gap:14px; align-items:baseline; flex-wrap:wrap; padding:12px 16px; border:1px solid ${b.motor ? 'var(--accent)' : 'var(--line)'}; border-radius: var(--radius); background:${b.motor ? 'var(--accent)' : 'var(--band)'}; color:${b.motor ? 'var(--accent-ink)' : 'inherit'};`}>
-      <strong style="font-size:12px; letter-spacing:.12em; text-transform:uppercase; white-space:nowrap;">{b.label}</strong>
-      <span style="font-size:14px; opacity:.9;">{b.text}</span>
+      <strong style="font-size:12px; letter-spacing:.12em; text-transform:uppercase; white-space:nowrap;">{b.label[lang]}</strong>
+      <span style="font-size:14px; opacity:.9;">{b.text[lang]}</span>
     </div>
   ))}
 </div>

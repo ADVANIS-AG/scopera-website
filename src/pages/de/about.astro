@@ -1,8 +1,8 @@
 ---
-import BaseLayout from '../layouts/BaseLayout.astro';
-import CtaBanner from '../components/CtaBanner.astro';
-import HeroBild from '../components/HeroBild.astro';
-import KlangLinie from '../components/KlangLinie.astro';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import CtaBanner from '../../components/CtaBanner.astro';
+import HeroBild from '../../components/HeroBild.astro';
+import KlangLinie from '../../components/KlangLinie.astro';
 const team = [
   { name: 'Thomas', rolle: 'AI Value Engineer', statement: 'Ich glaube an Technologie, die man nicht erklären muss, weil sie einfach funktioniert.' },
   { name: 'Sven', rolle: 'AI Strategist', statement: 'Die beste Architektur ist die, die morgen noch Antworten hat auf Fragen, die heute niemand stellt.' },
@@ -19,6 +19,7 @@ const dna = [
   ['Wir schaffen Vertrauen', 'Immer.'],
 ];
 const base = import.meta.env.BASE_URL;
+const lang = 'de';
 ---
 <BaseLayout title="Über uns | SCOPERA." description="SCOPERA ist die AI-Marke der ADVANIS AG: ein Team aus AI-Architekten und Beratern, das Unternehmen von der Strategie bis zum Betrieb begleitet.">
   <section style="padding: 88px 0 64px; border-bottom: none;">
@@ -60,5 +61,5 @@ const base = import.meta.env.BASE_URL;
   <section style="border-bottom: none; padding: 56px 0 0;">
     <div class="wrap"><KlangLinie /></div>
   </section>
-  <CtaBanner titel="Lernen Sie uns kennen." text="Am schnellsten merkt man im Gespräch, ob es passt. Wir freuen uns darauf." />
+  <CtaBanner lang={lang} titel="Lernen Sie uns kennen." text="Am schnellsten merkt man im Gespräch, ob es passt. Wir freuen uns darauf." />
 </BaseLayout>

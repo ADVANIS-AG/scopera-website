@@ -1,13 +1,20 @@
 import { defineCollection, z } from 'astro:content';
 import { glob } from 'astro/loaders';
 
-const insights = defineCollection({
-  loader: glob({ pattern: '**/*.md', base: './src/content/insights' }),
-  schema: z.object({
-    title: z.string(),
-    description: z.string(),
-    pubDate: z.coerce.date(),
-  }),
+const schema = z.object({
+  title: z.string(),
+  description: z.string(),
+  pubDate: z.coerce.date(),
 });
 
-export const collections = { insights };
+const insights = defineCollection({
+  loader: glob({ pattern: '**/*.md', base: './src/content/insights' }),
+  schema,
+});
+
+const insightsEn = defineCollection({
+  loader: glob({ pattern: '**/*.md', base: './src/content/insights-en' }),
+  schema,
+});
+
+export const collections = { insights, insightsEn };
