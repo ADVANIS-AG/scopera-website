@@ -6,6 +6,7 @@ import HeroBild from '../components/HeroBild.astro';
 import PfadGrafik from '../components/PfadGrafik.astro';
 const faq = [
   ['Wie schnell geht es wirklich?', 'Der erste funktionierende Stand steht in der Regel nach wenigen Tagen, die produktive Lösung nach zwei bis sechs Wochen, je nach Umfang und Integrationen. Sie sehen von Anfang an Zwischenstände statt Statusberichte.'],
+  ['Bin ich an eine Lizenz gebunden?', 'Nein. Editionen wählen Sie nach Bedarf, monatlich anpassbar nach oben oder unten. Keine Jahresverträge, keine Lizenz-Zwangsjacke.'],
   ['Wem gehört der Code?', 'Ihnen. Individuelle Entwicklungen gehen in Ihr Eigentum über. Die Plattform nutzen Sie als Lizenz, bei White-Label auch unter Ihrer eigenen Marke.'],
   ['Wo liegen unsere Daten?', 'Standardmässig in der Schweiz. Auf Wunsch in Ihrer eigenen Cloud oder On-Premises. Die Modellwahl (auch Schweizer und europäische Anbieter) treffen wir gemeinsam und dokumentieren sie.'],
   ['Ersetzt ihr unsere IT?', 'Nein, wir ergänzen sie. Wir integrieren uns in bestehende Systeme und übergeben so, dass Ihre IT jederzeit mitreden und übernehmen kann.'],
@@ -26,6 +27,7 @@ const base = import.meta.env.BASE_URL;
     <div class="wrap">
       <div style="margin: 0 0 26px;"><PfadGrafik /></div>
       <PaketGrid />
+      <p style="margin-top:18px;"><a href={`${base}partner`}>Mehr zum Provider-Modell →</a></p>
     </div>
   </section>
   <section>

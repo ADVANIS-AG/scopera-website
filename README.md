@@ -45,6 +45,7 @@ Alle Fotos via Unsplash (Unsplash-Lizenz: kommerzielle Nutzung erlaubt, keine At
 - `leistungen-readiness.jpg` — Beth Rufener (unsplash.com/photos/OgqntOgPUP4)
 - `leistungen-workshop.jpg` — Larisa Birta (unsplash.com/photos/slbOcNlWNHA)
 - `leistungen-vibe.jpg` — Jens Thekkeveettil (unsplash.com/photos/dBWvUqBoOU8)
+- `hero-partner.jpg` (Seite `/partner`) — Aurora Song (unsplash.com/photos/xY8k70slet0)
 
 SVG-Grafiken (KlangLinie, NetzGrafik, PfadGrafik, `src/components/icons/*`) sind Eigenentwicklungen im Brand-Stil.
 

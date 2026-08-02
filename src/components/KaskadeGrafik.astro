@@ -1,0 +1,44 @@
+<svg class="grafik" viewBox="0 0 1200 240" fill="none" aria-hidden="true">
+  <g stroke="var(--line)" stroke-width="2">
+    <line x1="120" y1="120" x2="580" y2="66" />
+    <line x1="120" y1="120" x2="580" y2="174" />
+    <line x1="580" y1="66" x2="1080" y2="30" />
+    <line x1="580" y1="66" x2="1080" y2="90" />
+    <line x1="580" y1="174" x2="1080" y2="150" />
+    <line x1="580" y1="174" x2="1080" y2="210" />
+  </g>
+  <g fill="var(--card)" stroke="var(--ink)" stroke-width="2.5">
+    <rect x="558" y="48" width="44" height="36" />
+    <rect x="558" y="156" width="44" height="36" />
+  </g>
+  <g fill="var(--accent)">
+    <circle class="fluss-punkt" r="4" style="offset-path: path('M120,120 L580,66'); animation-delay: 0s;" />
+    <circle class="fluss-punkt" r="4" style="offset-path: path('M120,120 L580,174'); animation-delay: .5s;" />
+    <circle class="fluss-punkt" r="4" style="offset-path: path('M580,66 L1080,30'); animation-delay: 1.2s;" />
+    <circle class="fluss-punkt" r="4" style="offset-path: path('M580,66 L1080,90'); animation-delay: 1.6s;" />
+    <circle class="fluss-punkt" r="4" style="offset-path: path('M580,174 L1080,150'); animation-delay: 2s;" />
+    <circle class="fluss-punkt" r="4" style="offset-path: path('M580,174 L1080,210'); animation-delay: 2.4s;" />
+  </g>
+  <circle cx="120" cy="120" r="26" fill="var(--accent)" />
+  <circle cx="120" cy="120" r="8" fill="var(--accent-ink)" />
+  <g fill="var(--accent)">
+    <circle cx="1080" cy="30" r="8" />
+    <circle cx="1080" cy="90" r="8" />
+    <circle cx="1080" cy="150" r="8" />
+    <circle cx="1080" cy="210" r="8" />
+  </g>
+</svg>
+<style>
+  .fluss-punkt {
+    animation: scopera-fliessen 3s ease-in-out infinite;
+  }
+  @keyframes scopera-fliessen {
+    0% { offset-distance: 0%; opacity: 0; }
+    10% { opacity: 1; }
+    90% { opacity: 1; }
+    100% { offset-distance: 100%; opacity: 0; }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .fluss-punkt { animation: none; opacity: 0; }
+  }
+</style>

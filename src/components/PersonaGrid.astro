@@ -1,0 +1,24 @@
+---
+import IconHorizon from './icons/IconHorizon.astro';
+import IconLink from './icons/IconLink.astro';
+import IconZyklus from './icons/IconZyklus.astro';
+import IconFreiraum from './icons/IconFreiraum.astro';
+import IconLayer from './icons/IconLayer.astro';
+
+const personas = [
+  { titel: 'Geschäftsführung', Icon: IconHorizon, text: 'Das Unternehmen zukunftsfähig machen, ohne das Tagesgeschäft zu riskieren.' },
+  { titel: 'Digitalisierung & IT', Icon: IconLink, text: 'Digitalisierung vorantreiben, ohne Lizenz-Wildwuchs oder Schatten-IT.' },
+  { titel: 'Marketing', Icon: IconZyklus, text: 'Marketing-Prozesse automatisieren, ohne eine neue Agentur zu brauchen.' },
+  { titel: 'Vertrieb & Service', Icon: IconFreiraum, text: 'Dem Team mehr Zeit für Kundenkontakt zurückgeben.' },
+  { titel: 'Provider & Dienstleister', Icon: IconLayer, text: 'Die eigene Kundschaft mit einer eigenen Plattform bedienen, White-Label.' },
+];
+---
+<div class="karten-5">
+  {personas.map(p => (
+    <div class="karte">
+      <p.Icon />
+      <h3>{p.titel}</h3>
+      <p style="font-size:14px;" class="soft">{p.text}</p>
+    </div>
+  ))}
+</div>
