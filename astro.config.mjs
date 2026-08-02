@@ -3,7 +3,7 @@ import sitemap from '@astrojs/sitemap';
 
 export default defineConfig({
   site: 'https://scopera.ai',
-  base: '/kurzerhand.ch/',
+  base: '/',
   integrations: [
     sitemap({
       i18n: {

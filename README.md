@@ -15,7 +15,8 @@ npm run check      # Typ- und Template-Pruefung
 ## Vor dem Launch (Checkliste)
 
 - [ ] `src/config.ts` befuellen: KONTAKT_EMAIL, BOOKING_URL, ADRESSE, UID, PLAUSIBLE_DOMAIN, WORKER_ENDPOINT, TURNSTILE_SITE_KEY
-- [ ] Domains scopera.ch / scopera.ai / scopera.at registrieren, Custom Domain + DNS auf GitHub Pages zeigen, `base` in `astro.config.mjs` auf `/` zuruecksetzen
+- [x] Domains scopera.ch / scopera.ai registriert, `base` in `astro.config.mjs` auf `/` zurueckgesetzt, `public/CNAME` (scopera.ai) angelegt
+- [ ] DNS von scopera.ai auf GitHub Pages zeigen (siehe github.com/ADVANIS-AG/&lt;repo&gt;/settings/pages fuer die aktuellen Zielwerte), scopera.at noch registrieren falls gewuenscht
 - [ ] Team-Nachnamen und Fotos auf /ueber-uns ergaenzen (`src/pages/ueber-uns.astro`)
 - [ ] GL-Naming-Entscheid bestaetigt
 - [ ] `worker/` deployen (siehe `worker/README.md`): KV-Namespace, CRM-Endpunkte und Secrets setzen, danach `WORKER_ENDPOINT` oben befuellen
