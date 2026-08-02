@@ -6,9 +6,9 @@ import NetzGrafik from '../../components/NetzGrafik.astro';
 import MandantenGrafik from '../../components/MandantenGrafik.astro';
 const features = [
   ['AI Agents', 'Assistenten, die Aufgaben erledigen statt nur antworten: mit Zugriff auf Ihre Daten, Regeln und Systeme.'],
-  ['Workflows', 'Automatisierte Abläufe über Systemgrenzen hinweg, mit Freigaben durch Menschen, wo es darauf ankommt.'],
+  ['Workflows', 'Automatisierte Abläufe über Systemgrenzen hinweg, von Ihrem Fachbereich selbst konfiguriert, mit Freigaben durch Menschen, wo es darauf ankommt.'],
   ['Knowledge', 'Ihr Firmenwissen, durchsuchbar und nutzbar: Dokumente, Systeme und Erfahrung an einem Ort.'],
-  ['Integrationen', 'Microsoft 365, Dynamics 365, SAP, Salesforce und mehr: wir docken an, was Sie schon haben.'],
+  ['Integrationen', 'Microsoft 365, Dynamics 365, SAP, Salesforce und mehr: nahtlos angebunden an das, was Sie schon haben, statt neue Excel-Inseln.'],
   ['Analytics', 'Nutzung, Qualität und Kosten jeder AI-Funktion, transparent im Dashboard.'],
   ['Governance', 'Rollen, Abteilungstrennung, Feldverschlüsselung, DSG/DSGVO-Werkzeuge. Automatisierte Tests, Backups und Audit-Log inklusive.'],
 ];
@@ -25,8 +25,8 @@ const lang = 'de';
   <section style="padding: 88px 0 64px; border-bottom: none;">
     <div class="wrap">
       <p class="eyebrow">Produkt</p>
-      <h1>Wir fangen nie bei null an<span class="dot">.</span></h1>
-      <p class="lede">Jede SCOPERA-Lösung steht auf unserer Enterprise AI Platform: erprobt, sicher, White-Label-fähig. Darum sind wir schnell, ohne leichtfertig zu sein.</p>
+      <h1>Sie fangen nie bei null an<span class="dot">.</span></h1>
+      <p class="lede">Jede SCOPERA-Lösung steht auf unserer Enterprise AI Platform: erprobt, sicher, White-Label-fähig. Darum geht es schnell, ohne leichtfertig zu sein.</p>
     </div>
   </section>
   <HeroBild src={`${base}bilder/hero-plattform.jpg`} alt="Beleuchtetes Notenpult mit Partitur, im Hintergrund Musiker im Dunkeln" />
@@ -34,6 +34,7 @@ const lang = 'de';
     <div class="wrap">
       <p class="eyebrow">Was die Plattform mitbringt</p>
       <h2>Das Fundament jeder Lösung.</h2>
+      <p class="soft" style="max-width: 46em;">Jede Funktion ist so gebaut, dass Ihr Fachbereich sie direkt nutzen und anpassen kann, nicht nur die IT.</p>
       <div style="margin: 8px 0 26px;"><NetzGrafik /></div>
       <div class="karten-3">
         {features.map(([t, x]) => (

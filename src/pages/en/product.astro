@@ -6,9 +6,9 @@ import NetzGrafik from '../../components/NetzGrafik.astro';
 import MandantenGrafik from '../../components/MandantenGrafik.astro';
 const features = [
   ['AI Agents', 'Assistants that get tasks done instead of just answering: with access to your data, rules and systems.'],
-  ['Workflows', 'Automated processes across system boundaries, with human approvals where they matter.'],
+  ['Workflows', 'Automated processes across system boundaries, configured by your department itself, with human approvals where they matter.'],
   ['Knowledge', 'Your company knowledge, searchable and usable: documents, systems and experience in one place.'],
-  ['Integrations', 'Microsoft 365, Dynamics 365, SAP, Salesforce and more: we connect to what you already have.'],
+  ['Integrations', 'Microsoft 365, Dynamics 365, SAP, Salesforce and more: seamlessly connected to what you already have, instead of another spreadsheet island.'],
   ['Analytics', 'Usage, quality and cost of every AI function, transparent in a dashboard.'],
   ['Governance', 'Roles, department separation, field-level encryption, FADP/GDPR tooling. Automated tests, backups and an audit log included.'],
 ];
@@ -25,8 +25,8 @@ const lang = 'en';
   <section style="padding: 88px 0 64px; border-bottom: none;">
     <div class="wrap">
       <p class="eyebrow">Product</p>
-      <h1>We never start from zero<span class="dot">.</span></h1>
-      <p class="lede">Every SCOPERA solution is built on our Enterprise AI Platform: proven, secure, white-label capable. That's why we're fast without being reckless.</p>
+      <h1>You never start from zero<span class="dot">.</span></h1>
+      <p class="lede">Every SCOPERA solution is built on our Enterprise AI Platform: proven, secure, white-label capable. That's why it's fast, without being reckless.</p>
     </div>
   </section>
   <HeroBild src={`${base}bilder/hero-plattform.jpg`} alt="Illuminated music stand with a score, musicians in the dark in the background" />
@@ -34,6 +34,7 @@ const lang = 'en';
     <div class="wrap">
       <p class="eyebrow">What the platform brings</p>
       <h2>The foundation of every solution.</h2>
+      <p class="soft" style="max-width: 46em;">Every feature is built so your department can use and adapt it directly, not just IT.</p>
       <div style="margin: 8px 0 26px;"><NetzGrafik /></div>
       <div class="karten-3">
         {features.map(([t, x]) => (
