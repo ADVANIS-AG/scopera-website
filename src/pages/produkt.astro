@@ -3,6 +3,7 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 import CtaBanner from '../components/CtaBanner.astro';
 import HeroBild from '../components/HeroBild.astro';
 import NetzGrafik from '../components/NetzGrafik.astro';
+import MandantenGrafik from '../components/MandantenGrafik.astro';
 const features = [
   ['AI Agents', 'Assistenten, die Aufgaben erledigen statt nur antworten: mit Zugriff auf Ihre Daten, Regeln und Systeme.'],
   ['Workflows', 'Automatisierte Abläufe über Systemgrenzen hinweg, mit Freigaben durch Menschen, wo es darauf ankommt.'],
@@ -41,6 +42,15 @@ const base = import.meta.env.BASE_URL;
           </div>
         ))}
       </div>
+    </div>
+  </section>
+  <section>
+    <div class="wrap">
+      <p class="eyebrow">Mandantenfähigkeit</p>
+      <h2>Ein Mandant kann eine Abteilung sein.</h2>
+      <div style="margin: 8px 0 26px;"><MandantenGrafik /></div>
+      <p class="soft" style="max-width: 46em;">Vertrieb, Marketing, HR: Jede Abteilung kann als eigener Mandant auf derselben Datenbasis arbeiten, sauber getrennt, ohne eigene Infrastruktur. Das gleiche Prinzip, mit dem Provider mehrere Kundinnen bedienen, funktioniert auch innerhalb eines einzigen Unternehmens.</p>
+      <p style="margin-top:16px;"><a href={`${base}partner`}>Mehr zum Provider-Modell →</a></p>
     </div>
   </section>
   <section style="border-bottom: none;">
