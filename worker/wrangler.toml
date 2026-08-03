@@ -2,6 +2,12 @@ name = "scopera-lead-gateway"
 main = "src/index.ts"
 compatibility_date = "2026-07-31"
 
+# Routing laeuft ausschliesslich ueber die im Dashboard gebundene Custom Domain (admin.scopera.ai,
+# Workers & Pages -> scopera-lead-gateway -> Domains). Ohne diese Zeile versucht `wrangler deploy`
+# bei jedem Lauf zusaetzlich eine workers.dev-Subdomain zu registrieren/pruefen, was im
+# nicht-interaktiven CI-Kontext fehlschlaegt ("You need to register a workers.dev subdomain...").
+workers_dev = false
+
 # PLATZHALTER: eure Cloudflare Account-ID einsetzen (Cloudflare Dashboard -> Workers & Pages -> rechte Spalte).
 # account_id = "PLATZHALTER_ACCOUNT_ID"
 
