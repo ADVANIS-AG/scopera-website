@@ -75,6 +75,15 @@ export interface RateLimitRule {
   };
 }
 
+// Cloudflare legt den Phase-Entrypoint fuer http_ratelimit erst beim ersten PUT an - solange
+// noch nie eine Regel fuer die Zone angelegt wurde, antwortet GET auf den Entrypoint mit exakt
+// dieser Fehlermeldung. Das ist ein normaler Zustand (0 Regeln), kein Fehler.
+const NO_ENTRYPOINT_MARKER = "could not find entrypoint ruleset";
+
+function isMissingEntrypoint(errors?: string[]): boolean {
+  return !!errors?.some((e) => e.includes(NO_ENTRYPOINT_MARKER));
+}
+
 /** Best-effort: legt eine Zone-Rate-Limiting-Regel im http_ratelimit-Einstiegspunkt an. Erfordert
  *  laut Cloudflare-Doku mindestens Pro-Plan (nicht abschliessend dokumentiert) - schlaegt die
  *  Zone auf Free-Plan fehl, kommt Cloudflares Fehlermeldung 1:1 im Ergebnis durch, siehe Plan
@@ -83,30 +92,52 @@ export async function createRateLimitRule(
   env: Env,
   options: { description: string; expression: string; requestsPerPeriod: number; periodSeconds: number; mitigationTimeoutSeconds: number },
 ): Promise<CfApiResult<RateLimitRule>> {
+  const rule = {
+    description: options.description,
+    expression: options.expression,
+    action: "block",
+    ratelimit: {
+      characteristics: ["ip.src"],
+      period: options.periodSeconds,
+      requests_per_period: options.requestsPerPeriod,
+      mitigation_timeout: options.mitigationTimeoutSeconds,
+    },
+  };
+
   const entrypoint = await cfFetch<{ id: string; rules: RateLimitRule[] }>(
     env,
     `/zones/${env.CF_ZONE_ID}/rulesets/phases/http_ratelimit/entrypoint`,
   );
-  if (!entrypoint.ok || !entrypoint.result) return { ok: false, errors: entrypoint.errors };
 
-  return cfFetch<RateLimitRule>(env, `/zones/${env.CF_ZONE_ID}/rulesets/${entrypoint.result.id}/rules`, {
-    method: "POST",
-    body: JSON.stringify({
-      description: options.description,
-      expression: options.expression,
-      action: "block",
-      ratelimit: {
-        characteristics: ["ip.src"],
-        period: options.periodSeconds,
-        requests_per_period: options.requestsPerPeriod,
-        mitigation_timeout: options.mitigationTimeoutSeconds,
-      },
-    }),
-  });
+  if (entrypoint.ok && entrypoint.result) {
+    return cfFetch<RateLimitRule>(env, `/zones/${env.CF_ZONE_ID}/rulesets/${entrypoint.result.id}/rules`, {
+      method: "POST",
+      body: JSON.stringify(rule),
+    });
+  }
+  if (!isMissingEntrypoint(entrypoint.errors)) {
+    return { ok: false, errors: entrypoint.errors };
+  }
+
+  // Erste Rate-Limit-Regel ueberhaupt fuer diese Zone: Entrypoint per PUT inkl. dieser Regel anlegen.
+  const created = await cfFetch<{ id: string; rules: RateLimitRule[] }>(
+    env,
+    `/zones/${env.CF_ZONE_ID}/rulesets/phases/http_ratelimit/entrypoint`,
+    { method: "PUT", body: JSON.stringify({ rules: [rule] }) },
+  );
+  if (!created.ok || !created.result) return { ok: false, errors: created.errors };
+  return { ok: true, result: created.result.rules[created.result.rules.length - 1] };
 }
 
-export function listRateLimitRules(env: Env): Promise<CfApiResult<{ id: string; rules: RateLimitRule[] }>> {
-  return cfFetch<{ id: string; rules: RateLimitRule[] }>(env, `/zones/${env.CF_ZONE_ID}/rulesets/phases/http_ratelimit/entrypoint`);
+export async function listRateLimitRules(env: Env): Promise<CfApiResult<{ id: string; rules: RateLimitRule[] }>> {
+  const result = await cfFetch<{ id: string; rules: RateLimitRule[] }>(
+    env,
+    `/zones/${env.CF_ZONE_ID}/rulesets/phases/http_ratelimit/entrypoint`,
+  );
+  if (!result.ok && isMissingEntrypoint(result.errors)) {
+    return { ok: true, result: { id: "", rules: [] } };
+  }
+  return result;
 }
 
 /** Fragt Workers Analytics Engine per SQL-API ab (Konto-Ebene, nicht Zone-Ebene - eigener Pfad). */
