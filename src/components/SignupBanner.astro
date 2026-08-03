@@ -1,0 +1,20 @@
+---
+import { SIGNUP_URL } from '../config';
+import { defaultLang, type Lang } from '../i18n/ui';
+import { useTranslations } from '../i18n/utils';
+interface Props { lang?: Lang; }
+const { lang = defaultLang } = Astro.props;
+const t = useTranslations(lang);
+---
+<section>
+  <div class="wrap">
+    <div class="signup-band">
+      <div>
+        <p class="tag">{t('cta.signup.tag')}</p>
+        <h2 style="margin-bottom:10px;">{t('cta.signup.title')}</h2>
+        <p class="soft" style="max-width:38em; margin-bottom:0;">{t('cta.signup.text')}</p>
+      </div>
+      <a class="btn" href={SIGNUP_URL}>{t('cta.signup')}</a>
+    </div>
+  </div>
+</section>

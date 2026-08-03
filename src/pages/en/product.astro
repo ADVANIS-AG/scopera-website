@@ -1,6 +1,7 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import CtaBanner from '../../components/CtaBanner.astro';
+import SignupBanner from '../../components/SignupBanner.astro';
 import HeroBild from '../../components/HeroBild.astro';
 import NetzGrafik from '../../components/NetzGrafik.astro';
 import MandantenGrafik from '../../components/MandantenGrafik.astro';
@@ -79,5 +80,6 @@ const lang = 'en';
       <p class="soft" style="margin-top:16px; font-size:13px;">Out of discretion, we don't name clients here. We're happy to show you more in a conversation.</p>
     </div>
   </section>
-  <CtaBanner lang={lang} showSignup titel="Seeing is believing." text="We'll show you the platform and a case study from your industry. Live, not on slides." />
+  <CtaBanner lang={lang} titel="Seeing is believing." text="We'll show you the platform and a case study from your industry. Live, not on slides." />
+  <SignupBanner lang={lang} />
 </BaseLayout>

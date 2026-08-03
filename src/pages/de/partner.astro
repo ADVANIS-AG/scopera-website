@@ -1,6 +1,7 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import CtaBanner from '../../components/CtaBanner.astro';
+import SignupBanner from '../../components/SignupBanner.astro';
 import HeroBild from '../../components/HeroBild.astro';
 import KaskadeGrafik from '../../components/KaskadeGrafik.astro';
 import IconLayer from '../../components/icons/IconLayer.astro';
@@ -55,5 +56,6 @@ const lang = 'de';
       </blockquote>
     </div>
   </section>
-  <CtaBanner lang={lang} showSignup titel="Werden Sie Provider." text="Erzählen Sie uns von Ihrer Kundschaft. Wir zeigen Ihnen, wie White-Label für Sie konkret aussehen könnte." />
+  <CtaBanner lang={lang} titel="Werden Sie Provider." text="Erzählen Sie uns von Ihrer Kundschaft. Wir zeigen Ihnen, wie White-Label für Sie konkret aussehen könnte." />
+  <SignupBanner lang={lang} />
 </BaseLayout>

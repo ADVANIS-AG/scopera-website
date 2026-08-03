@@ -1,9 +1,9 @@
 ---
-import { BOOKING_URL, SIGNUP_URL } from '../config';
+import { BOOKING_URL } from '../config';
 import { defaultLang, type Lang } from '../i18n/ui';
 import { useTranslations } from '../i18n/utils';
-interface Props { titel: string; text: string; lang?: Lang; showSignup?: boolean; }
-const { titel, text, lang = defaultLang, showSignup = false } = Astro.props;
+interface Props { titel: string; text: string; lang?: Lang; }
+const { titel, text, lang = defaultLang } = Astro.props;
 const t = useTranslations(lang);
 const base = import.meta.env.BASE_URL;
 const kontaktHref = `${base}${lang}/contact`;
@@ -14,8 +14,7 @@ const ziel = BOOKING_URL || kontaktHref;
     <h2>{titel}</h2>
     <p class="lede soft">{text}</p>
     <p style="display:flex; gap:12px; flex-wrap:wrap; margin-top:22px;">
-      {showSignup && <a class="btn" href={SIGNUP_URL}>{t('cta.signup')}</a>}
-      <a class={showSignup ? 'btn-ghost' : 'btn'} href={ziel}>{t('nav.book')}</a>
+      <a class="btn" href={ziel}>{t('nav.book')}</a>
       <a class="btn-ghost" href={kontaktHref}>{t('cta.write')}</a>
     </p>
   </div>

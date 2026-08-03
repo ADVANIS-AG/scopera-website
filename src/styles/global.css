@@ -71,6 +71,13 @@ section { padding: 64px 0; border-bottom: 1px solid var(--line); }
   .split-reihe .split-bild img { min-height: 200px; }
   .split-reihe .split-text { padding: 26px; }
 }
+/* Signup-Banner (Selbst-Registrierung, abgesetzt vom beratungsgetriebenen CtaBanner) */
+.signup-band {
+  display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 24px;
+  background: var(--band); border: 1px solid var(--accent); border-radius: var(--radius);
+  padding: 32px 36px;
+}
+@media (max-width: 620px) { .signup-band { flex-direction: column; align-items: flex-start; } }
 /* Bildmaterial */
 .hero-bild { margin: 0; border-bottom: 2px solid var(--ink); overflow: hidden; }
 .hero-bild img { display: block; width: 100%; height: clamp(240px, 40vw, 440px); object-fit: cover; will-change: transform; }
