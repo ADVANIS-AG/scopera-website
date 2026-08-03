@@ -1,9 +1,9 @@
 name: Deploy Lead Gateway Worker
 
-# Vorerst nur manuell ausloesbar: braucht CLOUDFLARE_API_TOKEN und CLOUDFLARE_ACCOUNT_ID als
-# Repo-Secrets, die noch nicht existieren. Auf `push: { paths: ["worker/**"] }` umstellen, sobald
-# diese gesetzt sind (siehe worker/README.md).
 on:
+  push:
+    branches: [main]
+    paths: ["worker/**"]
   workflow_dispatch:
 
 jobs:
