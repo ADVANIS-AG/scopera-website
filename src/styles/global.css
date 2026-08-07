@@ -71,15 +71,19 @@ section { padding: 64px 0; border-bottom: 1px solid var(--line); }
   .split-reihe .split-bild img { min-height: 200px; }
   .split-reihe .split-text { padding: 26px; }
 }
-/* Kompakte Variante (z.B. Insights-Liste): schmalere Bildspalte, weniger Innenabstand, kleinerer Titel */
+/* Kompakte Variante (z.B. Insights-Liste): feste schmale Bildspalte statt Prozent-Aufteilung,
+   damit die Bildgroesse nicht von der Texthoehe mitgezogen wird */
 .split-reihen.kompakt { gap: 10px; }
-.split-reihe.kompakt { grid-template-columns: 0.8fr 1.2fr; }
-.split-reihe.kompakt .split-bild img { min-height: 160px; }
-.split-reihe.kompakt .split-text { padding: 20px 26px; }
-.split-reihe.kompakt .split-text h2 { font-size: clamp(19px, 2.2vw, 24px); margin: 4px 0 6px; }
+.split-reihe.kompakt { grid-template-columns: 140px 1fr; align-items: stretch; }
+.split-reihe.kompakt .split-bild img { min-height: 96px; height: 100%; }
+.split-reihe.kompakt .split-text { padding: 14px 20px; }
+.split-reihe.kompakt .split-text .eyebrow { margin: 0; }
+.split-reihe.kompakt .split-text h2 { font-size: clamp(16px, 1.8vw, 20px); margin: 3px 0 4px; }
+.split-reihe.kompakt .split-text p.soft { font-size: 13px; }
 @media (max-width: 760px) {
-  .split-reihe.kompakt .split-bild img { min-height: 160px; }
-  .split-reihe.kompakt .split-text { padding: 18px 20px; }
+  .split-reihe.kompakt { grid-template-columns: 92px 1fr; }
+  .split-reihe.kompakt .split-bild img { min-height: 92px; }
+  .split-reihe.kompakt .split-text { padding: 10px 14px; }
 }
 /* Fuenf-Stufen-Band (Startseite) und kompakte Wiederverwendung (Leistungen/Produkt/Pakete) */
 .stufen-band { display: flex; flex-direction: column; gap: 18px; margin-top: 18px; }
