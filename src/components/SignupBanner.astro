@@ -14,7 +14,10 @@ const t = useTranslations(lang);
         <h2 style="margin-bottom:10px;">{t('cta.signup.title')}</h2>
         <p class="soft" style="max-width:38em; margin-bottom:0;">{t('cta.signup.text')}</p>
       </div>
-      <a class="btn" href={SIGNUP_URL}>{t('cta.signup')}</a>
+      <p style="display:flex; gap:12px; flex-wrap:wrap; margin:0;">
+        <a class="btn" href={SIGNUP_URL}>{t('cta.signup.trial')}</a>
+        <a class="btn-ghost" href={SIGNUP_URL}>{t('cta.signup.order')}</a>
+      </p>
     </div>
   </div>
 </section>

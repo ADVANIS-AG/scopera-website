@@ -10,6 +10,7 @@ const pakete = [
       de: 'Der schnelle Einstieg: ein klar umrissener Use Case, fixer Rahmen, spürbares Ergebnis in Wochen.',
       en: 'The quick start: one clearly scoped use case, a fixed frame, a result you can feel in weeks.',
     },
+    preis: { de: 'CHF 20 / Monat', en: 'CHF 20 / month' },
   },
   {
     name: 'Professional',
@@ -17,6 +18,7 @@ const pakete = [
       de: 'Mehrere Module, SSO und API-Zugang. Für Unternehmen, die nach dem ersten Erfolg ausbauen.',
       en: 'Multiple modules, SSO and API access. For companies expanding after their first success.',
     },
+    preis: null,
   },
   {
     name: 'Enterprise',
@@ -24,6 +26,7 @@ const pakete = [
       de: 'Unbegrenzt skalierbar, mit Managed AI, Governance-Betrieb und garantierten Reaktionszeiten.',
       en: 'Unlimited scale, with Managed AI, governed operations and guaranteed response times.',
     },
+    preis: null,
   },
   {
     name: 'White-Label',
@@ -31,6 +34,7 @@ const pakete = [
       de: 'Eigene Marke, eigene Domain, Reseller-Modell. Für Partner, die auf unserer Plattform aufbauen.',
       en: 'Your own brand, your own domain, reseller model. For partners building on our platform.',
     },
+    preis: null,
   },
 ];
 const preisAufAnfrage = { de: 'Preis auf Anfrage', en: 'Price on request' };
@@ -40,7 +44,7 @@ const preisAufAnfrage = { de: 'Preis auf Anfrage', en: 'Price on request' };
     <div class="karte">
       <h3>{p.name}</h3>
       <p style="font-size:14px;" class="soft">{p.text[lang]}</p>
-      <p class="tag" style="margin-top:8px;">{preisAufAnfrage[lang]}</p>
+      <p class="tag" style="margin-top:8px;">{p.preis ? p.preis[lang] : preisAufAnfrage[lang]}</p>
     </div>
   ))}
 </div>

@@ -25,7 +25,7 @@ const base = import.meta.env.BASE_URL;
             ? <a class="btn" href={BOOKING_URL}>Choose a time</a>
             : <p class="soft" style="font-size:14px;"><strong>Online booking coming soon.</strong> Until then, reach us via the form{emailAktiv ? ' or by email' : ''}.</p>}
         </div>
-        <div class="karte" style="padding: 26px;">
+        <div id="nachricht-schreiben" class="karte" style="padding: 26px;">
           <h3>Send a message</h3>
           {formularAktiv ? (
             <>

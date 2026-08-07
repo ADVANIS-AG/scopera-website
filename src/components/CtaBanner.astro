@@ -6,7 +6,7 @@ interface Props { titel: string; text: string; lang?: Lang; }
 const { titel, text, lang = defaultLang } = Astro.props;
 const t = useTranslations(lang);
 const base = import.meta.env.BASE_URL;
-const kontaktHref = `${base}${lang}/contact`;
+const kontaktHref = `${base}${lang}/contact#nachricht-schreiben`;
 const ziel = BOOKING_URL || kontaktHref;
 ---
 <section>

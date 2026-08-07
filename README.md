@@ -47,6 +47,7 @@ Alle Fotos via Unsplash (Unsplash-Lizenz: kommerzielle Nutzung erlaubt, keine At
 - `leistungen-workshop.jpg` — Larisa Birta (unsplash.com/photos/slbOcNlWNHA)
 - `leistungen-vibe.jpg` — Jens Thekkeveettil (unsplash.com/photos/dBWvUqBoOU8)
 - `hero-partner.jpg` (Seite `/partner`) — Aurora Song (unsplash.com/photos/xY8k70slet0)
+- `ueber-uns-chor.jpg` (Seite `/about`, Gesangsszene) — Green Liu (unsplash.com/photos/ZaZcvU_WuF8)
 
 SVG-Grafiken (KlangLinie, NetzGrafik, PfadGrafik, `src/components/icons/*`) sind Eigenentwicklungen im Brand-Stil.
 

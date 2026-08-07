@@ -1,8 +1,6 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
-import SaeulenGrid from '../../components/SaeulenGrid.astro';
 import PersonaGrid from '../../components/PersonaGrid.astro';
-import QuerschnittBaender from '../../components/QuerschnittBaender.astro';
 import CtaBanner from '../../components/CtaBanner.astro';
 import HeroBild from '../../components/HeroBild.astro';
 import KlangLinie from '../../components/KlangLinie.astro';
@@ -15,8 +13,8 @@ const lang = 'en';
 <BaseLayout title="SCOPERA. | AI solutions that just work" description="AI solutions for companies in Switzerland and DACH: from strategy to day-to-day operations. Delivered in weeks, not months. SCOPERA — powered by ADVANIS.">
   <section style="padding: 96px 0 72px; border-bottom: none;">
     <div class="wrap">
-      <p class="eyebrow">AI for Swiss and DACH companies</p>
-      <h1>Processes only you understand. Now a solution of your own<span class="dot">.</span></h1>
+      <p class="eyebrow">For companies in DACH</p>
+      <h1>Software that understands how you actually work. Live in weeks, not months<span class="dot">.</span></h1>
       <p class="lede">No standard tool fits, the evaluation drags on for months, and in the end you pay for features nobody needs. With SCOPERA, your department helps shape the solution itself, built fast and operated securely, without waiting for the next IT priority.</p>
       <p style="display:flex; gap:12px; flex-wrap:wrap; margin-top:26px;">
         <a class="btn" href={`${base}en/contact`}>Book a call</a>
@@ -69,8 +67,7 @@ const lang = 'en';
     <div class="wrap">
       <p class="eyebrow">What we do</p>
       <h2>From strategy to continuously learning AI operations.</h2>
-      <SaeulenGrid lang={lang} />
-      <QuerschnittBaender lang={lang} />
+      <p class="soft" style="max-width: 46em;">Four pillars, one team: Strategy, Enterprise AI Platform, Managed AI and Enablement work together, instead of running as separate projects.</p>
       <p style="margin-top:18px;"><a href={`${base}en/services`}>All services in detail →</a></p>
     </div>
   </section>

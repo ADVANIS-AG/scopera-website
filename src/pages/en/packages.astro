@@ -5,14 +5,6 @@ import CtaBanner from '../../components/CtaBanner.astro';
 import SignupBanner from '../../components/SignupBanner.astro';
 import HeroBild from '../../components/HeroBild.astro';
 import PfadGrafik from '../../components/PfadGrafik.astro';
-const faq = [
-  ['How fast does this really go?', 'The first working version is usually ready within a few days, the production solution in two to six weeks, depending on scope and integrations. You see interim progress from day one instead of status reports.'],
-  ['Am I locked into a license?', 'No. You choose editions based on need, adjustable up or down every month. No annual contracts, no license straitjacket.'],
-  ['Who owns the code?', 'You do. Custom development becomes your property. You use the platform under license, under your own brand with White-Label.'],
-  ['Where does our data live?', 'In Switzerland by default. On your own cloud or on-premises if you prefer. We choose and document the model together (Swiss and European providers included).'],
-  ['Do you replace our IT?', 'No, we complement it. We integrate into existing systems and hand over in a way that lets your IT weigh in and take over at any time.'],
-  ['What is Agentic Engineering?', "Our way of working: we develop with AI, on a proven platform, in short cycles with daily visible progress. You don't need to know the term. You'll notice it in the pace."],
-];
 const base = import.meta.env.BASE_URL;
 const lang = 'en';
 ---
@@ -36,23 +28,10 @@ const lang = 'en';
     <div class="wrap">
       <p class="eyebrow">Frequently asked questions</p>
       <h2>Straight talk.</h2>
-      {faq.map(([f, a]) => (
-        <details style="border-top: 1px solid var(--line); padding: 14px 0;">
-          <summary style="font-weight: 700; cursor: pointer; font-size: 17px;">{f}</summary>
-          <p class="soft" style="margin-top: 10px; max-width: 46em;">{a}</p>
-        </details>
-      ))}
+      <p class="soft" style="max-width: 46em;">On pace, licensing, code ownership and more.</p>
+      <p style="margin-top:12px;"><a href={`${base}en/faq`}>All questions and answers →</a></p>
     </div>
   </section>
   <CtaBanner lang={lang} titel="Which package fits?" text="Tell us what you're planning. We'll tell you honestly which package you need, and which you don't." />
   <SignupBanner lang={lang} />
-  <script type="application/ld+json" is:inline set:html={JSON.stringify({
-    '@context': 'https://schema.org',
-    '@type': 'FAQPage',
-    mainEntity: faq.map(([f, a]) => ({
-      '@type': 'Question',
-      name: f,
-      acceptedAnswer: { '@type': 'Answer', text: a },
-    })),
-  })} />
 </BaseLayout>

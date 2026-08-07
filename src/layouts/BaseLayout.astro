@@ -1,10 +1,10 @@
 ---
 import '../styles/global.css';
-import { SITE_NAME, BOOKING_URL, PLAUSIBLE_DOMAIN, WORKER_ENDPOINT } from '../config';
+import { SITE_NAME, BOOKING_URL, PLAUSIBLE_DOMAIN, WORKER_ENDPOINT, ADRESSE } from '../config';
 import { defaultLang, type UiKey, type Lang } from '../i18n/ui';
 import { useTranslations } from '../i18n/utils';
-interface Props { title: string; description: string; }
-const { title, description } = Astro.props;
+interface Props { title: string; description: string; image?: string; }
+const { title, description, image = 'bilder/hero-start.jpg' } = Astro.props;
 const base = import.meta.env.BASE_URL;
 const lang = (Astro.currentLocale as Lang | undefined) ?? defaultLang;
 const t = useTranslations(lang);
@@ -12,12 +12,16 @@ const otherLang = lang === 'de' ? 'en' : 'de';
 const rest = Astro.url.pathname.slice((base + lang + '/').length);
 const otherLangHref = `${base}${otherLang}/${rest}`;
 const terminZiel = BOOKING_URL || `${base}${lang}/contact`;
+const [strasse, ortMitPlz] = ADRESSE.split(', ');
+const plz = ortMitPlz?.match(/^\d+/)?.[0];
+const ort = ortMitPlz?.replace(/^\d+\s*/, '');
 const nav: [string, UiKey][] = [
   ['services', 'nav.services'],
   ['product', 'nav.product'],
   ['packages', 'nav.packages'],
   ['partner', 'nav.partner'],
   ['insights', 'nav.insights'],
+  ['faq', 'nav.faq'],
   ['about', 'nav.about'],
 ];
 ---
@@ -40,6 +44,13 @@ const nav: [string, UiKey][] = [
   <meta property="og:title" content={title} />
   <meta property="og:description" content={description} />
   <meta property="og:type" content="website" />
+  <meta property="og:site_name" content={SITE_NAME} />
+  <meta property="og:locale" content={lang === 'de' ? 'de_CH' : 'en_US'} />
+  <meta property="og:image" content={new URL(`${base}${image}`, Astro.site)} />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content={title} />
+  <meta name="twitter:description" content={description} />
+  <meta name="twitter:image" content={new URL(`${base}${image}`, Astro.site)} />
   <link rel="canonical" href={new URL(Astro.url.pathname, Astro.site)} />
   <link rel="alternate" hreflang="de" href={new URL(`${base}de/${rest}`, Astro.site)} />
   <link rel="alternate" hreflang="en" href={new URL(`${base}en/${rest}`, Astro.site)} />
@@ -52,6 +63,13 @@ const nav: [string, UiKey][] = [
     url: new URL(`${base}${lang}/`, Astro.site).toString(),
     sameAs: ['https://www.advanis.ch'],
     description: t('org.description'),
+    address: {
+      '@type': 'PostalAddress',
+      streetAddress: strasse,
+      postalCode: plz,
+      addressLocality: ort,
+      addressCountry: 'CH',
+    },
   })} />
 </head>
 <body>
@@ -81,7 +99,7 @@ const nav: [string, UiKey][] = [
         <a href={`${base}${lang}/imprint`}>{t('nav.imprint')}</a>
         <a href={`${base}${lang}/privacy`}>{t('nav.privacy')}</a>
       </nav>
-      <p class="absender">{SITE_NAME} — {t('footer.absender')} <a href="https://www.advanis.ch">ADVANIS</a>. {t('footer.claim')}</p>
+      <p class="absender">{SITE_NAME} — {t('footer.absender')} <a href="https://www.advanis.ch" target="_blank" rel="noopener noreferrer">ADVANIS</a>. {t('footer.claim')}</p>
     </div>
   </footer>
   <script>

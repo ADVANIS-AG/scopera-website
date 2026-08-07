@@ -1,0 +1,42 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import CtaBanner from '../../components/CtaBanner.astro';
+const faq = [
+  ['How fast does this really go?', 'The first working version is usually ready within a few days, the production solution in two to six weeks, depending on scope and integrations. You see interim progress from day one instead of status reports.'],
+  ['Am I locked into a license?', 'No. You choose editions based on need, adjustable up or down every month. No annual contracts, no license straitjacket.'],
+  ['Who owns the code?', 'You do. Custom development becomes your property. You use the platform under license, under your own brand with White-Label.'],
+  ['Where does our data live?', 'In Switzerland by default. On your own cloud or on-premises if you prefer. We choose and document the model together (Swiss and European providers included).'],
+  ['Do you replace our IT?', 'No, we complement it. We integrate into existing systems and hand over in a way that lets your IT weigh in and take over at any time.'],
+  ['What is Agentic Engineering?', "Our way of working: we develop with AI, on a proven platform, in short cycles with daily visible progress. You don't need to know the term. You'll notice it in the pace."],
+];
+const lang = 'en';
+---
+<BaseLayout title="FAQ | SCOPERA." description="Frequently asked questions about SCOPERA: pace, licensing model, code ownership, data location, IT integration and Agentic Engineering, answered clearly.">
+  <section style="padding: 88px 0 64px; border-bottom: none;">
+    <div class="wrap">
+      <p class="eyebrow">FAQ</p>
+      <h1>Straight talk<span class="dot">.</span></h1>
+      <p class="lede">The questions we hear most often, answered honestly. Missing something? Write to us.</p>
+    </div>
+  </section>
+  <section>
+    <div class="wrap" style="max-width: 760px;">
+      {faq.map(([f, a]) => (
+        <details style="border-top: 1px solid var(--line); padding: 14px 0;">
+          <summary style="font-weight: 700; cursor: pointer; font-size: 17px;">{f}</summary>
+          <p class="soft" style="margin-top: 10px; max-width: 46em;">{a}</p>
+        </details>
+      ))}
+    </div>
+  </section>
+  <CtaBanner lang={lang} titel="Question not covered?" text="Write to us directly or book 30 minutes. We answer honestly, even when the answer is 'no'." />
+  <script type="application/ld+json" is:inline set:html={JSON.stringify({
+    '@context': 'https://schema.org',
+    '@type': 'FAQPage',
+    mainEntity: faq.map(([f, a]) => ({
+      '@type': 'Question',
+      name: f,
+      acceptedAnswer: { '@type': 'Answer', text: a },
+    })),
+  })} />
+</BaseLayout>
