@@ -19,14 +19,29 @@ const base = import.meta.env.BASE_URL;
   <HeroBild src={`${base}bilder/hero-insights.jpg`} alt="Black-and-white photo of an orchestra on stage in a large concert hall" />
   <section>
     <div class="wrap">
-      {artikel.map(a => (
-        <article style="padding: 22px 0; border-top: 1px solid var(--line);">
-          {a.data.cover && <Image src={a.data.cover} alt={a.data.coverAlt ?? ''} width={240} style="border-radius: 4px; margin-bottom: 12px;" />}
-          <p class="eyebrow">{datumFmt.format(a.data.pubDate)}</p>
-          <h2 style="margin: 6px 0 8px;"><a href={`${base}en/insights/${a.id.replace(/\/en$/, '')}`} style="text-decoration:none;">{a.data.title}</a></h2>
-          <p class="soft" style="max-width: 46em;">{a.data.description}</p>
-        </article>
-      ))}
+      <div class="split-reihen">
+        {artikel.map(a => {
+          const slug = a.id.replace(/\/en$/, '');
+          return a.data.cover ? (
+            <a class="split-reihe" href={`${base}en/insights/${slug}`} style="text-decoration:none; color:inherit;">
+              <div class="split-bild">
+                <Image src={a.data.cover} alt={a.data.coverAlt ?? ''} width={600} />
+              </div>
+              <div class="split-text">
+                <p class="eyebrow">{datumFmt.format(a.data.pubDate)}</p>
+                <h2 style="margin: 6px 0 8px;">{a.data.title}</h2>
+                <p class="soft" style="font-size: 14px;">{a.data.description}</p>
+              </div>
+            </a>
+          ) : (
+            <article style="padding: 22px 0; border-top: 1px solid var(--line);">
+              <p class="eyebrow">{datumFmt.format(a.data.pubDate)}</p>
+              <h2 style="margin: 6px 0 8px;"><a href={`${base}en/insights/${slug}`} style="text-decoration:none;">{a.data.title}</a></h2>
+              <p class="soft" style="max-width: 46em;">{a.data.description}</p>
+            </article>
+          );
+        })}
+      </div>
     </div>
   </section>
 </BaseLayout>
