@@ -1,0 +1,16 @@
+---
+import type { Stufe } from '../data/stufen';
+import { defaultLang, type Lang } from '../i18n/ui';
+interface Props { s: Stufe; lang?: Lang; }
+const { s, lang = defaultLang } = Astro.props;
+const base = import.meta.env.BASE_URL;
+const danachLabel = lang === 'de' ? 'Danach haben Sie' : 'You end up with';
+---
+<div class="karte stufen-karte">
+  <span class="tag">{lang === 'de' ? 'Stufe' : 'Stage'} {s.nr}</span>
+  <h3>{s.titel[lang]}</h3>
+  <p class="soft" style="font-size:13px;">{s.wasPassiert[lang]}</p>
+  <p style="font-size:12px; font-weight:700; margin-top:8px;">{danachLabel}: {s.ergebnis[lang]}</p>
+  <p class="soft" style="font-size:12px;">{s.dauer[lang]}</p>
+  <p style="margin-top:8px;"><a href={`${base}${lang}/${s.pfad}`} style="font-size:13px; font-weight:600;">{s.angebot[lang]} →</a></p>
+</div>
