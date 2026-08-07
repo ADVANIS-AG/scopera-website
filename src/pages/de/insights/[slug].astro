@@ -1,9 +1,10 @@
 ---
 import BaseLayout from '../../../layouts/BaseLayout.astro';
 import { getCollection, render } from 'astro:content';
+import { Image } from 'astro:assets';
 export async function getStaticPaths() {
-  const artikel = await getCollection('insights');
-  return artikel.map(a => ({ params: { slug: a.id.replace(/\.md$/, '') }, props: { a } }));
+  const artikel = await getCollection('insights', (e) => e.id.endsWith('/de'));
+  return artikel.map(a => ({ params: { slug: a.id.replace(/\/de$/, '') }, props: { a } }));
 }
 const { a } = Astro.props;
 const { Content } = await render(a);
@@ -19,6 +20,7 @@ const base = import.meta.env.BASE_URL;
   </section>
   <section style="border-bottom: none;">
     <div class="wrap" style="max-width: 760px; font-size: 17px;">
+      {a.data.cover && <Image src={a.data.cover} alt={a.data.coverAlt ?? ''} style="width: 100%; height: auto; border-radius: 4px; margin-bottom: 32px;" />}
       <Content />
       <p style="margin-top: 40px;"><a href={`${base}de/insights`}>← Alle Insights</a></p>
     </div>

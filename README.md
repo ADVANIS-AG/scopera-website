@@ -27,7 +27,7 @@ npm run check      # Typ- und Template-Pruefung
 - `src/styles/global.css` — Design-Tokens (Loge: dunkel Standard, helle Variante per Umschalter) und Basisstile
 - `src/layouts/BaseLayout.astro` — Head/SEO, Header/Nav, Footer
 - `src/components/` — CtaBanner, SaeulenGrid, QuerschnittBaender, PaketGrid
-- `src/pages/` — alle Routen; `src/content/insights/` — Blog-Artikel als Markdown
+- `src/pages/` — alle Routen; `src/content/insights/` — Blog-Artikel: ein Ordner pro Artikel mit `index.de.md` + `index.en.md` und optional einem Titelbild (z.B. `cover.jpg`, im Frontmatter als `cover: ./cover.jpg` referenzieren)
 - `docs/superpowers/` — Design-Spec und Implementierungsplan
 - `worker/` — eigenstaendiges Cloudflare-Worker-Projekt (Lead-Gateway: Tracking-Beacon, Kontaktformular, CRM-Anbindung), eigenes `package.json`/Deploy, siehe `worker/README.md`
 

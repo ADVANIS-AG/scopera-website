@@ -1,8 +1,10 @@
 ---
 import BaseLayout from '../../../layouts/BaseLayout.astro';
 import { getCollection } from 'astro:content';
+import { Image } from 'astro:assets';
 import HeroBild from '../../../components/HeroBild.astro';
-const artikel = (await getCollection('insightsEn')).sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf());
+const artikel = (await getCollection('insights', (e) => e.id.endsWith('/en')))
+  .sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf());
 const datumFmt = new Intl.DateTimeFormat('en-GB', { day: 'numeric', month: 'long', year: 'numeric' });
 const base = import.meta.env.BASE_URL;
 ---
@@ -19,8 +21,9 @@ const base = import.meta.env.BASE_URL;
     <div class="wrap">
       {artikel.map(a => (
         <article style="padding: 22px 0; border-top: 1px solid var(--line);">
+          {a.data.cover && <Image src={a.data.cover} alt={a.data.coverAlt ?? ''} width={240} style="border-radius: 4px; margin-bottom: 12px;" />}
           <p class="eyebrow">{datumFmt.format(a.data.pubDate)}</p>
-          <h2 style="margin: 6px 0 8px;"><a href={`${base}en/insights/${a.id.replace(/\.md$/, '')}`} style="text-decoration:none;">{a.data.title}</a></h2>
+          <h2 style="margin: 6px 0 8px;"><a href={`${base}en/insights/${a.id.replace(/\/en$/, '')}`} style="text-decoration:none;">{a.data.title}</a></h2>
           <p class="soft" style="max-width: 46em;">{a.data.description}</p>
         </article>
       ))}
