@@ -85,7 +85,8 @@ section { padding: 64px 0; border-bottom: 1px solid var(--line); }
 /* Header */
 header.site { border-bottom: 2px solid var(--ink); background: var(--ground); position: sticky; top: 0; z-index: 10; }
 .nav { display: flex; align-items: center; justify-content: space-between; padding: 14px 24px; max-width: 1080px; margin: 0 auto; position: relative; }
-.wortmarke { font-weight: 800; font-size: 22px; letter-spacing: -.03em; text-decoration: none; }
+.wortmarke { display: flex; align-items: center; gap: 8px; font-weight: 800; font-size: 22px; letter-spacing: -.03em; text-decoration: none; }
+.wortmarke img { display: block; border-radius: 4px; }
 .nav-right { display: flex; align-items: center; gap: 14px; }
 .nav-links { display: flex; align-items: center; gap: 22px; list-style: none; margin: 0; padding: 0; }
 .nav-links a { text-decoration: none; font-size: 15px; font-weight: 500; }
