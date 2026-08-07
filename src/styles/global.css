@@ -74,7 +74,7 @@ section { padding: 64px 0; border-bottom: 1px solid var(--line); }
 /* Fuenf-Stufen-Band (Startseite) und kompakte Wiederverwendung (Leistungen/Produkt/Pakete) */
 .stufen-band { display: flex; flex-direction: column; gap: 18px; margin-top: 18px; }
 .stufen-karte { display: flex; flex-direction: column; }
-.stufen-gruppe { border: 1px solid var(--accent); border-radius: var(--radius); padding: 20px; display: flex; flex-direction: column; gap: 14px; }
+.stufen-gruppe { background: var(--card); border: 1px solid var(--accent); border-radius: var(--radius); padding: 20px; display: flex; flex-direction: column; gap: 14px; }
 .stufen-gruppe-label { font-size: 11px; text-transform: uppercase; letter-spacing: .08em; color: var(--accent); font-weight: 700; margin: 0; }
 .stufen-gruppe-inner { display: flex; gap: 20px; }
 .stufen-gruppe-inner > .stufen-karte { flex: 1; min-width: 0; border: none; padding: 0; background: transparent; }
