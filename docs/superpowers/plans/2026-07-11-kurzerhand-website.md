@@ -682,7 +682,7 @@ import PaketGrid from '../components/PaketGrid.astro';
 import CtaBanner from '../components/CtaBanner.astro';
 const faq = [
   ['Wie schnell geht es wirklich?', 'Der erste funktionierende Stand steht in der Regel nach wenigen Tagen, die produktive Lösung nach zwei bis sechs Wochen, je nach Umfang und Integrationen. Sie sehen von Anfang an Zwischenstände statt Statusberichte.'],
-  ['Wem gehört der Code?', 'Ihnen. Individuelle Entwicklungen gehen in Ihr Eigentum über. Die Plattform nutzen Sie als Lizenz, bei White-Label auch unter Ihrer eigenen Marke.'],
+  ['Wem gehört der Code?', 'Die Plattform nutzen Sie als Lizenz, bei White-Label auch unter Ihrer eigenen Marke. Individuelle Entwicklungen von Apps gehören Ihnen..'],
   ['Wo liegen unsere Daten?', 'Standardmässig in der Schweiz. Auf Wunsch in Ihrer eigenen Cloud oder On-Premises. Die Modellwahl (auch Schweizer und europäische Anbieter) treffen wir gemeinsam und dokumentieren sie.'],
   ['Ersetzt ihr unsere IT?', 'Nein, wir ergänzen sie. Wir integrieren uns in bestehende Systeme und übergeben so, dass Ihre IT jederzeit mitreden und übernehmen kann.'],
   ['Was ist Vibe Engineering?', 'Unsere Art zu arbeiten: Wir entwickeln mit AI, auf einer erprobten Plattform, in kurzen Zyklen mit täglich sichtbarem Fortschritt. Sie müssen den Begriff nicht kennen. Sie merken ihn am Tempo.'],
