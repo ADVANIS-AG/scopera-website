@@ -19,13 +19,13 @@ const base = import.meta.env.BASE_URL;
   <HeroBild src={`${base}bilder/hero-insights.jpg`} alt="Schwarz-weiss-Aufnahme eines Orchesters auf der Bühne eines grossen Konzertsaals" />
   <section>
     <div class="wrap">
-      <div class="split-reihen">
+      <div class="split-reihen kompakt">
         {artikel.map(a => {
           const slug = a.id.replace(/\/de$/, '');
           return a.data.cover ? (
-            <a class="split-reihe" href={`${base}de/insights/${slug}`} style="text-decoration:none; color:inherit;">
+            <a class="split-reihe kompakt" href={`${base}de/insights/${slug}`} style="text-decoration:none; color:inherit;">
               <div class="split-bild">
-                <Image src={a.data.cover} alt={a.data.coverAlt ?? ''} width={600} />
+                <Image src={a.data.cover} alt={a.data.coverAlt ?? ''} width={400} />
               </div>
               <div class="split-text">
                 <p class="eyebrow">{datumFmt.format(a.data.pubDate)}</p>
