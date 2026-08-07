@@ -1,0 +1,63 @@
+---
+import { BOOKING_URL, SIGNUP_URL } from '../config';
+import { defaultLang, type Lang } from '../i18n/ui';
+interface Props { lang?: Lang; }
+const { lang = defaultLang } = Astro.props;
+const base = import.meta.env.BASE_URL;
+const kontaktHref = `${base}${lang}/contact`;
+const terminZiel = BOOKING_URL || kontaktHref;
+
+const pfade = [
+  {
+    zitat: {
+      de: '„Ich weiss, dass AI helfen könnte, aber nicht wo."',
+      en: '"I know AI could help, but not where."',
+    },
+    weg: { de: 'KI-Potenzial-Assessment, ein halber Tag', en: 'AI Potential Assessment, half a day' },
+    cta: { de: 'Assessment anfragen', en: 'Request an assessment' },
+    href: `${base}${lang}/services`,
+  },
+  {
+    zitat: {
+      de: '„Ich habe einen konkreten Fall und will wissen, ob es geht."',
+      en: '"I have a concrete case and want to know if it\'s possible."',
+    },
+    weg: { de: 'Vibe your Issue, Prototyp innert Stunden', en: 'Vibe your Issue, prototype within hours' },
+    cta: { de: 'Issue einreichen', en: 'Submit an issue' },
+    href: `${base}${lang}/services`,
+  },
+  {
+    zitat: {
+      de: '„Wir haben entschieden und wollen umsetzen."',
+      en: '"We\'ve decided and want to implement."',
+    },
+    weg: { de: 'Starter, Professional oder Enterprise', en: 'Starter, Professional or Enterprise' },
+    cta: { de: 'Pakete ansehen', en: 'View packages' },
+    href: `${base}${lang}/packages`,
+  },
+  {
+    zitat: {
+      de: '„Ich will es zuerst selbst anschauen, ohne Termin."',
+      en: '"I want to take a look myself first, no appointment."',
+    },
+    weg: { de: 'Kostenlose Trial-Lizenz', en: 'Free trial license' },
+    cta: { de: 'Trial starten', en: 'Start trial' },
+    href: SIGNUP_URL,
+  },
+];
+---
+<div class="karten-2">
+  {pfade.map(p => (
+    <div class="karte">
+      <p style="font-style:italic;">{p.zitat[lang]}</p>
+      <p class="soft" style="font-size:13px;">→ {p.weg[lang]}</p>
+      <p style="margin-top:10px;"><a class="btn-ghost" href={p.href}>{p.cta[lang]}</a></p>
+    </div>
+  ))}
+</div>
+<p class="soft" style="margin-top:22px; max-width:46em;">
+  {lang === 'de'
+    ? 'Unsicher? In einem kostenlosen 30-minütigen Gespräch klären wir, ob SCOPERA für Ihren Prozess geeignet ist und welcher Einstieg sinnvoll ist.'
+    : "Not sure? In a free 30-minute call, we'll clarify whether SCOPERA fits your process and which entry point makes sense."}
+</p>
+<p><a class="btn" href={terminZiel}>{lang === 'de' ? 'Termin buchen' : 'Book a call'}</a></p>

@@ -3,6 +3,7 @@ import BaseLayout from '../../layouts/BaseLayout.astro';
 import CtaBanner from '../../components/CtaBanner.astro';
 import SignupBanner from '../../components/SignupBanner.astro';
 import HeroBild from '../../components/HeroBild.astro';
+import StufenKompakt from '../../components/StufenKompakt.astro';
 import NetzGrafik from '../../components/NetzGrafik.astro';
 import MandantenGrafik from '../../components/MandantenGrafik.astro';
 const features = [
@@ -11,11 +12,11 @@ const features = [
   ['Knowledge', 'Your company knowledge, searchable and usable: documents, systems and experience in one place.'],
   ['Integrations', 'Microsoft 365, Dynamics 365, SAP, Salesforce and more: seamlessly connected to what you already have, instead of another spreadsheet island.'],
   ['Analytics', 'Usage, quality and cost of every AI function, transparent in a dashboard.'],
-  ['Governance', 'Roles, department separation, field-level encryption, FADP/GDPR tooling. Automated tests, backups and an audit log included.'],
+  ['Governance', 'Roles, department separation, field-level encryption, revFADP and GDPR tooling. Automated tests, backups and an audit log included.'],
 ];
 const faelle = [
   { tag: 'Security technology', titel: 'Project management instead of a D365 module', text: 'A Swiss security technology company replaced its Dynamics 365 project module: quotes with costing, project structures, service dispatch with mobile reports and customer signatures, full D365 integration. From concept to tested application in days.' },
-  { tag: 'Construction', titel: 'Industry platform with a licensing model', text: 'Multi-tenant platform for the construction industry: onboarding wizard, role model for everyone involved from general contractor to supplier, FADP/GDPR module and white-label capability for partners.' },
+  { tag: 'Construction', titel: 'Industry platform with a licensing model', text: 'Multi-tenant platform for the construction industry: onboarding wizard, role model for everyone involved from general contractor to supplier, revFADP and GDPR module and white-label capability for partners.' },
   { tag: 'Human Resources', titel: 'HR platform with an AI assistant', text: 'Internal HR platform with Microsoft 365 integration, analytics dashboards and an AI assistant with governance rules: training, certificates and processes in one place.' },
   { tag: 'Portals', titel: 'Self-service for customers and partners', text: 'Production-ready blueprint for customer portals: four portals on one platform, from the public landing page through administration and partner access to the participant area with magic-link login.' },
   { tag: 'SME platform', titel: 'Business partners, HR and quotes in one place', text: 'A Swiss SME manages business partners from competitor to customer and supplier, HR data and its lead pipeline in one platform. Automatic CV and quote generators keep documents consistent and professional.' },
@@ -37,6 +38,10 @@ const lang = 'en';
       <p class="lede">Every SCOPERA solution is built on our Enterprise AI Platform: proven, secure, white-label capable. That's why it's fast, without being reckless.</p>
     </div>
   </section>
+  <div class="wrap">
+    <StufenKompakt lang={lang} aktivPfad="product" einordnung="This is the platform that gets built on from stage 3 onward." />
+    <p class="soft" style="font-size:13px; margin-top:-14px;"><a href={`${base}en/services`}>For stage 1 and 2: view services →</a></p>
+  </div>
   <HeroBild src={`${base}bilder/hero-plattform.jpg`} alt="Illuminated music stand with a score, musicians in the dark in the background" />
   <section>
     <div class="wrap">

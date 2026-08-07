@@ -5,6 +5,7 @@ import CtaBanner from '../../components/CtaBanner.astro';
 import SignupBanner from '../../components/SignupBanner.astro';
 import HeroBild from '../../components/HeroBild.astro';
 import PfadGrafik from '../../components/PfadGrafik.astro';
+import StufenKompakt from '../../components/StufenKompakt.astro';
 const base = import.meta.env.BASE_URL;
 const lang = 'de';
 ---
@@ -16,6 +17,10 @@ const lang = 'de';
       <p class="lede">Jedes Engagement beginnt mit einem klaren Rahmen: Umfang, Zeit und Budget vereinbart, bevor wir starten. Keine Überraschungen, kein Kleingedrucktes.</p>
     </div>
   </section>
+  <div class="wrap">
+    <StufenKompakt lang={lang} aktivPfad="packages" einordnung="Diese Editionen decken Stufe 4 und 5 ab." />
+    <p class="soft" style="font-size:13px; margin-top:-14px;"><a href={`${base}de/services`}>Für den Einstieg: Leistungen ansehen →</a></p>
+  </div>
   <HeroBild src={`${base}bilder/hero-pakete.jpg`} alt="Mehrere Ränge mit roten Logen in einem klassischen Opernhaus" />
   <section>
     <div class="wrap">

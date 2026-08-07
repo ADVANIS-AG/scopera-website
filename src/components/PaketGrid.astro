@@ -10,7 +10,17 @@ const pakete = [
       de: 'Der schnelle Einstieg: ein klar umrissener Use Case, fixer Rahmen, spürbares Ergebnis in Wochen.',
       en: 'The quick start: one clearly scoped use case, a fixed frame, a result you can feel in weeks.',
     },
-    preis: { de: 'CHF 20 / Monat', en: 'CHF 20 / month' },
+    preis: {
+      haupt: { de: 'CHF 20 pro Monat und Mandant', en: 'CHF 20 per month, per tenant' },
+      sub: {
+        de: 'Unabhängig von der Nutzerzahl. Keine Zusatzkosten pro Nutzer oder Modul.',
+        en: 'Regardless of user count. No extra cost per user or module.',
+      },
+      verbindung: {
+        de: 'Deshalb gibt es bei uns keine Lizenzspirale pro Nutzer: Sie zahlen für den Mandanten, nicht für Köpfe.',
+        en: "That's why there's no per-user license spiral with us: you pay for the tenant, not per head.",
+      },
+    },
   },
   {
     name: 'Professional',
@@ -44,7 +54,15 @@ const preisAufAnfrage = { de: 'Preis auf Anfrage', en: 'Price on request' };
     <div class="karte">
       <h3>{p.name}</h3>
       <p style="font-size:14px;" class="soft">{p.text[lang]}</p>
-      <p class="tag" style="margin-top:8px;">{p.preis ? p.preis[lang] : preisAufAnfrage[lang]}</p>
+      {p.preis ? (
+        <>
+          <p class="tag" style="margin-top:8px;">{p.preis.haupt[lang]}</p>
+          <p style="font-size:13px;" class="soft">{p.preis.sub[lang]}</p>
+          <p style="font-size:13px; margin-top:6px;">{p.preis.verbindung[lang]}</p>
+        </>
+      ) : (
+        <p class="tag" style="margin-top:8px;">{preisAufAnfrage[lang]}</p>
+      )}
     </div>
   ))}
 </div>

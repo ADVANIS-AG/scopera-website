@@ -1,6 +1,6 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
-import { KONTAKT_EMAIL, WORKER_ENDPOINT, TURNSTILE_SITE_KEY, BOOKING_URL } from '../../config';
+import { KONTAKT_EMAIL, TELEFON, WORKER_ENDPOINT, TURNSTILE_SITE_KEY, BOOKING_URL } from '../../config';
 import HeroBild from '../../components/HeroBild.astro';
 const formularAktiv = WORKER_ENDPOINT.length > 0;
 const emailAktiv = !KONTAKT_EMAIL.startsWith('PLATZHALTER');
@@ -15,15 +15,25 @@ const base = import.meta.env.BASE_URL;
     </div>
   </section>
   <HeroBild src={`${base}bilder/hero-kontakt.jpg`} alt="Goldverzierte Opernlogen mit Gästen, warm beleuchtet" />
+  <section style="border-bottom: none; padding-bottom: 0;">
+    <div class="wrap">
+      <p style="font-size:17px; font-weight:600; max-width:46em;">Bringen Sie Ihren Fachprozess mit. Gemeinsam prüfen wir, wie SCOPERA ihn digitalisiert.</p>
+    </div>
+  </section>
   <section>
     <div class="wrap">
-      <div class="karten-2">
+      <div class="karten-3">
         <div class="karte" style="padding: 26px;">
           <h3>Termin buchen</h3>
           <p style="font-size:14px;" class="soft">Der direkteste Weg: Wählen Sie einen Termin, der Ihnen passt.</p>
           {BOOKING_URL
             ? <a class="btn" href={BOOKING_URL}>Termin wählen</a>
             : <p class="soft" style="font-size:14px;"><strong>Online-Buchung folgt in Kürze.</strong> Bis dahin erreichen Sie uns über das Formular{emailAktiv ? ' oder per E-Mail' : ''}.</p>}
+        </div>
+        <div class="karte" style="padding: 26px;">
+          <h3>Anrufen</h3>
+          <p style="font-size:14px;" class="soft">Mo–Fr, 08:00–18:00 Uhr.</p>
+          <a class="btn" href={`tel:${TELEFON.replace(/\s+/g, '')}`}>{TELEFON}</a>
         </div>
         <div id="nachricht-schreiben" class="karte" style="padding: 26px;">
           <h3>Nachricht schreiben</h3>
@@ -84,6 +94,40 @@ const base = import.meta.env.BASE_URL;
         </div>
       </div>
       {emailAktiv && <p class="soft" style="margin-top:18px; font-size:14px;">Oder direkt per E-Mail: <a href={`mailto:${KONTAKT_EMAIL}`}>{KONTAKT_EMAIL}</a></p>}
+    </div>
+  </section>
+  <section>
+    <div class="wrap">
+      <p class="eyebrow">Ablauf</p>
+      <h2>Was in den 30 Minuten passiert.</h2>
+      <div class="karten-3" style="margin-bottom:26px;">
+        <div class="karte">
+          <p class="tag">10 Minuten</p>
+          <p style="font-size:14px;" class="soft">Sie schildern den Fachprozess, der Sie stört.</p>
+        </div>
+        <div class="karte">
+          <p class="tag">10 Minuten</p>
+          <p style="font-size:14px;" class="soft">Wir zeigen, was auf der Plattform dafür schon existiert.</p>
+        </div>
+        <div class="karte">
+          <p class="tag">10 Minuten</p>
+          <p style="font-size:14px;" class="soft">Einschätzung zu Machbarkeit, Dauer und Kostenrahmen.</p>
+        </div>
+      </div>
+      <div class="karten-2">
+        <div class="karte">
+          <h3>Danach</h3>
+          <p style="font-size:14px;" class="soft">Sie erhalten innert zwei Arbeitstagen eine schriftliche Kurzeinschätzung mit Grobkosten. Ob es weitergeht, entscheiden Sie.</p>
+        </div>
+        <div class="karte">
+          <h3>Dabei</h3>
+          <div style="display:flex; align-items:center; gap:12px;">
+            <div aria-hidden="true" style="flex-shrink:0; width:44px; height:44px; border:1px solid var(--line); background: var(--band); display:flex; align-items:center; justify-content:center; font-weight:800; font-size:17px;">S</div>
+            <p style="font-size:14px; margin:0;" class="soft">Sven Brenner, CTO und AI Strategist</p>
+          </div>
+        </div>
+      </div>
+      <p class="soft" style="font-size:13px; margin-top:18px;">Nützlich, falls vorhanden: eine Prozessbeschreibung oder ein Beispieldokument.</p>
     </div>
   </section>
 </BaseLayout>

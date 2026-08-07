@@ -1,6 +1,6 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
-import { KONTAKT_EMAIL, WORKER_ENDPOINT, TURNSTILE_SITE_KEY, BOOKING_URL } from '../../config';
+import { KONTAKT_EMAIL, TELEFON, WORKER_ENDPOINT, TURNSTILE_SITE_KEY, BOOKING_URL } from '../../config';
 import HeroBild from '../../components/HeroBild.astro';
 const formularAktiv = WORKER_ENDPOINT.length > 0;
 const emailAktiv = !KONTAKT_EMAIL.startsWith('PLATZHALTER');
@@ -15,15 +15,25 @@ const base = import.meta.env.BASE_URL;
     </div>
   </section>
   <HeroBild src={`${base}bilder/hero-kontakt.jpg`} alt="Gilded opera boxes with guests, warmly lit" />
+  <section style="border-bottom: none; padding-bottom: 0;">
+    <div class="wrap">
+      <p style="font-size:17px; font-weight:600; max-width:46em;">Bring the business process that's bothering you. Together we'll check how SCOPERA can digitize it.</p>
+    </div>
+  </section>
   <section>
     <div class="wrap">
-      <div class="karten-2">
+      <div class="karten-3">
         <div class="karte" style="padding: 26px;">
           <h3>Book a call</h3>
           <p style="font-size:14px;" class="soft">The most direct way: pick a time that works for you.</p>
           {BOOKING_URL
             ? <a class="btn" href={BOOKING_URL}>Choose a time</a>
             : <p class="soft" style="font-size:14px;"><strong>Online booking coming soon.</strong> Until then, reach us via the form{emailAktiv ? ' or by email' : ''}.</p>}
+        </div>
+        <div class="karte" style="padding: 26px;">
+          <h3>Call us</h3>
+          <p style="font-size:14px;" class="soft">Mon–Fri, 8am–6pm CET.</p>
+          <a class="btn" href={`tel:${TELEFON.replace(/\s+/g, '')}`}>{TELEFON}</a>
         </div>
         <div id="nachricht-schreiben" class="karte" style="padding: 26px;">
           <h3>Send a message</h3>
@@ -84,6 +94,40 @@ const base = import.meta.env.BASE_URL;
         </div>
       </div>
       {emailAktiv && <p class="soft" style="margin-top:18px; font-size:14px;">Or directly by email: <a href={`mailto:${KONTAKT_EMAIL}`}>{KONTAKT_EMAIL}</a></p>}
+    </div>
+  </section>
+  <section>
+    <div class="wrap">
+      <p class="eyebrow">Agenda</p>
+      <h2>What happens in the 30 minutes.</h2>
+      <div class="karten-3" style="margin-bottom:26px;">
+        <div class="karte">
+          <p class="tag">10 minutes</p>
+          <p style="font-size:14px;" class="soft">You describe the business process that's bothering you.</p>
+        </div>
+        <div class="karte">
+          <p class="tag">10 minutes</p>
+          <p style="font-size:14px;" class="soft">We show what already exists on the platform for it.</p>
+        </div>
+        <div class="karte">
+          <p class="tag">10 minutes</p>
+          <p style="font-size:14px;" class="soft">Assessment of feasibility, timeline and cost range.</p>
+        </div>
+      </div>
+      <div class="karten-2">
+        <div class="karte">
+          <h3>Afterward</h3>
+          <p style="font-size:14px;" class="soft">You'll get a written short assessment with rough costs within two business days. Whether it continues is up to you.</p>
+        </div>
+        <div class="karte">
+          <h3>Who's there</h3>
+          <div style="display:flex; align-items:center; gap:12px;">
+            <div aria-hidden="true" style="flex-shrink:0; width:44px; height:44px; border:1px solid var(--line); background: var(--band); display:flex; align-items:center; justify-content:center; font-weight:800; font-size:17px;">S</div>
+            <p style="font-size:14px; margin:0;" class="soft">Sven Brenner, CTO and AI Strategist</p>
+          </div>
+        </div>
+      </div>
+      <p class="soft" style="font-size:13px; margin-top:18px;">Useful, if you have one: a process description or a sample document.</p>
     </div>
   </section>
 </BaseLayout>

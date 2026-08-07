@@ -71,6 +71,23 @@ section { padding: 64px 0; border-bottom: 1px solid var(--line); }
   .split-reihe .split-bild img { min-height: 200px; }
   .split-reihe .split-text { padding: 26px; }
 }
+/* Fuenf-Stufen-Band (Startseite) und kompakte Wiederverwendung (Leistungen/Produkt/Pakete) */
+.stufen-band { display: flex; gap: 14px; align-items: stretch; margin-top: 18px; }
+.stufen-band > .stufen-karte, .stufen-band > .stufen-gruppe { flex: 1; min-width: 0; }
+.stufen-karte { display: flex; flex-direction: column; }
+.stufen-gruppe { border: 1px solid var(--accent); border-radius: var(--radius); padding: 14px; display: flex; flex-direction: column; gap: 10px; }
+.stufen-gruppe-label { font-size: 11px; text-transform: uppercase; letter-spacing: .08em; color: var(--accent); font-weight: 700; margin: 0; }
+.stufen-gruppe-inner { display: flex; gap: 10px; flex: 1; }
+.stufen-gruppe-inner .stufen-karte { flex: 1; border: none; padding: 0; background: transparent; }
+@media (max-width: 900px) {
+  .stufen-band { flex-direction: column; }
+  .stufen-gruppe-inner { flex-direction: column; }
+}
+.stufen-kompakt { border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); padding: 14px 0; margin: 8px 0 26px; }
+.stufen-kompakt-liste { display: flex; flex-wrap: wrap; gap: 6px 16px; margin-top: 8px; }
+.stufen-kompakt-liste a { font-size: 13px; text-decoration: none; }
+.stufen-kompakt-liste a:hover { color: var(--accent); }
+.stufen-kompakt-liste .aktiv { font-weight: 700; }
 /* Signup-Banner (Selbst-Registrierung, abgesetzt vom beratungsgetriebenen CtaBanner) */
 .signup-band {
   display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 24px;

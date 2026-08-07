@@ -5,8 +5,8 @@ import QuerschnittBaender from '../../components/QuerschnittBaender.astro';
 import CtaBanner from '../../components/CtaBanner.astro';
 import HeroBild from '../../components/HeroBild.astro';
 import KlangLinie from '../../components/KlangLinie.astro';
+import StufenKompakt from '../../components/StufenKompakt.astro';
 import IconMagnify from '../../components/icons/IconMagnify.astro';
-import IconTuningFork from '../../components/icons/IconTuningFork.astro';
 import IconTogether from '../../components/icons/IconTogether.astro';
 import IconSpark from '../../components/icons/IconSpark.astro';
 import { BOOKING_URL } from '../../config';
@@ -24,15 +24,11 @@ const angebote = [
     text: 'Wir schauen uns Ihre Prozesse an und zeigen konkret, wo AI den grössten Hebel hat — mit Aufwand-Wirkung-Einschätzung, nicht mit Buzzwords. In einem halben Tag erhalten Sie eine priorisierte Liste möglicher Use Cases samt grober Aufwandschätzung.',
     ctaText: 'Assessment anfragen',
     kontakt: { name: 'PLATZHALTER_NAME_ASSESSMENT', rolle: 'PLATZHALTER_ROLLE_ASSESSMENT', bookingUrl: '' },
-  },
-  {
-    titel: 'AI Readiness Assessment',
-    Icon: IconTuningFork,
-    bild: 'leistungen-readiness.jpg',
-    alt: 'Eine Geige liegt bereit auf verwitterten Holzdielen',
-    text: 'Sind Ihre Daten, Systeme und Prozesse bereit für AI? Wir prüfen ehrlich, was heute schon geht und was zuerst aufgeräumt werden muss. Am Ende steht ein klarer Massnahmenplan, keine Grundsatzdiskussion.',
-    ctaText: 'Bereitschaft prüfen lassen',
-    kontakt: { name: 'PLATZHALTER_NAME_READINESS', rolle: 'PLATZHALTER_ROLLE_READINESS', bookingUrl: '' },
+    zusatz: {
+      titel: 'Zusatzbaustein: AI Readiness Assessment',
+      text: 'Ergänzend zum Potenzial-Assessment, wenn unklar ist, ob Ihre Daten und Systeme heute schon tragen. Ein halber Tag.',
+      ctaText: 'Bereitschaft prüfen lassen',
+    },
   },
   {
     titel: 'AI Strategie Workshop',
@@ -71,6 +67,10 @@ const terminZielFallback = BOOKING_URL || `${base}de/contact`;
       <p class="lede">Strategie, Assessments, Workshops: Sie können unsere Beratung parallel zur Plattform nutzen oder unabhängig davon buchen. Beides schafft Klarheit, bevor Sie investieren.</p>
     </div>
   </section>
+  <div class="wrap">
+    <StufenKompakt lang={lang} aktivPfad="services" einordnung="Diese Formate decken Stufe 1 bis 3 ab." />
+    <p class="soft" style="font-size:13px; margin-top:-14px;"><a href={`${base}de/packages`}>Für Stufe 4 und 5: Pakete ansehen →</a></p>
+  </div>
   <HeroBild src={`${base}bilder/hero-leistungen.jpg`} alt="Sinfonieorchester spielt vor vollem Konzertsaal, Blick von der Bühne auf das Publikum" />
   <section>
     <div class="wrap">
@@ -81,7 +81,7 @@ const terminZielFallback = BOOKING_URL || `${base}de/contact`;
   <section>
     <div class="wrap">
       <p class="eyebrow">Unsere Beratungsformate</p>
-      <h2>Vier Wege, konkret zu werden.</h2>
+      <h2>Drei Wege, konkret zu werden.</h2>
       <div class="split-reihen">
         {angebote.map(a => (
           <div class="split-reihe">
@@ -98,6 +98,13 @@ const terminZielFallback = BOOKING_URL || `${base}de/contact`;
               <p style="margin-top:16px;">
                 <a class="btn" href={a.kontakt.bookingUrl || terminZielFallback}>{a.ctaText} →</a>
               </p>
+              {a.zusatz && (
+                <div style="margin-top:16px; padding-top:14px; border-top:1px solid var(--line);">
+                  <p style="font-size:11px; font-weight:700; text-transform:uppercase; letter-spacing:.05em; color:var(--ink-soft); margin-bottom:4px;">{a.zusatz.titel}</p>
+                  <p class="soft" style="font-size:13px;">{a.zusatz.text}</p>
+                  <p style="margin-top:6px;"><a href={terminZielFallback} style="font-size:13px; font-weight:600;">{a.zusatz.ctaText} →</a></p>
+                </div>
+              )}
             </div>
           </div>
         ))}

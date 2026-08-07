@@ -1,13 +1,13 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
-import { ADRESSE, UID, KONTAKT_EMAIL } from '../../config';
+import { ADRESSE, UID, HR_NUMMER, KONTAKT_EMAIL } from '../../config';
 ---
 <BaseLayout title="Imprint | SCOPERA." description="Imprint of SCOPERA, powered by ADVANIS AG.">
   <section style="padding: 88px 0;">
     <div class="wrap" style="max-width: 720px;">
       <h1 style="font-size: clamp(30px, 5vw, 44px);">Imprint</h1>
       <p><strong>SCOPERA</strong> is a brand of ADVANIS AG.</p>
-      <p>ADVANIS AG<br />{ADRESSE}<br />UID: {UID}</p>
+      <p>ADVANIS AG<br />{ADRESSE}<br />UID: {UID}<br />Commercial register no.: {HR_NUMMER} (Commercial Register Office of Zurich)</p>
       <p>Contact: {KONTAKT_EMAIL.startsWith('PLATZHALTER') ? 'see contact page' : KONTAKT_EMAIL}</p>
       <p class="soft" style="font-size:14px;">Content responsibility: ADVANIS AG. All information without guarantee.</p>
     </div>

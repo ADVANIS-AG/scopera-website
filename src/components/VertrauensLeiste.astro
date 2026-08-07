@@ -1,0 +1,41 @@
+---
+import { defaultLang, type Lang } from '../i18n/ui';
+interface Props { lang?: Lang; }
+const { lang = defaultLang } = Astro.props;
+const base = import.meta.env.BASE_URL;
+
+const kacheln = [
+  {
+    titel: { de: 'Der Code gehört Ihnen.', en: 'The code is yours.' },
+    text: {
+      de: 'Individuelle Entwicklungen gehen in Ihr Eigentum über.',
+      en: 'Custom development becomes your property.',
+    },
+    faqId: 'code',
+  },
+  {
+    titel: { de: 'Daten in der Schweiz.', en: 'Data in Switzerland.' },
+    text: {
+      de: 'Auf Wunsch in Ihrer eigenen Cloud oder On-Premises.',
+      en: 'On your own cloud or on-premises if you prefer.',
+    },
+    faqId: 'daten',
+  },
+  {
+    titel: { de: 'Keine Jahresverträge.', en: 'No annual contracts.' },
+    text: {
+      de: 'Editionen monatlich anpassbar, nach oben wie nach unten.',
+      en: 'Editions adjustable every month, up or down.',
+    },
+    faqId: 'lizenz',
+  },
+];
+---
+<div class="karten-3">
+  {kacheln.map(k => (
+    <a class="karte" style="text-decoration:none; color:inherit; display:block;" href={`${base}${lang}/faq#${k.faqId}`}>
+      <h3 style="font-size:16px;">{k.titel[lang]}</h3>
+      <p class="soft" style="font-size:13px; margin-bottom:0;">{k.text[lang]}</p>
+    </a>
+  ))}
+</div>

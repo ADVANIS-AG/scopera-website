@@ -3,7 +3,6 @@ import IconHorizon from './icons/IconHorizon.astro';
 import IconLink from './icons/IconLink.astro';
 import IconZyklus from './icons/IconZyklus.astro';
 import IconFreiraum from './icons/IconFreiraum.astro';
-import IconLayer from './icons/IconLayer.astro';
 import { defaultLang, type Lang } from '../i18n/ui';
 interface Props { lang?: Lang; }
 const { lang = defaultLang } = Astro.props;
@@ -41,17 +40,9 @@ const personas = [
       en: 'Give your team more time for customer contact, instead of waiting for the next IT priority.',
     },
   },
-  {
-    Icon: IconLayer,
-    titel: { de: 'Provider & Dienstleister', en: 'Providers & Resellers' },
-    text: {
-      de: 'Die eigene Kundschaft mit einer eigenen Plattform bedienen, White-Label.',
-      en: 'Serve your own customers with your own platform, white-label.',
-    },
-  },
 ];
 ---
-<div class="karten-5">
+<div class="karten">
   {personas.map(p => (
     <div class="karte">
       <p.Icon />

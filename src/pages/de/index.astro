@@ -4,6 +4,9 @@ import PersonaGrid from '../../components/PersonaGrid.astro';
 import CtaBanner from '../../components/CtaBanner.astro';
 import HeroBild from '../../components/HeroBild.astro';
 import KlangLinie from '../../components/KlangLinie.astro';
+import VertrauensLeiste from '../../components/VertrauensLeiste.astro';
+import StufenBand from '../../components/StufenBand.astro';
+import Wegweiser from '../../components/Wegweiser.astro';
 import IconFermate from '../../components/icons/IconFermate.astro';
 import IconAccelerando from '../../components/icons/IconAccelerando.astro';
 import IconBalance from '../../components/icons/IconBalance.astro';
@@ -13,18 +16,15 @@ const lang = 'de';
 <BaseLayout title="SCOPERA. | AI-Lösungen, die einfach laufen" description="AI-Lösungen für Unternehmen in der Schweiz und DACH: von der Strategie bis zum laufenden Betrieb. Geliefert in Wochen, nicht Monaten. SCOPERA — powered by ADVANIS.">
   <section style="padding: 96px 0 72px; border-bottom: none;">
     <div class="wrap">
-      <p class="eyebrow">Für Unternehmen in DACH</p>
-      <h1>Software, die versteht, wie Sie wirklich arbeiten. Startklar in Wochen, nicht Monaten<span class="dot">.</span></h1>
-      <p class="lede">Kein Standardtool passt, die Evaluation dauert Monate, und am Ende zahlen Sie für Funktionen, die niemand braucht. Mit SCOPERA gestaltet Ihr Fachbereich die Lösung selbst mit, schnell gebaut und sicher betrieben, ohne auf die nächste IT-Priorisierung zu warten.</p>
+      <p class="eyebrow">Die Plattform für individuelle Fachprozesse</p>
+      <h1>Software, die versteht, wie Sie wirklich arbeiten<span class="dot">.</span></h1>
+      <p class="lede">Startklar in Wochen, nicht Monaten. Aus Ihren Fachprozessen werden produktive AI-Anwendungen auf einer abgesicherten Plattform. Beratung buchen Sie dazu, oder unabhängig davon.</p>
       <p style="display:flex; gap:12px; flex-wrap:wrap; margin-top:26px;">
         <a class="btn" href={`${base}de/contact`}>Termin buchen</a>
-        <a class="btn-ghost" href={`${base}de/product`}>Was wir gebaut haben</a>
+        <a class="btn-ghost" href={`${base}de/product`}>Was auf der Plattform schon läuft</a>
       </p>
-      <div class="stat-bar">
-        <div class="stat"><strong>28</strong><span>Jahre Erfahrung</span></div>
-        <div class="stat"><strong>300+</strong><span>Unternehmen begleitet</span></div>
-        <div class="stat"><strong>ADVANIS</strong><span>Schweizer Beratungsunternehmen</span></div>
-        <div class="stat"><strong>CH</strong><span>Hosting in der Schweiz, auf Wunsch weltweit</span></div>
+      <div style="margin-top:36px; padding-top:26px; border-top:1px solid var(--line);">
+        <VertrauensLeiste lang={lang} />
       </div>
     </div>
   </section>
@@ -33,42 +33,57 @@ const lang = 'de';
 
   <section>
     <div class="wrap">
+      <p class="eyebrow">In fünf Stufen</p>
+      <h2>So kommen Sie zur Lösung.</h2>
+      <StufenBand lang={lang} />
+    </div>
+  </section>
+
+  <section>
+    <div class="wrap">
+      <p class="eyebrow">Ihr Einstieg</p>
+      <h2>Wo stehen Sie gerade?</h2>
+      <Wegweiser lang={lang} />
+    </div>
+  </section>
+
+  <section>
+    <div class="wrap">
       <p class="eyebrow">Für wen</p>
       <h2>Wer in Ihrem Unternehmen profitiert.</h2>
       <PersonaGrid lang={lang} />
+      <p class="soft" style="margin-top:18px; font-size:14px;">Sind Sie Provider oder Dienstleister? <a href={`${base}de/partner`}>Mehr zum White-Label-Modell →</a></p>
     </div>
   </section>
 
   <section>
     <div class="wrap">
       <p class="eyebrow">Warum SCOPERA</p>
-      <h2>Verlässlich. Schnell. Wirtschaftlich. Sie müssen nicht mehr wählen.</h2>
+      <h2>Schnell. Wirtschaftlich. Sicher und anpassbar. Sie müssen nicht mehr wählen.</h2>
       <div class="karten-3">
-        <div class="karte">
-          <IconFermate />
-          <h3>Verlässlich<span class="dot">.</span></h3>
-          <p style="font-size:14px;" class="soft">Schweizer Hosting, DSG/DSGVO-konform, nachvollziehbare Modellwahl. Und ein Partner, der nach dem Go-live nicht verschwindet.</p>
-        </div>
         <div class="karte">
           <IconAccelerando />
           <h3>Schnell<span class="dot">.</span></h3>
-          <p style="font-size:14px;" class="soft">Wir entwickeln AI-nativ auf einer erprobten Plattform. Was andere in Monaten planen, steht bei uns in Wochen im Betrieb.</p>
+          <p style="font-size:14px;" class="soft">Prototyp innert Stunden oder Tagen. Produktive Anwendung bei überschaubarem Umfang ab ein bis zwei Wochen.</p>
         </div>
         <div class="karte">
           <IconBalance />
           <h3>Wirtschaftlich<span class="dot">.</span></h3>
-          <p style="font-size:14px;" class="soft">Weniger Aufwand pro Lösung heisst tiefere Kosten. Sie zahlen für Ergebnisse, nicht für Konzeptpapiere.</p>
+          <p style="font-size:14px;" class="soft">Kurze Projektzeiten und keine klassische Lizenzspirale pro Nutzer.</p>
+        </div>
+        <div class="karte">
+          <IconFermate />
+          <h3>Sicher und anpassbar<span class="dot">.</span></h3>
+          <p style="font-size:14px;" class="soft">Kontrollierter Betrieb und laufende Weiterentwicklung durch autorisierte Personen.</p>
         </div>
       </div>
     </div>
   </section>
 
-  <section>
+
+  <section style="padding: 40px 0;">
     <div class="wrap">
-      <p class="eyebrow">Was wir tun</p>
-      <h2>Von der Strategie bis zum kontinuierlich lernenden AI-Betrieb.</h2>
-      <p class="soft" style="max-width: 46em;">Vier Säulen, ein Team: Strategy, Enterprise AI Platform, Managed AI und Enablement greifen ineinander, statt getrennte Projekte zu sein.</p>
-      <p style="margin-top:18px;"><a href={`${base}de/services`}>Alle Leistungen im Detail →</a></p>
+      <p style="font-size:18px; max-width:46em; border-left:4px solid var(--accent); padding-left:20px; margin:0;">Dieselben Leute, die seit 1997 CRM- und ERP-Projekte für über 300 Schweizer Unternehmen liefern, bauen SCOPERA.</p>
     </div>
   </section>
 
@@ -85,7 +100,7 @@ const lang = 'de';
         <div class="karte">
           <span class="tag">Plattform</span>
           <h3>Enterprise AI Platform</h3>
-          <p style="font-size:14px;" class="soft">Multi-Tenant, AI-Gateway, White-Label-fähig, DSG/DSGVO-ready. Das Fundament, auf dem jede unserer Lösungen steht.</p>
+          <p style="font-size:14px;" class="soft">Multi-Tenant, AI-Gateway, White-Label-fähig, revDSG- und DSGVO-ready. Das Fundament, auf dem jede unserer Lösungen steht.</p>
         </div>
       </div>
       <p style="margin-top:18px;"><a href={`${base}de/product`}>Zum Produkt und allen Lösungen →</a></p>
