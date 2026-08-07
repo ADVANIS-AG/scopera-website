@@ -48,6 +48,7 @@ Alle Fotos via Unsplash (Unsplash-Lizenz: kommerzielle Nutzung erlaubt, keine At
 - `leistungen-vibe.jpg` — Jens Thekkeveettil (unsplash.com/photos/dBWvUqBoOU8)
 - `hero-partner.jpg` (Seite `/partner`) — Aurora Song (unsplash.com/photos/xY8k70slet0)
 - `ueber-uns-chor.jpg` (Seite `/about`, Gesangsszene) — Green Liu (unsplash.com/photos/ZaZcvU_WuF8)
+- `photo-1633991810204-8f75dafdd324.avif` (Insight "Wo ist das Gerät?") — Sidney Pearce (unsplash.com/photos/4Qv1wRxondk)
 
 SVG-Grafiken (KlangLinie, NetzGrafik, PfadGrafik, `src/components/icons/*`) sind Eigenentwicklungen im Brand-Stil.
 

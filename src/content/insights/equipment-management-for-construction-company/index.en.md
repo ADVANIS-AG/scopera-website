@@ -3,7 +3,7 @@ title: "Where's the equipment? Bringing order to the machine fleet with QR codes
 description: "Who has the jackhammer, and when was it last serviced? A QR code on the machine makes location, rental status and due maintenance visible at a glance."
 pubDate: 2026-08-07
 cover: ./photo-1633991810204-8f75dafdd324.avif
-coverAlt: "Construction machine on a building site"
+coverAlt: "Table with various tools"
 ---
 
 Every construction site knows the picture: equipment moves between the yard, the truck and the site, sometimes officially, sometimes because someone just needed it. The spreadsheet in the office knows nothing about it. Anyone looking for a machine calls around or drives to the yard to check in person.

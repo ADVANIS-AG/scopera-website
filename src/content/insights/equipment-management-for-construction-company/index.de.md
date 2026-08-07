@@ -3,7 +3,7 @@ title: "Wo ist das Gerät? Ordnung im Maschinenpark per QR-Code"
 description: "Wer hat den Presslufthammer, und wann war die letzte Wartung? Ein QR-Code am Gerät macht Standort, Verleih und Service auf einen Blick sichtbar."
 pubDate: 2026-08-07
 cover: ./photo-1633991810204-8f75dafdd324.avif
-coverAlt: "Baumaschine auf einer Baustelle"
+coverAlt: "Tisch mit verschiedenen Werkzeugen"
 ---
 
 Jede Baustelle kennt das Bild: Geräte wandern zwischen Lager, Fahrzeug und Einsatzort, mal offiziell, mal weil sie gerade gebraucht wurden. Die Excel-Liste im Büro weiss davon nichts. Wer eine Maschine sucht, ruft reihum an oder fährt zum Lager, um selbst nachzusehen.
