@@ -27,7 +27,7 @@ const base = import.meta.env.BASE_URL;
           <h3>Termin buchen</h3>
           <p style="font-size:14px;" class="soft">Der direkteste Weg: Wählen Sie einen Termin, der Ihnen passt.</p>
           {BOOKING_URL
-            ? <a class="btn" href={BOOKING_URL}>Termin wählen</a>
+            ? <a class="btn" href={BOOKING_URL} target="_blank" rel="noopener noreferrer">Termin wählen</a>
             : <p class="soft" style="font-size:14px;"><strong>Online-Buchung folgt in Kürze.</strong> Bis dahin erreichen Sie uns über das Formular{emailAktiv ? ' oder per E-Mail' : ''}.</p>}
         </div>
         <div class="karte" style="padding: 26px;">

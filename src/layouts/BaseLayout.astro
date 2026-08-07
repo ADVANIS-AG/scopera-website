@@ -82,7 +82,7 @@ const nav: [string, UiKey][] = [
       <div class="nav-right">
         <ul class="nav-links" id="nav-links">
           {nav.map(([href, key]) => <li><a href={`${base}${lang}/${href}`}>{t(key)}</a></li>)}
-          <li><a class="btn" href={terminZiel}>{t('nav.book')}</a></li>
+          <li><a class="btn" href={terminZiel} target={BOOKING_URL ? '_blank' : undefined} rel={BOOKING_URL ? 'noopener noreferrer' : undefined}>{t('nav.book')}</a></li>
         </ul>
         <a class="lang-toggle" href={otherLangHref} aria-label={t('lang.toggle')}>{otherLang.toUpperCase()}</a>
         <button class="theme-toggle" type="button" aria-label={t('theme.toggle')}>

@@ -51,9 +51,9 @@ const angebote = [
 ];
 const ablauf = [
   ['Verstehen', 'Wir hören zu, schauen uns Ihre Prozesse an und finden den Use Case mit dem besten Verhältnis von Aufwand zu Wirkung.'],
-  ['Bauen', 'AI-natives Entwickeln auf unserer Plattform: erster funktionierender Stand in Tagen, produktive Lösung in Wochen.'],
+  ['Bauen', 'AI-natives Entwickeln auf unserer Plattform: erster funktionierender Stand in Tagen, produktive Lösung ab ein bis zwei Wochen, typischerweise innerhalb von zwei bis sechs Wochen.'],
   ['Betreiben', 'Monitoring, Support und Governance im laufenden Betrieb. Verlässlich und messbar.'],
-  ['Weiterentwickeln', 'Ihre Lösung lernt dazu: neue Anforderungen, neue Modelle, neue Möglichkeiten, laufend integriert.'],
+  ['Weiterentwickeln', 'Ihre Lösung lernt dazu: neue Anforderungen, neue Modelle, neue Möglichkeiten — was umgesetzt wird, entscheiden autorisierte Personen bei Ihnen.'],
 ];
 const base = import.meta.env.BASE_URL;
 const lang = 'de';
@@ -96,13 +96,13 @@ const terminZielFallback = BOOKING_URL || `${base}de/contact`;
                 <p class="soft" style="font-size:12px; margin-top:2px;">Ansprechperson: {a.kontakt.name}{a.kontakt.rolle && !a.kontakt.rolle.startsWith('PLATZHALTER') ? `, ${a.kontakt.rolle}` : ''}</p>
               )}
               <p style="margin-top:16px;">
-                <a class="btn" href={a.kontakt.bookingUrl || terminZielFallback}>{a.ctaText} →</a>
+                <a class="btn" href={a.kontakt.bookingUrl || terminZielFallback} target={(a.kontakt.bookingUrl || BOOKING_URL) ? '_blank' : undefined} rel={(a.kontakt.bookingUrl || BOOKING_URL) ? 'noopener noreferrer' : undefined}>{a.ctaText} →</a>
               </p>
               {a.zusatz && (
                 <div style="margin-top:16px; padding-top:14px; border-top:1px solid var(--line);">
                   <p style="font-size:11px; font-weight:700; text-transform:uppercase; letter-spacing:.05em; color:var(--ink-soft); margin-bottom:4px;">{a.zusatz.titel}</p>
                   <p class="soft" style="font-size:13px;">{a.zusatz.text}</p>
-                  <p style="margin-top:6px;"><a href={terminZielFallback} style="font-size:13px; font-weight:600;">{a.zusatz.ctaText} →</a></p>
+                  <p style="margin-top:6px;"><a href={terminZielFallback} target={BOOKING_URL ? '_blank' : undefined} rel={BOOKING_URL ? 'noopener noreferrer' : undefined} style="font-size:13px; font-weight:600;">{a.zusatz.ctaText} →</a></p>
                 </div>
               )}
             </div>
@@ -127,5 +127,5 @@ const terminZielFallback = BOOKING_URL || `${base}de/contact`;
       </div>
     </div>
   </section>
-  <CtaBanner lang={lang} titel="Welcher Use Case zuerst?" text="Bringen Sie einen Prozess mit, der Sie nervt. Wir sagen Ihnen in 30 Minuten, ob und wie schnell AI ihn übernehmen kann." />
+  <CtaBanner lang={lang} titel="Welcher Use Case zuerst?" text="Bringen Sie einen Prozess mit, der Sie nervt. Wir klären in 30 Minuten, wie SCOPERA ihn digitalisieren, automatisieren oder unterstützen kann." />
 </BaseLayout>

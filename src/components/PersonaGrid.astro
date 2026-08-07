@@ -3,6 +3,7 @@ import IconHorizon from './icons/IconHorizon.astro';
 import IconLink from './icons/IconLink.astro';
 import IconZyklus from './icons/IconZyklus.astro';
 import IconFreiraum from './icons/IconFreiraum.astro';
+import IconLayer from './icons/IconLayer.astro';
 import { defaultLang, type Lang } from '../i18n/ui';
 interface Props { lang?: Lang; }
 const { lang = defaultLang } = Astro.props;
@@ -40,9 +41,17 @@ const personas = [
       en: 'Give your team more time for customer contact, instead of waiting for the next IT priority.',
     },
   },
+  {
+    Icon: IconLayer,
+    titel: { de: 'Operations & Administration', en: 'Operations & Administration' },
+    text: {
+      de: 'Manuelle, Excel- oder Access-basierte Abläufe digitalisieren und Mitarbeitende von Routinearbeit entlasten.',
+      en: 'Digitize manual, Excel- or Access-based workflows and free up employees from routine work.',
+    },
+  },
 ];
 ---
-<div class="karten">
+<div class="karten-5">
   {personas.map(p => (
     <div class="karte">
       <p.Icon />

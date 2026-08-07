@@ -6,10 +6,11 @@ import SignupBanner from '../../components/SignupBanner.astro';
 import HeroBild from '../../components/HeroBild.astro';
 import PfadGrafik from '../../components/PfadGrafik.astro';
 import StufenKompakt from '../../components/StufenKompakt.astro';
+import PaketMatrix from '../../components/PaketMatrix.astro';
 const base = import.meta.env.BASE_URL;
 const lang = 'en';
 ---
-<BaseLayout title="Packages | SCOPERA." description="Four packages from Starter to White-Label. Start, grow, scale: always with a clear frame and no surprises.">
+<BaseLayout title="Packages | SCOPERA." description="Four editions from Trial to Enterprise. Start, grow, scale: always with a clear frame and no surprises.">
   <section style="padding: 88px 0 64px; border-bottom: none;">
     <div class="wrap">
       <p class="eyebrow">Packages</p>
@@ -27,6 +28,11 @@ const lang = 'en';
       <div style="margin: 0 0 26px;"><PfadGrafik /></div>
       <PaketGrid lang={lang} />
       <p style="margin-top:18px;"><a href={`${base}en/partner`}>More on the provider model →</a></p>
+      <div style="margin-top:36px;">
+        <p class="eyebrow">In detail</p>
+        <h2 style="font-size:clamp(22px,3vw,30px);">Editions compared.</h2>
+        <PaketMatrix lang={lang} />
+      </div>
     </div>
   </section>
   <section>

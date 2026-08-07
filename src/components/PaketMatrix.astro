@@ -1,0 +1,64 @@
+---
+import { defaultLang, type Lang } from '../i18n/ui';
+interface Props { lang?: Lang; }
+const { lang = defaultLang } = Astro.props;
+
+const editionen = ['Trial', 'Starter', 'Pro', 'Enterprise'];
+
+const zeilen = [
+  {
+    label: { de: 'Sitzplatzlimit', en: 'Seat limit' },
+    werte: { de: ['2', '10', '25', 'Unbegrenzt'], en: ['2', '10', '25', 'Unlimited'] },
+  },
+  {
+    label: { de: 'App-Baulimit', en: 'App build limit' },
+    werte: { de: ['3', '20', 'Unbegrenzt', 'Unbegrenzt'], en: ['3', '20', 'Unlimited', 'Unlimited'] },
+  },
+  {
+    label: { de: 'Limit aktive Apps', en: 'Active app limit' },
+    werte: { de: ['2', '10', 'Unbegrenzt', 'Unbegrenzt'], en: ['2', '10', 'Unlimited', 'Unlimited'] },
+  },
+  {
+    label: { de: 'Preis', en: 'Price' },
+    werte: {
+      de: ['Kostenlos', 'CHF 20 / Monat', 'CHF 100 / Monat', 'Auf Anfrage'],
+      en: ['Free', 'CHF 20 / month', 'CHF 100 / month', 'On request'],
+    },
+  },
+  {
+    label: { de: 'Kündigungsfrist', en: 'Notice period' },
+    werte: {
+      de: ['Keine', 'Monatlich', 'Monatlich', 'Quartalsweise'],
+      en: ['None', 'Monthly', 'Monthly', 'Quarterly'],
+    },
+  },
+];
+
+const hinweis = {
+  de: 'KI-Nutzung ist aktuell in allen Editionen unbegrenzt — das ist (noch) kein Unterscheidungsmerkmal zwischen den Editionen.',
+  en: 'AI usage is currently unlimited in all editions — this is not (yet) a differentiator between editions.',
+};
+---
+<div style="overflow-x:auto;">
+  <table style="width:100%; min-width:560px; border-collapse:collapse;">
+    <thead>
+      <tr>
+        <th style="text-align:left; padding:12px 14px; border-bottom:2px solid var(--ink); font-size:13px; color:var(--ink-soft); font-weight:600;"></th>
+        {editionen.map(e => (
+          <th style="text-align:left; padding:12px 14px; border-bottom:2px solid var(--ink); font-size:16px; font-family:Georgia, 'Iowan Old Style', 'Times New Roman', ui-serif, serif;">{e}</th>
+        ))}
+      </tr>
+    </thead>
+    <tbody>
+      {zeilen.map(z => (
+        <tr>
+          <td style="padding:12px 14px; border-bottom:1px solid var(--line); font-size:13px; color:var(--ink-soft); white-space:nowrap;">{z.label[lang]}</td>
+          {z.werte[lang].map(w => (
+            <td style="padding:12px 14px; border-bottom:1px solid var(--line); font-size:14px;">{w}</td>
+          ))}
+        </tr>
+      ))}
+    </tbody>
+  </table>
+</div>
+<p class="soft" style="font-size:12px; margin-top:10px;">{hinweis[lang]}</p>

@@ -66,7 +66,7 @@ export const stufen: Stufe[] = [
       en: 'Solution in use, incl. security, integrations, tests, permissions',
     },
     dauer: { de: 'Ein bis sechs Wochen', en: 'One to six weeks' },
-    angebot: { de: 'Starter, Professional', en: 'Starter, Professional' },
+    angebot: { de: 'Starter, Pro', en: 'Starter, Pro' },
     pfad: 'packages',
   },
   {

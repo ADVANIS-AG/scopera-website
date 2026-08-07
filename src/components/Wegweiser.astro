@@ -31,7 +31,7 @@ const pfade = [
       de: '„Wir haben entschieden und wollen umsetzen."',
       en: '"We\'ve decided and want to implement."',
     },
-    weg: { de: 'Starter, Professional oder Enterprise', en: 'Starter, Professional or Enterprise' },
+    weg: { de: 'Starter, Pro oder Enterprise', en: 'Starter, Pro or Enterprise' },
     cta: { de: 'Pakete ansehen', en: 'View packages' },
     href: `${base}${lang}/packages`,
   },
@@ -60,4 +60,4 @@ const pfade = [
     ? 'Unsicher? In einem kostenlosen 30-minütigen Gespräch klären wir, ob SCOPERA für Ihren Prozess geeignet ist und welcher Einstieg sinnvoll ist.'
     : "Not sure? In a free 30-minute call, we'll clarify whether SCOPERA fits your process and which entry point makes sense."}
 </p>
-<p><a class="btn" href={terminZiel}>{lang === 'de' ? 'Termin buchen' : 'Book a call'}</a></p>
+<p><a class="btn" href={terminZiel} target={BOOKING_URL ? '_blank' : undefined} rel={BOOKING_URL ? 'noopener noreferrer' : undefined}>{lang === 'de' ? 'Termin buchen' : 'Book a call'}</a></p>

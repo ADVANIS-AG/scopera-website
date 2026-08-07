@@ -27,7 +27,7 @@ const base = import.meta.env.BASE_URL;
           <h3>Book a call</h3>
           <p style="font-size:14px;" class="soft">The most direct way: pick a time that works for you.</p>
           {BOOKING_URL
-            ? <a class="btn" href={BOOKING_URL}>Choose a time</a>
+            ? <a class="btn" href={BOOKING_URL} target="_blank" rel="noopener noreferrer">Choose a time</a>
             : <p class="soft" style="font-size:14px;"><strong>Online booking coming soon.</strong> Until then, reach us via the form{emailAktiv ? ' or by email' : ''}.</p>}
         </div>
         <div class="karte" style="padding: 26px;">

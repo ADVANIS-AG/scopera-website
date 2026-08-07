@@ -5,16 +5,30 @@ const { lang = defaultLang } = Astro.props;
 
 const pakete = [
   {
+    name: 'Trial',
+    text: {
+      de: 'Der risikofreie Einstieg: 2 Sitzplätze, bis zu 3 Apps testen, jederzeit kündbar.',
+      en: 'The risk-free start: 2 seats, build up to 3 apps, cancel anytime.',
+    },
+    preis: {
+      haupt: { de: 'Kostenlos', en: 'Free' },
+      sub: {
+        de: '2 Sitzplätze, bis zu 3 Apps, davon 2 gleichzeitig aktiv.',
+        en: '2 seats, up to 3 apps, 2 active at a time.',
+      },
+    },
+  },
+  {
     name: 'Starter',
     text: {
-      de: 'Der schnelle Einstieg: ein klar umrissener Use Case, fixer Rahmen, spürbares Ergebnis in Wochen.',
-      en: 'The quick start: one clearly scoped use case, a fixed frame, a result you can feel in weeks.',
+      de: 'Der schnelle Einstieg: ein klar umrissener Use Case, fixer Rahmen, produktiv ab ein bis zwei Wochen.',
+      en: 'The quick start: one clearly scoped use case, a fixed frame, production from one to two weeks.',
     },
     preis: {
       haupt: { de: 'CHF 20 pro Monat und Mandant', en: 'CHF 20 per month, per tenant' },
       sub: {
-        de: 'Unabhängig von der Nutzerzahl. Keine Zusatzkosten pro Nutzer oder Modul.',
-        en: 'Regardless of user count. No extra cost per user or module.',
+        de: 'Bis zu 10 Sitzplätze inklusive. Keine Zusatzkosten pro Nutzer oder Modul.',
+        en: 'Up to 10 seats included. No extra cost per user or module.',
       },
       verbindung: {
         de: 'Deshalb gibt es bei uns keine Lizenzspirale pro Nutzer: Sie zahlen für den Mandanten, nicht für Köpfe.',
@@ -23,12 +37,18 @@ const pakete = [
     },
   },
   {
-    name: 'Professional',
+    name: 'Pro',
     text: {
-      de: 'Mehrere Module, SSO und API-Zugang. Für Unternehmen, die nach dem ersten Erfolg ausbauen.',
-      en: 'Multiple modules, SSO and API access. For companies expanding after their first success.',
+      de: 'Mehr Kapazität für wachsende Teams: 25 Sitzplätze, unbegrenzt Apps, monatlich kündbar.',
+      en: 'More capacity for growing teams: 25 seats, unlimited apps, cancel monthly.',
     },
-    preis: null,
+    preis: {
+      haupt: { de: 'CHF 100 pro Monat und Mandant', en: 'CHF 100 per month, per tenant' },
+      sub: {
+        de: 'Bis zu 25 Sitzplätze inklusive. Unbegrenzt Apps und aktive Apps.',
+        en: 'Up to 25 seats included. Unlimited apps and active apps.',
+      },
+    },
   },
   {
     name: 'Enterprise',
@@ -36,33 +56,24 @@ const pakete = [
       de: 'Unbegrenzt skalierbar, mit Managed AI, Governance-Betrieb und garantierten Reaktionszeiten.',
       en: 'Unlimited scale, with Managed AI, governed operations and guaranteed response times.',
     },
-    preis: null,
-  },
-  {
-    name: 'White-Label',
-    text: {
-      de: 'Eigene Marke, eigene Domain, Reseller-Modell. Für Partner, die auf unserer Plattform aufbauen.',
-      en: 'Your own brand, your own domain, reseller model. For partners building on our platform.',
+    preis: {
+      haupt: { de: 'Preis auf Anfrage', en: 'Price on request' },
+      sub: {
+        de: 'Unbegrenzte Sitzplätze und Apps. Kündigungsfrist quartalsweise.',
+        en: 'Unlimited seats and apps. Quarterly notice period.',
+      },
     },
-    preis: null,
   },
 ];
-const preisAufAnfrage = { de: 'Preis auf Anfrage', en: 'Price on request' };
 ---
 <div class="karten">
   {pakete.map(p => (
     <div class="karte">
       <h3>{p.name}</h3>
       <p style="font-size:14px;" class="soft">{p.text[lang]}</p>
-      {p.preis ? (
-        <>
-          <p class="tag" style="margin-top:8px;">{p.preis.haupt[lang]}</p>
-          <p style="font-size:13px;" class="soft">{p.preis.sub[lang]}</p>
-          <p style="font-size:13px; margin-top:6px;">{p.preis.verbindung[lang]}</p>
-        </>
-      ) : (
-        <p class="tag" style="margin-top:8px;">{preisAufAnfrage[lang]}</p>
-      )}
+      <p class="tag" style="margin-top:8px;">{p.preis.haupt[lang]}</p>
+      <p style="font-size:13px;" class="soft">{p.preis.sub[lang]}</p>
+      {p.preis.verbindung && <p style="font-size:13px; margin-top:6px;">{p.preis.verbindung[lang]}</p>}
     </div>
   ))}
 </div>

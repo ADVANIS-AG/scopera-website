@@ -14,7 +14,7 @@ const ziel = BOOKING_URL || kontaktHref;
     <h2>{titel}</h2>
     <p class="lede soft">{text}</p>
     <p style="display:flex; gap:12px; flex-wrap:wrap; margin-top:22px;">
-      <a class="btn" href={ziel}>{t('nav.book')}</a>
+      <a class="btn" href={ziel} target={BOOKING_URL ? '_blank' : undefined} rel={BOOKING_URL ? 'noopener noreferrer' : undefined}>{t('nav.book')}</a>
       <a class="btn-ghost" href={kontaktHref}>{t('cta.write')}</a>
     </p>
   </div>

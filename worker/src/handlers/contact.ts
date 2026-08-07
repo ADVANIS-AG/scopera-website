@@ -52,5 +52,12 @@ export async function handleContact(request: Request, env: Env): Promise<Respons
     message: body.nachricht,
   });
 
+  if (!result.ok && result.error === "crm-not-configured") {
+    // Nachricht ist sicher in ADMIN_STORE erfasst (siehe persistFailedLead in crm-client.ts) und
+    // wird manuell nachbearbeitet - aus Sicht der Besucherin ist das kein Fehler, nur die
+    // automatische CRM-Synchronisation fehlt noch.
+    return jsonResponse({ ok: true, pending: true }, 200);
+  }
+
   return jsonResponse({ ok: result.ok, error: result.error }, result.ok ? 200 : 502);
 }
