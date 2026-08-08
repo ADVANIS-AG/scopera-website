@@ -10,16 +10,16 @@ import PaketMatrix from '../../components/PaketMatrix.astro';
 const base = import.meta.env.BASE_URL;
 const lang = 'en';
 ---
-<BaseLayout title="Packages | SCOPERA." description="Four editions from Trial to Enterprise. Start, grow, scale: always with a clear frame and no surprises.">
+<BaseLayout title="Editions | SCOPERA." description="Four editions from Trial to Enterprise. Start, grow, scale: always with a clear frame and no surprises.">
   <section style="padding: 88px 0 64px; border-bottom: none;">
     <div class="wrap">
-      <p class="eyebrow">Packages</p>
+      <p class="eyebrow">Editions</p>
       <h1>Start, grow, scale<span class="dot">.</span></h1>
       <p class="lede">Every engagement starts with a clear frame: scope, time and budget agreed before we begin. No surprises, no fine print.</p>
     </div>
   </section>
   <div class="wrap">
-    <StufenKompakt lang={lang} aktivPfad="packages" einordnung="These editions cover stage 4 and 5." />
+    <StufenKompakt lang={lang} aktivPfad="packages" einordnung="The editions further down cover stage 4 and 5." />
     <p class="soft" style="font-size:13px; margin-top:-14px;"><a href={`${base}en/services`}>For getting started: view services →</a></p>
   </div>
   <HeroBild src={`${base}bilder/hero-pakete.jpg`} alt="Several tiers of red boxes in a classic opera house" />
@@ -43,6 +43,6 @@ const lang = 'en';
       <p style="margin-top:12px;"><a href={`${base}en/faq`}>All questions and answers →</a></p>
     </div>
   </section>
-  <CtaBanner lang={lang} titel="Which package fits?" text="Tell us what you're planning. We'll tell you honestly which package you need, and which you don't." />
+  <CtaBanner lang={lang} titel="Which edition fits?" text="Tell us what you're planning. We'll tell you honestly which edition you need, and which you don't." />
   <SignupBanner lang={lang} />
 </BaseLayout>

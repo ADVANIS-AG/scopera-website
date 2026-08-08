@@ -30,10 +30,6 @@ const pakete = [
         de: 'Bis zu 10 Sitzplätze inklusive. Keine Zusatzkosten pro Nutzer oder Modul.',
         en: 'Up to 10 seats included. No extra cost per user or module.',
       },
-      verbindung: {
-        de: 'Deshalb gibt es bei uns keine Lizenzspirale pro Nutzer: Sie zahlen für den Mandanten, nicht für Köpfe.',
-        en: "That's why there's no per-user license spiral with us: you pay for the tenant, not per head.",
-      },
     },
   },
   {
@@ -65,6 +61,10 @@ const pakete = [
     },
   },
 ];
+const lizenzHinweis = {
+  de: 'Bei uns gibt es keine Lizenzspirale pro Nutzer: Sie zahlen für den Mandanten, nicht für Köpfe — bis zum jeweiligen Sitzplatzlimit Ihrer Edition.',
+  en: "With us, there's no per-user license spiral: you pay for the tenant, not per head — up to your edition's seat limit.",
+};
 ---
 <div class="karten">
   {pakete.map(p => (
@@ -73,7 +73,7 @@ const pakete = [
       <p style="font-size:14px;" class="soft">{p.text[lang]}</p>
       <p class="tag" style="margin-top:8px;">{p.preis.haupt[lang]}</p>
       <p style="font-size:13px;" class="soft">{p.preis.sub[lang]}</p>
-      {p.preis.verbindung && <p style="font-size:13px; margin-top:6px;">{p.preis.verbindung[lang]}</p>}
     </div>
   ))}
 </div>
+<p class="soft" style="font-size:12px; margin-top:10px;">{lizenzHinweis[lang]}</p>

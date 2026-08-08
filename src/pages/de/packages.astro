@@ -10,16 +10,16 @@ import PaketMatrix from '../../components/PaketMatrix.astro';
 const base = import.meta.env.BASE_URL;
 const lang = 'de';
 ---
-<BaseLayout title="Pakete | SCOPERA." description="Vier Editionen von Trial bis Enterprise. Einsteigen, wachsen, skalieren: immer mit klarem Rahmen und ohne Überraschungen.">
+<BaseLayout title="Editionen | SCOPERA." description="Vier Editionen von Trial bis Enterprise. Einsteigen, wachsen, skalieren: immer mit klarem Rahmen und ohne Überraschungen.">
   <section style="padding: 88px 0 64px; border-bottom: none;">
     <div class="wrap">
-      <p class="eyebrow">Pakete</p>
+      <p class="eyebrow">Editionen</p>
       <h1>Einsteigen, wachsen, skalieren<span class="dot">.</span></h1>
       <p class="lede">Jedes Engagement beginnt mit einem klaren Rahmen: Umfang, Zeit und Budget vereinbart, bevor wir starten. Keine Überraschungen, kein Kleingedrucktes.</p>
     </div>
   </section>
   <div class="wrap">
-    <StufenKompakt lang={lang} aktivPfad="packages" einordnung="Diese Editionen decken Stufe 4 und 5 ab." />
+    <StufenKompakt lang={lang} aktivPfad="packages" einordnung="Die Editionen weiter unten decken Stufe 4 und 5 ab." />
     <p class="soft" style="font-size:13px; margin-top:-14px;"><a href={`${base}de/services`}>Für den Einstieg: Leistungen ansehen →</a></p>
   </div>
   <HeroBild src={`${base}bilder/hero-pakete.jpg`} alt="Mehrere Ränge mit roten Logen in einem klassischen Opernhaus" />
@@ -43,6 +43,6 @@ const lang = 'de';
       <p style="margin-top:12px;"><a href={`${base}de/faq`}>Alle Fragen und Antworten →</a></p>
     </div>
   </section>
-  <CtaBanner lang={lang} titel="Welches Paket passt?" text="Sagen Sie uns, was Sie vorhaben. Wir sagen Ihnen ehrlich, welches Paket es braucht und welches nicht." />
+  <CtaBanner lang={lang} titel="Welche Edition passt?" text="Sagen Sie uns, was Sie vorhaben. Wir sagen Ihnen ehrlich, welche Edition es braucht und welche nicht." />
   <SignupBanner lang={lang} />
 </BaseLayout>

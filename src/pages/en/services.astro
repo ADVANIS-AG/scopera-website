@@ -4,7 +4,6 @@ import SaeulenGrid from '../../components/SaeulenGrid.astro';
 import QuerschnittBaender from '../../components/QuerschnittBaender.astro';
 import CtaBanner from '../../components/CtaBanner.astro';
 import HeroBild from '../../components/HeroBild.astro';
-import KlangLinie from '../../components/KlangLinie.astro';
 import StufenKompakt from '../../components/StufenKompakt.astro';
 import IconMagnify from '../../components/icons/IconMagnify.astro';
 import IconTogether from '../../components/icons/IconTogether.astro';
@@ -45,12 +44,6 @@ const angebote = [
     kontakt: { name: 'PLATZHALTER_NAME_VIBE', rolle: 'PLATZHALTER_ROLLE_VIBE', bookingUrl: '' },
   },
 ];
-const ablauf = [
-  ['Understand', 'We listen, look at your processes and find the use case with the best ratio of effort to impact.'],
-  ['Build', 'AI-native development on our platform: a first working version in days, a production solution from one to two weeks, typically within two to six weeks.'],
-  ['Operate', 'Monitoring, support and governance in live operation. Reliable and measurable.'],
-  ['Evolve', 'Your solution keeps learning: new requirements, new models, new possibilities — authorized people on your side decide what gets implemented.'],
-];
 const base = import.meta.env.BASE_URL;
 const lang = 'en';
 const terminZielFallback = BOOKING_URL || `${base}en/contact`;
@@ -65,7 +58,7 @@ const terminZielFallback = BOOKING_URL || `${base}en/contact`;
   </section>
   <div class="wrap">
     <StufenKompakt lang={lang} aktivPfad="services" einordnung="These formats cover stage 1 through 3." />
-    <p class="soft" style="font-size:13px; margin-top:-14px;"><a href={`${base}en/packages`}>For stage 4 and 5: view packages →</a></p>
+    <p class="soft" style="font-size:13px; margin-top:-14px;"><a href={`${base}en/packages`}>For stage 4 and 5: view editions →</a></p>
   </div>
   <HeroBild src={`${base}bilder/hero-leistungen.jpg`} alt="Symphony orchestra playing before a full concert hall, view from the stage toward the audience" />
   <section>
@@ -102,22 +95,6 @@ const terminZielFallback = BOOKING_URL || `${base}en/contact`;
                 </div>
               )}
             </div>
-          </div>
-        ))}
-      </div>
-    </div>
-  </section>
-  <section>
-    <div class="wrap">
-      <p class="eyebrow">How we work</p>
-      <h2>Four steps. No waterfall.</h2>
-      <div style="margin: 8px 0 26px;"><KlangLinie /></div>
-      <div class="karten">
-        {ablauf.map(([t, x], i) => (
-          <div class="karte">
-            <p class="tag">Step {i + 1}</p>
-            <h3>{t}</h3>
-            <p style="font-size:14px;" class="soft">{x}</p>
           </div>
         ))}
       </div>

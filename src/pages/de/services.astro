@@ -4,7 +4,6 @@ import SaeulenGrid from '../../components/SaeulenGrid.astro';
 import QuerschnittBaender from '../../components/QuerschnittBaender.astro';
 import CtaBanner from '../../components/CtaBanner.astro';
 import HeroBild from '../../components/HeroBild.astro';
-import KlangLinie from '../../components/KlangLinie.astro';
 import StufenKompakt from '../../components/StufenKompakt.astro';
 import IconMagnify from '../../components/icons/IconMagnify.astro';
 import IconTogether from '../../components/icons/IconTogether.astro';
@@ -14,7 +13,7 @@ import { BOOKING_URL } from '../../config';
 // Zuordnung Angebot -> Ansprechperson + individueller Buchungslink. Aktuell Platzhalter, siehe
 // README-Launch-Checkliste. `bookingUrl` leer = CTA faellt auf den allgemeinen Buchungslink zurueck,
 // `name`, der mit "PLATZHALTER" beginnt, wird nicht angezeigt (gleiches Muster wie src/config.ts).
-// Gleiche Form laesst sich 1:1 auf /pakete oder weitere Seiten uebertragen.
+// Gleiche Form laesst sich 1:1 auf /packages oder weitere Seiten uebertragen.
 const angebote = [
   {
     titel: 'KI Potenzial Assessment',
@@ -49,12 +48,6 @@ const angebote = [
     kontakt: { name: 'PLATZHALTER_NAME_VIBE', rolle: 'PLATZHALTER_ROLLE_VIBE', bookingUrl: '' },
   },
 ];
-const ablauf = [
-  ['Verstehen', 'Wir hören zu, schauen uns Ihre Prozesse an und finden den Use Case mit dem besten Verhältnis von Aufwand zu Wirkung.'],
-  ['Bauen', 'AI-natives Entwickeln auf unserer Plattform: erster funktionierender Stand in Tagen, produktive Lösung ab ein bis zwei Wochen, typischerweise innerhalb von zwei bis sechs Wochen.'],
-  ['Betreiben', 'Monitoring, Support und Governance im laufenden Betrieb. Verlässlich und messbar.'],
-  ['Weiterentwickeln', 'Ihre Lösung lernt dazu: neue Anforderungen, neue Modelle, neue Möglichkeiten — was umgesetzt wird, entscheiden autorisierte Personen bei Ihnen.'],
-];
 const base = import.meta.env.BASE_URL;
 const lang = 'de';
 const terminZielFallback = BOOKING_URL || `${base}de/contact`;
@@ -69,7 +62,7 @@ const terminZielFallback = BOOKING_URL || `${base}de/contact`;
   </section>
   <div class="wrap">
     <StufenKompakt lang={lang} aktivPfad="services" einordnung="Diese Formate decken Stufe 1 bis 3 ab." />
-    <p class="soft" style="font-size:13px; margin-top:-14px;"><a href={`${base}de/packages`}>Für Stufe 4 und 5: Pakete ansehen →</a></p>
+    <p class="soft" style="font-size:13px; margin-top:-14px;"><a href={`${base}de/packages`}>Für Stufe 4 und 5: Editionen ansehen →</a></p>
   </div>
   <HeroBild src={`${base}bilder/hero-leistungen.jpg`} alt="Sinfonieorchester spielt vor vollem Konzertsaal, Blick von der Bühne auf das Publikum" />
   <section>
@@ -106,22 +99,6 @@ const terminZielFallback = BOOKING_URL || `${base}de/contact`;
                 </div>
               )}
             </div>
-          </div>
-        ))}
-      </div>
-    </div>
-  </section>
-  <section>
-    <div class="wrap">
-      <p class="eyebrow">So arbeiten wir</p>
-      <h2>Vier Schritte. Kein Wasserfall.</h2>
-      <div style="margin: 8px 0 26px;"><KlangLinie /></div>
-      <div class="karten">
-        {ablauf.map(([t, x], i) => (
-          <div class="karte">
-            <p class="tag">Schritt {i + 1}</p>
-            <h3>{t}</h3>
-            <p style="font-size:14px;" class="soft">{x}</p>
           </div>
         ))}
       </div>

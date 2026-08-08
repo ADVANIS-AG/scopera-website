@@ -2,7 +2,7 @@ export const ui = {
   de: {
     'nav.services': 'Leistungen',
     'nav.product': 'Produkt',
-    'nav.packages': 'Pakete',
+    'nav.packages': 'Editionen',
     'nav.partner': 'Partner',
     'nav.insights': 'Insights',
     'nav.faq': 'FAQ',
@@ -28,7 +28,7 @@ export const ui = {
   en: {
     'nav.services': 'Services',
     'nav.product': 'Product',
-    'nav.packages': 'Packages',
+    'nav.packages': 'Editions',
     'nav.partner': 'Partner',
     'nav.insights': 'Insights',
     'nav.faq': 'FAQ',

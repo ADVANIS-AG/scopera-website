@@ -6,7 +6,9 @@ interface Props { lang?: Lang; }
 const { lang = defaultLang } = Astro.props;
 const gruppe = stufen.slice(0, 2);
 const rest = stufen.slice(2);
-const gruppeLabel = lang === 'de' ? 'Ein Einstieg, eine Kaufentscheidung' : 'One entry point, one decision';
+const gruppeLabel = lang === 'de'
+  ? 'Werden meist im selben Zug gebucht'
+  : 'Usually booked together';
 ---
 <div class="stufen-band">
   <div class="stufen-gruppe">
