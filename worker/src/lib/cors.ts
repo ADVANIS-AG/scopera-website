@@ -18,6 +18,11 @@ export async function corsHeaders(request: Request, env: Env): Promise<HeadersIn
   const allowOrigin = origin && allowed.includes(origin) ? origin : allowed[0] ?? "";
   return {
     "Access-Control-Allow-Origin": allowOrigin,
+    // navigator.sendBeacon() attaches cookies for the target origin whenever present (e.g. a
+    // Cloudflare Access session from admin.scopera.ai), regardless of caller intent - without
+    // this header the browser rejects that credentialed response outright. Safe here: none of
+    // the routes behind this helper (/beacon, /contact, /apollo-webhook) read cookies for auth.
+    "Access-Control-Allow-Credentials": "true",
     "Access-Control-Allow-Methods": "POST, OPTIONS",
     "Access-Control-Allow-Headers": "Content-Type",
     Vary: "Origin",
