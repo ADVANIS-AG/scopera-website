@@ -93,5 +93,14 @@ const lang = 'en';
     </div>
   </section>
   <CtaBanner lang={lang} titel="Seeing is believing." text="We'll show you the platform and a case study from your industry. Live, not on slides." />
+  
+  <div class="wrap">
+    <style>
+      .scopera-offers-embed{width:100%;max-width:900px;aspect-ratio:3/1;border:0;display:block}
+      @media (max-width:600px){.scopera-offers-embed{aspect-ratio:9/16;max-width:420px}}
+    </style>
+    <iframe class="scopera-offers-embed" src="https://api.scopera.ai/v1/public/offers/groups/Sommer 2026/banner?locale=en" loading="lazy"></iframe>    
+  </div>
+  
   <SignupBanner lang={lang} />
 </BaseLayout>

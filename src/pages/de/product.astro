@@ -95,7 +95,11 @@ const lang = 'de';
   <CtaBanner lang={lang} titel="Sehen statt glauben." text="Wir zeigen Ihnen die Plattform und ein Fallbeispiel aus Ihrer Branche. Live, nicht auf Folien." />
   
   <div class="wrap">
-    <iframe src="https://api.scopera.ai/v1/public/offers/groups/Sommer 2026/banner" width="900" height="568" frameborder="0" style="border:0"></iframe>
+    <style>
+      .scopera-offers-embed{width:100%;max-width:900px;aspect-ratio:3/1;border:0;display:block}
+      @media (max-width:600px){.scopera-offers-embed{aspect-ratio:9/16;max-width:420px}}
+    </style>
+    <iframe class="scopera-offers-embed" src="https://api.scopera.ai/v1/public/offers/groups/Sommer 2026/banner?locale=de" loading="lazy"></iframe>
   </div>
   <SignupBanner lang={lang} />
 </BaseLayout>

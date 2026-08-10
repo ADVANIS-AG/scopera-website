@@ -10,6 +10,7 @@ export default defineConfig({
         defaultLocale: 'de',
         locales: { de: 'de', en: 'en' },
       },
+      filter: (page) => !/\/(de|en)\/packages\/?$/.test(page),
     }),
   ],
   i18n: {

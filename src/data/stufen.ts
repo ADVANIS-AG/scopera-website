@@ -67,7 +67,7 @@ export const stufen: Stufe[] = [
     },
     dauer: { de: 'Ein bis sechs Wochen', en: 'One to six weeks' },
     angebot: { de: 'Starter, Pro', en: 'Starter, Pro' },
-    pfad: 'packages',
+    pfad: 'editions',
   },
   {
     nr: 5,
@@ -82,6 +82,6 @@ export const stufen: Stufe[] = [
     },
     dauer: { de: 'Laufend', en: 'Ongoing' },
     angebot: { de: 'Enterprise, Managed AI, White-Label', en: 'Enterprise, Managed AI, White-Label' },
-    pfad: 'packages',
+    pfad: 'editions',
   },
 ];

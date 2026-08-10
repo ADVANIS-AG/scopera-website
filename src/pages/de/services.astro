@@ -13,7 +13,7 @@ import { BOOKING_URL } from '../../config';
 // Zuordnung Angebot -> Ansprechperson + individueller Buchungslink. Aktuell Platzhalter, siehe
 // README-Launch-Checkliste. `bookingUrl` leer = CTA faellt auf den allgemeinen Buchungslink zurueck,
 // `name`, der mit "PLATZHALTER" beginnt, wird nicht angezeigt (gleiches Muster wie src/config.ts).
-// Gleiche Form laesst sich 1:1 auf /packages oder weitere Seiten uebertragen.
+// Gleiche Form laesst sich 1:1 auf /editions oder weitere Seiten uebertragen.
 const angebote = [
   {
     titel: 'KI Potenzial Assessment',
@@ -62,7 +62,7 @@ const terminZielFallback = BOOKING_URL || `${base}de/contact`;
   </section>
   <div class="wrap">
     <StufenKompakt lang={lang} aktivPfad="services" einordnung="Diese Formate decken Stufe 1 bis 3 ab." />
-    <p class="soft" style="font-size:13px; margin-top:-14px;"><a href={`${base}de/packages`}>Für Stufe 4 und 5: Editionen ansehen →</a></p>
+    <p class="soft" style="font-size:13px; margin-top:-14px;"><a href={`${base}de/editions`}>Für Stufe 4 und 5: Editionen ansehen →</a></p>
   </div>
   <HeroBild src={`${base}bilder/hero-leistungen.jpg`} alt="Sinfonieorchester spielt vor vollem Konzertsaal, Blick von der Bühne auf das Publikum" />
   <section>

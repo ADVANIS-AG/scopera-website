@@ -1,0 +1,48 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import PaketGrid from '../../components/PaketGrid.astro';
+import CtaBanner from '../../components/CtaBanner.astro';
+import SignupBanner from '../../components/SignupBanner.astro';
+import HeroBild from '../../components/HeroBild.astro';
+import PfadGrafik from '../../components/PfadGrafik.astro';
+import StufenKompakt from '../../components/StufenKompakt.astro';
+import PaketMatrix from '../../components/PaketMatrix.astro';
+const base = import.meta.env.BASE_URL;
+const lang = 'de';
+---
+<BaseLayout title="Editionen | SCOPERA." description="Vier Editionen von Trial bis Enterprise. Einsteigen, wachsen, skalieren: immer mit klarem Rahmen und ohne Überraschungen.">
+  <section style="padding: 88px 0 64px; border-bottom: none;">
+    <div class="wrap">
+      <p class="eyebrow">Editionen</p>
+      <h1>Einsteigen, wachsen, skalieren<span class="dot">.</span></h1>
+      <p class="lede">Jedes Engagement beginnt mit einem klaren Rahmen: Umfang, Zeit und Budget vereinbart, bevor wir starten. Keine Überraschungen, kein Kleingedrucktes.</p>
+    </div>
+  </section>
+  <div class="wrap">
+    <StufenKompakt lang={lang} aktivPfad="editions" einordnung="Die Editionen weiter unten decken Stufe 4 und 5 ab." />
+    <p class="soft" style="font-size:13px; margin-top:-14px;"><a href={`${base}de/services`}>Für den Einstieg: Leistungen ansehen →</a></p>
+  </div>
+  <HeroBild src={`${base}bilder/hero-pakete.jpg`} alt="Mehrere Ränge mit roten Logen in einem klassischen Opernhaus" />
+  <section>
+    <div class="wrap">
+      <div style="margin: 0 0 26px;"><PfadGrafik /></div>
+      <PaketGrid lang={lang} />
+      <p style="margin-top:18px;"><a href={`${base}de/partner`}>Mehr zum Provider-Modell →</a></p>
+      <div style="margin-top:36px;">
+        <p class="eyebrow">Im Detail</p>
+        <h2 style="font-size:clamp(22px,3vw,30px);">Editionen im Vergleich.</h2>
+        <PaketMatrix lang={lang} />
+      </div>
+    </div>
+  </section>
+  <section>
+    <div class="wrap">
+      <p class="eyebrow">Häufige Fragen</p>
+      <h2>Klartext.</h2>
+      <p class="soft" style="max-width: 46em;">Zu Tempo, Lizenzmodell, Code-Eigentum und mehr.</p>
+      <p style="margin-top:12px;"><a href={`${base}de/faq`}>Alle Fragen und Antworten →</a></p>
+    </div>
+  </section>
+  <CtaBanner lang={lang} titel="Welche Edition passt?" text="Sagen Sie uns, was Sie vorhaben. Wir sagen Ihnen ehrlich, welche Edition es braucht und welche nicht." />
+  <SignupBanner lang={lang} />
+</BaseLayout>
