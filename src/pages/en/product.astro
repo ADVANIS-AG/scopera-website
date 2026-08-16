@@ -6,6 +6,7 @@ import HeroBild from '../../components/HeroBild.astro';
 import StufenKompakt from '../../components/StufenKompakt.astro';
 import NetzGrafik from '../../components/NetzGrafik.astro';
 import MandantenGrafik from '../../components/MandantenGrafik.astro';
+import ArchitekturGrafik from '../../components/ArchitekturGrafik.astro';
 const features = [
   ['AI Agents', 'Assistants that get tasks done instead of just answering: with access to your data, rules and systems.'],
   ['Workflows', 'Automated processes across system boundaries, configured by your department itself, with human approvals where they matter.'],
@@ -66,6 +67,14 @@ const lang = 'en';
       <div style="margin: 8px 0 26px;"><MandantenGrafik /></div>
       <p class="soft" style="max-width: 46em;">Sales, marketing, HR: any department can work as its own tenant on the same data basis, cleanly separated, without its own infrastructure. The same principle that lets providers serve multiple customers also works inside a single company.</p>
       <p style="margin-top:16px;"><a href={`${base}en/partner`}>More on the provider model →</a></p>
+    </div>
+  </section>
+  <section>
+    <div class="wrap">
+      <p class="eyebrow">For the technically curious</p>
+      <h2>How the platform is structured.</h2>
+      <p class="soft" style="max-width: 46em; margin-bottom: 28px;">A rough sketch of how SCOPERA fits together under the hood, without going into every detail.</p>
+      <ArchitekturGrafik lang={lang} />
     </div>
   </section>
   <section style="border-bottom: none;">

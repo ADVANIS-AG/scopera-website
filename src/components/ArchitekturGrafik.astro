@@ -1,0 +1,83 @@
+---
+import { defaultLang, type Lang } from '../i18n/ui';
+interface Props { lang?: Lang; }
+const { lang = defaultLang } = Astro.props;
+
+const t = {
+  plattform: { de: 'SCOPERA-Plattform', en: 'SCOPERA Platform' },
+  plattformText: {
+    de: 'Auth, Daten, AI-Engine und Governance — eine gemeinsame Basis, mandantenfähig und pro Mandant sauber isoliert.',
+    en: 'Auth, data, AI engine and governance — one shared foundation, multi-tenant and cleanly isolated per tenant.',
+  },
+  direktTag: { de: 'Direkt', en: 'Direct' },
+  direktTitel: { de: 'Mandant', en: 'Tenant' },
+  direktText: {
+    de: 'Sie nutzen die Plattform direkt: ein eigener, isolierter Bereich mit Ihren Daten und Berechtigungen.',
+    en: 'You use the platform directly: your own isolated space with your data and permissions.',
+  },
+  providerTag: { de: 'Über Provider', en: 'Via provider' },
+  providerTitel: { de: 'Provider (White-Label)', en: 'Provider (white-label)' },
+  providerText: {
+    de: 'Ein Provider betreibt SCOPERA unter eigener Marke, Domain und eigenem Preismodell.',
+    en: 'A provider runs SCOPERA under its own brand, domain and pricing.',
+  },
+  mandantChip: { de: 'Mandant', en: 'Tenant' },
+  mandantenHinweis: {
+    de: 'Jeder Kunde des Providers erhält wieder einen eigenen, isolierten Tenant.',
+    en: "Each of the provider's customers gets their own isolated tenant in turn.",
+  },
+};
+---
+<div class="arch">
+  <div class="arch-plattform">
+    <h3 style="margin-bottom:6px;">{t.plattform[lang]}</h3>
+    <p class="soft" style="font-size:13px; max-width:40em; margin:0 auto;">{t.plattformText[lang]}</p>
+  </div>
+  <p class="arch-pfeil" aria-hidden="true">↓</p>
+  <div class="karten-2">
+    <div class="karte">
+      <span class="tag">{t.direktTag[lang]}</span>
+      <h3>{t.direktTitel[lang]}</h3>
+      <p class="soft" style="font-size:13px;">{t.direktText[lang]}</p>
+    </div>
+    <div class="karte">
+      <span class="tag">{t.providerTag[lang]}</span>
+      <h3>{t.providerTitel[lang]}</h3>
+      <p class="soft" style="font-size:13px;">{t.providerText[lang]}</p>
+      <p class="arch-pfeil" aria-hidden="true" style="margin:14px 0 10px;">↓</p>
+      <div class="arch-mandanten">
+        <span class="arch-chip">{t.mandantChip[lang]}</span>
+        <span class="arch-chip">{t.mandantChip[lang]}</span>
+        <span class="arch-chip">{t.mandantChip[lang]}</span>
+      </div>
+      <p class="soft" style="font-size:12px; margin-top:10px;">{t.mandantenHinweis[lang]}</p>
+    </div>
+  </div>
+</div>
+<style>
+  .arch-plattform {
+    text-align: center;
+    background: var(--card);
+    border: 1px solid var(--accent);
+    border-radius: var(--radius);
+    padding: 20px 24px;
+    max-width: 480px;
+    margin: 0 auto;
+  }
+  .arch-pfeil {
+    text-align: center;
+    color: var(--ink-soft);
+    font-size: 20px;
+    line-height: 1;
+    margin: 10px 0;
+  }
+  .arch-mandanten { display: flex; flex-wrap: wrap; gap: 8px; }
+  .arch-chip {
+    display: inline-block;
+    font-size: 12px;
+    padding: 5px 10px;
+    border: 1px solid var(--line);
+    border-radius: 999px;
+    color: var(--ink-soft);
+  }
+</style>

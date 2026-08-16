@@ -6,6 +6,7 @@ import HeroBild from '../../components/HeroBild.astro';
 import StufenKompakt from '../../components/StufenKompakt.astro';
 import NetzGrafik from '../../components/NetzGrafik.astro';
 import MandantenGrafik from '../../components/MandantenGrafik.astro';
+import ArchitekturGrafik from '../../components/ArchitekturGrafik.astro';
 const features = [
   ['AI Agents', 'Assistenten, die Aufgaben erledigen statt nur antworten: mit Zugriff auf Ihre Daten, Regeln und Systeme.'],
   ['Workflows', 'Automatisierte Abläufe über Systemgrenzen hinweg, von Ihrem Fachbereich selbst konfiguriert, mit Freigaben durch Menschen, wo es darauf ankommt.'],
@@ -66,6 +67,14 @@ const lang = 'de';
       <div style="margin: 8px 0 26px;"><MandantenGrafik /></div>
       <p class="soft" style="max-width: 46em;">Vertrieb, Marketing, HR: Jede Abteilung kann als eigener Mandant auf derselben Datenbasis arbeiten, sauber getrennt, ohne eigene Infrastruktur. Das gleiche Prinzip, mit dem Provider mehrere Kundinnen bedienen, funktioniert auch innerhalb eines einzigen Unternehmens.</p>
       <p style="margin-top:16px;"><a href={`${base}de/partner`}>Mehr zum Provider-Modell →</a></p>
+    </div>
+  </section>
+  <section>
+    <div class="wrap">
+      <p class="eyebrow">Für Technikinteressierte</p>
+      <h2>Wie die Plattform aufgebaut ist.</h2>
+      <p class="soft" style="max-width: 46em; margin-bottom: 28px;">Eine grobe Einordnung, wie SCOPERA unter der Haube zusammenspielt, ohne ins letzte Detail zu gehen.</p>
+      <ArchitekturGrafik lang={lang} />
     </div>
   </section>
   <section style="border-bottom: none;">
