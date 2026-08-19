@@ -2,6 +2,8 @@
 title: "Why custom apps now pay off for SMEs too"
 description: "Custom software used to be reserved for large enterprises. AI-native development changes the math, significantly."
 pubDate: 2026-07-11
+cover: ./massschneiderung.jpg
+coverAlt: "Measuring tape, thread and scissors on fine fabric"
 ---
 
 Standard software is a good deal, as long as your processes are standard. The moment they aren't, the bending begins: Excel islands next to the ERP, double data entry, workarounds only one person understands.

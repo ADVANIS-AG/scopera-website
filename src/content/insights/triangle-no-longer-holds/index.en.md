@@ -2,6 +2,8 @@
 title: "Good, fast, cheap: why the triangle no longer holds"
 description: "For decades the rule was: pick two of three. AI-native development breaks that rule. What it means for Swiss companies."
 pubDate: 2026-07-11
+cover: ./dreieck-lineal.jpg
+coverAlt: "A triangular ruler backlit on a table"
 ---
 
 Anyone who has ever bought an IT project knows the rule: good, fast, cheap. Pick two. Want quality and speed? You pay for it. Want quality and price? You wait.

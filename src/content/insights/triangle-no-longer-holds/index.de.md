@@ -2,6 +2,8 @@
 title: "Gut, schnell, günstig: warum das Dreieck nicht mehr gilt"
 description: "Jahrzehntelang galt: wähle zwei von drei. AI-natives Entwickeln bricht diese Regel. Was das für Schweizer Unternehmen bedeutet."
 pubDate: 2026-07-11
+cover: ./dreieck-lineal.jpg
+coverAlt: "Ein dreieckiges Lineal im Gegenlicht auf einem Tisch"
 ---
 
 Jeder, der einmal ein IT-Projekt eingekauft hat, kennt die Regel: gut, schnell, günstig. Wähle zwei. Wer Qualität und Tempo wollte, zahlte. Wer Qualität und Preis wollte, wartete.

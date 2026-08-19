@@ -2,6 +2,8 @@
 title: "Warum sich massgeschneiderte Apps jetzt auch für KMU rechnen"
 description: "Individualsoftware war Grossunternehmen vorbehalten. Mit AI-nativer Entwicklung ändert sich die Rechnung, und zwar deutlich."
 pubDate: 2026-07-11
+cover: ./massschneiderung.jpg
+coverAlt: "Massband, Faden und Schere auf edlem Stoff"
 ---
 
 Standardsoftware ist ein guter Deal, solange Ihre Prozesse Standard sind. Sobald sie es nicht sind, beginnt das Verbiegen: Excel-Inseln neben dem ERP, Doppelerfassung, Workarounds, die nur eine Person versteht.
