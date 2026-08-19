@@ -1,0 +1,78 @@
+<!doctype html>
+<html lang="de">
+<head>
+<meta charset="utf-8" />
+<title>SCOPERA LinkedIn Card Template</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html, body { width: 1200px; height: 1200px; }
+  body {
+    background: #1C1815;
+    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+    color: #F3EBDD;
+  }
+  .card {
+    width: 1200px;
+    height: 1200px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    padding: 96px;
+  }
+  .content {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    flex: 1;
+  }
+  .eyebrow {
+    font-size: 28px;
+    letter-spacing: .14em;
+    text-transform: uppercase;
+    color: #C89A55;
+    font-weight: 600;
+    margin-bottom: 32px;
+  }
+  .headline {
+    font-family: Georgia, "Iowan Old Style", "Times New Roman", ui-serif, serif;
+    font-size: 76px;
+    font-weight: 700;
+    line-height: 1.08;
+    letter-spacing: -.01em;
+    color: #F3EBDD;
+    max-width: 900px;
+  }
+  .subline {
+    font-size: 32px;
+    color: #B4A791;
+    margin-top: 36px;
+    font-style: italic;
+    max-width: 820px;
+  }
+  .footer {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    border-top: 2px solid #3C352B;
+    padding-top: 40px;
+  }
+  .footer img { width: 44px; height: 44px; border-radius: 6px; }
+  .wordmark { font-family: Georgia, serif; font-size: 32px; font-weight: 700; color: #F3EBDD; }
+  .dot { color: #C89A55; }
+</style>
+</head>
+<body>
+  <!-- Parametrisiertes Template: Stufe 1 / 5, Potenziale erkennen, Das erste Instrument in die Hand nehmen ersetzen. -->
+  <div class="card">
+    <div class="content">
+      <p class="eyebrow">Stufe 1 / 5</p>
+      <h1 class="headline">Potenziale erkennen</h1>
+      <p class="subline">Das erste Instrument in die Hand nehmen</p>
+    </div>
+    <div class="footer">
+      <img src="logo.png" alt="" width="44" height="44" />
+      <span class="wordmark">SCOPERA<span class="dot">.</span></span>
+    </div>
+  </div>
+</body>
+</html>

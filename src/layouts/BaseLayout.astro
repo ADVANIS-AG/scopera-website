@@ -28,6 +28,13 @@ const nav: [string, UiKey][] = [
 <!doctype html>
 <html lang={lang === 'de' ? 'de-CH' : 'en'}>
 <head>
+  <!-- Google Tag Manager -->
+  <script is:inline>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+  new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+  j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+  'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+  })(window,document,'script','dataLayer','GTM-TN7M9RD6');</script>
+  <!-- End Google Tag Manager -->
   <script is:inline>
     (function () {
       try {
@@ -60,6 +67,12 @@ const nav: [string, UiKey][] = [
   <link rel="alternate" hreflang="en" href={new URL(`${base}en/${rest}`, Astro.site)} />
   <link rel="alternate" hreflang="x-default" href={new URL(base, Astro.site)} />
   {PLAUSIBLE_DOMAIN && <script is:inline defer data-domain={PLAUSIBLE_DOMAIN} src="https://plausible.io/js/script.js"></script>}
+  <script is:inline>
+    function initApollo(){var n=Math.random().toString(36).substring(7),o=document.createElement("script");
+    o.src="https://assets.apollo.io/micro/website-tracker/tracker.iife.js?nocache="+n,o.async=!0,o.defer=!0,
+    o.onload=function(){window.trackingFunctions.onLoad({appId:"694151b3cf4a82001fa70e18"})},
+    document.head.appendChild(o)}initApollo();
+  </script>
   <script type="application/ld+json" is:inline set:html={JSON.stringify({
     '@context': 'https://schema.org',
     '@type': 'Organization',
@@ -77,6 +90,10 @@ const nav: [string, UiKey][] = [
   })} />
 </head>
 <body>
+  <!-- Google Tag Manager (noscript) -->
+  <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-TN7M9RD6"
+  height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+  <!-- End Google Tag Manager (noscript) -->
   <header class="site">
     <div class="nav">
       <a class="wortmarke" href={`${base}${lang}/`}><img src={`${base}favicon.png`} alt="" width="28" height="28" />{SITE_NAME}<span class="dot">.</span></a>
