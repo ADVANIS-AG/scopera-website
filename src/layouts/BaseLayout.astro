@@ -3,6 +3,7 @@ import '../styles/global.css';
 import { SITE_NAME, BOOKING_URL, PLAUSIBLE_DOMAIN, WORKER_ENDPOINT, ADRESSE } from '../config';
 import { defaultLang, type UiKey, type Lang } from '../i18n/ui';
 import { useTranslations } from '../i18n/utils';
+import CookieBanner from '../components/CookieBanner.astro';
 interface Props { title: string; description: string; image?: string; }
 const { title, description, image = 'bilder/social-share.jpg' } = Astro.props;
 const base = import.meta.env.BASE_URL;
@@ -28,12 +29,32 @@ const nav: [string, UiKey][] = [
 <!doctype html>
 <html lang={lang === 'de' ? 'de-CH' : 'en'}>
 <head>
-  <!-- Google Tag Manager -->
-  <script is:inline>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
-  new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
-  j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
-  'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
-  })(window,document,'script','dataLayer','GTM-TN7M9RD6');</script>
+  <!-- Google Tag Manager: laedt erst nach Einwilligung im Cookie-Banner (siehe CookieBanner.astro) -->
+  <script is:inline>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('consent', 'default', {
+      'ad_storage': 'denied',
+      'analytics_storage': 'denied',
+      'ad_user_data': 'denied',
+      'ad_personalization': 'denied'
+    });
+    window.scoperaLoadGTM = function () {
+      if (window.scoperaGtmLoaded) return;
+      window.scoperaGtmLoaded = true;
+      gtag('consent', 'update', {
+        'ad_storage': 'granted',
+        'analytics_storage': 'granted',
+        'ad_user_data': 'granted',
+        'ad_personalization': 'granted'
+      });
+      (function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+      new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+      j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+      'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+      })(window,document,'script','dataLayer','GTM-TN7M9RD6');
+    };
+  </script>
   <!-- End Google Tag Manager -->
   <script is:inline>
     (function () {
@@ -84,10 +105,6 @@ const nav: [string, UiKey][] = [
   })} />
 </head>
 <body>
-  <!-- Google Tag Manager (noscript) -->
-  <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-TN7M9RD6"
-  height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
-  <!-- End Google Tag Manager (noscript) -->
   <header class="site">
     <div class="nav">
       <a class="wortmarke" href={`${base}${lang}/`}><img src={`${base}favicon.png`} alt="" width="28" height="28" />{SITE_NAME}<span class="dot">.</span></a>
@@ -113,6 +130,7 @@ const nav: [string, UiKey][] = [
         <a href={`${base}${lang}/contact`}>{t('nav.contact')}</a>
         <a href={`${base}${lang}/imprint`}>{t('nav.imprint')}</a>
         <a href={`${base}${lang}/privacy`}>{t('nav.privacy')}</a>
+        <a href="#" id="cookie-settings-link">{t('cookie.settings')}</a>
       </nav>
       <p class="absender">{SITE_NAME} — {t('footer.absender')} <a href="https://www.advanis.ch" target="_blank" rel="noopener noreferrer">ADVANIS</a>. {t('footer.claim')}</p>
     </div>
@@ -173,6 +191,7 @@ const nav: [string, UiKey][] = [
       }
     }
   </script>
+  <CookieBanner lang={lang} />
   {WORKER_ENDPOINT && (
     <script is:inline define:vars={{ workerEndpoint: WORKER_ENDPOINT, base }}>
       (function () {

@@ -1,0 +1,83 @@
+---
+import { defaultLang, type Lang } from '../i18n/ui';
+import { useTranslations } from '../i18n/utils';
+interface Props { lang?: Lang; }
+const { lang = defaultLang } = Astro.props;
+const t = useTranslations(lang);
+const base = import.meta.env.BASE_URL;
+---
+<div id="cookie-banner" class="cookie-banner" hidden role="region" aria-label={t('cookie.ariaLabel')}>
+  <div class="cookie-banner-inner">
+    <p>{t('cookie.text')} <a href={`${base}${lang}/privacy`}>{t('nav.privacy')}</a>.</p>
+    <div class="cookie-banner-actions">
+      <button type="button" class="btn-ghost" id="cookie-reject">{t('cookie.reject')}</button>
+      <button type="button" class="btn" id="cookie-accept">{t('cookie.accept')}</button>
+    </div>
+  </div>
+</div>
+<style>
+  .cookie-banner {
+    position: fixed;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 100;
+    background: var(--card);
+    border-top: 2px solid var(--ink);
+  }
+  .cookie-banner-inner {
+    max-width: 1080px;
+    margin: 0 auto;
+    padding: 18px 24px;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+  }
+  .cookie-banner-inner p { margin: 0; font-size: 14px; color: var(--ink-soft); max-width: 640px; }
+  .cookie-banner-inner a { color: var(--ink); text-decoration: underline; }
+  .cookie-banner-actions { display: flex; gap: 10px; flex-shrink: 0; }
+  @media (max-width: 620px) {
+    .cookie-banner-inner { flex-direction: column; align-items: stretch; }
+    .cookie-banner-actions { justify-content: flex-end; }
+  }
+</style>
+<script is:inline>
+  (function () {
+    var KEY = 'scopera_consent';
+    var banner = document.getElementById('cookie-banner');
+    var acceptBtn = document.getElementById('cookie-accept');
+    var rejectBtn = document.getElementById('cookie-reject');
+    var settingsLink = document.getElementById('cookie-settings-link');
+
+    function show() { banner.hidden = false; }
+    function hide() { banner.hidden = true; }
+
+    function apply(choice) {
+      try { localStorage.setItem(KEY, choice); } catch (e) {}
+      if (choice === 'granted' && window.scoperaLoadGTM) {
+        window.scoperaLoadGTM();
+      }
+      hide();
+    }
+
+    acceptBtn.addEventListener('click', function () { apply('granted'); });
+    rejectBtn.addEventListener('click', function () { apply('denied'); });
+    if (settingsLink) {
+      settingsLink.addEventListener('click', function (e) {
+        e.preventDefault();
+        show();
+      });
+    }
+
+    var stored;
+    try { stored = localStorage.getItem(KEY); } catch (e) { stored = null; }
+
+    if (stored === 'granted' && window.scoperaLoadGTM) {
+      window.scoperaLoadGTM();
+    } else if (stored !== 'granted' && stored !== 'denied') {
+      show();
+    }
+  })();
+</script>

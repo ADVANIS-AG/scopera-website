@@ -24,6 +24,11 @@ export const ui = {
     'footer.absender': 'powered by',
     'footer.claim': 'Schweizer Qualität, AI-native Umsetzung.',
     'org.description': 'SCOPERA ist die Enterprise-AI-Plattform der ADVANIS AG für Unternehmen in der Schweiz und DACH.',
+    'cookie.ariaLabel': 'Cookie-Hinweis',
+    'cookie.text': 'Wir laden Google Tag Manager und darüber eingebundene Dienste wie Apollo erst nach Ihrer Zustimmung. Mehr dazu unter',
+    'cookie.accept': 'Akzeptieren',
+    'cookie.reject': 'Ablehnen',
+    'cookie.settings': 'Cookie-Einstellungen',
   },
   en: {
     'nav.services': 'Services',
@@ -50,6 +55,11 @@ export const ui = {
     'footer.absender': 'powered by',
     'footer.claim': 'Swiss quality, AI-native delivery.',
     'org.description': 'SCOPERA is the Enterprise AI Platform by ADVANIS AG for companies in Switzerland and DACH.',
+    'cookie.ariaLabel': 'Cookie notice',
+    'cookie.text': 'We only load Google Tag Manager and services connected through it, such as Apollo, after your consent. More under',
+    'cookie.accept': 'Accept',
+    'cookie.reject': 'Reject',
+    'cookie.settings': 'Cookie settings',
   },
 } as const;
 
