@@ -67,12 +67,6 @@ const nav: [string, UiKey][] = [
   <link rel="alternate" hreflang="en" href={new URL(`${base}en/${rest}`, Astro.site)} />
   <link rel="alternate" hreflang="x-default" href={new URL(base, Astro.site)} />
   {PLAUSIBLE_DOMAIN && <script is:inline defer data-domain={PLAUSIBLE_DOMAIN} src="https://plausible.io/js/script.js"></script>}
-  <script is:inline>
-    function initApollo(){var n=Math.random().toString(36).substring(7),o=document.createElement("script");
-    o.src="https://assets.apollo.io/micro/website-tracker/tracker.iife.js?nocache="+n,o.async=!0,o.defer=!0,
-    o.onload=function(){window.trackingFunctions.onLoad({appId:"694151b3cf4a82001fa70e18"})},
-    document.head.appendChild(o)}initApollo();
-  </script>
   <script type="application/ld+json" is:inline set:html={JSON.stringify({
     '@context': 'https://schema.org',
     '@type': 'Organization',
