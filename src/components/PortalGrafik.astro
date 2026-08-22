@@ -1,0 +1,90 @@
+---
+import { defaultLang, type Lang } from '../i18n/ui';
+interface Props { lang?: Lang; }
+const { lang = defaultLang } = Astro.props;
+
+const t = {
+  innen: { de: 'Im Mandanten', en: 'Inside the tenant' },
+  innenText: {
+    de: 'Ihre Daten, Prozesse und Anwendungen. Zugriff über Sitzplätze Ihrer Edition.',
+    en: 'Your data, processes and applications. Access via the seats in your edition.',
+  },
+  innenChips: {
+    de: ['Aufträge', 'Offerten', 'Rapporte', 'Artikel'],
+    en: ['Orders', 'Quotes', 'Reports', 'Items'],
+  },
+  freigabe: { de: 'Gezielte Freigabe', en: 'Selected release' },
+  portal: { de: 'Portal', en: 'Portal' },
+  portalText: {
+    de: 'Nur was Sie freigeben, wird sichtbar. Zugang vergeben Sie pro Person oder Firma.',
+    en: 'Only what you release becomes visible. You grant access per person or company.',
+  },
+  aussenChips: {
+    de: ['Kundschaft', 'Partner', 'Lieferanten'],
+    en: ['Customers', 'Partners', 'Suppliers'],
+  },
+  aussenHinweis: {
+    de: 'Ohne Sitzplatz in Ihrer Lizenz.',
+    en: 'Without a seat in your license.',
+  },
+};
+---
+<div class="portal-grafik">
+  <div class="karte portal-innen">
+    <span class="tag">{t.innen[lang]}</span>
+    <p class="soft" style="font-size:13px; margin-bottom:10px;">{t.innenText[lang]}</p>
+    <div class="portal-chips">
+      {t.innenChips[lang].map(c => <span class="portal-chip">{c}</span>)}
+    </div>
+  </div>
+  <div class="portal-schleuse">
+    <span class="portal-schleuse-label">{t.freigabe[lang]}</span>
+    <span class="portal-pfeil" aria-hidden="true">→</span>
+  </div>
+  <div class="karte portal-aussen">
+    <span class="tag">{t.portal[lang]}</span>
+    <p class="soft" style="font-size:13px; margin-bottom:10px;">{t.portalText[lang]}</p>
+    <div class="portal-chips">
+      {t.aussenChips[lang].map(c => <span class="portal-chip">{c}</span>)}
+    </div>
+    <p class="soft" style="font-size:12px; margin-top:10px;">{t.aussenHinweis[lang]}</p>
+  </div>
+</div>
+<style>
+  .portal-grafik {
+    display: grid;
+    grid-template-columns: 1fr auto 1fr;
+    align-items: center;
+    gap: 14px;
+  }
+  .portal-aussen { border-color: var(--accent); }
+  .portal-schleuse {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 6px;
+    padding: 0 4px;
+  }
+  .portal-schleuse-label {
+    font-size: 11px;
+    letter-spacing: .08em;
+    text-transform: uppercase;
+    color: var(--ink-soft);
+    text-align: center;
+  }
+  .portal-pfeil { color: var(--accent); font-size: 22px; line-height: 1; }
+  .portal-chips { display: flex; flex-wrap: wrap; gap: 8px; }
+  .portal-chip {
+    display: inline-block;
+    font-size: 12px;
+    padding: 5px 10px;
+    border: 1px solid var(--line);
+    border-radius: 999px;
+    color: var(--ink-soft);
+  }
+  @media (max-width: 760px) {
+    .portal-grafik { grid-template-columns: 1fr; }
+    .portal-schleuse { flex-direction: row; justify-content: center; gap: 10px; }
+    .portal-pfeil { transform: rotate(90deg); }
+  }
+</style>

@@ -26,6 +26,20 @@ const t = {
     de: 'Jeder Kunde des Providers erhält wieder einen eigenen, isolierten Tenant.',
     en: "Each of the provider's customers gets their own isolated tenant in turn.",
   },
+  portalTag: { de: 'Nach aussen', en: 'Outward' },
+  portalTitel: { de: 'Portal', en: 'Portal' },
+  portalText: {
+    de: 'Beide Wege können Informationen gezielt nach aussen freigeben. Der Mandant entscheidet, was sichtbar ist und wer Zugang erhält.',
+    en: 'Both paths can share selected information outward. The tenant decides what is visible and who gets access.',
+  },
+  portalChips: {
+    de: ['Kundschaft', 'Partner', 'Lieferanten'],
+    en: ['Customers', 'Partners', 'Suppliers'],
+  },
+  portalHinweis: {
+    de: 'Externe sehen nur das Freigegebene und belegen keine Sitzplätze.',
+    en: 'External parties only see what is shared and take up no seats.',
+  },
 };
 ---
 <div class="arch">
@@ -52,6 +66,16 @@ const t = {
       </div>
       <p class="soft" style="font-size:12px; margin-top:10px;">{t.mandantenHinweis[lang]}</p>
     </div>
+  </div>
+  <p class="arch-pfeil" aria-hidden="true">↓</p>
+  <div class="karte arch-portal">
+    <span class="tag">{t.portalTag[lang]}</span>
+    <h3>{t.portalTitel[lang]}</h3>
+    <p class="soft" style="font-size:13px; max-width:44em;">{t.portalText[lang]}</p>
+    <div class="arch-mandanten" style="margin-top:12px;">
+      {t.portalChips[lang].map(c => <span class="arch-chip">{c}</span>)}
+    </div>
+    <p class="soft" style="font-size:12px; margin-top:10px;">{t.portalHinweis[lang]}</p>
   </div>
 </div>
 <style>

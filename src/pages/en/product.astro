@@ -7,6 +7,7 @@ import StufenKompakt from '../../components/StufenKompakt.astro';
 import NetzGrafik from '../../components/NetzGrafik.astro';
 import MandantenGrafik from '../../components/MandantenGrafik.astro';
 import ArchitekturGrafik from '../../components/ArchitekturGrafik.astro';
+import PortalGrafik from '../../components/PortalGrafik.astro';
 const features = [
   ['AI Agents', 'Assistants that get tasks done instead of just answering: with access to your data, rules and systems.'],
   ['Workflows', 'Automated processes across system boundaries, configured by your department itself, with human approvals where they matter.'],
@@ -14,6 +15,7 @@ const features = [
   ['Integrations', 'Microsoft 365, Dynamics 365, SAP, Salesforce and more: seamlessly connected to what you already have, instead of another spreadsheet island.'],
   ['Analytics', 'Usage, quality and cost of every AI function, transparent in a dashboard.'],
   ['Governance', 'Roles, department separation, field-level encryption, revFADP and GDPR tooling. Automated tests, backups and an audit log included.'],
+  ['Portal', 'Share selected information with customers and partners without handing out seats. You decide what is visible and who has access.'],
 ];
 const faelle = [
   { tag: 'Security technology', titel: 'Project management instead of a D365 module', text: 'A Swiss security technology company replaced its Dynamics 365 project module: quotes with costing, project structures, service dispatch with mobile reports and customer signatures, full D365 integration. From concept to tested application in days.' },
@@ -52,8 +54,8 @@ const lang = 'en';
       <div style="margin: 8px 0 26px;"><NetzGrafik /></div>
       <div class="karten-3">
         {features.map(([t, x]) => (
-          <div class="karte">
-            <h3>{t}</h3>
+          <div class="karte" style={t === 'Portal' ? 'grid-column: 1 / -1;' : undefined}>
+            <h3>{t}{t === 'Portal' && <span class="tag" style="margin-left:10px; margin-bottom:0;">New</span>}</h3>
             <p style="font-size:14px;" class="soft">{x}</p>
           </div>
         ))}
@@ -67,6 +69,15 @@ const lang = 'en';
       <div style="margin: 8px 0 26px;"><MandantenGrafik /></div>
       <p class="soft" style="max-width: 46em;">Sales, marketing, HR: any department can work as its own tenant on the same data basis, cleanly separated, without its own infrastructure. The same principle that lets providers serve multiple customers also works inside a single company.</p>
       <p style="margin-top:16px;"><a href={`${base}en/partner`}>More on the provider model →</a></p>
+    </div>
+  </section>
+  <section>
+    <div class="wrap">
+      <p class="eyebrow">Portal</p>
+      <h2>Work together without handing out seats.</h2>
+      <p class="soft" style="max-width: 46em; margin-bottom: 26px;">Customers, partners and suppliers often need just one slice: the status of an order, a quote, a way to reorder. The portal releases exactly that slice. You decide what is visible and who gets access. Providers can use the portal for their own tenants as well.</p>
+      <PortalGrafik lang={lang} />
+      <p class="soft" style="margin-top:18px; font-size:13px;">Typical uses: track service orders, release quotes, cover simple ordering processes.</p>
     </div>
   </section>
   <section>

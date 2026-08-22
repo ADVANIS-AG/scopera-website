@@ -53,6 +53,7 @@ Alle Fotos via Unsplash (Unsplash-Lizenz: kommerzielle Nutzung erlaubt, keine At
 - `team-chat-ki.jpg` (Insight "Erst fragen, dann bauen") — John (unsplash.com/photos/2FPjlAyMQTA)
 - `massschneiderung.jpg` (Insight "Warum sich massgeschneiderte Apps...") — Pina Messina (unsplash.com/photos/qQKv7r1BaRw)
 - `dreieck-lineal.jpg` (Insight "Gut, schnell, günstig") — KC Shum (unsplash.com/photos/hZej0jWoF8g)
+- `portal-tuer.jpg` (Insight "Kundschaft einbinden") — Greg Rosenke (unsplash.com/photos/1dnMXxhJT_g)
 
 SVG-Grafiken (KlangLinie, NetzGrafik, PfadGrafik, `src/components/icons/*`) sind Eigenentwicklungen im Brand-Stil.
 

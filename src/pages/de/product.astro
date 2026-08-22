@@ -7,6 +7,7 @@ import StufenKompakt from '../../components/StufenKompakt.astro';
 import NetzGrafik from '../../components/NetzGrafik.astro';
 import MandantenGrafik from '../../components/MandantenGrafik.astro';
 import ArchitekturGrafik from '../../components/ArchitekturGrafik.astro';
+import PortalGrafik from '../../components/PortalGrafik.astro';
 const features = [
   ['AI Agents', 'Assistenten, die Aufgaben erledigen statt nur antworten: mit Zugriff auf Ihre Daten, Regeln und Systeme.'],
   ['Workflows', 'Automatisierte Abläufe über Systemgrenzen hinweg, von Ihrem Fachbereich selbst konfiguriert, mit Freigaben durch Menschen, wo es darauf ankommt.'],
@@ -14,6 +15,7 @@ const features = [
   ['Integrationen', 'Microsoft 365, Dynamics 365, SAP, Salesforce und mehr: nahtlos angebunden an das, was Sie schon haben, statt neue Excel-Inseln.'],
   ['Analytics', 'Nutzung, Qualität und Kosten jeder AI-Funktion, transparent im Dashboard.'],
   ['Governance', 'Rollen, Abteilungstrennung, Feldverschlüsselung, revDSG und DSGVO-Werkzeuge. Automatisierte Tests, Backups und Audit-Log inklusive.'],
+  ['Portal', 'Gezielt Informationen mit Kundschaft und Partnern teilen, ohne Sitzplätze zu vergeben. Sie entscheiden, was sichtbar ist und wer Zugang hat.'],
 ];
 const faelle = [
   { tag: 'Sicherheitstechnik', titel: 'Projektmanagement statt D365-Modul', text: 'Ein Schweizer Sicherheitstechnik-Unternehmen ersetzt sein Dynamics-365-Projektmodul: Offerten mit Kalkulation, Projektstrukturen, Service-Disposition mit mobilem Rapport und Kundenunterschrift, vollständige D365-Integration. Vom Konzept zur getesteten Anwendung in Tagen.' },
@@ -52,8 +54,8 @@ const lang = 'de';
       <div style="margin: 8px 0 26px;"><NetzGrafik /></div>
       <div class="karten-3">
         {features.map(([t, x]) => (
-          <div class="karte">
-            <h3>{t}</h3>
+          <div class="karte" style={t === 'Portal' ? 'grid-column: 1 / -1;' : undefined}>
+            <h3>{t}{t === 'Portal' && <span class="tag" style="margin-left:10px; margin-bottom:0;">Neu</span>}</h3>
             <p style="font-size:14px;" class="soft">{x}</p>
           </div>
         ))}
@@ -67,6 +69,15 @@ const lang = 'de';
       <div style="margin: 8px 0 26px;"><MandantenGrafik /></div>
       <p class="soft" style="max-width: 46em;">Vertrieb, Marketing, HR: Jede Abteilung kann als eigener Mandant auf derselben Datenbasis arbeiten, sauber getrennt, ohne eigene Infrastruktur. Das gleiche Prinzip, mit dem Provider mehrere Kundinnen bedienen, funktioniert auch innerhalb eines einzigen Unternehmens.</p>
       <p style="margin-top:16px;"><a href={`${base}de/partner`}>Mehr zum Provider-Modell →</a></p>
+    </div>
+  </section>
+  <section>
+    <div class="wrap">
+      <p class="eyebrow">Portal</p>
+      <h2>Zusammenarbeiten, ohne Sitzplätze zu verteilen.</h2>
+      <p class="soft" style="max-width: 46em; margin-bottom: 26px;">Kundschaft, Partner und Lieferanten brauchen oft nur einen Ausschnitt: den Stand eines Auftrags, eine Offerte, eine Bestellmöglichkeit. Das Portal gibt genau diesen Ausschnitt frei. Sie bestimmen, was sichtbar ist und wer Zugang erhält. Auch Provider können das Portal für ihre eigenen Mandanten nutzen.</p>
+      <PortalGrafik lang={lang} />
+      <p class="soft" style="margin-top:18px; font-size:13px;">Typische Anwendungen: Serviceaufträge verfolgen, Offerten freigeben, einfache Bestellprozesse abbilden.</p>
     </div>
   </section>
   <section>
