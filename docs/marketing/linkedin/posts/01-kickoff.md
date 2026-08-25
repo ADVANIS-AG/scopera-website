@@ -3,7 +3,7 @@ serie: "Vom ersten Ton zur ganzen Sinfonie"
 teil: 0
 stimme: "Firmenseite (SCOPERA)"
 woche: 1
-verlinkt_zu: "https://scopera.ai/de/"
+verlinkt_zu: "https://www.scopera.ai/de/"
 bild: "../cards/01-kickoff.png"
 ---
 

@@ -4,7 +4,7 @@ teil: 5
 stufe: "Betreiben und optimieren"
 stimme: "Sven, CTO und AI Strategist"
 woche: 7
-verlinkt_zu: "https://scopera.ai/de/product/"
+verlinkt_zu: "https://www.scopera.ai/de/product/"
 bild: "../photos/stufe-5-hero-start.jpg"
 ---
 

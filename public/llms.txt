@@ -6,17 +6,17 @@ SCOPERA is powered by ADVANIS AG, a Swiss consulting firm with over 28 years of 
 
 ## Product
 
-- [Product](https://scopera.ai/en/product/): The Enterprise AI Platform — AI Agents, Workflows, Knowledge, Integrations, Analytics, Governance — and case studies of solutions running on it.
-- [Editions](https://scopera.ai/en/editions/): Trial, Starter, Pro and Enterprise editions, plus frequently asked questions about pricing, data location and ownership.
-- [Partner](https://scopera.ai/en/partner/): How providers and resellers use SCOPERA to serve their own customers under their own brand (white-label, multi-tenant).
+- [Product](https://www.scopera.ai/en/product/): The Enterprise AI Platform — AI Agents, Workflows, Knowledge, Integrations, Analytics, Governance — and case studies of solutions running on it.
+- [Editions](https://www.scopera.ai/en/editions/): Trial, Starter, Pro and Enterprise editions, plus frequently asked questions about pricing, data location and ownership.
+- [Partner](https://www.scopera.ai/en/partner/): How providers and resellers use SCOPERA to serve their own customers under their own brand (white-label, multi-tenant).
 
 ## Services
 
-- [Services](https://scopera.ai/en/services/): Consulting formats that stand on their own without the platform — AI Potential Assessment, AI Readiness Assessment, AI Strategy Workshop, Vibe your Issue.
+- [Services](https://www.scopera.ai/en/services/): Consulting formats that stand on their own without the platform — AI Potential Assessment, AI Readiness Assessment, AI Strategy Workshop, Vibe your Issue.
 
 ## Company
 
-- [About](https://scopera.ai/en/about/): Company principles and the team behind SCOPERA.
-- [FAQ](https://scopera.ai/en/faq/): Frequently asked questions about pace, licensing, code ownership, data location and more.
-- [Contact](https://scopera.ai/en/contact/): Book a call, call us, or send a message.
-- [Insights](https://scopera.ai/en/insights/): Articles on AI-native development and what actually works for Swiss companies.
+- [About](https://www.scopera.ai/en/about/): Company principles and the team behind SCOPERA.
+- [FAQ](https://www.scopera.ai/en/faq/): Frequently asked questions about pace, licensing, code ownership, data location and more.
+- [Contact](https://www.scopera.ai/en/contact/): Book a call, call us, or send a message.
+- [Insights](https://www.scopera.ai/en/insights/): Articles on AI-native development and what actually works for Swiss companies.

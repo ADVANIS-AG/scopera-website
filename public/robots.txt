@@ -1,3 +1,3 @@
 User-agent: *
 Allow: /
-Sitemap: https://scopera.ai/sitemap-index.xml
+Sitemap: https://www.scopera.ai/sitemap-index.xml

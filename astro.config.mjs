@@ -2,7 +2,10 @@ import { defineConfig } from 'astro/config';
 import sitemap from '@astrojs/sitemap';
 
 export default defineConfig({
-  site: 'https://scopera.ai',
+  // Kanonische Domain ist www. GitHub Pages leitet den Apex darauf um, deshalb muessen
+  // Canonical-Tags, Sitemap und og:image-URLs ebenfalls auf www zeigen. Sonst verweisen
+  // sie auf eine URL, die sofort weiterleitet. Muss mit public/CNAME uebereinstimmen.
+  site: 'https://www.scopera.ai',
   base: '/',
   integrations: [
     sitemap({

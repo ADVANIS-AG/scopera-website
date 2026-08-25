@@ -4,7 +4,7 @@ teil: 4
 stufe: "Produktiv starten"
 stimme: "Joel, AI Architect"
 woche: 6
-verlinkt_zu: "https://scopera.ai/de/editions/"
+verlinkt_zu: "https://www.scopera.ai/de/editions/"
 bild: "../cards/06-stufe-4.png"
 ---
 

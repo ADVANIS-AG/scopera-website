@@ -4,7 +4,7 @@ teil: 1
 stufe: "Potenziale erkennen"
 stimme: "Sarah, AI Consultant"
 woche: 2
-verlinkt_zu: "https://scopera.ai/de/services/"
+verlinkt_zu: "https://www.scopera.ai/de/services/"
 bild: "../cards/02-stufe-1.png"
 ---
 

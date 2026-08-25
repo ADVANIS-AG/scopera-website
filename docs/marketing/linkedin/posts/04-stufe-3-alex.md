@@ -4,7 +4,7 @@ teil: 3
 stufe: "Prototyp entwickeln"
 stimme: "Alex, AI Tech Consultant"
 woche: 4
-verlinkt_zu: "https://scopera.ai/de/services/"
+verlinkt_zu: "https://www.scopera.ai/de/services/"
 bild: "../cards/04-stufe-3.png"
 ---
 

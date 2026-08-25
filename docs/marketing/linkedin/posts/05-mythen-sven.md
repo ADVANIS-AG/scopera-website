@@ -4,7 +4,7 @@ teil: "Zwischenstopp"
 stufe: null
 stimme: "Sven, CTO und AI Strategist"
 woche: 5
-verlinkt_zu: "https://scopera.ai/de/faq/"
+verlinkt_zu: "https://www.scopera.ai/de/faq/"
 bild: "../photos/mythen-kompass.jpg"
 ---
 

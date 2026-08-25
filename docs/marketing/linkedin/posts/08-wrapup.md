@@ -4,7 +4,7 @@ teil: "Abschluss"
 stufe: null
 stimme: "Firmenseite (SCOPERA)"
 woche: 8
-verlinkt_zu: "https://scopera.ai/de/contact/"
+verlinkt_zu: "https://www.scopera.ai/de/contact/"
 bild: "../cards/08-wrapup.png"
 ---
 

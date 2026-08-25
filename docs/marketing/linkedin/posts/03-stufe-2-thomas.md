@@ -4,7 +4,7 @@ teil: 2
 stufe: "Prozess und Business Case entwickeln"
 stimme: "Thomas, AI Value Engineer"
 woche: 3
-verlinkt_zu: "https://scopera.ai/de/services/"
+verlinkt_zu: "https://www.scopera.ai/de/services/"
 bild: "../cards/03-stufe-2.png"
 ---
 
