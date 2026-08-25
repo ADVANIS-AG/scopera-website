@@ -57,6 +57,13 @@ Alle Fotos via Unsplash (Unsplash-Lizenz: kommerzielle Nutzung erlaubt, keine At
 
 SVG-Grafiken (KlangLinie, NetzGrafik, PfadGrafik, `src/components/icons/*`) sind Eigenentwicklungen im Brand-Stil.
 
+## Sicherheit
+
+Security-Header, CSP und die offene Aufgabe "Enforce HTTPS" sind in
+[`docs/security-headers.md`](docs/security-headers.md) dokumentiert. Wichtig: Wird ein neuer
+externer Dienst eingebunden, muss die CSP in `src/layouts/BaseLayout.astro` ergaenzt werden,
+sonst blockiert der Browser ihn stillschweigend.
+
 ## Konventionen
 
 Schweizer Hochdeutsch, kein «ß», keine em-Dashes in `src/`. Tonalitaet nach ADVANIS-Styleguide: direkt, keine Superlative, keine Floskeln.

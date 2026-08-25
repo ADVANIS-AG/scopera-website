@@ -29,6 +29,20 @@ const nav: [string, UiKey][] = [
 <!doctype html>
 <html lang={lang === 'de' ? 'de-CH' : 'en'}>
 <head>
+  <meta charset="utf-8" />
+  {/*
+    Content-Security-Policy als Meta-Tag, weil GitHub Pages keine eigenen HTTP-Header setzen kann.
+    Vollstaendiger Header-Satz (inkl. HSTS und X-Frame-Options, die per Meta nicht moeglich sind)
+    siehe docs/security-headers.md - dort ist die Cloudflare-Variante dokumentiert.
+    'unsafe-inline' bei script-src ist noetig fuer die Inline-Skripte (Theme, Consent, Beacon)
+    und fuer Google Tag Manager. Ohne GTM waere eine strengere Policy moeglich.
+  */}
+  <meta
+    http-equiv="Content-Security-Policy"
+    content="default-src 'self'; script-src 'self' 'unsafe-inline' https://www.googletagmanager.com https://assets.apollo.io https://plausible.io; style-src 'self' 'unsafe-inline'; img-src 'self' data: https:; font-src 'self' data:; connect-src 'self' https://admin.scopera.ai https://api.scopera.ai https://www.googletagmanager.com https://assets.apollo.io https://aplo-evnt.com https://plausible.io; frame-src https://api.scopera.ai; form-action 'self' https://admin.scopera.ai; base-uri 'self'; object-src 'none'; upgrade-insecure-requests"
+  />
+  <meta http-equiv="X-Content-Type-Options" content="nosniff" />
+  <meta name="referrer" content="strict-origin-when-cross-origin" />
   <!-- Google Tag Manager: laedt erst nach Einwilligung im Cookie-Banner (siehe CookieBanner.astro) -->
   <script is:inline>
     window.dataLayer = window.dataLayer || [];
@@ -65,7 +79,6 @@ const nav: [string, UiKey][] = [
       } catch (e) {}
     })();
   </script>
-  <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <link rel="icon" href={`${base}favicon.ico`} sizes="any" />
   <link rel="icon" type="image/png" sizes="32x32" href={`${base}favicon-32x32.png`} />
