@@ -8,14 +8,17 @@ import NetzGrafik from '../../components/NetzGrafik.astro';
 import MandantenGrafik from '../../components/MandantenGrafik.astro';
 import ArchitekturGrafik from '../../components/ArchitekturGrafik.astro';
 import PortalGrafik from '../../components/PortalGrafik.astro';
-const features = [
+// [Titel, Text, neu?] - "neu" setzt das Badge. Bei acht Karten ergibt das Dreierraster
+// 3 + 3 + 2, es braucht also keinen Sonderfall fuer volle Breite mehr.
+const features: [string, string, boolean?][] = [
   ['AI Agents', 'Assistenten, die Aufgaben erledigen statt nur antworten: mit Zugriff auf Ihre Daten, Regeln und Systeme.'],
   ['Workflows', 'Automatisierte Abläufe über Systemgrenzen hinweg, von Ihrem Fachbereich selbst konfiguriert, mit Freigaben durch Menschen, wo es darauf ankommt.'],
   ['Knowledge', 'Ihr Firmenwissen, durchsuchbar und nutzbar: Dokumente, Systeme und Erfahrung an einem Ort.'],
   ['Integrationen', 'Microsoft 365, Dynamics 365, SAP, Salesforce und mehr: nahtlos angebunden an das, was Sie schon haben, statt neue Excel-Inseln.'],
   ['Analytics', 'Nutzung, Qualität und Kosten jeder AI-Funktion, transparent im Dashboard.'],
   ['Governance', 'Rollen, Abteilungstrennung, Feldverschlüsselung, revDSG und DSGVO-Werkzeuge. Automatisierte Tests, Backups und Audit-Log inklusive.'],
-  ['Portal', 'Gezielt Informationen mit Kundschaft und Partnern teilen, ohne Sitzplätze zu vergeben. Sie entscheiden, was sichtbar ist und wer Zugang hat.'],
+  ['Portal', 'Gezielt Informationen mit Kundschaft und Partnern teilen, ohne Sitzplätze zu vergeben. Sie entscheiden, was sichtbar ist und wer Zugang hat.', true],
+  ['WhatsApp', 'Nachrichten empfangen und direkt aus der Plattform beantworten, mit eigener Nummer pro Mandant und KI-Unterstützung auf Zuruf.', true],
 ];
 const faelle = [
   { tag: 'Sicherheitstechnik', titel: 'Projektmanagement statt D365-Modul', text: 'Ein Schweizer Sicherheitstechnik-Unternehmen ersetzt sein Dynamics-365-Projektmodul: Offerten mit Kalkulation, Projektstrukturen, Service-Disposition mit mobilem Rapport und Kundenunterschrift, vollständige D365-Integration. Vom Konzept zur getesteten Anwendung in Tagen.' },
@@ -53,9 +56,9 @@ const lang = 'de';
       <p class="soft" style="max-width: 46em;">Jede Funktion ist so gebaut, dass Ihr Fachbereich sie direkt nutzen und anpassen kann, nicht nur die IT.</p>
       <div style="margin: 8px 0 26px;"><NetzGrafik /></div>
       <div class="karten-3">
-        {features.map(([t, x]) => (
-          <div class="karte" style={t === 'Portal' ? 'grid-column: 1 / -1;' : undefined}>
-            <h3>{t}{t === 'Portal' && <span class="tag" style="margin-left:10px; margin-bottom:0;">Neu</span>}</h3>
+        {features.map(([t, x, neu]) => (
+          <div class="karte">
+            <h3>{t}{neu && <span class="tag" style="margin-left:10px; margin-bottom:0;">Neu</span>}</h3>
             <p style="font-size:14px;" class="soft">{x}</p>
           </div>
         ))}
