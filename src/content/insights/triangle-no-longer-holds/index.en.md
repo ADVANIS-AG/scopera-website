@@ -1,7 +1,7 @@
 ---
 title: "Good, fast, cheap: why the triangle no longer holds"
 description: "For decades the rule was: pick two of three. AI-native development breaks that rule. What it means for Swiss companies."
-pubDate: 2026-07-11
+pubDate: 2026-07-02
 cover: ./dreieck-lineal.jpg
 coverAlt: "A triangular ruler backlit on a table"
 ---

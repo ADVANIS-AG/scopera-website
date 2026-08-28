@@ -1,7 +1,7 @@
 ---
 title: "Why custom apps now pay off for SMEs too"
 description: "Custom software used to be reserved for large enterprises. AI-native development changes the math, significantly."
-pubDate: 2026-07-11
+pubDate: 2026-07-09
 cover: ./massschneiderung.jpg
 coverAlt: "Measuring tape, thread and scissors on fine fabric"
 ---

@@ -1,7 +1,7 @@
 ---
 title: "From idea to a running app, in four steps"
 description: "The app builder goes from the first idea through process description and diagram to a working application. Every step stays reviewable."
-pubDate: 2026-07-18
+pubDate: 2026-07-16
 cover: ./skizze-prozess.jpg
 coverAlt: "Hands drafting a plan on a dark wooden table, next to a ruler and a roll of paper"
 ---

@@ -1,7 +1,7 @@
 ---
 title: "Gut, schnell, günstig: warum das Dreieck nicht mehr gilt"
 description: "Jahrzehntelang galt: wähle zwei von drei. AI-natives Entwickeln bricht diese Regel. Was das für Schweizer Unternehmen bedeutet."
-pubDate: 2026-07-11
+pubDate: 2026-07-02
 cover: ./dreieck-lineal.jpg
 coverAlt: "Ein dreieckiges Lineal im Gegenlicht auf einem Tisch"
 ---

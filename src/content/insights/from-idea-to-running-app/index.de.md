@@ -1,7 +1,7 @@
 ---
 title: "Von der Idee zur laufenden App, in vier Schritten"
 description: "Der App-Builder führt von der ersten Idee über Prozessbeschrieb und Diagramm zur lauffähigen Anwendung. Jeder Schritt bleibt prüfbar."
-pubDate: 2026-07-18
+pubDate: 2026-07-16
 cover: ./skizze-prozess.jpg
 coverAlt: "Hände zeichnen an einem Plan auf einem dunklen Holztisch, daneben ein Lineal und eine Papierrolle"
 ---
