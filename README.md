@@ -55,6 +55,7 @@ Alle Fotos via Unsplash (Unsplash-Lizenz: kommerzielle Nutzung erlaubt, keine At
 - `dreieck-lineal.jpg` (Insight "Gut, schnell, günstig") — KC Shum (unsplash.com/photos/hZej0jWoF8g)
 - `portal-tuer.jpg` (Insight "Kundschaft einbinden") — Greg Rosenke (unsplash.com/photos/1dnMXxhJT_g)
 - `whatsapp-nachricht.jpg` (Insight "WhatsApp im Kundenkontakt") — Jakub Żerdzicki (unsplash.com/photos/zVraN8Nnc4c)
+- `skizze-prozess.jpg` (Insight "Von der Idee zur laufenden App") — Daniel McCullough (unsplash.com/photos/-FPFq_trr2Y)
 
 SVG-Grafiken (KlangLinie, NetzGrafik, PfadGrafik, `src/components/icons/*`) sind Eigenentwicklungen im Brand-Stil.
 
