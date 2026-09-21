@@ -56,6 +56,11 @@ Alle Fotos via Unsplash (Unsplash-Lizenz: kommerzielle Nutzung erlaubt, keine At
 - `portal-tuer.jpg` (Insight "Kundschaft einbinden") — Greg Rosenke (unsplash.com/photos/1dnMXxhJT_g)
 - `whatsapp-nachricht.jpg` (Insight "WhatsApp im Kundenkontakt") — Jakub Żerdzicki (unsplash.com/photos/zVraN8Nnc4c)
 - `skizze-prozess.jpg` (Insight "Von der Idee zur laufenden App") — Daniel McCullough (unsplash.com/photos/-FPFq_trr2Y)
+- `rohbau-aufmass.jpg` (Insight "Aufmass per Scan") — Oceane Picq (unsplash.com/photos/QKHc27ij_K0)
+- `geraete-holztisch.jpg` (Insight "Eine App für alle Geräte") — Andy Illarionov (unsplash.com/photos/-WW8jBak7bo)
+- `planer-fristen.jpg` (Insight "Was gilt für uns?") — Eric Rothermel (unsplash.com/photos/FoKO4DpXamQ)
+- `besprechungsraum.jpg` (Insight "Probezeit ohne Bauchgefühl") — Mateusz Zatorski (unsplash.com/photos/wN9oyogyjQc)
+- `gemeinsam-am-tisch.jpg` (Insight "Warum ein Chatfenster noch keine Anwendung ist") — Koda Bookkeeping (unsplash.com/photos/EwmBLsCDIgo)
 
 SVG-Grafiken (KlangLinie, NetzGrafik, PfadGrafik, `src/components/icons/*`) sind Eigenentwicklungen im Brand-Stil.
 
