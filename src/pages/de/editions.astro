@@ -1,16 +1,14 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
-import PaketGrid from '../../components/PaketGrid.astro';
 import CtaBanner from '../../components/CtaBanner.astro';
 import SignupBanner from '../../components/SignupBanner.astro';
 import HeroBild from '../../components/HeroBild.astro';
 import PfadGrafik from '../../components/PfadGrafik.astro';
 import StufenKompakt from '../../components/StufenKompakt.astro';
-import PaketMatrix from '../../components/PaketMatrix.astro';
 const base = import.meta.env.BASE_URL;
 const lang = 'de';
 ---
-<BaseLayout title="Editionen | SCOPERA." description="Vier Editionen von Trial bis Enterprise. Einsteigen, wachsen, skalieren: immer mit klarem Rahmen und ohne Überraschungen.">
+<BaseLayout title="Editionen | SCOPERA." description="Fünf Editionen von Trial bis Quartett. Einsteigen, wachsen, skalieren: immer mit klarem Rahmen und ohne Überraschungen.">
   <section style="padding: 88px 0 64px; border-bottom: none;">
     <div class="wrap">
       <p class="eyebrow">Editionen</p>
@@ -26,13 +24,16 @@ const lang = 'de';
   <section>
     <div class="wrap">
       <div style="margin: 0 0 26px;"><PfadGrafik /></div>
-      <PaketGrid lang={lang} />
-      <p style="margin-top:18px;"><a href={`${base}de/partner`}>Mehr zum Provider-Modell →</a></p>
-      <div style="margin-top:36px;">
-        <p class="eyebrow">Im Detail</p>
-        <h2 style="font-size:clamp(22px,3vw,30px);">Editionen im Vergleich.</h2>
-        <PaketMatrix lang={lang} />
+      <p class="eyebrow">Im Detail</p>
+      <h2 style="font-size:clamp(22px,3vw,30px);">Editionen im Vergleich.</h2>
+      <div class="editionen-embed">
+        <iframe
+          src="https://api.scopera.ai/v1/public/editions/comparison/banner?locale=de"
+          title="Editionen im Vergleich"
+          loading="lazy"
+        ></iframe>
       </div>
+      <p style="margin-top:18px;"><a href={`${base}de/partner`}>Mehr zum Provider-Modell →</a></p>
     </div>
   </section>
   <section>
@@ -46,3 +47,30 @@ const lang = 'de';
   <CtaBanner lang={lang} titel="Welche Edition passt?" text="Sagen Sie uns, was Sie vorhaben. Wir sagen Ihnen ehrlich, welche Edition es braucht und welche nicht." />
   <SignupBanner lang={lang} />
 </BaseLayout>
+<style>
+  /*
+    Das eingebettete Banner bringt einen eigenen hellen Hintergrund mit und kennt bisher
+    keinen Theme-Parameter. Der Container nimmt darum dieselbe Farbe auf, damit keine
+    sichtbare Kante entsteht, und setzt es bewusst als eigenen Block ab.
+    Sobald das Banner ein Theme unterstuetzt, kann der Hintergrund hier entfallen.
+  */
+  .editionen-embed {
+    max-width: 960px;
+    border: 1px solid var(--line);
+    border-radius: var(--radius);
+    overflow: hidden;
+    background: #f5f3ef;
+  }
+  .editionen-embed iframe { display: block; width: 100%; border: 0; }
+  /*
+    Das Banner meldet seine Hoehe nicht zurueck, sie muss darum fest gesetzt werden.
+    Die Werte stammen aus Messungen der tatsaechlichen Inhaltshoehe. Die Spaltenzahl
+    des Rasters wechselt bei rund 732px und 496px iframe-Breite, daher diese Stufen
+    (Viewport = iframe-Breite plus 48px Innenabstand von .wrap).
+  */
+  .editionen-embed iframe { height: 1440px; }
+  @media (max-width: 1007px) { .editionen-embed iframe { height: 1680px; } }
+  @media (max-width: 779px) { .editionen-embed iframe { height: 2220px; } }
+  @media (max-width: 544px) { .editionen-embed iframe { height: 2700px; } }
+  @media (max-width: 367px) { .editionen-embed iframe { height: 3000px; } }
+</style>

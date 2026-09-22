@@ -66,7 +66,7 @@ export const stufen: Stufe[] = [
       en: 'Solution in use, incl. security, integrations, tests, permissions',
     },
     dauer: { de: 'Ein bis sechs Wochen', en: 'One to six weeks' },
-    angebot: { de: 'Starter, Pro', en: 'Starter, Pro' },
+    angebot: { de: 'Solo, Duett', en: 'Solo, Duett' },
     pfad: 'editions',
   },
   {
@@ -81,7 +81,7 @@ export const stufen: Stufe[] = [
       en: 'Operations, monitoring, ongoing development',
     },
     dauer: { de: 'Laufend', en: 'Ongoing' },
-    angebot: { de: 'Enterprise, Managed AI, White-Label', en: 'Enterprise, Managed AI, White-Label' },
+    angebot: { de: 'Trio, Quartett, Managed AI, White-Label', en: 'Trio, Quartett, Managed AI, White-Label' },
     pfad: 'editions',
   },
 ];

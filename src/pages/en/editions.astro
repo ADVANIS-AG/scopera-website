@@ -1,16 +1,14 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
-import PaketGrid from '../../components/PaketGrid.astro';
 import CtaBanner from '../../components/CtaBanner.astro';
 import SignupBanner from '../../components/SignupBanner.astro';
 import HeroBild from '../../components/HeroBild.astro';
 import PfadGrafik from '../../components/PfadGrafik.astro';
 import StufenKompakt from '../../components/StufenKompakt.astro';
-import PaketMatrix from '../../components/PaketMatrix.astro';
 const base = import.meta.env.BASE_URL;
 const lang = 'en';
 ---
-<BaseLayout title="Editions | SCOPERA." description="Four editions from Trial to Enterprise. Start, grow, scale: always with a clear frame and no surprises.">
+<BaseLayout title="Editions | SCOPERA." description="Five editions from Trial to Quartett. Start, grow, scale: always with a clear frame and no surprises.">
   <section style="padding: 88px 0 64px; border-bottom: none;">
     <div class="wrap">
       <p class="eyebrow">Editions</p>
@@ -26,13 +24,16 @@ const lang = 'en';
   <section>
     <div class="wrap">
       <div style="margin: 0 0 26px;"><PfadGrafik /></div>
-      <PaketGrid lang={lang} />
-      <p style="margin-top:18px;"><a href={`${base}en/partner`}>More on the provider model →</a></p>
-      <div style="margin-top:36px;">
-        <p class="eyebrow">In detail</p>
-        <h2 style="font-size:clamp(22px,3vw,30px);">Editions compared.</h2>
-        <PaketMatrix lang={lang} />
+      <p class="eyebrow">In detail</p>
+      <h2 style="font-size:clamp(22px,3vw,30px);">Editions compared.</h2>
+      <div class="editionen-embed">
+        <iframe
+          src="https://api.scopera.ai/v1/public/editions/comparison/banner?locale=en"
+          title="Editions compared"
+          loading="lazy"
+        ></iframe>
       </div>
+      <p style="margin-top:18px;"><a href={`${base}en/partner`}>More on the provider model →</a></p>
     </div>
   </section>
   <section>
@@ -46,3 +47,29 @@ const lang = 'en';
   <CtaBanner lang={lang} titel="Which edition fits?" text="Tell us what you're planning. We'll tell you honestly which edition you need, and which you don't." />
   <SignupBanner lang={lang} />
 </BaseLayout>
+<style>
+  /*
+    The embedded banner brings its own light background and has no theme parameter yet.
+    The container picks up the same colour so no visible edge appears, and sets the
+    banner off as a deliberate block. Once the banner supports a theme, drop the background.
+  */
+  .editionen-embed {
+    max-width: 960px;
+    border: 1px solid var(--line);
+    border-radius: var(--radius);
+    overflow: hidden;
+    background: #f5f3ef;
+  }
+  .editionen-embed iframe { display: block; width: 100%; border: 0; }
+  /*
+    The banner does not report its height, so it has to be set. These values come from
+    measuring the actual content height. The grid changes column count at roughly 732px
+    and 496px iframe width, hence these steps (viewport = iframe width plus the 48px
+    horizontal padding of .wrap).
+  */
+  .editionen-embed iframe { height: 1440px; }
+  @media (max-width: 1007px) { .editionen-embed iframe { height: 1680px; } }
+  @media (max-width: 779px) { .editionen-embed iframe { height: 2220px; } }
+  @media (max-width: 544px) { .editionen-embed iframe { height: 2700px; } }
+  @media (max-width: 367px) { .editionen-embed iframe { height: 3000px; } }
+</style>
