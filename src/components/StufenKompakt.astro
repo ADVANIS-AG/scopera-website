@@ -9,7 +9,7 @@ const base = import.meta.env.BASE_URL;
   <p class="soft" style="font-size:14px; margin:0;">{einordnung}</p>
   <div class="stufen-kompakt-liste">
     {stufen.map(s => (
-      <a href={`${base}${lang}/${s.pfad}`} class={s.pfad === aktivPfad ? 'aktiv' : ''}>{s.nr}. {s.titel[lang]}</a>
+      <a href={`${base}${lang}/${s.pfad}/`} class={s.pfad === aktivPfad ? 'aktiv' : ''}>{s.nr}. {s.titel[lang]}</a>
     ))}
   </div>
 </div>

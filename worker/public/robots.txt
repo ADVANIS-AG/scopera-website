@@ -1,0 +1,5 @@
+# admin.scopera.ai ist reine Infrastruktur: Kontaktformular-Endpunkt, Besucher-Beacon,
+# Apollo-Webhook und das interne Admin-UI. Nichts davon gehoert in eine Suchmaschine.
+# Ohne diese Datei versucht Google die Startseite zu crawlen und meldet sie als 404.
+User-agent: *
+Disallow: /

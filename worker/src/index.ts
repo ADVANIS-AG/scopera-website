@@ -37,6 +37,9 @@ export default {
     for (const [key, value] of Object.entries(await corsHeaders(request, env))) {
       headers.set(key, value);
     }
+    // Dieser Host ist reine Infrastruktur und gehoert nicht in den Suchindex. Ergaenzend zu
+    // worker/public/robots.txt, das den Host als Ganzes vom Crawling ausnimmt.
+    headers.set("X-Robots-Tag", "noindex, nofollow");
     return new Response(response.body, { status: response.status, headers });
   },
 };

@@ -12,7 +12,11 @@ const t = useTranslations(lang);
 const otherLang = lang === 'de' ? 'en' : 'de';
 const rest = Astro.url.pathname.slice((base + lang + '/').length);
 const otherLangHref = `${base}${otherLang}/${rest}`;
-const terminZiel = BOOKING_URL || `${base}${lang}/contact`;
+const terminZiel = BOOKING_URL || `${base}${lang}/contact/`;
+// Vollstaendige Adresse, nicht erst im Skript aus workerEndpoint + '/beacon' zusammensetzen.
+// Googlebot liest solche Zeichenketten als relative Pfade und ruft dann www.scopera.ai/beacon
+// auf, was einen 404 in der Search Console erzeugt.
+const beaconUrl = `${WORKER_ENDPOINT}/beacon`;
 const [strasse, ortMitPlz] = ADRESSE.split(', ');
 const plz = ortMitPlz?.match(/^\d+/)?.[0];
 const ort = ortMitPlz?.replace(/^\d+\s*/, '');
@@ -123,7 +127,7 @@ const nav: [string, UiKey][] = [
       <a class="wortmarke" href={`${base}${lang}/`}><img src={`${base}favicon.png`} alt="" width="28" height="28" />{SITE_NAME}<span class="dot">.</span></a>
       <div class="nav-right">
         <ul class="nav-links" id="nav-links">
-          {nav.map(([href, key]) => <li><a href={`${base}${lang}/${href}`}>{t(key)}</a></li>)}
+          {nav.map(([href, key]) => <li><a href={`${base}${lang}/${href}/`}>{t(key)}</a></li>)}
           <li><a class="btn" href={terminZiel} target={BOOKING_URL ? '_blank' : undefined} rel={BOOKING_URL ? 'noopener noreferrer' : undefined}>{t('nav.book')}</a></li>
         </ul>
         <a class="lang-toggle" href={otherLangHref} aria-label={t('lang.toggle')}>{otherLang.toUpperCase()}</a>
@@ -139,10 +143,10 @@ const nav: [string, UiKey][] = [
   <footer class="site">
     <div class="wrap">
       <nav>
-        {nav.map(([href, key]) => <a href={`${base}${lang}/${href}`}>{t(key)}</a>)}
-        <a href={`${base}${lang}/contact`}>{t('nav.contact')}</a>
-        <a href={`${base}${lang}/imprint`}>{t('nav.imprint')}</a>
-        <a href={`${base}${lang}/privacy`}>{t('nav.privacy')}</a>
+        {nav.map(([href, key]) => <a href={`${base}${lang}/${href}/`}>{t(key)}</a>)}
+        <a href={`${base}${lang}/contact/`}>{t('nav.contact')}</a>
+        <a href={`${base}${lang}/imprint/`}>{t('nav.imprint')}</a>
+        <a href={`${base}${lang}/privacy/`}>{t('nav.privacy')}</a>
         <a href="#" id="cookie-settings-link">{t('cookie.settings')}</a>
       </nav>
       <p class="absender">{SITE_NAME} — {t('footer.absender')} <a href="https://www.advanis.ch" target="_blank" rel="noopener noreferrer">ADVANIS</a>. {t('footer.claim')}</p>
@@ -206,7 +210,7 @@ const nav: [string, UiKey][] = [
   </script>
   <CookieBanner lang={lang} />
   {WORKER_ENDPOINT && (
-    <script is:inline define:vars={{ workerEndpoint: WORKER_ENDPOINT, base }}>
+    <script is:inline define:vars={{ beaconUrl, base }}>
       (function () {
         var path = location.pathname.startsWith(base) ? '/' + location.pathname.slice(base.length) : location.pathname;
         path = path.replace(/\/+$/, '') || '/';
@@ -225,9 +229,9 @@ const nav: [string, UiKey][] = [
           var durationMs = Math.round(performance.now() - start);
           var payload = JSON.stringify({ sessionId: sessionId, path: path, durationMs: durationMs });
           if (navigator.sendBeacon) {
-            navigator.sendBeacon(workerEndpoint + '/beacon', new Blob([payload], { type: 'application/json' }));
+            navigator.sendBeacon(beaconUrl, new Blob([payload], { type: 'application/json' }));
           } else {
-            fetch(workerEndpoint + '/beacon', { method: 'POST', body: payload, headers: { 'Content-Type': 'application/json' }, keepalive: true });
+            fetch(beaconUrl, { method: 'POST', body: payload, headers: { 'Content-Type': 'application/json' }, keepalive: true });
           }
         }
 

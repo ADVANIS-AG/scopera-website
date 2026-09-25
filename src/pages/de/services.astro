@@ -50,7 +50,7 @@ const angebote = [
 ];
 const base = import.meta.env.BASE_URL;
 const lang = 'de';
-const terminZielFallback = BOOKING_URL || `${base}de/contact`;
+const terminZielFallback = BOOKING_URL || `${base}de/contact/`;
 ---
 <BaseLayout title="Leistungen | SCOPERA." description="Beratung, die auch ohne unsere Plattform trägt: Assessments, Workshops und Formate, die Klarheit schaffen, bevor Sie investieren.">
   <section style="padding: 88px 0 64px; border-bottom: none;">
@@ -62,7 +62,7 @@ const terminZielFallback = BOOKING_URL || `${base}de/contact`;
   </section>
   <div class="wrap">
     <StufenKompakt lang={lang} aktivPfad="services" einordnung="Diese Formate decken Stufe 1 bis 3 ab." />
-    <p class="soft" style="font-size:13px; margin-top:-14px;"><a href={`${base}de/editions`}>Für Stufe 4 und 5: Editionen ansehen →</a></p>
+    <p class="soft" style="font-size:13px; margin-top:-14px;"><a href={`${base}de/editions/`}>Für Stufe 4 und 5: Editionen ansehen →</a></p>
   </div>
   <HeroBild src={`${base}bilder/hero-leistungen.jpg`} alt="Sinfonieorchester spielt vor vollem Konzertsaal, Blick von der Bühne auf das Publikum" />
   <section>

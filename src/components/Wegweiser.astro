@@ -4,7 +4,7 @@ import { defaultLang, type Lang } from '../i18n/ui';
 interface Props { lang?: Lang; }
 const { lang = defaultLang } = Astro.props;
 const base = import.meta.env.BASE_URL;
-const kontaktHref = `${base}${lang}/contact`;
+const kontaktHref = `${base}${lang}/contact/`;
 const terminZiel = BOOKING_URL || kontaktHref;
 
 const pfade = [
@@ -15,7 +15,7 @@ const pfade = [
     },
     weg: { de: 'KI-Potenzial-Assessment, ein halber Tag', en: 'AI Potential Assessment, half a day' },
     cta: { de: 'Assessment anfragen', en: 'Request an assessment' },
-    href: `${base}${lang}/services`,
+    href: `${base}${lang}/services/`,
   },
   {
     zitat: {
@@ -24,7 +24,7 @@ const pfade = [
     },
     weg: { de: 'Vibe your Issue, Prototyp innert Stunden', en: 'Vibe your Issue, prototype within hours' },
     cta: { de: 'Issue einreichen', en: 'Submit an issue' },
-    href: `${base}${lang}/services`,
+    href: `${base}${lang}/services/`,
   },
   {
     zitat: {
@@ -33,7 +33,7 @@ const pfade = [
     },
     weg: { de: 'Solo, Duett oder Trio', en: 'Solo, Duett or Trio' },
     cta: { de: 'Editionen ansehen', en: 'View editions' },
-    href: `${base}${lang}/editions`,
+    href: `${base}${lang}/editions/`,
   },
   {
     zitat: {
