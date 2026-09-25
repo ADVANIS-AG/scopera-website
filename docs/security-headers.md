@@ -142,3 +142,40 @@ hinter Cloudflare zu schieben.
 ```bash
 curl -sSI https://www.scopera.ai/ | grep -iE "strict-transport|x-frame|x-content-type|referrer-policy|permissions-policy"
 ```
+
+Erwartet werden fünf Zeilen. **Kommt gar nichts zurück, ist meist der lokale DNS-Cache schuld:**
+Der eigene Rechner hält die alten GitHub-IPs noch, die Anfrage geht also an GitHub vorbei an
+Cloudflare, und GitHub sendet diese Header nicht. Erst prüfen, wohin der Name zeigt:
+
+```bash
+dig +short www.scopera.ai
+```
+
+Erscheinen dort `185.199.*`, ist es noch GitHub. Bei Cloudflare stehen andere Adressen und die
+Antwort enthält `server: cloudflare` sowie einen `cf-ray`-Header. Der Cache lässt sich unter
+macOS leeren mit `sudo dscacheutil -flushcache; sudo killall -HUP mDNSResponder`.
+
+## Stand seit der Umstellung (September 2026)
+
+Umgesetzt und geprüft:
+
+- `www.scopera.ai` läuft über Cloudflare, alle fünf Header werden ausgeliefert.
+- `http` leitet auf `https` um, auch vom Apex aus, und zwar direkt ohne unverschlüsselten
+  Zwischenschritt.
+- Der Pfad `/.well-known/acme-challenge/` wird **nicht** zwangsweise auf HTTPS umgeleitet, die
+  Zertifikatserneuerung von GitHub Pages ist damit nicht gefährdet.
+
+**Offener Punkt, Reichweite von HSTS:** Der Apex `scopera.ai` ist weiterhin auf "DNS only" und
+sendet deshalb kein HSTS. Wichtig dabei: `includeSubDomains` auf `www.scopera.ai` gilt nur für
+Namen **unterhalb von www**, also `*.www.scopera.ai`. Es deckt weder den Apex noch
+Geschwister wie `app.scopera.ai` ab. Wer HSTS für die ganze Domain will, muss den Apex
+ebenfalls proxen und dort denselben Header setzen.
+
+Vor diesem Schritt beachten: `includeSubDomains` auf dem Apex verpflichtet **jede** Subdomain
+auf HTTPS, auch künftige und auch die Mandanten-Workspaces. Alle heute bekannten Subdomains
+liefern ein gültiges Zertifikat (geprüft für `app`, `api`, `admin` und einen Mandanten), es
+wäre also aktuell gefahrlos. Eine neue Subdomain ohne funktionierendes HTTPS wäre danach aber
+im Browser nicht mehr erreichbar.
+
+`preload` sollte **nicht** ergänzt werden, solange das nicht bewusst entschieden ist. Ein
+Eintrag in der Preload-Liste ist nur über ein langwieriges Verfahren wieder zu entfernen.
