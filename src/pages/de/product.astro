@@ -8,8 +8,9 @@ import NetzGrafik from '../../components/NetzGrafik.astro';
 import MandantenGrafik from '../../components/MandantenGrafik.astro';
 import ArchitekturGrafik from '../../components/ArchitekturGrafik.astro';
 import PortalGrafik from '../../components/PortalGrafik.astro';
-// [Titel, Text, neu?] - "neu" setzt das Badge. Bei acht Karten ergibt das Dreierraster
-// 3 + 3 + 2, es braucht also keinen Sonderfall fuer volle Breite mehr.
+// [Titel, Text, neu?] - "neu" setzt das Badge. Bei zehn Karten ergibt das Dreierraster
+// 3 + 3 + 3 + 1. Die letzte Karte geht per CSS (siehe <style> unten) ueber die volle Breite,
+// damit sie in der letzten Reihe nicht allein bei einem Drittel stehen bleibt.
 const features: [string, string, boolean?][] = [
   ['AI Agents', 'Assistenten, die Aufgaben erledigen statt nur antworten: mit Zugriff auf Ihre Daten, Regeln und Systeme.'],
   ['Workflows', 'Automatisierte Abläufe über Systemgrenzen hinweg, von Ihrem Fachbereich selbst konfiguriert, mit Freigaben durch Menschen, wo es darauf ankommt.'],
@@ -20,6 +21,7 @@ const features: [string, string, boolean?][] = [
   ['Portal', 'Gezielt Informationen mit Kundschaft und Partnern teilen, ohne Sitzplätze zu vergeben. Sie entscheiden, was sichtbar ist und wer Zugang hat.', true],
   ['WhatsApp', 'Nachrichten empfangen und direkt aus der Plattform beantworten, mit eigener Nummer pro Mandant und KI-Unterstützung auf Zuruf.', true],
   ['Raumscanner', 'Räume mit iPad oder iPhone per LiDAR erfassen. Aus dem Scan entstehen Flächen und Mengen, direkt in der Offerte.', true],
+  ['Datenqualität', 'Prüfregeln, Abgleich mit der Quelle und Erkennung von Mehrfacheinträgen. Einmalig bei der Migration und danach in festen Abständen, jede Korrektur protokolliert und rücksetzbar.', true],
 ];
 const faelle = [
   { tag: 'Sicherheitstechnik', titel: 'Projektmanagement statt D365-Modul', text: 'Ein Schweizer Sicherheitstechnik-Unternehmen ersetzt sein Dynamics-365-Projektmodul: Offerten mit Kalkulation, Projektstrukturen, Service-Disposition mit mobilem Rapport und Kundenunterschrift, vollständige D365-Integration. Vom Konzept zur getesteten Anwendung in Tagen.' },
@@ -122,6 +124,9 @@ const lang = 'de';
     <style>
       .scopera-offers-embed{width:100%;max-width:900px;aspect-ratio:16/9;border:0;display:block}
       @media (max-width:600px){.scopera-offers-embed{aspect-ratio:9/16;max-width:420px}}
+      /* Letzte Feature-Karte ueber die volle Breite, wenn sie im Dreierraster allein in
+         der letzten Reihe stehen wuerde. Ab 760px schaltet global.css auf zwei Spalten. */
+      @media (min-width:761px){.karten-3 .karte:last-child:nth-child(3n + 1){grid-column:1 / -1}}
     </style>
     <iframe class="scopera-offers-embed" src="https://api.scopera.ai/v1/public/offers/groups/Sommer 2026/banner?locale=de" loading="lazy"></iframe>  
   </div>

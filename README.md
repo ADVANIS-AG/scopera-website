@@ -61,6 +61,7 @@ Alle Fotos via Unsplash (Unsplash-Lizenz: kommerzielle Nutzung erlaubt, keine At
 - `planer-fristen.jpg` (Insight "Was gilt für uns?") — Eric Rothermel (unsplash.com/photos/FoKO4DpXamQ)
 - `besprechungsraum.jpg` (Insight "Probezeit ohne Bauchgefühl") — Mateusz Zatorski (unsplash.com/photos/wN9oyogyjQc)
 - `gemeinsam-am-tisch.jpg` (Insight "Warum ein Chatfenster noch keine Anwendung ist") — Koda Bookkeeping (unsplash.com/photos/EwmBLsCDIgo)
+- `karteikasten.jpg` (Insight "Dreimal dieselbe Firma") — Daniel Forsman (unsplash.com/photos/Ph4ZJrwf4x8)
 
 SVG-Grafiken (KlangLinie, NetzGrafik, PfadGrafik, `src/components/icons/*`) sind Eigenentwicklungen im Brand-Stil.
 
