@@ -91,9 +91,18 @@ Header setzen.
 **Vorgehen:**
 
 1. In Cloudflare unter **DNS** den `www`-Record (und den Apex) auf **"Proxied"** (orange Wolke)
-   umstellen.
+   umstellen. **Dieser Schritt muss zuerst erfolgen.** Der Verschlüsselungsmodus aus Schritt 2
+   beschreibt die Strecke zwischen Cloudflare und Ursprung. Solange nichts geproxyt ist, gibt
+   es diese Strecke nicht und die Einstellung greift ins Leere.
 2. Unter **SSL/TLS** den Modus auf **"Full (strict)"** setzen. Nicht "Flexible", das würde
    zwischen Cloudflare und GitHub unverschlüsselt laufen.
+
+   Falls sich der Modus **nicht auswählen lässt**, gibt es drei übliche Gründe:
+   - Die Zone läuft auf **"Automatic SSL/TLS"**, wo Cloudflare den Modus selbst wählt. Dann
+     zuerst auf **"Custom SSL/TLS"** umschalten, danach ist die Auswahl frei. Cloudflare rollt
+     das schrittweise aus, ältere Zonen sehen diese Umschaltung noch nicht.
+   - Schritt 1 ist noch offen, es ist also kein Record geproxyt.
+   - Die eigene Rolle im Cloudflare-Konto erlaubt die Änderung nicht (Super Administrator nötig).
 3. Unter **Rules -> Transform Rules -> Modify Response Header** eine Regel für alle Anfragen
    anlegen und folgende Header setzen:
 
@@ -110,10 +119,23 @@ Meta-Tag in `BaseLayout.astro` entfernt werden, damit es nur **eine** Quelle fü
 gibt. Zwei sich widersprechende Policies gelten kumulativ, also jeweils die strengere Regel,
 was in der Fehlersuche schwer nachvollziehbar ist.
 
-**Vorsicht beim Umstellen:** GitHub Pages braucht für die Zertifikatsausstellung zeitweise
-direkten Zugriff. Wenn das GitHub-Zertifikat bereits ausgestellt ist (aktuell ja, Let's Encrypt
-bis November 2026), funktioniert die Umstellung problemlos. Bei einem späteren Domainwechsel
-den Proxy vorübergehend wieder deaktivieren.
+**Vorsicht beim Umstellen, Zertifikatserneuerung:** GitHub Pages erneuert sein Let's-Encrypt-
+Zertifikat über eine HTTP-Abfrage unter `/.well-known/acme-challenge/`. Läuft Cloudflare davor
+und leitet per "Always Use HTTPS" alles auf HTTPS um, kann diese Abfrage fehlschlagen. Die
+Erneuerung bricht dann **stillschweigend** ab und fällt erst auf, wenn das Zertifikat ausläuft.
+
+Gegenmassnahme vor dem Proxy-Wechsel: unter **Rules -> Configuration Rules** eine Regel
+anlegen, die für Pfade unter `/.well-known/acme-challenge/` "Always Use HTTPS" deaktiviert.
+Danach das Ablaufdatum im Auge behalten:
+
+```bash
+echo | openssl s_client -connect www.scopera.ai:443 -servername www.scopera.ai 2>/dev/null \
+  | openssl x509 -noout -dates
+```
+
+Das aktuelle Zertifikat läuft bis November 2026. Wer diesen Aufwand vermeiden will, kann die
+Header stattdessen bei einem Hoster setzen, der eigene Header erlaubt, statt GitHub Pages
+hinter Cloudflare zu schieben.
 
 **Prüfen nach der Umstellung:**
 
