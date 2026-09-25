@@ -165,17 +165,22 @@ Umgesetzt und geprüft:
 - Der Pfad `/.well-known/acme-challenge/` wird **nicht** zwangsweise auf HTTPS umgeleitet, die
   Zertifikatserneuerung von GitHub Pages ist damit nicht gefährdet.
 
-**Offener Punkt, Reichweite von HSTS:** Der Apex `scopera.ai` ist weiterhin auf "DNS only" und
-sendet deshalb kein HSTS. Wichtig dabei: `includeSubDomains` auf `www.scopera.ai` gilt nur für
-Namen **unterhalb von www**, also `*.www.scopera.ai`. Es deckt weder den Apex noch
-Geschwister wie `app.scopera.ai` ab. Wer HSTS für die ganze Domain will, muss den Apex
-ebenfalls proxen und dort denselben Header setzen.
+**Reichweite von HSTS: erledigt.** Der Apex ist ebenfalls geproxyt und sendet dieselben Header,
+`includeSubDomains` gilt damit für die gesamte Domain. Geprüft nach der Umstellung:
 
-Vor diesem Schritt beachten: `includeSubDomains` auf dem Apex verpflichtet **jede** Subdomain
-auf HTTPS, auch künftige und auch die Mandanten-Workspaces. Alle heute bekannten Subdomains
-liefern ein gültiges Zertifikat (geprüft für `app`, `api`, `admin` und einen Mandanten), es
-wäre also aktuell gefahrlos. Eine neue Subdomain ohne funktionierendes HTTPS wäre danach aber
-im Browser nicht mehr erreichbar.
+- Apex und `www` liefern alle fünf Header, Apex leitet weiterhin korrekt auf `www` um.
+- `app`, `api`, `admin`, ein Mandanten-Host und ein frei erfundener Wildcard-Name liefern alle
+  gültiges HTTPS. `includeSubDomains` bricht also nichts.
+- Der ACME-Pfad ist auf **beiden** Hosts ohne Umleitung erreichbar.
+
+**Dauerhaft beachten:** Jede **künftige** Subdomain braucht ab dem ersten Tag funktionierendes
+HTTPS. Ohne gültiges Zertifikat ist sie im Browser nicht erreichbar, und zwar ohne Möglichkeit,
+die Warnung wegzuklicken. Das betrifft auch neue Mandanten-Workspaces.
+
+**Hinweis zur Zertifikatslage:** Seit der Umstellung terminiert Cloudflare die TLS-Verbindung,
+Besuchende sehen also das Cloudflare-Zertifikat. Das GitHub-Zertifikat wird weiterhin für die
+Strecke Cloudflare zu Ursprung gebraucht und von Full (strict) geprüft. Beide erneuern sich
+automatisch, Laufzeiten aktuell bis Anfang November 2026.
 
 `preload` sollte **nicht** ergänzt werden, solange das nicht bewusst entschieden ist. Ein
 Eintrag in der Preload-Liste ist nur über ein langwieriges Verfahren wieder zu entfernen.
