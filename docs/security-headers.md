@@ -179,3 +179,37 @@ im Browser nicht mehr erreichbar.
 
 `preload` sollte **nicht** ergänzt werden, solange das nicht bewusst entschieden ist. Ein
 Eintrag in der Preload-Liste ist nur über ein langwieriges Verfahren wieder zu entfernen.
+
+### HSTS auf die ganze Domain ausweiten
+
+Es genügt **ein einziger Schritt**, weil die bestehende Transform Rule zonenweit greift und
+nicht auf `www` eingeschränkt ist. Nachgewiesen daran, dass `admin.scopera.ai` dieselben fünf
+Header ausliefert.
+
+1. Cloudflare, **DNS -> Records**. Den Apex-Eintrag suchen, Name `scopera.ai` beziehungsweise
+   `@`. Es sind vier A-Records auf `185.199.108.153` bis `185.199.111.153`.
+2. Bei **jedem** dieser vier Records die graue Wolke auf **orange** stellen ("Proxied").
+3. Fertig. Die Transform Rule greift automatisch, es braucht keine neue Regel.
+
+Vorbedingungen sind geprüft und erfüllt:
+
+- Das GitHub-Zertifikat deckt beide Namen ab, die SAN-Liste enthält `scopera.ai` **und**
+  `www.scopera.ai`. Full (strict) funktioniert also auch für den Apex.
+- Alle bekannten Subdomains liefern gültiges HTTPS (`app`, `api`, `admin`, Mandanten-Hosts).
+
+Prüfen nach ein paar Minuten:
+
+```bash
+dig +short scopera.ai                 # darf nicht mehr 185.199.* sein
+curl -sSI https://scopera.ai/ | grep -iE "^server:|strict-transport"
+```
+
+**Was das bringt und was nicht.** Wer `https://scopera.ai` besucht, dessen Browser merkt sich
+für ein Jahr, dass die gesamte Domain samt Subdomains nur über HTTPS erreichbar ist. Wer
+dagegen direkt zu `app.scopera.ai` geht, ohne den Apex je besucht zu haben, hat diesen Schutz
+beim allerersten Aufruf noch nicht. Nur ein Eintrag in der Preload-Liste würde das schliessen,
+und davon ist aus dem oben genannten Grund abzuraten.
+
+**Nicht zusätzlich** die eingebaute HSTS-Option unter *SSL/TLS -> Edge Certificates* aktivieren.
+Zusammen mit der Transform Rule würde der Header sonst doppelt gesetzt. Ein Mechanismus genügt,
+und die Regel ist bereits eingerichtet.
