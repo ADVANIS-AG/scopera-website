@@ -28,8 +28,10 @@ const lang = 'en';
       <p class="eyebrow">In detail</p>
       <h2 style="font-size:clamp(22px,3vw,30px);">Editions compared.</h2>
       <div class="editionen-embed">
+        {/* src wird unten per Skript gesetzt, damit das Theme der Seite von Anfang an stimmt. */}
         <iframe
-          src="https://api.scopera.ai/v1/public/editions/comparison/banner?locale=en"
+          id="editionen-banner"
+          data-src="https://api.scopera.ai/v1/public/editions/comparison/banner?locale=en"
           title="Editions compared"
           loading="lazy"
         ></iframe>
@@ -49,29 +51,48 @@ const lang = 'en';
   <CtaBanner lang={lang} titel="Which edition fits?" text="Tell us what you're planning. We'll tell you honestly which edition you need, and which you don't." />
   <SignupBanner lang={lang} />
 </BaseLayout>
+<script>
+  const rahmen = document.getElementById('editionen-banner');
+
+  if (rahmen instanceof HTMLIFrameElement && rahmen.dataset.src) {
+    // Dark is the page default and shows up as the attribute being absent.
+    const theme = () => (document.documentElement.dataset.theme === 'light' ? 'light' : 'dark');
+    const adresse = () => `${rahmen.dataset.src}&theme=${theme()}`;
+
+    // The theme always has to be passed. Without the parameter the banner follows the
+    // operating system, while the page around it follows its own toggle.
+    rahmen.src = adresse();
+
+    // Unlike the playground this banner has no message channel. A change can only be
+    // applied by setting a new src, which reloads the frame. That is harmless here, there
+    // is no input that could be lost.
+    new MutationObserver(() => {
+      const neu = adresse();
+      if (rahmen.src !== neu) rahmen.src = neu;
+    }).observe(document.documentElement, { attributes: true, attributeFilter: ['data-theme'] });
+  }
+</script>
 <style>
-  /*
-    The embedded banner brings its own light background and has no theme parameter yet.
-    The container picks up the same colour so no visible edge appears, and sets the
-    banner off as a deliberate block. Once the banner supports a theme, drop the background.
-  */
   .editionen-embed {
     max-width: 960px;
     border: 1px solid var(--line);
     border-radius: var(--radius);
     overflow: hidden;
-    background: #f5f3ef;
+    /* only visible while the frame has not loaded yet */
+    background: var(--card);
   }
   .editionen-embed iframe { display: block; width: 100%; border: 0; }
   /*
-    The banner does not report its height, so it has to be set. These values come from
-    measuring the actual content height. The grid changes column count at roughly 732px
-    and 496px iframe width, hence these steps (viewport = iframe width plus the 48px
-    horizontal padding of .wrap).
+    The banner has no height channel. Its grid sits on height:100% and fills the frame
+    exactly: too little height gives an inner scrollbar, too much gives stretched cards.
+    The values are measured, each tier covering its worst case plus a little headroom.
+    The iframe width is the viewport minus 48px padding, capped at 960px.
   */
-  .editionen-embed iframe { height: 1440px; }
-  @media (max-width: 1007px) { .editionen-embed iframe { height: 1680px; } }
-  @media (max-width: 779px) { .editionen-embed iframe { height: 2220px; } }
-  @media (max-width: 544px) { .editionen-embed iframe { height: 2700px; } }
-  @media (max-width: 367px) { .editionen-embed iframe { height: 3000px; } }
+  .editionen-embed iframe { height: 1400px; }
+  @media (max-width: 1007px) { .editionen-embed iframe { height: 1540px; } }
+  @media (max-width: 840px) { .editionen-embed iframe { height: 1900px; } }
+  @media (max-width: 760px) { .editionen-embed iframe { height: 1980px; } }
+  @media (max-width: 640px) { .editionen-embed iframe { height: 2480px; } }
+  @media (max-width: 520px) { .editionen-embed iframe { height: 2700px; } }
+  @media (max-width: 360px) { .editionen-embed iframe { height: 2990px; } }
 </style>

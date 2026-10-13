@@ -28,8 +28,10 @@ const lang = 'de';
       <p class="eyebrow">Im Detail</p>
       <h2 style="font-size:clamp(22px,3vw,30px);">Editionen im Vergleich.</h2>
       <div class="editionen-embed">
+        {/* src wird unten per Skript gesetzt, damit das Theme der Seite von Anfang an stimmt. */}
         <iframe
-          src="https://api.scopera.ai/v1/public/editions/comparison/banner?locale=de"
+          id="editionen-banner"
+          data-src="https://api.scopera.ai/v1/public/editions/comparison/banner?locale=de"
           title="Editionen im Vergleich"
           loading="lazy"
         ></iframe>
@@ -49,30 +51,48 @@ const lang = 'de';
   <CtaBanner lang={lang} titel="Welche Edition passt?" text="Sagen Sie uns, was Sie vorhaben. Wir sagen Ihnen ehrlich, welche Edition es braucht und welche nicht." />
   <SignupBanner lang={lang} />
 </BaseLayout>
+<script>
+  const rahmen = document.getElementById('editionen-banner');
+
+  if (rahmen instanceof HTMLIFrameElement && rahmen.dataset.src) {
+    // Dunkel ist der Standard der Seite und zeigt sich als Fehlen des Attributs.
+    const theme = () => (document.documentElement.dataset.theme === 'light' ? 'light' : 'dark');
+    const adresse = () => `${rahmen.dataset.src}&theme=${theme()}`;
+
+    // Das Theme muss immer mitgegeben werden. Ohne den Parameter folgt das Banner dem
+    // Betriebssystem, waehrend die Seite ringsum dem eigenen Umschalter folgt.
+    rahmen.src = adresse();
+
+    // Anders als die Spielwiese hat dieses Banner keinen Nachrichtenkanal. Ein Wechsel
+    // laesst sich nur ueber ein neues src umsetzen, der Rahmen laedt dabei neu. Das ist
+    // hier unkritisch, es gibt keine Eingaben, die verloren gehen koennten.
+    new MutationObserver(() => {
+      const neu = adresse();
+      if (rahmen.src !== neu) rahmen.src = neu;
+    }).observe(document.documentElement, { attributes: true, attributeFilter: ['data-theme'] });
+  }
+</script>
 <style>
-  /*
-    Das eingebettete Banner bringt einen eigenen hellen Hintergrund mit und kennt bisher
-    keinen Theme-Parameter. Der Container nimmt darum dieselbe Farbe auf, damit keine
-    sichtbare Kante entsteht, und setzt es bewusst als eigenen Block ab.
-    Sobald das Banner ein Theme unterstuetzt, kann der Hintergrund hier entfallen.
-  */
   .editionen-embed {
     max-width: 960px;
     border: 1px solid var(--line);
     border-radius: var(--radius);
     overflow: hidden;
-    background: #f5f3ef;
+    /* nur sichtbar, solange der Rahmen noch nicht geladen ist */
+    background: var(--card);
   }
   .editionen-embed iframe { display: block; width: 100%; border: 0; }
   /*
-    Das Banner meldet seine Hoehe nicht zurueck, sie muss darum fest gesetzt werden.
-    Die Werte stammen aus Messungen der tatsaechlichen Inhaltshoehe. Die Spaltenzahl
-    des Rasters wechselt bei rund 732px und 496px iframe-Breite, daher diese Stufen
-    (Viewport = iframe-Breite plus 48px Innenabstand von .wrap).
+    Das Banner hat keinen Hoehenkanal. Sein Raster steht auf height:100% und fuellt den
+    Rahmen exakt aus: zu wenig Hoehe erzeugt einen inneren Scrollbalken, zu viel gedehnte
+    Karten. Die Werte sind darum gemessen, je Stufe der schlechteste Fall plus wenig Luft.
+    Die iframe-Breite ist Viewport minus 48px Innenabstand, hoechstens 960px.
   */
-  .editionen-embed iframe { height: 1440px; }
-  @media (max-width: 1007px) { .editionen-embed iframe { height: 1680px; } }
-  @media (max-width: 779px) { .editionen-embed iframe { height: 2220px; } }
-  @media (max-width: 544px) { .editionen-embed iframe { height: 2700px; } }
-  @media (max-width: 367px) { .editionen-embed iframe { height: 3000px; } }
+  .editionen-embed iframe { height: 1400px; }
+  @media (max-width: 1007px) { .editionen-embed iframe { height: 1540px; } }
+  @media (max-width: 840px) { .editionen-embed iframe { height: 1900px; } }
+  @media (max-width: 760px) { .editionen-embed iframe { height: 1980px; } }
+  @media (max-width: 640px) { .editionen-embed iframe { height: 2480px; } }
+  @media (max-width: 520px) { .editionen-embed iframe { height: 2700px; } }
+  @media (max-width: 360px) { .editionen-embed iframe { height: 2990px; } }
 </style>
