@@ -149,6 +149,12 @@ footer.site nav { display: flex; flex-wrap: wrap; gap: 18px; margin-bottom: 18px
 footer.site nav a { font-size: 14px; text-decoration: none; color: var(--ink-soft); }
 footer.site nav a:hover { color: var(--accent); }
 .absender { font-size: 13px; color: var(--ink-soft); }
+/* Fuenf Spalten brauchen rund 834px. Darunter schrumpft das Raster nicht weiter, weil die
+   laengste Beschriftung ("Geschaeftsfuehrung") eine Mindestbreite je Karte setzt, und es
+   laeuft seitlich ueber. Der Zwischenschritt auf drei Spalten vermeidet, dass die Karten im
+   Bereich darunter unnoetig breit werden. Muss vor dem 760px-Block stehen, damit dieser bei
+   kleineren Breiten gewinnt. */
+@media (max-width: 880px) { .karten-5 { grid-template-columns: repeat(3, 1fr); } }
 @media (max-width: 760px) {
   .karten { grid-template-columns: 1fr 1fr; }
   .karten-2 { grid-template-columns: 1fr; }
@@ -165,6 +171,15 @@ footer.site nav a:hover { color: var(--accent); }
     flex-direction: column; align-items: flex-start; background: var(--ground);
     border-bottom: 2px solid var(--ink); padding: 16px 24px 20px; gap: 14px; }
   .nav-links.offen { display: flex; }
+}
+/* Sehr schmale Geraete: Wortmarke und die Bedienelemente der Kopfzeile passen sonst nicht
+   nebeneinander, die Seite laeuft dann auf jeder Unterseite seitlich ueber. Der Innenabstand
+   bleibt bewusst bei 24px, damit die Kopfzeile buendig zum uebrigen Inhalt bleibt. */
+@media (max-width: 370px) {
+  .wortmarke { font-size: 18px; }
+  .wortmarke img { width: 24px; height: 24px; }
+  .nav-right { gap: 6px; }
+  .burger { padding: 8px; }
 }
 @media (max-width: 460px) { .karten { grid-template-columns: 1fr; } .karten-3 { grid-template-columns: 1fr; } .karten-5 { grid-template-columns: 1fr; } }
 @media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }
