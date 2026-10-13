@@ -38,6 +38,20 @@ const faelle = [
 ];
 const base = import.meta.env.BASE_URL;
 const lang = 'de';
+// Bauzeit-Pruefung. Das Banner liefert bei abgelaufenem oder unbekanntem Code einen
+// JSON-Fehler, den ein iframe als rohen Text anzeigt. Genau so ist die fruehere
+// Angebotsgruppe "Sommer 2026" an dieser Stelle sichtbar kaputtgegangen. Die Adresse wird
+// darum beim Bauen geprueft, das iframe erscheint nur bei Status 200.
+// Grenze: Laeuft das Angebot erst nach einem Deploy ab, greift die Pruefung nicht mehr.
+// Ist die API beim Bauen nicht erreichbar, bleibt das Banner weg. Das ist die sichere Seite.
+const angebotUrl = 'https://api.scopera.ai/v1/public/offers/by-code/Start-mit-5/banner?locale=de';
+let angebotVerfuegbar = false;
+try {
+  const antwort = await fetch(`${angebotUrl}&theme=dark`, { signal: AbortSignal.timeout(8000) });
+  angebotVerfuegbar = antwort.ok;
+} catch {
+  angebotVerfuegbar = false;
+}
 ---
 <BaseLayout title="Produkt | SCOPERA." description="Die Enterprise AI Platform von SCOPERA: AI Agents, Workflows, Knowledge, Integrationen. Und die Lösungen, die bereits darauf laufen.">
   <section style="padding: 88px 0 64px; border-bottom: none;">
@@ -121,13 +135,55 @@ const lang = 'de';
   </section>
   <CtaBanner lang={lang} titel="Sehen statt glauben." text="Wir zeigen Ihnen die Plattform und ein Fallbeispiel aus Ihrer Branche. Live, nicht auf Folien." />
   
-  {/* Hier stand das Angebots-Banner. Die Gruppe "Sommer 2026" existiert nicht mehr, der
-      Endpunkt antwortet mit offer_group_invalid und das iframe zeigte den Fehlertext roh an.
-      Wieder einsetzen, sobald der gueltige Gruppenname feststeht, Leerzeichen dann als %20. */}
+  {angebotVerfuegbar && (
+    <div class="wrap">
+      {/* src wird unten per Skript gesetzt, damit das Theme der Seite von Anfang an stimmt. */}
+      <div class="angebot-embed">
+        <iframe
+          id="angebot-banner"
+          data-src={angebotUrl}
+          title="Aktuelles Angebot"
+          loading="lazy"
+        ></iframe>
+      </div>
+    </div>
+  )}
   <SignupBanner lang={lang} />
 </BaseLayout>
+<script>
+  const rahmen = document.getElementById('angebot-banner');
+
+  if (rahmen instanceof HTMLIFrameElement && rahmen.dataset.src) {
+    // Dunkel ist der Standard der Seite und zeigt sich als Fehlen des Attributs.
+    const theme = () => (document.documentElement.dataset.theme === 'light' ? 'light' : 'dark');
+    const adresse = () => `${rahmen.dataset.src}&theme=${theme()}`;
+
+    // Ohne den Parameter folgt das Banner dem Betriebssystem, die Seite aber ihrem eigenen
+    // Umschalter. Das Banner kennt keinen Nachrichtenkanal, ein Wechsel laeuft daher ueber
+    // ein neues src. Der Rahmen laedt dabei neu, hier ohne Folgen.
+    rahmen.src = adresse();
+    new MutationObserver(() => {
+      const neu = adresse();
+      if (rahmen.src !== neu) rahmen.src = neu;
+    }).observe(document.documentElement, { attributes: true, attributeFilter: ['data-theme'] });
+  }
+</script>
 <style>
   /* Letzte Feature-Karte ueber die volle Breite, wenn sie im Dreierraster allein in der
      letzten Reihe stehen wuerde. Ab 760px schaltet global.css auf zwei Spalten. */
   @media (min-width: 761px) { .karten-3 .karte:last-child:nth-child(3n + 1) { grid-column: 1 / -1; } }
+  /*
+    Bildbanner mit object-fit:cover. Es fuellt jede vorgegebene Hoehe, die Proportion ist
+    darum eine gestalterische Wahl. Gemessen: Unter rund 3,7:1 auf dem Desktop und 2:1 auf
+    schmalen Geraeten stossen das Abzeichen oben links und die Beschriftung unten aneinander.
+  */
+  .angebot-embed { max-width: 700px; }
+  .angebot-embed iframe {
+    display: block;
+    width: 100%;
+    border: 0;
+    aspect-ratio: 700 / 190;
+    border-radius: var(--radius);
+  }
+  @media (max-width: 600px) { .angebot-embed iframe { aspect-ratio: 2 / 1; } }
 </style>
