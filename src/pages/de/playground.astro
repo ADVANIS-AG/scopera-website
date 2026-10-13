@@ -1,0 +1,62 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import SignupBanner from '../../components/SignupBanner.astro';
+const base = import.meta.env.BASE_URL;
+const lang = 'de';
+---
+<BaseLayout title="Spielwiese | SCOPERA." description="Beschreiben Sie eine Aufgabe aus Ihrem Alltag. Die Spielwiese entwirft daraus ein Datenmodell, Ansichten, Rollen und einen Ablauf. Ohne Registrierung.">
+  <section style="padding: 88px 0 64px; border-bottom: none;">
+    <div class="wrap">
+      <p class="eyebrow">Spielwiese</p>
+      <h1>Ausprobieren, bevor Sie sich entscheiden<span class="dot">.</span></h1>
+      <p class="lede">Beschreiben Sie eine Aufgabe aus Ihrem Alltag. Die Spielwiese entwirft daraus ein Datenmodell, Ansichten, Rollen und einen Ablauf. Ohne Registrierung und ohne eigenen Mandanten.</p>
+    </div>
+  </section>
+  <section>
+    <div class="wrap">
+      <div class="spielwiese-embed">
+        <iframe
+          src="https://playground.scopera.ai/playground?lang=de&theme=light"
+          title="SCOPERA Spielwiese"
+          loading="lazy"
+          referrerpolicy="strict-origin-when-cross-origin"
+        ></iframe>
+      </div>
+    </div>
+  </section>
+  <section>
+    <div class="wrap">
+      <p class="eyebrow">Wie es weitergeht</p>
+      <h2>Vom Entwurf zur Anwendung.</h2>
+      <p class="soft" style="max-width: 46em;">Was hier entsteht, ist ein Entwurf. Im eigenen Mandanten wird daraus eine Anwendung, die Ihr Team benutzen kann, mit Rechten, Verläufen und Auswertungen.</p>
+      <p style="margin-top:16px;"><a href={`${base}de/product/`}>Was die Plattform sonst mitbringt →</a></p>
+    </div>
+  </section>
+  <SignupBanner lang={lang} />
+</BaseLayout>
+<style>
+  /*
+    Die Spielwiese bringt einen eigenen hellen Hintergrund mit. Der Parameter theme wird
+    heute noch nicht ausgewertet, darum nimmt der Container dieselbe Farbe auf, damit keine
+    sichtbare Kante entsteht. Sobald theme greift, kann der Hintergrund hier entfallen und
+    das iframe dem Umschalter der Seite folgen.
+  */
+  .spielwiese-embed {
+    border: 1px solid var(--line);
+    border-radius: var(--radius);
+    overflow: hidden;
+    background: #F5F3F0;
+  }
+  .spielwiese-embed iframe { display: block; width: 100%; border: 0; }
+  /*
+    Die Spielwiese meldet ihre Hoehe nicht per postMessage zurueck, sie muss darum fest
+    gesetzt werden. Die Werte stammen aus Messungen der tatsaechlichen Inhaltshoehe bei den
+    Breiten, die das iframe in .wrap annimmt (Viewport minus 48px Innenabstand). Je Stufe
+    ist der schlechteste Fall abgedeckt plus etwas Luft.
+  */
+  .spielwiese-embed iframe { height: 2140px; }
+  @media (max-width: 640px) { .spielwiese-embed iframe { height: 2280px; } }
+  @media (max-width: 540px) { .spielwiese-embed iframe { height: 2460px; } }
+  @media (max-width: 420px) { .spielwiese-embed iframe { height: 2700px; } }
+  @media (max-width: 340px) { .spielwiese-embed iframe { height: 2820px; } }
+</style>

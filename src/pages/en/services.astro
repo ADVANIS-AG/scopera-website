@@ -3,6 +3,7 @@ import BaseLayout from '../../layouts/BaseLayout.astro';
 import SaeulenGrid from '../../components/SaeulenGrid.astro';
 import QuerschnittBaender from '../../components/QuerschnittBaender.astro';
 import CtaBanner from '../../components/CtaBanner.astro';
+import PlaygroundBanner from '../../components/PlaygroundBanner.astro';
 import HeroBild from '../../components/HeroBild.astro';
 import StufenKompakt from '../../components/StufenKompakt.astro';
 import IconMagnify from '../../components/icons/IconMagnify.astro';
@@ -100,5 +101,6 @@ const terminZielFallback = BOOKING_URL || `${base}en/contact/`;
       </div>
     </div>
   </section>
+  <PlaygroundBanner lang={lang} />
   <CtaBanner lang={lang} titel="Which use case first?" text="Bring us a process that's bothering you. We'll clarify in 30 minutes how SCOPERA can digitize, automate or support it." />
 </BaseLayout>

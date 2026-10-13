@@ -37,6 +37,15 @@ const pfade = [
   },
   {
     zitat: {
+      de: '„Ich will es einfach ausprobieren, ohne Anmeldung."',
+      en: '"I just want to try it, without signing up."',
+    },
+    weg: { de: 'Spielwiese, sofort im Browser', en: 'Playground, right in the browser' },
+    cta: { de: 'Zur Spielwiese', en: 'Open the playground' },
+    href: `${base}${lang}/playground/`,
+  },
+  {
+    zitat: {
       de: '„Ich will es zuerst selbst anschauen, ohne Termin."',
       en: '"I want to take a look myself first, no appointment."',
     },
@@ -61,3 +70,11 @@ const pfade = [
     : "Not sure? In a free 30-minute call, we'll clarify whether SCOPERA fits your process and which entry point makes sense."}
 </p>
 <p><a class="btn" href={terminZiel} target={BOOKING_URL ? '_blank' : undefined} rel={BOOKING_URL ? 'noopener noreferrer' : undefined}>{lang === 'de' ? 'Termin buchen' : 'Book a call'}</a></p>
+
+<style>
+  /* Bei fuenf Karten stuende die letzte allein in der Schlussreihe des Zweierrasters.
+     Unter 760px schaltet global.css ohnehin auf eine Spalte. */
+  @media (min-width: 761px) {
+    .karten-2 .karte:last-child:nth-child(2n + 1) { grid-column: 1 / -1; }
+  }
+</style>

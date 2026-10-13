@@ -50,7 +50,8 @@ Erlaubte externe Origins und warum:
 | `assets.apollo.io` | Apollo-Tracker-Script (via GTM geladen) |
 | `aplo-evnt.com` | Apollo-Tracking-Endpunkte |
 | `admin.scopera.ai` | Kontaktformular und Besucher-Beacon (Cloudflare Worker) |
-| `api.scopera.ai` | Angebots-Banner-iframe auf `/product` |
+| `api.scopera.ai` | Angebots-Banner-iframe auf `/product`, Editionen-Vergleich auf `/editions` |
+| `playground.scopera.ai` | Spielwiese-iframe auf `/playground` |
 | `plausible.io` | Analytics, aktuell über `PLAUSIBLE_DOMAIN` deaktiviert, vorsorglich erlaubt |
 
 **Wichtige Einschränkung:** `script-src` enthält `'unsafe-inline'`. Das ist nötig für die fünf

@@ -28,6 +28,7 @@ const nav: [string, UiKey][] = [
   ['insights', 'nav.insights'],
   ['faq', 'nav.faq'],
   ['about', 'nav.about'],
+  ['playground', 'nav.playground'],
 ];
 ---
 <!doctype html>
@@ -43,7 +44,7 @@ const nav: [string, UiKey][] = [
   */}
   <meta
     http-equiv="Content-Security-Policy"
-    content="default-src 'self'; script-src 'self' 'unsafe-inline' https://www.googletagmanager.com https://assets.apollo.io https://plausible.io; style-src 'self' 'unsafe-inline'; img-src 'self' data: https:; font-src 'self' data:; connect-src 'self' https://admin.scopera.ai https://api.scopera.ai https://www.googletagmanager.com https://assets.apollo.io https://aplo-evnt.com https://plausible.io; frame-src https://api.scopera.ai; form-action 'self' https://admin.scopera.ai; base-uri 'self'; object-src 'none'; upgrade-insecure-requests"
+    content="default-src 'self'; script-src 'self' 'unsafe-inline' https://www.googletagmanager.com https://assets.apollo.io https://plausible.io; style-src 'self' 'unsafe-inline'; img-src 'self' data: https:; font-src 'self' data:; connect-src 'self' https://admin.scopera.ai https://api.scopera.ai https://www.googletagmanager.com https://assets.apollo.io https://aplo-evnt.com https://plausible.io; frame-src https://api.scopera.ai https://playground.scopera.ai; form-action 'self' https://admin.scopera.ai; base-uri 'self'; object-src 'none'; upgrade-insecure-requests"
   />
   <meta http-equiv="X-Content-Type-Options" content="nosniff" />
   <meta name="referrer" content="strict-origin-when-cross-origin" />

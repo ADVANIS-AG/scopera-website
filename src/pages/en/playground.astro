@@ -1,0 +1,60 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import SignupBanner from '../../components/SignupBanner.astro';
+const base = import.meta.env.BASE_URL;
+const lang = 'en';
+---
+<BaseLayout title="Playground | SCOPERA." description="Describe a task from your daily work. The playground drafts a data model, views, roles and a process from it. No sign-up required.">
+  <section style="padding: 88px 0 64px; border-bottom: none;">
+    <div class="wrap">
+      <p class="eyebrow">Playground</p>
+      <h1>Try it before you decide<span class="dot">.</span></h1>
+      <p class="lede">Describe a task from your daily work. The playground drafts a data model, views, roles and a process from it. No sign-up and no tenant of your own.</p>
+    </div>
+  </section>
+  <section>
+    <div class="wrap">
+      <div class="spielwiese-embed">
+        <iframe
+          src="https://playground.scopera.ai/playground?lang=en&theme=light"
+          title="SCOPERA playground"
+          loading="lazy"
+          referrerpolicy="strict-origin-when-cross-origin"
+        ></iframe>
+      </div>
+    </div>
+  </section>
+  <section>
+    <div class="wrap">
+      <p class="eyebrow">What happens next</p>
+      <h2>From draft to application.</h2>
+      <p class="soft" style="max-width: 46em;">What you see here is a draft. In your own tenant it becomes an application your team can use, with permissions, history and reporting.</p>
+      <p style="margin-top:16px;"><a href={`${base}en/product/`}>What else the platform brings →</a></p>
+    </div>
+  </section>
+  <SignupBanner lang={lang} />
+</BaseLayout>
+<style>
+  /*
+    The playground brings its own light background. The theme parameter is not evaluated yet,
+    so the container picks up the same colour to avoid a visible edge. Once theme works, this
+    background can go and the iframe can follow the page toggle.
+  */
+  .spielwiese-embed {
+    border: 1px solid var(--line);
+    border-radius: var(--radius);
+    overflow: hidden;
+    background: #F5F3F0;
+  }
+  .spielwiese-embed iframe { display: block; width: 100%; border: 0; }
+  /*
+    The playground does not report its height via postMessage, so it has to be set. The values
+    come from measuring the actual content height at the widths the iframe takes inside .wrap
+    (viewport minus 48px padding). Each tier covers its worst case plus some headroom.
+  */
+  .spielwiese-embed iframe { height: 2140px; }
+  @media (max-width: 640px) { .spielwiese-embed iframe { height: 2280px; } }
+  @media (max-width: 540px) { .spielwiese-embed iframe { height: 2460px; } }
+  @media (max-width: 420px) { .spielwiese-embed iframe { height: 2700px; } }
+  @media (max-width: 340px) { .spielwiese-embed iframe { height: 2820px; } }
+</style>
