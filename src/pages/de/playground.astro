@@ -3,6 +3,7 @@ import BaseLayout from '../../layouts/BaseLayout.astro';
 import SignupBanner from '../../components/SignupBanner.astro';
 const base = import.meta.env.BASE_URL;
 const lang = 'de';
+const spielwieseUrl = 'https://playground.scopera.ai/playground?lang=de';
 ---
 <BaseLayout title="Spielwiese | SCOPERA." description="Beschreiben Sie eine Aufgabe aus Ihrem Alltag. Die Spielwiese entwirft daraus ein Datenmodell, Ansichten, Rollen und einen Ablauf. Ohne Registrierung.">
   <section style="padding: 88px 0 64px; border-bottom: none;">
@@ -15,13 +16,18 @@ const lang = 'de';
   <section>
     <div class="wrap">
       <div class="spielwiese-embed">
+        {/* src wird unten per Skript gesetzt, damit das Theme der Seite von Anfang an stimmt. */}
         <iframe
-          src="https://playground.scopera.ai/playground?lang=de&theme=light"
+          id="spielwiese"
+          data-src={spielwieseUrl}
           title="SCOPERA Spielwiese"
           loading="lazy"
           referrerpolicy="strict-origin-when-cross-origin"
         ></iframe>
       </div>
+      <noscript>
+        <p class="soft" style="margin-top:14px; font-size:13px;">Die Spielwiese braucht JavaScript. <a href={spielwieseUrl} target="_blank" rel="noopener noreferrer">Direkt öffnen →</a></p>
+      </noscript>
     </div>
   </section>
   <section>
@@ -32,31 +38,61 @@ const lang = 'de';
       <p style="margin-top:16px;"><a href={`${base}de/product/`}>Was die Plattform sonst mitbringt →</a></p>
     </div>
   </section>
-  <SignupBanner lang={lang} />
+  <SignupBanner lang={lang} quelle="playground-seite" />
 </BaseLayout>
+<script>
+  const URSPRUNG = 'https://playground.scopera.ai';
+  const rahmen = document.getElementById('spielwiese');
+
+  if (rahmen instanceof HTMLIFrameElement && rahmen.dataset.src) {
+    // Dunkel ist der Standard der Seite und zeigt sich als Fehlen des Attributs.
+    const theme = () => (document.documentElement.dataset.theme === 'light' ? 'light' : 'dark');
+
+    // Das Theme muss immer mitgegeben werden. Ohne den Parameter folgt die Spielwiese dem
+    // Betriebssystem, waehrend die Seite ringsum dem eigenen Umschalter folgt. Das Setzen
+    // per Skript stellt sicher, dass der Rahmen von Anfang an richtig rendert.
+    rahmen.src = `${rahmen.dataset.src}&theme=${theme()}`;
+
+    const senden = () => {
+      rahmen.contentWindow?.postMessage(
+        { type: 'scopera:playground:prefs', theme: theme() },
+        URSPRUNG, // gezielter Ursprung, nie '*'
+      );
+    };
+
+    // Beim Laden einmal nachreichen, falls jemand umschaltet, bevor der Rahmen da ist.
+    rahmen.addEventListener('load', senden);
+    // Beobachter statt eines zweiten Klick-Horchers am Umschalter: greift unabhaengig
+    // davon, wodurch das Theme geaendert wurde, und laesst das BaseLayout unberuehrt.
+    new MutationObserver(senden).observe(document.documentElement, {
+      attributes: true,
+      attributeFilter: ['data-theme'],
+    });
+
+    // Die Spielwiese meldet ihre Hoehe. Damit waechst der Rahmen mit, sobald jemand einen
+    // eigenen Entwurf erzeugt, statt einen eigenen Scrollbalken zu bekommen.
+    window.addEventListener('message', (e) => {
+      if (e.origin !== URSPRUNG) return;
+      const daten = e.data;
+      if (!daten || daten.type !== 'scopera:playground:height') return;
+      const hoehe = Number(daten.height);
+      if (!Number.isFinite(hoehe) || hoehe < 200 || hoehe > 20000) return;
+      rahmen.style.minHeight = '0';
+      rahmen.style.height = `${hoehe}px`;
+    });
+  }
+</script>
 <style>
-  /*
-    Die Spielwiese bringt einen eigenen hellen Hintergrund mit. Der Parameter theme wird
-    heute noch nicht ausgewertet, darum nimmt der Container dieselbe Farbe auf, damit keine
-    sichtbare Kante entsteht. Sobald theme greift, kann der Hintergrund hier entfallen und
-    das iframe dem Umschalter der Seite folgen.
-  */
   .spielwiese-embed {
     border: 1px solid var(--line);
     border-radius: var(--radius);
     overflow: hidden;
-    background: #F5F3F0;
+    /* nur sichtbar, solange der Rahmen noch nicht geladen ist */
+    background: var(--card);
   }
-  .spielwiese-embed iframe { display: block; width: 100%; border: 0; }
   /*
-    Die Spielwiese meldet ihre Hoehe nicht per postMessage zurueck, sie muss darum fest
-    gesetzt werden. Die Werte stammen aus Messungen der tatsaechlichen Inhaltshoehe bei den
-    Breiten, die das iframe in .wrap annimmt (Viewport minus 48px Innenabstand). Je Stufe
-    ist der schlechteste Fall abgedeckt plus etwas Luft.
+    Keine festen Hoehen: Die Spielwiese meldet ihre Hoehe per postMessage, das Skript oben
+    setzt sie. min-height haelt bis zur ersten Meldung den Platz und wird dann aufgehoben.
   */
-  .spielwiese-embed iframe { height: 2140px; }
-  @media (max-width: 640px) { .spielwiese-embed iframe { height: 2280px; } }
-  @media (max-width: 540px) { .spielwiese-embed iframe { height: 2460px; } }
-  @media (max-width: 420px) { .spielwiese-embed iframe { height: 2700px; } }
-  @media (max-width: 340px) { .spielwiese-embed iframe { height: 2820px; } }
+  .spielwiese-embed iframe { display: block; width: 100%; border: 0; min-height: 820px; }
 </style>

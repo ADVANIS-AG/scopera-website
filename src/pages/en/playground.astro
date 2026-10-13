@@ -3,6 +3,7 @@ import BaseLayout from '../../layouts/BaseLayout.astro';
 import SignupBanner from '../../components/SignupBanner.astro';
 const base = import.meta.env.BASE_URL;
 const lang = 'en';
+const spielwieseUrl = 'https://playground.scopera.ai/playground?lang=en';
 ---
 <BaseLayout title="Playground | SCOPERA." description="Describe a task from your daily work. The playground drafts a data model, views, roles and a process from it. No sign-up required.">
   <section style="padding: 88px 0 64px; border-bottom: none;">
@@ -15,13 +16,18 @@ const lang = 'en';
   <section>
     <div class="wrap">
       <div class="spielwiese-embed">
+        {/* src is set by the script below so the page theme is right from the first paint. */}
         <iframe
-          src="https://playground.scopera.ai/playground?lang=en&theme=light"
+          id="spielwiese"
+          data-src={spielwieseUrl}
           title="SCOPERA playground"
           loading="lazy"
           referrerpolicy="strict-origin-when-cross-origin"
         ></iframe>
       </div>
+      <noscript>
+        <p class="soft" style="margin-top:14px; font-size:13px;">The playground needs JavaScript. <a href={spielwieseUrl} target="_blank" rel="noopener noreferrer">Open it directly →</a></p>
+      </noscript>
     </div>
   </section>
   <section>
@@ -32,29 +38,61 @@ const lang = 'en';
       <p style="margin-top:16px;"><a href={`${base}en/product/`}>What else the platform brings →</a></p>
     </div>
   </section>
-  <SignupBanner lang={lang} />
+  <SignupBanner lang={lang} quelle="playground-seite" />
 </BaseLayout>
+<script>
+  const URSPRUNG = 'https://playground.scopera.ai';
+  const rahmen = document.getElementById('spielwiese');
+
+  if (rahmen instanceof HTMLIFrameElement && rahmen.dataset.src) {
+    // Dark is the page default and shows up as the attribute being absent.
+    const theme = () => (document.documentElement.dataset.theme === 'light' ? 'light' : 'dark');
+
+    // The theme always has to be passed. Without the parameter the playground follows the
+    // operating system, while the page around it follows its own toggle. Setting it from
+    // script makes sure the frame renders correctly from the start.
+    rahmen.src = `${rahmen.dataset.src}&theme=${theme()}`;
+
+    const senden = () => {
+      rahmen.contentWindow?.postMessage(
+        { type: 'scopera:playground:prefs', theme: theme() },
+        URSPRUNG, // targeted origin, never '*'
+      );
+    };
+
+    // Send once on load in case someone toggles before the frame is there.
+    rahmen.addEventListener('load', senden);
+    // An observer rather than a second click handler on the toggle: it catches the change
+    // whatever caused it and leaves BaseLayout untouched.
+    new MutationObserver(senden).observe(document.documentElement, {
+      attributes: true,
+      attributeFilter: ['data-theme'],
+    });
+
+    // The playground reports its height. The frame grows with it once someone creates their
+    // own draft, instead of getting a scrollbar of its own.
+    window.addEventListener('message', (e) => {
+      if (e.origin !== URSPRUNG) return;
+      const daten = e.data;
+      if (!daten || daten.type !== 'scopera:playground:height') return;
+      const hoehe = Number(daten.height);
+      if (!Number.isFinite(hoehe) || hoehe < 200 || hoehe > 20000) return;
+      rahmen.style.minHeight = '0';
+      rahmen.style.height = `${hoehe}px`;
+    });
+  }
+</script>
 <style>
-  /*
-    The playground brings its own light background. The theme parameter is not evaluated yet,
-    so the container picks up the same colour to avoid a visible edge. Once theme works, this
-    background can go and the iframe can follow the page toggle.
-  */
   .spielwiese-embed {
     border: 1px solid var(--line);
     border-radius: var(--radius);
     overflow: hidden;
-    background: #F5F3F0;
+    /* only visible while the frame has not loaded yet */
+    background: var(--card);
   }
-  .spielwiese-embed iframe { display: block; width: 100%; border: 0; }
   /*
-    The playground does not report its height via postMessage, so it has to be set. The values
-    come from measuring the actual content height at the widths the iframe takes inside .wrap
-    (viewport minus 48px padding). Each tier covers its worst case plus some headroom.
+    No fixed heights: the playground reports its height via postMessage and the script above
+    applies it. min-height holds the space until the first message and is then lifted.
   */
-  .spielwiese-embed iframe { height: 2140px; }
-  @media (max-width: 640px) { .spielwiese-embed iframe { height: 2280px; } }
-  @media (max-width: 540px) { .spielwiese-embed iframe { height: 2460px; } }
-  @media (max-width: 420px) { .spielwiese-embed iframe { height: 2700px; } }
-  @media (max-width: 340px) { .spielwiese-embed iframe { height: 2820px; } }
+  .spielwiese-embed iframe { display: block; width: 100%; border: 0; min-height: 820px; }
 </style>

@@ -2,9 +2,13 @@
 import { SIGNUP_URL } from '../config';
 import { defaultLang, type Lang } from '../i18n/ui';
 import { useTranslations } from '../i18n/utils';
-interface Props { lang?: Lang; }
-const { lang = defaultLang } = Astro.props;
+interface Props { lang?: Lang; quelle?: string; }
+const { lang = defaultLang, quelle } = Astro.props;
 const t = useTranslations(lang);
+// Mit "quelle" bleibt nachvollziehbar, von welcher Seite eine Registrierung kam. Die
+// Plattform legt den Wert in tenants.signup_source ab. Ohne die Angabe bleibt die Adresse
+// unveraendert, damit sich an den bestehenden Verwendungen nichts aendert.
+const ziel = quelle ? `${SIGNUP_URL}?source=${encodeURIComponent(quelle)}` : SIGNUP_URL;
 ---
 <section>
   <div class="wrap">
@@ -15,8 +19,8 @@ const t = useTranslations(lang);
         <p class="soft" style="max-width:38em; margin-bottom:0;">{t('cta.signup.text')}</p>
       </div>
       <p style="display:flex; gap:12px; flex-wrap:wrap; margin:0;">
-        <a class="btn" href={SIGNUP_URL} target="_blank" rel="noopener noreferrer">{t('cta.signup.trial')}</a>
-        <a class="btn-ghost" href={SIGNUP_URL}>{t('cta.signup.order')}</a>
+        <a class="btn" href={ziel} target="_blank" rel="noopener noreferrer">{t('cta.signup.trial')}</a>
+        <a class="btn-ghost" href={ziel}>{t('cta.signup.order')}</a>
       </p>
     </div>
   </div>
