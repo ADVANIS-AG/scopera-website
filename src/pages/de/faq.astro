@@ -1,6 +1,7 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import CtaBanner from '../../components/CtaBanner.astro';
+import PlaygroundBanner from '../../components/PlaygroundBanner.astro';
 const faq = [
   { id: 'tempo', f: 'Wie schnell geht es wirklich?', a: 'Erste sichtbare Resultate sehen Sie innert Stunden, einen funktionsfähigen Prototyp innert Tagen. Die produktive Anwendung folgt bei einfachen Use Cases ab ein bis zwei Wochen, typischerweise innerhalb von zwei bis sechs Wochen, je nach Umfang und Integrationen. Sie sehen von Anfang an Zwischenstände statt Statusberichte.' },
   { id: 'lizenz', f: 'Bin ich an eine Lizenz gebunden?', a: 'Nein. Editionen wählen Sie nach Bedarf, monatlich anpassbar nach oben oder unten. Keine Jahresverträge, keine Lizenz-Zwangsjacke.' },
@@ -33,6 +34,7 @@ const lang = 'de';
       ))}
     </div>
   </section>
+  <PlaygroundBanner lang={lang} />
   <CtaBanner lang={lang} titel="Frage nicht dabei?" text="Schreiben Sie uns direkt oder buchen Sie 30 Minuten. Wir antworten ehrlich, auch wenn die Antwort mal 'nein' ist." />
   <script type="application/ld+json" is:inline set:html={JSON.stringify({
     '@context': 'https://schema.org',

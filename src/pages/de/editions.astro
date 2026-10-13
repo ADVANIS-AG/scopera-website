@@ -1,6 +1,7 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import CtaBanner from '../../components/CtaBanner.astro';
+import PlaygroundBanner from '../../components/PlaygroundBanner.astro';
 import SignupBanner from '../../components/SignupBanner.astro';
 import HeroBild from '../../components/HeroBild.astro';
 import PfadGrafik from '../../components/PfadGrafik.astro';
@@ -44,6 +45,7 @@ const lang = 'de';
       <p style="margin-top:12px;"><a href={`${base}de/faq/`}>Alle Fragen und Antworten →</a></p>
     </div>
   </section>
+  <PlaygroundBanner lang={lang} />
   <CtaBanner lang={lang} titel="Welche Edition passt?" text="Sagen Sie uns, was Sie vorhaben. Wir sagen Ihnen ehrlich, welche Edition es braucht und welche nicht." />
   <SignupBanner lang={lang} />
 </BaseLayout>
