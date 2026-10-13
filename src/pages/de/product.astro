@@ -121,15 +121,13 @@ const lang = 'de';
   </section>
   <CtaBanner lang={lang} titel="Sehen statt glauben." text="Wir zeigen Ihnen die Plattform und ein Fallbeispiel aus Ihrer Branche. Live, nicht auf Folien." />
   
-  <div class="wrap">
-    <style>
-      .scopera-offers-embed{width:100%;max-width:900px;aspect-ratio:16/9;border:0;display:block}
-      @media (max-width:600px){.scopera-offers-embed{aspect-ratio:9/16;max-width:420px}}
-      /* Letzte Feature-Karte ueber die volle Breite, wenn sie im Dreierraster allein in
-         der letzten Reihe stehen wuerde. Ab 760px schaltet global.css auf zwei Spalten. */
-      @media (min-width:761px){.karten-3 .karte:last-child:nth-child(3n + 1){grid-column:1 / -1}}
-    </style>
-    <iframe class="scopera-offers-embed" src="https://api.scopera.ai/v1/public/offers/groups/Sommer 2026/banner?locale=de" loading="lazy"></iframe>  
-  </div>
+  {/* Hier stand das Angebots-Banner. Die Gruppe "Sommer 2026" existiert nicht mehr, der
+      Endpunkt antwortet mit offer_group_invalid und das iframe zeigte den Fehlertext roh an.
+      Wieder einsetzen, sobald der gueltige Gruppenname feststeht, Leerzeichen dann als %20. */}
   <SignupBanner lang={lang} />
 </BaseLayout>
+<style>
+  /* Letzte Feature-Karte ueber die volle Breite, wenn sie im Dreierraster allein in der
+     letzten Reihe stehen wuerde. Ab 760px schaltet global.css auf zwei Spalten. */
+  @media (min-width: 761px) { .karten-3 .karte:last-child:nth-child(3n + 1) { grid-column: 1 / -1; } }
+</style>

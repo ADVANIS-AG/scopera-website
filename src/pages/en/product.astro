@@ -121,16 +121,14 @@ const lang = 'en';
   </section>
   <CtaBanner lang={lang} titel="Seeing is believing." text="We'll show you the platform and a case study from your industry. Live, not on slides." />
   
-  <div class="wrap">
-    <style>
-      .scopera-offers-embed{width:100%;max-width:900px;aspect-ratio:16/9;border:0;display:block}
-      @media (max-width:600px){.scopera-offers-embed{aspect-ratio:9/16;max-width:420px}}
-      /* Last feature card spans the full width when it would sit alone in the final row of
-         the three-column grid. From 760px down, global.css switches to two columns. */
-      @media (min-width:761px){.karten-3 .karte:last-child:nth-child(3n + 1){grid-column:1 / -1}}
-    </style>
-    <iframe class="scopera-offers-embed" src="https://api.scopera.ai/v1/public/offers/groups/Sommer 2026/banner?locale=en" loading="lazy"></iframe>    
-  </div>
+  {/* The offers banner was here. The group "Sommer 2026" no longer exists, the endpoint
+      answers with offer_group_invalid and the iframe showed that error text raw. Put it back
+      once the valid group name is known, encoding the space as %20. */}
   
   <SignupBanner lang={lang} />
 </BaseLayout>
+<style>
+  /* Last feature card spans the full width when it would sit alone in the final row of the
+     three-column grid. From 760px down, global.css switches to two columns. */
+  @media (min-width: 761px) { .karten-3 .karte:last-child:nth-child(3n + 1) { grid-column: 1 / -1; } }
+</style>
