@@ -8,6 +8,27 @@ import PfadGrafik from '../../components/PfadGrafik.astro';
 import StufenKompakt from '../../components/StufenKompakt.astro';
 const base = import.meta.env.BASE_URL;
 const lang = 'de';
+const bannerUrl = 'https://api.scopera.ai/v1/public/editions/comparison/banner?locale=de';
+// Fingerabdruck des Banner-Inhalts, gegen den die Hoehenkurve im Skript unten gemessen
+// wurde. Waechst der Inhalt, waere die Kurve zu kurz und es gaebe einen inneren
+// Scrollbalken. Passt der Abdruck nicht mehr, faellt das Skript auf eine sichere feste
+// Hoehe zurueck: sichtbar zu hoch statt stillschweigend abgeschnitten.
+// Gemessener Stand: 5 Karten, 48 Merkmale, Beschreibungen 721 Zeichen (englisch 654).
+// Mit Spielraum geprueft, damit kleine Textkorrekturen nicht sofort anschlagen.
+let kurveGueltig = false;
+try {
+  const antwort = await fetch(`${bannerUrl}&theme=dark`, { signal: AbortSignal.timeout(8000) });
+  if (antwort.ok) {
+    const html = await antwort.text();
+    const karten = (html.match(/<div class='card'>/g) ?? []).length;
+    const merkmale = (html.match(/<li>/g) ?? []).length;
+    const beschreibung = [...html.matchAll(/<p class='desc'>(.*?)<\/p>/g)]
+      .reduce((summe, treffer) => summe + treffer[1].length, 0);
+    kurveGueltig = karten === 5 && merkmale === 48 && beschreibung >= 600 && beschreibung <= 850;
+  }
+} catch {
+  kurveGueltig = false;
+}
 ---
 <BaseLayout title="Editionen | SCOPERA." description="Fünf Editionen von Trial bis Quartett. Einsteigen, wachsen, skalieren: immer mit klarem Rahmen und ohne Überraschungen.">
   <section style="padding: 88px 0 64px; border-bottom: none;">
@@ -28,14 +49,19 @@ const lang = 'de';
       <p class="eyebrow">Im Detail</p>
       <h2 style="font-size:clamp(22px,3vw,30px);">Editionen im Vergleich.</h2>
       <div class="editionen-embed">
-        {/* src wird unten per Skript gesetzt, damit das Theme der Seite von Anfang an stimmt. */}
+        {/* src und Hoehe setzt das Skript unten: Theme von Anfang an richtig, Hoehe passend
+            zur tatsaechlichen Breite. data-kurve meldet, ob der Fingerabdruck noch stimmt. */}
         <iframe
           id="editionen-banner"
-          data-src="https://api.scopera.ai/v1/public/editions/comparison/banner?locale=de"
+          data-src={bannerUrl}
+          data-kurve={kurveGueltig ? 'aktuell' : 'veraltet'}
           title="Editionen im Vergleich"
           loading="lazy"
         ></iframe>
       </div>
+      <noscript>
+        <p class="soft" style="margin-top:14px; font-size:13px;">Der Vergleich braucht JavaScript. <a href={bannerUrl} target="_blank" rel="noopener noreferrer">Direkt öffnen →</a></p>
+      </noscript>
       <p style="margin-top:18px;"><a href={`${base}de/partner/`}>Mehr zum Provider-Modell →</a></p>
     </div>
   </section>
@@ -70,6 +96,49 @@ const lang = 'de';
       const neu = adresse();
       if (rahmen.src !== neu) rahmen.src = neu;
     }).observe(document.documentElement, { attributes: true, attributeFilter: ['data-theme'] });
+
+    // Gemessene Hoehenkurve, absteigend nach Breite. Nachgeschlagen wird der erste
+    // Stuetzpunkt, dessen Breite kleiner oder gleich der tatsaechlichen ist.
+    //
+    // Bewusst gestuft und nicht interpoliert: Der Bedarf ist eine Treppe, keine Gerade. Er
+    // bleibt ueber einen Breitenbereich gleich und faellt dann auf einen Schlag, wenn eine
+    // Zeile weniger umbricht. Zwischenrechnen unterschaetzt dort und der Rahmen wird zu
+    // kurz. Gestuft ist es dagegen per Konstruktion sicher, weil der Bedarf mit wachsender
+    // Breite monoton faellt. Die Genauigkeit kommt deshalb aus der Messdichte.
+    //
+    // 732/726 und 496/490 klammern die beiden Spaltenwechsel des Rasters
+    // (auto-fit, minmax(220px,1fr)) eng ein. Nachgerechnet:
+    // Spalten = floor((Breite - 40 + 16) / 236), begrenzt auf 1 bis 5.
+    const KURVE: [number, number][] = [
+      [960,1369],[900,1388],[880,1408],[820,1446],[800,1476],[780,1508],
+      [760,1553],[740,1604],[732,1626],[726,1831],[700,1869],[620,1888],
+      [580,1926],[560,1964],[540,1994],[530,2042],[520,2087],[510,2170],
+      [496,2192],[490,2439],[450,2477],[440,2515],[400,2534],[380,2556],
+      [360,2594],[330,2632],[320,2651],[310,2670],[300,2708],[290,2747],
+      [280,2887],[270,2977],[260,3088],
+    ];
+    const RESERVE = 24;    // Puffer gegen kleine Inhaltszuwaechse
+    const SICHER = 3600;   // greift nur, wenn der Fingerabdruck nicht mehr passt, darum grosszuegig
+
+    const hoehe = (breite: number) => {
+      if (rahmen.dataset.kurve !== 'aktuell') return SICHER;
+      for (const [w, h] of KURVE) if (breite >= w) return h + RESERVE;
+      // Schmaler als der kleinste Messpunkt: darunter waechst der Inhalt nicht weiter.
+      return KURVE[KURVE.length - 1][1] + RESERVE;
+    };
+
+    let letzteBreite = 0;
+    const setzen = () => {
+      const breite = Math.round(rahmen.getBoundingClientRect().width);
+      // Nur bei echter Breitenaenderung, das verhindert eine Rueckkopplung ueber die Hoehe.
+      if (breite === 0 || breite === letzteBreite) return;
+      letzteBreite = breite;
+      rahmen.style.minHeight = '0';
+      rahmen.style.height = `${hoehe(breite)}px`;
+    };
+
+    setzen();
+    new ResizeObserver(setzen).observe(rahmen);
   }
 </script>
 <style>
@@ -81,18 +150,11 @@ const lang = 'de';
     /* nur sichtbar, solange der Rahmen noch nicht geladen ist */
     background: var(--card);
   }
-  .editionen-embed iframe { display: block; width: 100%; border: 0; }
   /*
-    Das Banner hat keinen Hoehenkanal. Sein Raster steht auf height:100% und fuellt den
-    Rahmen exakt aus: zu wenig Hoehe erzeugt einen inneren Scrollbalken, zu viel gedehnte
-    Karten. Die Werte sind darum gemessen, je Stufe der schlechteste Fall plus wenig Luft.
-    Die iframe-Breite ist Viewport minus 48px Innenabstand, hoechstens 960px.
+    Keine festen Hoehenstufen mehr. Das Banner hat keinen Hoehenkanal und sein Raster steht
+    auf height:100%, fuellt den Rahmen also exakt aus. Die Hoehe setzt darum das Skript oben
+    aus einer gemessenen Kurve, passend zur tatsaechlichen Breite. min-height haelt bis dahin
+    den Platz und wird dann aufgehoben.
   */
-  .editionen-embed iframe { height: 1400px; }
-  @media (max-width: 1007px) { .editionen-embed iframe { height: 1540px; } }
-  @media (max-width: 840px) { .editionen-embed iframe { height: 1900px; } }
-  @media (max-width: 760px) { .editionen-embed iframe { height: 1980px; } }
-  @media (max-width: 640px) { .editionen-embed iframe { height: 2480px; } }
-  @media (max-width: 520px) { .editionen-embed iframe { height: 2700px; } }
-  @media (max-width: 360px) { .editionen-embed iframe { height: 2990px; } }
+  .editionen-embed iframe { display: block; width: 100%; border: 0; min-height: 1400px; }
 </style>

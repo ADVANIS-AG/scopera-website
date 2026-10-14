@@ -8,6 +8,27 @@ import PfadGrafik from '../../components/PfadGrafik.astro';
 import StufenKompakt from '../../components/StufenKompakt.astro';
 const base = import.meta.env.BASE_URL;
 const lang = 'en';
+const bannerUrl = 'https://api.scopera.ai/v1/public/editions/comparison/banner?locale=en';
+// Fingerprint of the banner content the height curve in the script below was measured
+// against. If the content grows the curve would be too short and the frame would get an
+// inner scrollbar. When the fingerprint no longer matches, the script falls back to a safe
+// fixed height: visibly too tall rather than silently cut off.
+// Measured state: 5 cards, 48 features, descriptions 654 characters (German 721).
+// Checked with leeway so small text corrections do not trip it.
+let kurveGueltig = false;
+try {
+  const antwort = await fetch(`${bannerUrl}&theme=dark`, { signal: AbortSignal.timeout(8000) });
+  if (antwort.ok) {
+    const html = await antwort.text();
+    const karten = (html.match(/<div class='card'>/g) ?? []).length;
+    const merkmale = (html.match(/<li>/g) ?? []).length;
+    const beschreibung = [...html.matchAll(/<p class='desc'>(.*?)<\/p>/g)]
+      .reduce((summe, treffer) => summe + treffer[1].length, 0);
+    kurveGueltig = karten === 5 && merkmale === 48 && beschreibung >= 600 && beschreibung <= 850;
+  }
+} catch {
+  kurveGueltig = false;
+}
 ---
 <BaseLayout title="Editions | SCOPERA." description="Five editions from Trial to Quartett. Start, grow, scale: always with a clear frame and no surprises.">
   <section style="padding: 88px 0 64px; border-bottom: none;">
@@ -28,14 +49,19 @@ const lang = 'en';
       <p class="eyebrow">In detail</p>
       <h2 style="font-size:clamp(22px,3vw,30px);">Editions compared.</h2>
       <div class="editionen-embed">
-        {/* src wird unten per Skript gesetzt, damit das Theme der Seite von Anfang an stimmt. */}
+        {/* src und Hoehe setzt das Skript unten: Theme von Anfang an richtig, Hoehe passend
+            zur tatsaechlichen Breite. data-kurve meldet, ob der Fingerabdruck noch stimmt. */}
         <iframe
           id="editionen-banner"
-          data-src="https://api.scopera.ai/v1/public/editions/comparison/banner?locale=en"
+          data-src={bannerUrl}
+          data-kurve={kurveGueltig ? 'aktuell' : 'veraltet'}
           title="Editions compared"
           loading="lazy"
         ></iframe>
       </div>
+      <noscript>
+        <p class="soft" style="margin-top:14px; font-size:13px;">The comparison needs JavaScript. <a href={bannerUrl} target="_blank" rel="noopener noreferrer">Open it directly →</a></p>
+      </noscript>
       <p style="margin-top:18px;"><a href={`${base}en/partner/`}>More on the provider model →</a></p>
     </div>
   </section>
@@ -60,7 +86,7 @@ const lang = 'en';
     const adresse = () => `${rahmen.dataset.src}&theme=${theme()}`;
 
     // The theme always has to be passed. Without the parameter the banner follows the
-    // operating system, while the page around it follows its own toggle.
+    // operating system while the page around it follows its own toggle.
     rahmen.src = adresse();
 
     // Unlike the playground this banner has no message channel. A change can only be
@@ -70,6 +96,49 @@ const lang = 'en';
       const neu = adresse();
       if (rahmen.src !== neu) rahmen.src = neu;
     }).observe(document.documentElement, { attributes: true, attributeFilter: ['data-theme'] });
+
+    // Measured height curve, descending by width. We look up the first support point whose
+    // width is less than or equal to the actual one.
+    //
+    // Deliberately stepped and not interpolated: the requirement is a staircase, not a
+    // line. It stays level across a range of widths and then drops at once when one line
+    // less wraps. Interpolating underestimates there and the frame ends up too short.
+    // Stepping is safe by construction because the requirement falls monotonically as the
+    // width grows. Precision therefore comes from how densely we measured.
+    //
+    // 732/726 and 496/490 bracket the two column changes of the grid
+    // (auto-fit, minmax(220px,1fr)) tightly. Verified:
+    // columns = floor((width - 40 + 16) / 236), clamped to 1 through 5.
+    const KURVE: [number, number][] = [
+      [960,1350],[920,1369],[880,1388],[820,1408],[800,1421],[780,1440],
+      [760,1470],[740,1502],[732,1534],[726,1809],[700,1831],[640,1850],
+      [620,1869],[600,1888],[560,1907],[540,1933],[530,1971],[520,2001],
+      [500,2052],[496,2084],[490,2439],[410,2458],[400,2477],[380,2496],
+      [370,2537],[330,2556],[320,2594],[310,2632],[290,2651],[280,2709],
+      [270,2807],[260,2910],
+    ];
+    const RESERVE = 24;    // headroom for small content growth
+    const SICHER = 3600;   // only used when the fingerprint no longer matches, hence generous
+
+    const hoehe = (breite: number) => {
+      if (rahmen.dataset.kurve !== 'aktuell') return SICHER;
+      for (const [w, h] of KURVE) if (breite >= w) return h + RESERVE;
+      // Narrower than the smallest measured point: below that the content stops growing.
+      return KURVE[KURVE.length - 1][1] + RESERVE;
+    };
+
+    let letzteBreite = 0;
+    const setzen = () => {
+      const breite = Math.round(rahmen.getBoundingClientRect().width);
+      // Only on a real width change, which prevents a feedback loop through the height.
+      if (breite === 0 || breite === letzteBreite) return;
+      letzteBreite = breite;
+      rahmen.style.minHeight = '0';
+      rahmen.style.height = `${hoehe(breite)}px`;
+    };
+
+    setzen();
+    new ResizeObserver(setzen).observe(rahmen);
   }
 </script>
 <style>
@@ -81,18 +150,11 @@ const lang = 'en';
     /* only visible while the frame has not loaded yet */
     background: var(--card);
   }
-  .editionen-embed iframe { display: block; width: 100%; border: 0; }
   /*
-    The banner has no height channel. Its grid sits on height:100% and fills the frame
-    exactly: too little height gives an inner scrollbar, too much gives stretched cards.
-    The values are measured, each tier covering its worst case plus a little headroom.
-    The iframe width is the viewport minus 48px padding, capped at 960px.
+    No fixed height tiers any more. The banner has no height channel and its grid sits on
+    height:100%, so it fills the frame exactly. The height is therefore set by the script
+    above from a measured curve matching the actual width. min-height holds the space until
+    then and is lifted afterwards.
   */
-  .editionen-embed iframe { height: 1400px; }
-  @media (max-width: 1007px) { .editionen-embed iframe { height: 1540px; } }
-  @media (max-width: 840px) { .editionen-embed iframe { height: 1900px; } }
-  @media (max-width: 760px) { .editionen-embed iframe { height: 1980px; } }
-  @media (max-width: 640px) { .editionen-embed iframe { height: 2480px; } }
-  @media (max-width: 520px) { .editionen-embed iframe { height: 2700px; } }
-  @media (max-width: 360px) { .editionen-embed iframe { height: 2990px; } }
+  .editionen-embed iframe { display: block; width: 100%; border: 0; min-height: 1400px; }
 </style>

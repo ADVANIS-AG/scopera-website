@@ -7,6 +7,7 @@ SCOPERA is powered by ADVANIS AG, a Swiss consulting firm with over 28 years of 
 ## Product
 
 - [Product](https://www.scopera.ai/en/product/): The Enterprise AI Platform — AI Agents, Workflows, Knowledge, Integrations, Analytics, Governance — and case studies of solutions running on it.
+- [Playground](https://www.scopera.ai/en/playground/): Describe a task from your daily work and the playground drafts a data model, views, roles and a process from it. No sign-up and no tenant of your own.
 - [Editions](https://www.scopera.ai/en/editions/): Trial, Starter, Pro and Enterprise editions, plus frequently asked questions about pricing, data location and ownership.
 - [Partner](https://www.scopera.ai/en/partner/): How providers and resellers use SCOPERA to serve their own customers under their own brand (white-label, multi-tenant).
 
