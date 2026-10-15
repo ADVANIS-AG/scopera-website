@@ -76,6 +76,9 @@ const base = import.meta.env.BASE_URL;
                     if (res.ok && result.ok) {
                       form.reset();
                       status.textContent = "Thanks for your message. We'll be in touch shortly.";
+                    } else if (res.status === 429) {
+                      // Rate limit in the worker: retrying only helps once the window has passed.
+                      status.textContent = "You have sent several messages in a short time. Please try again later or write to us directly.";
                     } else {
                       status.textContent = "That didn't work, unfortunately. Please try again or write to us directly.";
                     }

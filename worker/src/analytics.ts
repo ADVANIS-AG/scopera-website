@@ -1,3 +1,4 @@
+import { kuerzeIp } from "./lib/ip";
 import type { CrmLeadPayload, Env, SessionState } from "./types";
 
 // Muss mit wrangler.toml [[analytics_engine_datasets]] dataset = "..." uebereinstimmen.
@@ -21,7 +22,9 @@ export function recordVisitorEvent(env: Env, session: SessionState): void {
     env.VISITOR_EVENTS.writeDataPoint({
       blobs: ["visitor", session.sessionId, session.company?.name ?? "", session.company?.source ?? ""],
       doubles: [session.score, session.pages.length],
-      indexes: [session.company?.name ?? session.ip],
+      // Gekuerzt, weil Analytics Engine keine Aufbewahrungsfrist kennt und der Index
+      // abfragbar bleibt. Die volle IP steht nur in KV und laeuft dort nach 30 Minuten ab.
+      indexes: [session.company?.name ?? kuerzeIp(session.ip)],
     });
   } catch (err) {
     console.warn("recordVisitorEvent fehlgeschlagen:", err instanceof Error ? err.message : err);
@@ -35,7 +38,8 @@ export function recordLeadEvent(env: Env, payload: CrmLeadPayload, outcome: "ok"
     env.VISITOR_EVENTS.writeDataPoint({
       blobs: ["lead", payload.source, payload.company ?? "", outcome],
       doubles: [payload.score ?? 0],
-      indexes: [payload.company ?? payload.contactEmail ?? "unknown"],
+      // Bewusst nicht die E-Mail-Adresse: sie waere damit dauerhaft im Index abfragbar.
+      indexes: [payload.company ?? payload.source ?? "unknown"],
     });
   } catch (err) {
     console.warn("recordLeadEvent fehlgeschlagen:", err instanceof Error ? err.message : err);

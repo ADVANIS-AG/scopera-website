@@ -1,6 +1,7 @@
 import { recordLeadEvent } from "../analytics";
 import { createLead, lookupExisting } from "../crm-client";
 import { jsonResponse } from "../lib/json";
+import { zuVieleAnfragen } from "../lib/ratelimit";
 import { verifyTurnstile } from "../lib/turnstile";
 import type { ContactFormPayload, Env } from "../types";
 
@@ -31,6 +32,12 @@ export async function handleContact(request: Request, env: Env): Promise<Respons
   }
 
   const ip = request.headers.get("CF-Connecting-IP") ?? "";
+
+  // Vor allem anderen: begrenzt Massenversand auch dann, wenn Turnstile nicht eingerichtet ist.
+  if (await zuVieleAnfragen(env, ip)) {
+    return jsonResponse({ ok: false, error: "too-many-requests" }, 429);
+  }
+
   const turnstileOk = await verifyTurnstile(body.turnstileToken, env.TURNSTILE_SECRET_KEY, ip);
   if (!turnstileOk) {
     return jsonResponse({ ok: false, error: "spam-check-failed" }, 400);

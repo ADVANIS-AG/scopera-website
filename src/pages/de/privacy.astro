@@ -46,13 +46,14 @@ const abschnitte: [string, string][] = [
 
       <h3>Kontaktformular</h3>
       <p>Wenn Sie uns über das Formular schreiben, werden die eingegebenen Daten (Name, Firma, E-Mail, Nachricht) über unsere eigene, bei Cloudflare betriebene Infrastruktur an uns übermittelt und dort bis zur Bearbeitung gespeichert, längstens 30 Tage. Sie werden ausschliesslich zur Bearbeitung Ihrer Anfrage verwendet. Sobald wir ein CRM angebunden haben, wird Ihre Anfrage dorthin übernommen und dabei geprüft, ob Ihre Firma oder Ihr Kontakt bereits erfasst ist, um Mehrfacheinträge zu vermeiden. Den Anbieter nennen wir dann an dieser Stelle und in der Tabelle in Abschnitt 6.</p>
+      <p>Zum Schutz vor Massenversand begrenzen wir die Zahl der Absendungen je Internetanschluss. Dafür speichern wir eine Stunde lang einen Zählerwert; die IP-Adresse wird dabei nicht im Klartext abgelegt.</p>
 
       <h3>Terminbuchung</h3>
       <p>Buchen Sie über die Webseite einen Termin, geschieht das über Microsoft Bookings. Ihre Angaben (Name, E-Mail-Adresse, gewählter Termin und allfällige Bemerkungen) gelangen in unser Microsoft-365-Konto und werden zur Durchführung des Termins verwendet.</p>
 
       <h3>Besuchs- und Interessensdaten</h3>
       <p>Wir erfassen über eine selbst betriebene, bei Cloudflare gehostete Infrastruktur, welche Seiten Sie besuchen und wie lange. Dafür wird eine zufällige, rein sitzungsgebundene Kennung im Sitzungsspeicher (sessionStorage) Ihres Browsers verwendet, kein dauerhaftes Cookie; die Kennung verschwindet beim Schliessen des Tabs. Zusammen mit Ihrer technisch übertragenen IP-Adresse dient das dazu, das geschäftliche Interesse von Besuchenden an unseren Leistungen einzuschätzen.</p>
-      <p>Die Sitzungsdaten werden 30 Minuten nach Ihrer letzten Aktivität gelöscht. Für die statistische Auswertung speichern wir zusätzlich je Besuch einen Datenpunkt, der die IP-Adresse enthält; für diese Auswertung ist derzeit keine feste Löschfrist gesetzt. Die Daten werden nicht mit Werbenetzwerken geteilt.</p>
+      <p>Die Sitzungsdaten werden 30 Minuten nach Ihrer letzten Aktivität gelöscht. Für die statistische Auswertung speichern wir zusätzlich je Besuch einen Datenpunkt. Die IP-Adresse wird dafür auf das Netz gekürzt (IPv4 auf /24, IPv6 auf /48) und ist damit keiner Person mehr zuzuordnen. Die Daten werden nicht mit Werbenetzwerken geteilt.</p>
 
       <h3>Google Tag Manager und Firmenerkennung (nur mit Ihrer Einwilligung)</h3>
       <p>Über Google Tag Manager binden wir bei Bedarf weitere Mess- und Marketing-Werkzeuge ein, aktuell den Dienst Apollo zur Erkennung, welche Firma unsere Seite besucht. Diese Werkzeuge laden erst, nachdem Sie im Cookie-Banner zugestimmt haben. Ihre Wahl speichern wir lokal in Ihrem Browser (localStorage), nicht als Cookie. Dabei können Daten ausserhalb der Schweiz und der EU bearbeitet werden. Sie können Ihre Zustimmung jederzeit über «Cookie-Einstellungen» im Footer erteilen oder widerrufen. Ein Widerruf wirkt für die Zukunft; bereits geladene Werkzeuge laufen bis zum nächsten Seitenaufruf weiter.</p>
@@ -150,6 +151,7 @@ const abschnitte: [string, string][] = [
             <tr><td>Nachweis des Vertragsschlusses, Rechnungs- und Abrechnungsdaten</td><td>10 Jahre (gesetzliche Aufbewahrungspflicht)</td></tr>
             <tr><td>Kontaktanfragen über das Formular</td><td>30 Tage bis zur Bearbeitung</td></tr>
             <tr><td>Besuchsdaten der Webseite (Sitzung)</td><td>30 Minuten nach der letzten Aktivität</td></tr>
+            <tr><td>Zähler der Formular-Drossel (IP-Adresse nur als Hashwert)</td><td>1 Stunde</td></tr>
             <tr><td>Anmeldeversuche</td><td>90 Tage</td></tr>
             <tr><td>Änderungsprotokoll (mit IP-Adresse)</td><td>12 Monate</td></tr>
             <tr><td>Gespräche mit dem KI-Assistenten</td><td>90 Tage nach der letzten Änderung</td></tr>

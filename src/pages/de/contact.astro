@@ -76,6 +76,9 @@ const base = import.meta.env.BASE_URL;
                     if (res.ok && result.ok) {
                       form.reset();
                       status.textContent = 'Danke für Ihre Nachricht. Wir melden uns in Kürze.';
+                    } else if (res.status === 429) {
+                      // Drossel im Worker: erneut senden hilft erst nach Ablauf des Fensters.
+                      status.textContent = 'Sie haben in kurzer Zeit mehrere Nachrichten gesendet. Bitte versuchen Sie es später erneut oder schreiben Sie uns direkt.';
                     } else {
                       status.textContent = 'Das hat leider nicht geklappt. Bitte versuchen Sie es erneut oder schreiben Sie uns direkt.';
                     }

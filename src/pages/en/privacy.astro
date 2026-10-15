@@ -46,13 +46,14 @@ const abschnitte: [string, string][] = [
 
       <h3>Contact form</h3>
       <p>If you write to us via the form, the data you enter (name, company, email, message) is transmitted to us via our own infrastructure hosted on Cloudflare and stored there until processed, for at most 30 days. It is used exclusively to process your inquiry. Once we have connected a CRM, your inquiry will be transferred there and checked against existing records to avoid duplicate entries. We will then name the provider here and in the table in section 6.</p>
+      <p>To protect against bulk sending we limit the number of submissions per internet connection. For this we store a counter for one hour; the IP address is not stored in clear text.</p>
 
       <h3>Booking an appointment</h3>
       <p>If you book an appointment through the website, this happens via Microsoft Bookings. Your details (name, email address, chosen time and any remarks) reach our Microsoft 365 account and are used to hold the appointment.</p>
 
       <h3>Visit and interest data</h3>
       <p>We record which pages you visit and for how long, via our own infrastructure hosted on Cloudflare. This uses a random, purely session-bound identifier in your browser's session storage (sessionStorage), not a persistent cookie; the identifier disappears when you close the tab. Together with your technically transmitted IP address, this serves to estimate visitors' business interest in our services.</p>
-      <p>Session data is deleted 30 minutes after your last activity. For statistical evaluation we additionally store one data point per visit that contains the IP address; no fixed deletion period is currently set for this evaluation. The data is not shared with advertising networks.</p>
+      <p>Session data is deleted 30 minutes after your last activity. For statistical evaluation we additionally store one data point per visit. The IP address is shortened to the network for this (IPv4 to /24, IPv6 to /48) and can no longer be attributed to a person. The data is not shared with advertising networks.</p>
 
       <h3>Google Tag Manager and company identification (only with your consent)</h3>
       <p>Through Google Tag Manager, we load additional measurement and marketing tools when needed, currently the service Apollo to identify which company is visiting our site. These tools only load after you accept in the cookie banner. We store your choice locally in your browser (localStorage), not as a cookie. This processing may involve data outside Switzerland and the EU. You can give or withdraw consent at any time via "Cookie settings" in the footer. Withdrawal takes effect going forward; tools already loaded keep running until the next page load.</p>
@@ -150,6 +151,7 @@ const abschnitte: [string, string][] = [
             <tr><td>Proof of contract conclusion, invoicing and billing data</td><td>10 years (statutory retention)</td></tr>
             <tr><td>Contact form inquiries</td><td>30 days until processed</td></tr>
             <tr><td>Website visit data (session)</td><td>30 minutes after the last activity</td></tr>
+            <tr><td>Form rate-limit counter (IP address only as a hash)</td><td>1 hour</td></tr>
             <tr><td>Sign-in attempts</td><td>90 days</td></tr>
             <tr><td>Change log (with IP address)</td><td>12 months</td></tr>
             <tr><td>Conversations with the AI assistant</td><td>90 days after the last change</td></tr>
