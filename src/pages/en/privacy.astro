@@ -1,24 +1,212 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
-import { ADRESSE } from '../../config';
+import { ADRESSE, KONTAKT_EMAIL } from '../../config';
+// Twelve sections, used for both the table of contents and the anchors.
+const abschnitte: [string, string][] = [
+  ['controller', 'Controller'],
+  ['scope', 'Scope and our roles'],
+  ['website', 'Visiting www.scopera.ai'],
+  ['platform', 'Using the SCOPERA platform'],
+  ['cookies', 'Cookies and browser storage'],
+  ['recipients', 'Recipients and service providers'],
+  ['transfers', 'Transfers abroad'],
+  ['retention', 'How long we keep data'],
+  ['rights', 'Your rights'],
+  ['security', 'Security'],
+  ['automated-decisions', 'Automated decisions'],
+  ['changes', 'Changes'],
+];
 ---
-<BaseLayout title="Privacy | SCOPERA." description="Privacy policy of SCOPERA, a brand of ADVANIS AG.">
+<BaseLayout title="Privacy | SCOPERA." description="Privacy policy of SCOPERA, a brand of ADVANIS AG: website, platform, AI features, recipients and retention.">
   <section style="padding: 88px 0;">
-    <div class="wrap" style="max-width: 720px;">
+    <div class="wrap rechtstext">
       <h1 style="font-size: clamp(30px, 5vw, 44px);">Privacy Policy</h1>
-      <p class="soft">Last updated: August 2026. This policy is based on the Swiss Federal Act on Data Protection (FADP) and, where applicable, the GDPR.</p>
-      <h3 style="margin-top:28px;">Data controller</h3>
-      <p>ADVANIS AG, {ADRESSE}. Reachable via the contact page.</p>
-      <h3 style="margin-top:28px;">What data we process</h3>
-      <p><strong>Server logs:</strong> When you visit this website, our hosting provider processes technically necessary data (IP address, timestamp, page accessed) for delivery and security. This data is not linked with other sources.</p>
-      <p><strong>Contact form:</strong> If you write to us via the form, the data you enter (name, company, email, message) is transmitted to us via our own infrastructure hosted on Cloudflare. We check whether your company or contact is already recorded in our CRM to avoid duplicate entries; your inquiry is then stored there as a contact request and used exclusively to process it. Cloudflare Turnstile is also used to protect against spam, checking technical characteristics of your device without personally identifying you.</p>
-      <p><strong>Analytics:</strong> We use the web analytics service Plausible to anonymously evaluate visitor traffic (pages viewed, time on site, origin). Plausible doesn't set cookies, doesn't process personal data and doesn't build user profiles, so no consent is required.</p>
-      <p><strong>Visit and interest data (own infrastructure):</strong> In addition, we record which pages you visit and for how long, via our own infrastructure, also hosted on Cloudflare. This uses a random, purely session-bound identifier in your browser's session storage (sessionStorage), not a persistent cookie; the identifier disappears automatically when you close the tab. This data is processed together with your technically transmitted IP address for a short period to estimate visitors' business interest in our services; it is not shared with advertising networks.</p>
-      <p><strong>Google Tag Manager and company identification (only with your consent):</strong> Through Google Tag Manager, we load additional measurement and marketing tools when needed, currently the service Apollo to identify which company is visiting our site. These tools only load after you accept in the cookie banner. We store your choice locally in your browser (localStorage), not as a cookie. This processing may involve data outside Switzerland and the EU. You can give or withdraw consent at any time via "Cookie settings" in the footer.</p>
-      <h3 style="margin-top:28px;">Your rights</h3>
-      <p>You have the right to access, correct and delete your personal data. Please contact the data controller to exercise these rights.</p>
-      <h3 style="margin-top:28px;">Parent company ADVANIS AG</h3>
-      <p>For the wider business activities of the parent company ADVANIS AG — such as customer relationships, job applications, or other websites of the group — its own, more comprehensive privacy policy applies: <a href="https://advanis.ch/rechtliches/" target="_blank" rel="noopener noreferrer">advanis.ch/rechtliches</a>.</p>
+      <p class="soft">Last updated: October 2026</p>
+      <p>This policy describes how ADVANIS AG processes personal data when you visit our website www.scopera.ai and when you use the SCOPERA platform: the web application at app.scopera.ai and your workspace addresses (e.g. your-company.scopera.ai), the customer portal (portal.scopera.ai), the public playground (playground.scopera.ai), the interface for AI clients (mcp.scopera.ai) and the mobile app. SCOPERA is a brand of ADVANIS AG. This policy follows the Swiss Federal Act on Data Protection (FADP) and, where applicable, the EU General Data Protection Regulation (GDPR).</p>
+
+      <nav class="inhalt" aria-label="Table of contents">
+        <ol>
+          {abschnitte.map(([id, titel]) => <li><a href={`#${id}`}>{titel}</a></li>)}
+        </ol>
+      </nav>
+
+      <h2 id="controller">1. Controller</h2>
+      <p>ADVANIS AG<br />{ADRESSE}<br />Switzerland<br />Email: <a href={`mailto:${KONTAKT_EMAIL}`}>{KONTAKT_EMAIL}</a></p>
+      <p>For questions about data protection and to exercise your rights, contact us at this email address.</p>
+
+      <h2 id="scope">2. Scope and our roles</h2>
+      <p>We are the controller for visits to this website, your user account, sign-up, conclusion of the contract, platform security, billing, support and the playground. This policy describes these processing activities.</p>
+      <p>The content a company records in its SCOPERA workspace (customers, contacts, projects, files, messages, form submissions and everything else) we process on behalf of that company. The company (our customer) is then the controller; we process this data only on its instructions and under a data processing agreement. Please direct questions about this data to the company concerned.</p>
+      <p>For the wider business activities of ADVANIS AG, such as customer relationships outside SCOPERA, job applications or other websites of the group, its own, more comprehensive privacy policy applies: <a href="https://advanis.ch/rechtliches/" target="_blank" rel="noopener noreferrer">advanis.ch/rechtliches</a>.</p>
+
+      <h2 id="website">3. Visiting www.scopera.ai</h2>
+
+      <h3>Server logs</h3>
+      <p>When you visit this website, our hosting providers process technically necessary data (IP address, timestamp, page accessed) for delivery and security. This data is not linked with other sources.</p>
+
+      <h3>Contact form</h3>
+      <p>If you write to us via the form, the data you enter (name, company, email, message) is transmitted to us via our own infrastructure hosted on Cloudflare and stored there until processed, for at most 30 days. It is used exclusively to process your inquiry. Once we have connected a CRM, your inquiry will be transferred there and checked against existing records to avoid duplicate entries. We will then name the provider here and in the table in section 6.</p>
+
+      <h3>Booking an appointment</h3>
+      <p>If you book an appointment through the website, this happens via Microsoft Bookings. Your details (name, email address, chosen time and any remarks) reach our Microsoft 365 account and are used to hold the appointment.</p>
+
+      <h3>Visit and interest data</h3>
+      <p>We record which pages you visit and for how long, via our own infrastructure hosted on Cloudflare. This uses a random, purely session-bound identifier in your browser's session storage (sessionStorage), not a persistent cookie; the identifier disappears when you close the tab. Together with your technically transmitted IP address, this serves to estimate visitors' business interest in our services.</p>
+      <p>Session data is deleted 30 minutes after your last activity. For statistical evaluation we additionally store one data point per visit that contains the IP address; no fixed deletion period is currently set for this evaluation. The data is not shared with advertising networks.</p>
+
+      <h3>Google Tag Manager and company identification (only with your consent)</h3>
+      <p>Through Google Tag Manager, we load additional measurement and marketing tools when needed, currently the service Apollo to identify which company is visiting our site. These tools only load after you accept in the cookie banner. We store your choice locally in your browser (localStorage), not as a cookie. This processing may involve data outside Switzerland and the EU. You can give or withdraw consent at any time via "Cookie settings" in the footer. Withdrawal takes effect going forward; tools already loaded keep running until the next page load.</p>
+
+      <h3>Embedded content from the platform</h3>
+      <p>Some pages embed content from our platform in a frame: the editions page a comparison from api.scopera.ai, the product page an offer banner from api.scopera.ai together with an image from our Azure storage, the playground page the playground from playground.scopera.ai. Loading this content transmits your IP address to the respective service. All three belong to SCOPERA; hosting details are in section 6.</p>
+
+      <h3>Playground</h3>
+      <p>On the website and at playground.scopera.ai you can try, without an account, how SCOPERA drafts an app from a description. Your input goes to an AI provider (see section 6) and is not stored by us. We store only statistics (length, outcome, duration) and a shortened IP address; to prevent misuse, Cloudflare Turnstile checks that a human is using the page.</p>
+
+      <h2 id="platform">4. Using the SCOPERA platform</h2>
+
+      <h3>Sign-up and user account</h3>
+      <p>Company, company identification number and country, first and last name, email address, password (only as a secure hash), language, time zone, role and department. If you sign in with Microsoft, Google or Apple, we receive your email address, your name and an identifier from them. We check the company details against the Swiss commercial register (Zefix). Purpose: providing the platform and performing the contract.</p>
+
+      <h3>Conclusion of the contract</h3>
+      <p>When you accept the terms of use, we store your name, email address, the time and your IP address as evidence. Purpose: proof that the contract was concluded.</p>
+
+      <h3>Sign-in and security</h3>
+      <p>Sign-in attempts (email address, IP address, time, result), a change log (who changed what and when, with IP address and browser identifier) and counters we use to fend off excessive requests. When our support accesses a workspace (for example to fix a problem), access is time-limited and logged with reason and duration. Purpose: protecting your account and the platform against misuse (legitimate interest).</p>
+
+      <h3>Use of the platform</h3>
+      <p>Time of your last activity, notifications, progress in guided tours and technical logs (function used, result, duration, without IP address). Help searches without results are stored without reference to you, to improve the help.</p>
+
+      <h3>AI features</h3>
+      <p>When you use the AI assistant or other AI features, we send your input and the data from your workspace needed for it to an AI provider (see section 6). Voice input is transcribed there; receipts are read by image recognition. Before sending, we remove recognisable patterns such as email addresses, Swiss social security, IBAN, phone and card numbers; fields classified as especially sensitive are masked. We store conversations with the assistant so you can continue them, and a log of AI calls (shortened request, tools, usage) for billing and troubleshooting. Under their terms, the AI providers do not use data sent through their programming interfaces to train their models.</p>
+
+      <h3>AI connections (MCP)</h3>
+      <p>If your company enables AI connections, you can use SCOPERA from your own AI client (e.g. Claude, ChatGPT, Microsoft Copilot). Whatever this client reads on your behalf goes to the client's provider, under that provider's terms. We store your connections (client, permissions, expiry) and, per call, only the tool, outcome, duration and size, so no inputs and no answers.</p>
+
+      <h3>Billing</h3>
+      <p>Plan, usage, credits and commissions, and the customer and subscription identifier at our payment provider Stripe. You enter your payment details directly with Stripe; we do not receive them.</p>
+
+      <h3>Support, ideas and emails</h3>
+      <p>Messages to our support and reported ideas or bugs (title and description, handled in our ticket system). For platform emails (invitations, password resets, notifications) we use your email address.</p>
+
+      <h3>Mobile app</h3>
+      <p>The app uses the camera only when you choose to: for photos, the AR ruler, room scans and scanning QR codes; captures are uploaded to your workspace. Your sign-in stays on the device until you sign out. The app contains no third-party advertising, analytics or crash-reporting services and does not use location.</p>
+
+      <h2 id="cookies">5. Cookies and browser storage</h2>
+
+      <h3>Website</h3>
+      <p>The website itself sets no cookies. In your browser's local storage we keep your choice in the cookie banner and the light or dark design; in session storage, the identifier for visit data (see section 3). Google Tag Manager and Apollo only load after your consent; they may set their own cookies.</p>
+
+      <h3>Platform</h3>
+      <p>On the platform we only set cookies needed to operate it, none for analytics or advertising:</p>
+      <div class="tabelle">
+        <table>
+          <thead><tr><th>Cookie</th><th>Purpose</th><th>Duration</th></tr></thead>
+          <tbody>
+            <tr><td>access_token, portal_access_token</td><td>sign-in</td><td>60 minutes</td></tr>
+            <tr><td>refresh_token, portal_refresh_token</td><td>stay signed in</td><td>30 days</td></tr>
+            <tr><td>csrf_token, portal_csrf_token</td><td>protection against forged requests</td><td>30 days</td></tr>
+            <tr><td>locale</td><td>chosen language</td><td>1 year</td></tr>
+            <tr><td>scopera_mcp_workspace</td><td>last chosen workspace when an AI client signs in</td><td>1 year</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p>In your browser's local storage we keep display settings (e.g. sidebar, column widths, light or dark design). To load quickly, the browser caches parts of the application. On public forms and the playground, Cloudflare Turnstile loads a verification frame. If you use the map view in your workspace, your browser loads map tiles from OpenStreetMap.</p>
+
+      <h2 id="recipients">6. Recipients and service providers</h2>
+      <p>We share personal data only with service providers we need for operating the website and the platform and have contractually bound to data protection:</p>
+      <div class="tabelle">
+        <table>
+          <thead><tr><th>Provider</th><th>Purpose</th><th>Location</th></tr></thead>
+          <tbody>
+            <tr><td>Microsoft Azure</td><td>Hosting of all platform data (database, files, application, logs) and of the images in embedded banners</td><td>Switzerland (Switzerland North region)</td></tr>
+            <tr><td>GitHub (GitHub Pages)</td><td>Hosting of the website</td><td>USA/worldwide</td></tr>
+            <tr><td>Cloudflare</td><td>Delivery of the website, contact form and visit data on our own infrastructure, name resolution, bot protection for public forms</td><td>worldwide</td></tr>
+            <tr><td>Google (Tag Manager)</td><td>Loading further tools, only with consent</td><td>USA</td></tr>
+            <tr><td>Apollo (assets.apollo.io, aplo-evnt.com)</td><td>Company identification, only with consent</td><td>USA</td></tr>
+            <tr><td>OpenAI</td><td>AI features, speech recognition, help search</td><td>USA</td></tr>
+            <tr><td>Anthropic</td><td>AI features</td><td>USA</td></tr>
+            <tr><td>Microsoft 365</td><td>Sending emails, appointment booking</td><td>Switzerland/EU</td></tr>
+            <tr><td>Microsoft, Google, Apple</td><td>Sign-in, if you choose it</td><td>USA/EU</td></tr>
+            <tr><td>Stripe</td><td>Payment processing</td><td>USA/Ireland</td></tr>
+            <tr><td>Atlassian (Jira)</td><td>Handling reported ideas and bugs</td><td>EU/USA</td></tr>
+            <tr><td>Swiss commercial register (Zefix)</td><td>Checking company details at sign-up</td><td>Switzerland</td></tr>
+            <tr><td>OpenStreetMap</td><td>Map tiles in the map view</td><td>EU</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p>If your company sets up further services, such as WhatsApp, Microsoft Teams, its own email server, its own AI provider, external AI tools (MCP servers) or interfaces to other systems, data also flows there at your company's instruction. We disclose data to authorities only where we are legally required to do so.</p>
+
+      <h2 id="transfers">7. Transfers abroad</h2>
+      <p>Platform data is stored in Switzerland. Some service providers (in particular the AI providers and, with your consent, Google and Apollo) process data in the USA or other countries without an adequate level of data protection. We ensure protection there through the European Commission's standard contractual clauses recognised by the Swiss FDPIC or, where the provider is certified, through the Swiss-U.S. or EU-U.S. Data Privacy Framework.</p>
+
+      <h2 id="retention">8. How long we keep data</h2>
+      <div class="tabelle">
+        <table>
+          <thead><tr><th>Data</th><th>Retention</th></tr></thead>
+          <tbody>
+            <tr><td>User account</td><td>as long as it exists; after removal from a workspace 30 days, then your details are deleted or anonymised</td></tr>
+            <tr><td>Workspace data after the contract ends</td><td>30 days after deletion or 90 days after archiving, then deleted completely, including files</td></tr>
+            <tr><td>Proof of contract conclusion, invoicing and billing data</td><td>10 years (statutory retention)</td></tr>
+            <tr><td>Contact form inquiries</td><td>30 days until processed</td></tr>
+            <tr><td>Website visit data (session)</td><td>30 minutes after the last activity</td></tr>
+            <tr><td>Sign-in attempts</td><td>90 days</td></tr>
+            <tr><td>Change log (with IP address)</td><td>12 months</td></tr>
+            <tr><td>Conversations with the AI assistant</td><td>90 days after the last change</td></tr>
+            <tr><td>Log of AI calls</td><td>12 months</td></tr>
+            <tr><td>Log of AI connections (MCP)</td><td>12 months</td></tr>
+            <tr><td>Voice recordings for transcription</td><td>until processed, at most 30 days</td></tr>
+            <tr><td>Playground statistics (shortened IP address)</td><td>12 months</td></tr>
+            <tr><td>Technical logs</td><td>30 days</td></tr>
+            <tr><td>Backups</td><td>7 days</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p>Your company can set its own retention periods for the content of its workspace.</p>
+
+      <h2 id="rights">9. Your rights</h2>
+      <ul>
+        <li>access to the data we process about you</li>
+        <li>rectification of inaccurate data</li>
+        <li>erasure or restriction of processing</li>
+        <li>receiving or transferring your data in a common format</li>
+        <li>objection to processing based on our legitimate interest</li>
+        <li>withdrawal of consent with effect for the future</li>
+      </ul>
+      <p>To do so, write to us at the email address above. If your request concerns workspace content, we forward it to the responsible company. You can also lodge a complaint with the Swiss Federal Data Protection and Information Commissioner (FDPIC) or, where the GDPR applies, with the supervisory authority of your country of residence.</p>
+
+      <h2 id="security">10. Security</h2>
+      <p>Connections are encrypted (TLS). The platform's database and cache are not reachable from the internet; credentials for connected services are stored encrypted. Access is limited to what is necessary and logged. Companies can additionally run their workspace in a dedicated, separate database schema.</p>
+
+      <h2 id="automated-decisions">11. Automated decisions</h2>
+      <p>We make no decisions based solely on automated processing that have legal effects on you. AI suggestions are aids; you confirm changes proposed by an AI yourself.</p>
+
+      <h2 id="changes">12. Changes</h2>
+      <p>We update this policy when our processing or the law changes. The version published here applies.</p>
     </div>
   </section>
 </BaseLayout>
+<style>
+  .rechtstext { max-width: 820px; }
+  .rechtstext h2 { font-size: clamp(21px, 2.6vw, 26px); margin: 44px 0 12px; scroll-margin-top: 90px; }
+  .rechtstext h3 { margin: 26px 0 8px; scroll-margin-top: 90px; }
+  .rechtstext ul { margin: 0 0 14px; padding-left: 22px; }
+  .rechtstext li { padding: 3px 0; }
+  /* global.css only sets the text colour for links, they would not be recognisable otherwise. */
+  .rechtstext a { text-decoration: underline; text-underline-offset: 2px; }
+  .rechtstext a:hover { color: var(--accent); }
+
+  .inhalt { border: 1px solid var(--line); border-radius: var(--radius); background: var(--card); padding: 16px 22px; margin: 28px 0 8px; }
+  .inhalt ol { margin: 0; padding-left: 20px; }
+  .inhalt li { padding: 3px 0; font-size: 15px; }
+
+  /*
+    Tables: global.css has no rule for them at all, because none existed anywhere until now.
+    Deliberately scoped here so no other page is affected. The wrapper scrolls horizontally
+    instead of breaking the page open on narrow devices.
+  */
+  .tabelle { overflow-x: auto; margin: 0 0 18px; }
+  .tabelle table { border-collapse: collapse; width: 100%; min-width: 440px; font-size: 14px; }
+  .tabelle th, .tabelle td { border: 1px solid var(--line); padding: 8px 10px; text-align: left; vertical-align: top; }
+  .tabelle th { background: var(--card); font-weight: 700; }
+</style>

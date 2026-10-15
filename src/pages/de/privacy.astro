@@ -1,24 +1,212 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
-import { ADRESSE } from '../../config';
+import { ADRESSE, KONTAKT_EMAIL } from '../../config';
+// Zwoelf Abschnitte, daraus entstehen Inhaltsverzeichnis und Sprungmarken.
+const abschnitte: [string, string][] = [
+  ['verantwortliche-stelle', 'Verantwortliche Stelle'],
+  ['geltungsbereich', 'Geltungsbereich und unsere Rollen'],
+  ['webseite', 'Besuch der Webseite www.scopera.ai'],
+  ['plattform', 'Nutzung der Plattform SCOPERA'],
+  ['cookies', 'Cookies und Speicher im Browser'],
+  ['empfaenger', 'Empfänger und Dienstleister'],
+  ['ausland', 'Bekanntgabe ins Ausland'],
+  ['aufbewahrung', 'Wie lange wir Daten aufbewahren'],
+  ['rechte', 'Ihre Rechte'],
+  ['sicherheit', 'Sicherheit'],
+  ['automatisierte-entscheidungen', 'Automatisierte Entscheidungen'],
+  ['aenderungen', 'Änderungen'],
+];
 ---
-<BaseLayout title="Datenschutz | SCOPERA." description="Datenschutzerklärung von SCOPERA, einer Marke der ADVANIS AG.">
+<BaseLayout title="Datenschutz | SCOPERA." description="Datenschutzerklärung von SCOPERA, einer Marke der ADVANIS AG: Webseite, Plattform, KI-Funktionen, Empfänger und Aufbewahrung.">
   <section style="padding: 88px 0;">
-    <div class="wrap" style="max-width: 720px;">
+    <div class="wrap rechtstext">
       <h1 style="font-size: clamp(30px, 5vw, 44px);">Datenschutzerklärung</h1>
-      <p class="soft">Stand: August 2026. Diese Erklärung richtet sich nach dem Schweizer Datenschutzgesetz (DSG) und, soweit anwendbar, der DSGVO.</p>
-      <h3 style="margin-top:28px;">Verantwortliche Stelle</h3>
-      <p>ADVANIS AG, {ADRESSE}. Erreichbar über die Kontaktseite.</p>
-      <h3 style="margin-top:28px;">Welche Daten wir bearbeiten</h3>
-      <p><strong>Server-Logs:</strong> Beim Besuch dieser Webseite verarbeitet unser Hosting-Anbieter technisch notwendige Daten (IP-Adresse, Zeitpunkt, abgerufene Seite) zur Auslieferung und Sicherheit. Diese Daten werden nicht mit anderen Quellen verknüpft.</p>
-      <p><strong>Kontaktformular:</strong> Wenn Sie uns über das Formular schreiben, werden die eingegebenen Daten (Name, Firma, E-Mail, Nachricht) über unsere eigene, bei Cloudflare betriebene Infrastruktur an uns übermittelt. Dabei wird geprüft, ob Ihre Firma oder Ihr Kontakt bereits in unserem CRM erfasst ist, um Mehrfacheinträge zu vermeiden; anschliessend wird Ihre Anfrage dort als Kontaktanfrage gespeichert und ausschliesslich zu deren Bearbeitung verwendet. Zum Schutz vor Spam kommt zudem Cloudflare Turnstile zum Einsatz, das technische Merkmale Ihres Geräts prüft, ohne Sie persönlich zu identifizieren.</p>
-      <p><strong>Analytics:</strong> Wir nutzen den Webanalyse-Dienst Plausible zur anonymen Auswertung des Besucherverkehrs (aufgerufene Seiten, Verweildauer, Herkunft). Plausible setzt keine Cookies, verarbeitet keine personenbezogenen Daten und erstellt keine Nutzerprofile — dafür ist keine Einwilligung nötig.</p>
-      <p><strong>Besuchs- und Interessensdaten (eigene Infrastruktur):</strong> Zusätzlich erfassen wir über eine selbst betriebene, ebenfalls bei Cloudflare gehostete Infrastruktur, welche Seiten Sie besuchen und wie lange. Dafür wird eine zufällige, rein sitzungsgebundene Kennung im Sitzungsspeicher (sessionStorage) Ihres Browsers verwendet — kein dauerhaftes Cookie; die Kennung verschwindet automatisch beim Schliessen des Tabs. Diese Daten werden zusammen mit Ihrer technisch übertragenen IP-Adresse für kurze Zeit verarbeitet, um das geschäftliche Interesse von Besuchenden an unseren Leistungen einzuschätzen; sie werden nicht mit Werbenetzwerken geteilt.</p>
-      <p><strong>Google Tag Manager und Firmenerkennung (nur mit Ihrer Einwilligung):</strong> Über Google Tag Manager binden wir bei Bedarf weitere Mess- und Marketing-Werkzeuge ein, aktuell den Dienst Apollo zur Erkennung, welche Firma unsere Seite besucht. Diese Werkzeuge laden erst, nachdem Sie im Cookie-Banner zugestimmt haben. Ihre Wahl speichern wir lokal in Ihrem Browser (localStorage), nicht als Cookie. Dabei können Daten ausserhalb der Schweiz und der EU verarbeitet werden. Sie können Ihre Zustimmung jederzeit über «Cookie-Einstellungen» im Footer erteilen oder widerrufen.</p>
-      <h3 style="margin-top:28px;">Ihre Rechte</h3>
-      <p>Sie haben das Recht auf Auskunft, Berichtigung und Löschung Ihrer Personendaten. Wenden Sie sich dazu an die verantwortliche Stelle.</p>
-      <h3 style="margin-top:28px;">Muttergesellschaft ADVANIS AG</h3>
-      <p>Für die weitere Geschäftstätigkeit der Muttergesellschaft ADVANIS AG — etwa Kundenbeziehungen, Bewerbungen oder andere Webseiten der Gruppe — gilt deren eigene, umfassendere Datenschutzerklärung: <a href="https://advanis.ch/rechtliches/" target="_blank" rel="noopener noreferrer">advanis.ch/rechtliches</a>.</p>
+      <p class="soft">Stand: Oktober 2026</p>
+      <p>Diese Erklärung beschreibt, wie die ADVANIS AG Personendaten bearbeitet, wenn Sie unsere Webseite www.scopera.ai besuchen und wenn Sie die Plattform SCOPERA nutzen: die Webanwendung unter app.scopera.ai und die Adressen Ihres Arbeitsbereichs (z. B. ihre-firma.scopera.ai), das Kundenportal (portal.scopera.ai), die öffentliche Spielwiese (playground.scopera.ai), die Schnittstelle für KI-Clients (mcp.scopera.ai) und die mobile App. SCOPERA ist eine Marke der ADVANIS AG. Die Erklärung richtet sich nach dem Schweizer Datenschutzgesetz (DSG) und, soweit anwendbar, nach der EU-Datenschutz-Grundverordnung (DSGVO).</p>
+
+      <nav class="inhalt" aria-label="Inhaltsverzeichnis">
+        <ol>
+          {abschnitte.map(([id, titel]) => <li><a href={`#${id}`}>{titel}</a></li>)}
+        </ol>
+      </nav>
+
+      <h2 id="verantwortliche-stelle">1. Verantwortliche Stelle</h2>
+      <p>ADVANIS AG<br />{ADRESSE}<br />Schweiz<br />E-Mail: <a href={`mailto:${KONTAKT_EMAIL}`}>{KONTAKT_EMAIL}</a></p>
+      <p>Für Fragen zum Datenschutz und zur Ausübung Ihrer Rechte erreichen Sie uns unter dieser E-Mail-Adresse.</p>
+
+      <h2 id="geltungsbereich">2. Geltungsbereich und unsere Rollen</h2>
+      <p>Für den Besuch dieser Webseite, Ihr Benutzerkonto, die Registrierung, den Vertragsabschluss, die Sicherheit der Plattform, die Abrechnung, den Support und die Spielwiese sind wir verantwortlich. Diese Bearbeitungen beschreibt diese Erklärung.</p>
+      <p>Die Inhalte, die ein Unternehmen in seinem SCOPERA-Arbeitsbereich erfasst (Kunden, Kontakte, Projekte, Dateien, Nachrichten, Anfragen aus Formularen und alles Weitere), bearbeiten wir im Auftrag dieses Unternehmens. Verantwortlich ist dann das Unternehmen (unser Kunde); wir bearbeiten diese Daten nur nach seinen Weisungen und auf Grundlage eines Auftragsverarbeitungsvertrags. Fragen zu diesen Daten richten Sie bitte an das jeweilige Unternehmen.</p>
+      <p>Für die übrige Geschäftstätigkeit der ADVANIS AG, etwa Kundenbeziehungen ausserhalb von SCOPERA, Bewerbungen oder andere Webseiten der Gruppe, gilt deren eigene, umfassendere Datenschutzerklärung: <a href="https://advanis.ch/rechtliches/" target="_blank" rel="noopener noreferrer">advanis.ch/rechtliches</a>.</p>
+
+      <h2 id="webseite">3. Besuch der Webseite www.scopera.ai</h2>
+
+      <h3>Server-Protokolle</h3>
+      <p>Beim Besuch dieser Webseite verarbeiten unsere Hosting-Anbieter technisch notwendige Daten (IP-Adresse, Zeitpunkt, abgerufene Seite) zur Auslieferung und Sicherheit. Diese Daten werden nicht mit anderen Quellen verknüpft.</p>
+
+      <h3>Kontaktformular</h3>
+      <p>Wenn Sie uns über das Formular schreiben, werden die eingegebenen Daten (Name, Firma, E-Mail, Nachricht) über unsere eigene, bei Cloudflare betriebene Infrastruktur an uns übermittelt und dort bis zur Bearbeitung gespeichert, längstens 30 Tage. Sie werden ausschliesslich zur Bearbeitung Ihrer Anfrage verwendet. Sobald wir ein CRM angebunden haben, wird Ihre Anfrage dorthin übernommen und dabei geprüft, ob Ihre Firma oder Ihr Kontakt bereits erfasst ist, um Mehrfacheinträge zu vermeiden. Den Anbieter nennen wir dann an dieser Stelle und in der Tabelle in Abschnitt 6.</p>
+
+      <h3>Terminbuchung</h3>
+      <p>Buchen Sie über die Webseite einen Termin, geschieht das über Microsoft Bookings. Ihre Angaben (Name, E-Mail-Adresse, gewählter Termin und allfällige Bemerkungen) gelangen in unser Microsoft-365-Konto und werden zur Durchführung des Termins verwendet.</p>
+
+      <h3>Besuchs- und Interessensdaten</h3>
+      <p>Wir erfassen über eine selbst betriebene, bei Cloudflare gehostete Infrastruktur, welche Seiten Sie besuchen und wie lange. Dafür wird eine zufällige, rein sitzungsgebundene Kennung im Sitzungsspeicher (sessionStorage) Ihres Browsers verwendet, kein dauerhaftes Cookie; die Kennung verschwindet beim Schliessen des Tabs. Zusammen mit Ihrer technisch übertragenen IP-Adresse dient das dazu, das geschäftliche Interesse von Besuchenden an unseren Leistungen einzuschätzen.</p>
+      <p>Die Sitzungsdaten werden 30 Minuten nach Ihrer letzten Aktivität gelöscht. Für die statistische Auswertung speichern wir zusätzlich je Besuch einen Datenpunkt, der die IP-Adresse enthält; für diese Auswertung ist derzeit keine feste Löschfrist gesetzt. Die Daten werden nicht mit Werbenetzwerken geteilt.</p>
+
+      <h3>Google Tag Manager und Firmenerkennung (nur mit Ihrer Einwilligung)</h3>
+      <p>Über Google Tag Manager binden wir bei Bedarf weitere Mess- und Marketing-Werkzeuge ein, aktuell den Dienst Apollo zur Erkennung, welche Firma unsere Seite besucht. Diese Werkzeuge laden erst, nachdem Sie im Cookie-Banner zugestimmt haben. Ihre Wahl speichern wir lokal in Ihrem Browser (localStorage), nicht als Cookie. Dabei können Daten ausserhalb der Schweiz und der EU bearbeitet werden. Sie können Ihre Zustimmung jederzeit über «Cookie-Einstellungen» im Footer erteilen oder widerrufen. Ein Widerruf wirkt für die Zukunft; bereits geladene Werkzeuge laufen bis zum nächsten Seitenaufruf weiter.</p>
+
+      <h3>Eingebettete Inhalte von der Plattform</h3>
+      <p>Einzelne Seiten binden Inhalte unserer Plattform in einem Rahmen ein: die Seite Editionen einen Vergleich von api.scopera.ai, die Produktseite ein Angebotsbanner von api.scopera.ai samt Bild aus unserem Azure-Speicher, die Seite Spielwiese die Spielwiese von playground.scopera.ai. Beim Laden dieser Inhalte wird Ihre IP-Adresse an den jeweiligen Dienst übermittelt. Alle drei gehören zu SCOPERA, die Hosting-Angaben stehen in Abschnitt 6.</p>
+
+      <h3>Spielwiese</h3>
+      <p>Auf der Webseite und unter playground.scopera.ai können Sie ohne Konto ausprobieren, wie SCOPERA aus einer Beschreibung eine App entwirft. Ihre Eingabe geht an einen KI-Anbieter (siehe Abschnitt 6) und wird bei uns nicht gespeichert. Wir speichern nur statistische Angaben (Länge, Ergebnis, Dauer) und Ihre IP-Adresse gekürzt; zum Schutz vor Missbrauch prüft Cloudflare Turnstile, ob ein Mensch die Seite nutzt.</p>
+
+      <h2 id="plattform">4. Nutzung der Plattform SCOPERA</h2>
+
+      <h3>Registrierung und Benutzerkonto</h3>
+      <p>Firma, Unternehmens-Identifikationsnummer und Land, Vor- und Nachname, E-Mail-Adresse, Passwort (nur als sicherer Hashwert), Sprache, Zeitzone, Rolle und Abteilung. Melden Sie sich über Microsoft, Google oder Apple an, erhalten wir von dort Ihre E-Mail-Adresse, Ihren Namen und eine Kennung. Die Angaben zur Firma prüfen wir gegen das Schweizer Handelsregister (Zefix). Zweck: Bereitstellung der Plattform und Vertragserfüllung.</p>
+
+      <h3>Vertragsabschluss</h3>
+      <p>Wenn Sie die Nutzungsbedingungen bestätigen, speichern wir als Nachweis Ihren Namen, Ihre E-Mail-Adresse, den Zeitpunkt und Ihre IP-Adresse. Zweck: Nachweis des Vertragsschlusses.</p>
+
+      <h3>Anmeldung und Sicherheit</h3>
+      <p>Anmeldeversuche (E-Mail-Adresse, IP-Adresse, Zeitpunkt, Ergebnis), ein Änderungsprotokoll (wer hat wann was geändert, mit IP-Adresse und Browser-Kennung) sowie Zähler, mit denen wir zu viele Anfragen abwehren. Greift unser Support auf einen Arbeitsbereich zu (etwa zur Fehlerbehebung), ist das zeitlich begrenzt und wird mit Grund und Dauer protokolliert. Zweck: Schutz Ihres Kontos und der Plattform vor Missbrauch (berechtigtes Interesse).</p>
+
+      <h3>Nutzung der Plattform</h3>
+      <p>Zeitpunkt Ihrer letzten Aktivität, Benachrichtigungen, Fortschritt in Einführungstouren sowie technische Protokolle (aufgerufene Funktion, Ergebnis, Dauer, ohne IP-Adresse). Suchanfragen in der Hilfe ohne Treffer speichern wir ohne Bezug zu Ihrer Person, um die Hilfe zu verbessern.</p>
+
+      <h3>KI-Funktionen</h3>
+      <p>Nutzen Sie den KI-Assistenten oder andere KI-Funktionen, senden wir Ihre Eingabe und die dafür benötigten Daten aus Ihrem Arbeitsbereich an einen KI-Anbieter (siehe Abschnitt 6). Spracheingaben werden dort in Text umgewandelt, Belege per Bilderkennung ausgelesen. Vor dem Versand entfernen wir erkennbare Muster wie E-Mail-Adressen, AHV-, IBAN-, Telefon- und Kartennummern; als besonders schützenswert eingestufte Felder werden maskiert. Gespräche mit dem Assistenten speichern wir, damit Sie sie fortsetzen können, und ein Protokoll der KI-Aufrufe (gekürzte Anfrage, Werkzeuge, Verbrauch) zur Abrechnung und Fehlersuche. Über die Programmierschnittstellen übermittelte Daten verwenden die KI-Anbieter gemäss ihren Geschäftsbedingungen nicht zum Training ihrer Modelle.</p>
+
+      <h3>KI-Verbindungen (MCP)</h3>
+      <p>Schaltet Ihr Unternehmen KI-Verbindungen ein, können Sie SCOPERA aus einem eigenen KI-Client (z. B. Claude, ChatGPT, Microsoft Copilot) nutzen. Was dieser Client in Ihrem Auftrag liest, geht an den Anbieter des Clients; dafür gelten dessen Bedingungen. Wir speichern Ihre Verbindungen (Client, Rechte, Ablauf) und je Aufruf nur Werkzeug, Ergebnis, Dauer und Umfang, also keine Eingaben und keine Antworten.</p>
+
+      <h3>Abrechnung</h3>
+      <p>Tarif, Nutzung, Guthaben und Provisionen sowie die Kunden- und Abonnements-Kennung beim Zahlungsdienstleister Stripe. Ihre Zahlungsdaten geben Sie direkt bei Stripe ein; wir erhalten sie nicht.</p>
+
+      <h3>Support, Ideen und E-Mails</h3>
+      <p>Nachrichten an unseren Support und gemeldete Ideen oder Fehler (Titel und Beschreibung, die wir in unserem Ticketsystem bearbeiten). Für E-Mails der Plattform (Einladungen, Passwort-Rücksetzung, Benachrichtigungen) verwenden wir Ihre E-Mail-Adresse.</p>
+
+      <h3>Mobile App</h3>
+      <p>Die App nutzt die Kamera nur, wenn Sie es wünschen: für Fotos, das AR-Lineal, den Raumscan und das Scannen von QR-Codes; Aufnahmen werden in Ihren Arbeitsbereich hochgeladen. Ihre Anmeldung bleibt auf dem Gerät gespeichert, bis Sie sich abmelden. Die App enthält keine Werbe-, Analyse- oder Absturz-Dienste Dritter und nutzt keine Ortung.</p>
+
+      <h2 id="cookies">5. Cookies und Speicher im Browser</h2>
+
+      <h3>Webseite</h3>
+      <p>Die Webseite selbst setzt keine Cookies. Im lokalen Speicher Ihres Browsers merken wir uns Ihre Wahl im Cookie-Banner und das helle oder dunkle Design, im Sitzungsspeicher die Kennung für die Besuchsdaten (siehe Abschnitt 3). Erst nach Ihrer Zustimmung laden Google Tag Manager und Apollo; diese können eigene Cookies setzen.</p>
+
+      <h3>Plattform</h3>
+      <p>Auf der Plattform setzen wir nur Cookies, die für den Betrieb nötig sind, und keine zur Analyse oder Werbung:</p>
+      <div class="tabelle">
+        <table>
+          <thead><tr><th>Cookie</th><th>Zweck</th><th>Dauer</th></tr></thead>
+          <tbody>
+            <tr><td>access_token, portal_access_token</td><td>Anmeldung</td><td>60 Minuten</td></tr>
+            <tr><td>refresh_token, portal_refresh_token</td><td>angemeldet bleiben</td><td>30 Tage</td></tr>
+            <tr><td>csrf_token, portal_csrf_token</td><td>Schutz vor gefälschten Anfragen</td><td>30 Tage</td></tr>
+            <tr><td>locale</td><td>gewählte Sprache</td><td>1 Jahr</td></tr>
+            <tr><td>scopera_mcp_workspace</td><td>zuletzt gewählter Arbeitsbereich bei der Anmeldung eines KI-Clients</td><td>1 Jahr</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p>Im lokalen Speicher Ihres Browsers merken wir uns Darstellungseinstellungen (z. B. Seitenleiste, Spaltenbreiten, helles oder dunkles Design). Damit die Anwendung schnell lädt, legt der Browser Teile davon zwischen. Auf öffentlichen Formularen und der Spielwiese lädt Cloudflare Turnstile einen Prüfrahmen. Verwenden Sie in Ihrem Arbeitsbereich die Kartenansicht, lädt Ihr Browser Kartenkacheln von OpenStreetMap.</p>
+
+      <h2 id="empfaenger">6. Empfänger und Dienstleister</h2>
+      <p>Wir geben Personendaten nur an Dienstleister weiter, die wir für den Betrieb brauchen und vertraglich auf den Datenschutz verpflichtet haben:</p>
+      <div class="tabelle">
+        <table>
+          <thead><tr><th>Dienstleister</th><th>Zweck</th><th>Standort</th></tr></thead>
+          <tbody>
+            <tr><td>Microsoft Azure</td><td>Hosting aller Plattform-Daten (Datenbank, Dateien, Anwendung, Protokolle) und der Bilder in eingebetteten Bannern</td><td>Schweiz (Region Schweiz Nord)</td></tr>
+            <tr><td>GitHub (GitHub Pages)</td><td>Hosting der Webseite</td><td>USA/weltweit</td></tr>
+            <tr><td>Cloudflare</td><td>Auslieferung der Webseite, Kontaktformular und Besuchsdaten auf eigener Infrastruktur, Namensauflösung, Schutz öffentlicher Formulare vor Bots</td><td>weltweit</td></tr>
+            <tr><td>Google (Tag Manager)</td><td>Einbindung weiterer Werkzeuge, nur mit Einwilligung</td><td>USA</td></tr>
+            <tr><td>Apollo (assets.apollo.io, aplo-evnt.com)</td><td>Firmenerkennung, nur mit Einwilligung</td><td>USA</td></tr>
+            <tr><td>OpenAI</td><td>KI-Funktionen, Spracherkennung, Hilfe-Suche</td><td>USA</td></tr>
+            <tr><td>Anthropic</td><td>KI-Funktionen</td><td>USA</td></tr>
+            <tr><td>Microsoft 365</td><td>Versand von E-Mails, Terminbuchung</td><td>Schweiz/EU</td></tr>
+            <tr><td>Microsoft, Google, Apple</td><td>Anmeldung, wenn Sie diese wählen</td><td>USA/EU</td></tr>
+            <tr><td>Stripe</td><td>Zahlungsabwicklung</td><td>USA/Irland</td></tr>
+            <tr><td>Atlassian (Jira)</td><td>Bearbeitung gemeldeter Ideen und Fehler</td><td>EU/USA</td></tr>
+            <tr><td>Schweizer Handelsregister (Zefix)</td><td>Prüfung der Firmenangaben bei der Registrierung</td><td>Schweiz</td></tr>
+            <tr><td>OpenStreetMap</td><td>Kartenkacheln in der Kartenansicht</td><td>EU</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p>Richtet Ihr Unternehmen weitere Dienste ein, etwa WhatsApp, Microsoft Teams, einen eigenen E-Mail-Server, einen eigenen KI-Anbieter, externe KI-Werkzeuge (MCP-Server) oder Schnittstellen zu anderen Systemen, fliessen Daten auf Veranlassung Ihres Unternehmens auch dorthin. Behörden geben wir Daten nur heraus, wenn wir gesetzlich dazu verpflichtet sind.</p>
+
+      <h2 id="ausland">7. Bekanntgabe ins Ausland</h2>
+      <p>Die Plattform-Daten liegen in der Schweiz. Einige Dienstleister (insbesondere die KI-Anbieter sowie, mit Ihrer Einwilligung, Google und Apollo) bearbeiten Daten in den USA oder weiteren Ländern ohne angemessenes Datenschutzniveau. Wir stellen den Schutz dort durch die vom EDÖB anerkannten Standardvertragsklauseln der EU-Kommission oder, wo der Anbieter zertifiziert ist, durch das Swiss-U.S. bzw. EU-U.S. Data Privacy Framework sicher.</p>
+
+      <h2 id="aufbewahrung">8. Wie lange wir Daten aufbewahren</h2>
+      <div class="tabelle">
+        <table>
+          <thead><tr><th>Daten</th><th>Aufbewahrung</th></tr></thead>
+          <tbody>
+            <tr><td>Benutzerkonto</td><td>solange es besteht; nach dem Entfernen aus einem Arbeitsbereich 30 Tage, danach werden Ihre Angaben gelöscht bzw. anonymisiert</td></tr>
+            <tr><td>Daten eines Arbeitsbereichs nach Vertragsende</td><td>30 Tage nach der Löschung bzw. 90 Tage nach der Archivierung, danach vollständig gelöscht, einschliesslich Dateien</td></tr>
+            <tr><td>Nachweis des Vertragsschlusses, Rechnungs- und Abrechnungsdaten</td><td>10 Jahre (gesetzliche Aufbewahrungspflicht)</td></tr>
+            <tr><td>Kontaktanfragen über das Formular</td><td>30 Tage bis zur Bearbeitung</td></tr>
+            <tr><td>Besuchsdaten der Webseite (Sitzung)</td><td>30 Minuten nach der letzten Aktivität</td></tr>
+            <tr><td>Anmeldeversuche</td><td>90 Tage</td></tr>
+            <tr><td>Änderungsprotokoll (mit IP-Adresse)</td><td>12 Monate</td></tr>
+            <tr><td>Gespräche mit dem KI-Assistenten</td><td>90 Tage nach der letzten Änderung</td></tr>
+            <tr><td>Protokoll der KI-Aufrufe</td><td>12 Monate</td></tr>
+            <tr><td>Protokoll der KI-Verbindungen (MCP)</td><td>12 Monate</td></tr>
+            <tr><td>Sprachaufnahmen für die Transkription</td><td>bis zur Verarbeitung, höchstens 30 Tage</td></tr>
+            <tr><td>Statistik der Spielwiese (IP-Adresse gekürzt)</td><td>12 Monate</td></tr>
+            <tr><td>Technische Protokolle</td><td>30 Tage</td></tr>
+            <tr><td>Datensicherungen</td><td>7 Tage</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p>Ihr Unternehmen kann für die Inhalte seines Arbeitsbereichs eigene Löschfristen festlegen.</p>
+
+      <h2 id="rechte">9. Ihre Rechte</h2>
+      <ul>
+        <li>Auskunft darüber, welche Daten wir über Sie bearbeiten</li>
+        <li>Berichtigung unrichtiger Daten</li>
+        <li>Löschung oder Einschränkung der Bearbeitung</li>
+        <li>Herausgabe oder Übertragung Ihrer Daten in einem gängigen Format</li>
+        <li>Widerspruch gegen Bearbeitungen, die auf unserem berechtigten Interesse beruhen</li>
+        <li>Widerruf einer Einwilligung mit Wirkung für die Zukunft</li>
+      </ul>
+      <p>Schreiben Sie uns dafür an die oben genannte E-Mail-Adresse. Betreffen Ihre Anliegen Inhalte eines Arbeitsbereichs, leiten wir sie an das verantwortliche Unternehmen weiter. Sie können sich zudem beim Eidgenössischen Datenschutz- und Öffentlichkeitsbeauftragten (EDÖB) oder, soweit die DSGVO gilt, bei der Aufsichtsbehörde Ihres Wohnsitzlandes beschweren.</p>
+
+      <h2 id="sicherheit">10. Sicherheit</h2>
+      <p>Verbindungen sind verschlüsselt (TLS). Datenbank und Zwischenspeicher der Plattform sind nicht aus dem Internet erreichbar; Zugangsdaten zu angebundenen Diensten speichern wir verschlüsselt. Zugriffe sind auf das Nötige beschränkt und werden protokolliert. Unternehmen können ihren Arbeitsbereich zusätzlich in einem eigenen, getrennten Datenbank-Schema betreiben.</p>
+
+      <h2 id="automatisierte-entscheidungen">11. Automatisierte Entscheidungen</h2>
+      <p>Wir treffen keine Entscheidungen, die ausschliesslich auf automatisierter Bearbeitung beruhen und Ihnen gegenüber rechtliche Wirkung entfalten. Vorschläge der KI sind Hilfen; Änderungen, die eine KI vorschlägt, bestätigen Sie selbst.</p>
+
+      <h2 id="aenderungen">12. Änderungen</h2>
+      <p>Wir passen diese Erklärung an, wenn sich unsere Bearbeitungen oder die Rechtslage ändern. Es gilt die jeweils hier veröffentlichte Fassung.</p>
     </div>
   </section>
 </BaseLayout>
+<style>
+  .rechtstext { max-width: 820px; }
+  .rechtstext h2 { font-size: clamp(21px, 2.6vw, 26px); margin: 44px 0 12px; scroll-margin-top: 90px; }
+  .rechtstext h3 { margin: 26px 0 8px; scroll-margin-top: 90px; }
+  .rechtstext ul { margin: 0 0 14px; padding-left: 22px; }
+  .rechtstext li { padding: 3px 0; }
+  /* global.css setzt fuer Links im Fliesstext nur die Textfarbe, sie waeren sonst nicht erkennbar. */
+  .rechtstext a { text-decoration: underline; text-underline-offset: 2px; }
+  .rechtstext a:hover { color: var(--accent); }
+
+  .inhalt { border: 1px solid var(--line); border-radius: var(--radius); background: var(--card); padding: 16px 22px; margin: 28px 0 8px; }
+  .inhalt ol { margin: 0; padding-left: 20px; }
+  .inhalt li { padding: 3px 0; font-size: 15px; }
+
+  /*
+    Tabellen: global.css kennt dafuer keine einzige Regel, weil sie bisher nirgends vorkamen.
+    Bewusst hier und nicht global, damit keine andere Seite betroffen ist. Der Rahmen scrollt
+    waagrecht, statt die Seite auf schmalen Geraeten zu sprengen.
+  */
+  .tabelle { overflow-x: auto; margin: 0 0 18px; }
+  .tabelle table { border-collapse: collapse; width: 100%; min-width: 440px; font-size: 14px; }
+  .tabelle th, .tabelle td { border: 1px solid var(--line); padding: 8px 10px; text-align: left; vertical-align: top; }
+  .tabelle th { background: var(--card); font-weight: 700; }
+</style>

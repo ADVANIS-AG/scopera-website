@@ -1,6 +1,6 @@
 // Zentrale Stellschrauben. Vor Launch von Sven zu befuellen.
 export const SITE_NAME = 'SCOPERA';
-export const KONTAKT_EMAIL = 's.brenner@advanis.ch';
+export const KONTAKT_EMAIL = 'sven.brenner@advanis.ch';
 export const TELEFON = '+41 52 355 35 35';
 export const BOOKING_URL = 'https://bookings.cloud.microsoft/bookwithme/user/452f2f9d6d834ae7ae56406735b037b8%40advanis.ch?anonymous&ismsaljsauthenabled=true';
 export const SIGNUP_URL = 'https://app.scopera.ai/signup';
