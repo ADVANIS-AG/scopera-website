@@ -1,0 +1,107 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import CtaBanner from '../../components/CtaBanner.astro';
+import HeroBild from '../../components/HeroBild.astro';
+import IconPartition from '../../components/icons/IconPartition.astro';
+import IconBalance from '../../components/icons/IconBalance.astro';
+import IconMagnify from '../../components/icons/IconMagnify.astro';
+
+const zugriff = [
+  { titel: 'Mandant', Icon: IconPartition, text: 'Jedes Unternehmen arbeitet in einem eigenen, isolierten Bereich. Auf Wunsch in einem eigenen, getrennten Datenbank-Schema.' },
+  { titel: 'Rollen und Abteilungen', Icon: IconBalance, text: 'Berechtigungen hängen an Rollen. Abteilungen lassen sich trennen, bis hin zum eigenen Mandanten auf derselben Datenbasis.' },
+  { titel: 'Nur das Nötige', Icon: IconMagnify, text: 'Zugriffe sind auf das Nötige beschränkt und werden protokolliert. Verbindungen sind verschlüsselt, Datenbank und Zwischenspeicher sind nicht aus dem Internet erreichbar.' },
+];
+const base = import.meta.env.BASE_URL;
+const lang = 'de';
+---
+<BaseLayout title="Governance | SCOPERA." description="Wo Ihre Daten liegen, wer hineinsehen kann, was bei KI-Aufrufen geschützt wird und was nachvollziehbar bleibt. Governance und Datensicherheit bei SCOPERA.">
+  <section style="padding: 88px 0 64px; border-bottom: none;">
+    <div class="wrap">
+      <p class="eyebrow">Governance</p>
+      <h1>Governance gehört ins Fundament<span class="dot">.</span></h1>
+      <p class="lede">Wo Ihre Daten liegen, wer hineinsehen kann und was protokolliert wird. Diese Seite fasst zusammen, wie wir SCOPERA betreiben. Die rechtlichen Details stehen in der Datenschutzerklärung.</p>
+    </div>
+  </section>
+  <HeroBild src={`${base}bilder/hero-governance.jpg`} alt="Blick nach oben in die gegliederte Decke eines Theatersaals" />
+  <section>
+    <div class="wrap">
+      <p class="eyebrow">Datenstandort</p>
+      <h2>Wo Ihre Daten liegen.</h2>
+      <p class="soft" style="max-width: 46em;">Die Plattformdaten liegen standardmässig in der Schweiz: Datenbank, Dateien, Anwendung und Protokolle. Auf Wunsch läuft SCOPERA in Ihrer eigenen Cloud oder bei Ihnen im Haus. Welche Variante für Sie gilt, vereinbaren wir vor dem Start und halten sie schriftlich fest. Das gilt für die Webanwendung, die Adresse Ihres Arbeitsbereichs, das Kundenportal und die Schnittstelle für KI-Clients.</p>
+    </div>
+  </section>
+  <section>
+    <div class="wrap">
+      <p class="eyebrow">Rahmen</p>
+      <h2>Welcher Rahmen gilt.</h2>
+      <p class="soft" style="max-width: 46em;">SCOPERA ist auf revDSG und DSGVO ausgelegt. Die Datenschutzerklärung richtet sich nach dem Schweizer Datenschutzgesetz und, soweit anwendbar, nach der EU-Datenschutz-Grundverordnung. Sie können Auskunft verlangen, Daten berichtigen oder löschen lassen, die Bearbeitung einschränken, Ihre Daten herausverlangen und einer Bearbeitung widersprechen.</p>
+    </div>
+  </section>
+  <section>
+    <div class="wrap">
+      <p class="eyebrow">Zugriff</p>
+      <h2>Wer hineinsehen kann.</h2>
+      <div class="karten-3" style="margin-bottom: 22px;">
+        {zugriff.map(z => (
+          <div class="karte">
+            <z.Icon />
+            <h3>{z.titel}</h3>
+            <p style="font-size:14px;" class="soft">{z.text}</p>
+          </div>
+        ))}
+      </div>
+      <p class="soft" style="max-width: 46em;">Kundschaft und Partner sehen über das Portal nur den Ausschnitt, den Sie freigeben, und belegen keine Sitzplätze. Greift unser Support auf einen Arbeitsbereich zu, etwa zur Fehlerbehebung, ist das zeitlich begrenzt und wird mit Grund und Dauer protokolliert.</p>
+    </div>
+  </section>
+  <section>
+    <div class="wrap">
+      <p class="eyebrow">Dienstleister</p>
+      <h2>Wer Daten sonst noch sieht.</h2>
+      <p class="soft" style="max-width: 46em;">Personendaten geben wir nur an Dienstleister weiter, die wir für den Betrieb brauchen und die wir vertraglich auf den Datenschutz verpflichtet haben. Die vollständige Liste mit Zweck und Standort steht in der Datenschutzerklärung. Behörden geben wir Daten nur heraus, wenn wir gesetzlich dazu verpflichtet sind. Ihre Zahlungsdaten geben Sie direkt bei Stripe ein, wir erhalten sie nicht.</p>
+    </div>
+  </section>
+  <section>
+    <div class="wrap">
+      <p class="eyebrow">KI-Aufrufe</p>
+      <h2>Was bei KI-Aufrufen geschützt wird.</h2>
+      <p class="soft" style="max-width: 46em;">Bevor eine Anfrage an ein KI-Modell geht, entfernen wir erkennbare Muster wie E-Mail-Adressen, AHV-, IBAN-, Telefon- und Kartennummern. Felder, die als besonders schützenswert eingestuft sind, werden maskiert. Vom Aufruf selbst speichern wir die gekürzte Anfrage, die benutzten Werkzeuge und den Verbrauch, für Abrechnung und Fehlersuche.</p>
+      <p class="soft" style="max-width: 46em; margin-top: 14px;">Nutzen Sie SCOPERA aus einem eigenen KI-Client über die MCP-Schnittstelle, speichern wir pro Aufruf nur Werkzeug, Ergebnis, Dauer und Umfang, also keine Eingaben und keine Antworten. Welche Anbieter im Einsatz sind und welche Bedingungen dort gelten, steht in der <a href={`${base}de/privacy/`}>Datenschutzerklärung</a>.</p>
+    </div>
+  </section>
+  <section>
+    <div class="wrap">
+      <p class="eyebrow">Nachvollziehbarkeit</p>
+      <h2>Was nachvollziehbar bleibt.</h2>
+      <p class="soft" style="max-width: 46em;">Jede Änderung ist protokolliert und rücksetzbar. Das Änderungsprotokoll hält fest, wer wann was geändert hat. Anmeldeversuche, technische Protokolle und das Protokoll der KI-Aufrufe haben feste Aufbewahrungsfristen, von 30 Tagen bis zu zwölf Monaten. Welche Daten wie lange bleiben, ist in der Datenschutzerklärung als Tabelle veröffentlicht. Im Dashboard sehen Sie Nutzung, Qualität und Kosten jeder AI-Funktion.</p>
+    </div>
+  </section>
+  <section>
+    <div class="wrap">
+      <p class="eyebrow">Kontrolle</p>
+      <h2>Wer entscheidet.</h2>
+      <p class="soft" style="max-width: 46em;">Nichts ändert sich von selbst. SCOPERA erkennt Verbesserungspotenzial und schlägt es vor. Was umgesetzt wird, entscheiden autorisierte Personen bei Ihnen. In Workflows setzen Sie Freigaben an die Stellen, an denen es darauf ankommt. Entscheidungen, die allein auf automatisierter Bearbeitung beruhen und rechtliche Wirkung haben, treffen wir nicht. Vorschläge der KI sind Hilfen, bestätigen müssen Sie sie selbst.</p>
+    </div>
+  </section>
+  <section>
+    <div class="wrap">
+      <p class="eyebrow">Betrieb</p>
+      <h2>Was im Betrieb läuft.</h2>
+      <p class="soft" style="max-width: 46em;">Betrieb, Sicherheit und Monitoring liegen bei uns. Automatisierte Tests laufen mit, Datensicherungen bewahren wir sieben Tage auf. Die fachliche Weiterentwicklung machen Sie im Fachbereich selbst oder Sie geben sie an uns. Sie entscheiden, und Sie können die Entscheidung jederzeit ändern.</p>
+    </div>
+  </section>
+  <section>
+    <div class="wrap">
+      <p class="eyebrow">Eigentum</p>
+      <h2>Was Ihnen gehört.</h2>
+      <p class="soft" style="max-width: 46em;">Das fachliche Wissen bleibt bei Ihnen. Individuelle Entwicklungen gehen in Ihr Eigentum über. Die Plattform nutzen Sie als Lizenz, monatlich anpassbar, ohne Jahresvertrag. Ihre Daten erhalten Sie jederzeit in einem gängigen Format heraus, und für die Inhalte Ihres Arbeitsbereichs können Sie eigene Löschfristen festlegen. Für diese Inhalte sind Sie die verantwortliche Stelle. Wir bearbeiten sie in Ihrem Auftrag.</p>
+    </div>
+  </section>
+  <section>
+    <div class="wrap">
+      <p class="eyebrow">Offen gesagt</p>
+      <h2>Wo die Grenze liegt.</h2>
+      <p class="soft" style="max-width: 46em;">Wir weisen keine Zertifizierung aus. Was auf dieser Seite steht, ist der Betrieb, wie er heute läuft, und er ist in der <a href={`${base}de/privacy/`}>Datenschutzerklärung</a> im Detail nachlesbar. Eine eigene Risikobeurteilung in Ihrem Unternehmen ersetzt diese Seite nicht. Wenn Ihre Beschaffung Nachweise braucht, die hier nicht stehen, sagen wir Ihnen offen, was wir liefern können und was nicht.</p>
+    </div>
+  </section>
+  <CtaBanner lang={lang} titel="Fragen Ihrer IT?" text="Bringen Sie Ihre Sicherheits- und Datenschutzfragen mit. Wir gehen sie durch und sagen auch, wo wir an eine Grenze kommen." />
+</BaseLayout>

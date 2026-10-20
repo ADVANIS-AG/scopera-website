@@ -1,0 +1,107 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import CtaBanner from '../../components/CtaBanner.astro';
+import HeroBild from '../../components/HeroBild.astro';
+import IconPartition from '../../components/icons/IconPartition.astro';
+import IconBalance from '../../components/icons/IconBalance.astro';
+import IconMagnify from '../../components/icons/IconMagnify.astro';
+
+const zugriff = [
+  { titel: 'Tenant', Icon: IconPartition, text: 'Every company works in its own isolated space. In a dedicated, separate database schema if you prefer.' },
+  { titel: 'Roles and departments', Icon: IconBalance, text: 'Permissions follow roles. Departments can be separated, up to a tenant of their own on the same data.' },
+  { titel: 'Only what is needed', Icon: IconMagnify, text: 'Access is limited to what is necessary and logged. Connections are encrypted, and the database and cache are not reachable from the internet.' },
+];
+const base = import.meta.env.BASE_URL;
+const lang = 'en';
+---
+<BaseLayout title="Governance | SCOPERA." description="Where your data lives, who can look inside, what is protected on AI calls and what stays traceable. Governance and data security at SCOPERA.">
+  <section style="padding: 88px 0 64px; border-bottom: none;">
+    <div class="wrap">
+      <p class="eyebrow">Governance</p>
+      <h1>Governance belongs in the foundation<span class="dot">.</span></h1>
+      <p class="lede">Where your data lives, who can look inside and what gets logged. This page sums up how we run SCOPERA. The legal detail sits in the privacy policy.</p>
+    </div>
+  </section>
+  <HeroBild src={`${base}bilder/hero-governance.jpg`} alt="Looking up into the panelled ceiling of a theatre hall" />
+  <section>
+    <div class="wrap">
+      <p class="eyebrow">Data location</p>
+      <h2>Where your data lives.</h2>
+      <p class="soft" style="max-width: 46em;">Platform data is stored in Switzerland by default: database, files, application and logs. On request, SCOPERA runs on your own cloud or on your premises. We agree which option applies to you before we start and put it in writing. This covers the web application, the address of your workspace, the customer portal and the interface for AI clients.</p>
+    </div>
+  </section>
+  <section>
+    <div class="wrap">
+      <p class="eyebrow">Framework</p>
+      <h2>Which framework applies.</h2>
+      <p class="soft" style="max-width: 46em;">SCOPERA is built for revFADP and GDPR. The privacy policy follows the Swiss Federal Act on Data Protection and, where applicable, the EU General Data Protection Regulation. You can request access, have data corrected or deleted, restrict processing, receive your data and object to processing.</p>
+    </div>
+  </section>
+  <section>
+    <div class="wrap">
+      <p class="eyebrow">Access</p>
+      <h2>Who can look inside.</h2>
+      <div class="karten-3" style="margin-bottom: 22px;">
+        {zugriff.map(z => (
+          <div class="karte">
+            <z.Icon />
+            <h3>{z.titel}</h3>
+            <p style="font-size:14px;" class="soft">{z.text}</p>
+          </div>
+        ))}
+      </div>
+      <p class="soft" style="max-width: 46em;">Through the portal, customers and partners see only the slice you share, and they take up no seats. When our support accesses a workspace, for example to fix a problem, that access is time-limited and logged with reason and duration.</p>
+    </div>
+  </section>
+  <section>
+    <div class="wrap">
+      <p class="eyebrow">Service providers</p>
+      <h2>Who else sees data.</h2>
+      <p class="soft" style="max-width: 46em;">We pass personal data only to service providers we need in order to operate and that we have contractually bound to data protection. The full list with purpose and location is in the privacy policy. We disclose data to authorities only where we are legally obliged to. You enter your payment details directly with Stripe, and we do not receive them.</p>
+    </div>
+  </section>
+  <section>
+    <div class="wrap">
+      <p class="eyebrow">AI calls</p>
+      <h2>What is protected on AI calls.</h2>
+      <p class="soft" style="max-width: 46em;">Before a request goes to an AI model, we remove recognisable patterns such as email addresses, Swiss social security, IBAN, phone and card numbers. Fields classified as especially sensitive are masked. Of the call itself we store the shortened request, the tools used and the usage, for billing and troubleshooting.</p>
+      <p class="soft" style="max-width: 46em; margin-top: 14px;">If you use SCOPERA from your own AI client over the MCP interface, we store only the tool, outcome, duration and size per call, so no inputs and no answers. Which providers are in use and what terms apply there is set out in the <a href={`${base}en/privacy/`}>privacy policy</a>.</p>
+    </div>
+  </section>
+  <section>
+    <div class="wrap">
+      <p class="eyebrow">Traceability</p>
+      <h2>What stays traceable.</h2>
+      <p class="soft" style="max-width: 46em;">Every change is logged and reversible. The change log records who changed what and when. Sign-in attempts, technical logs and the log of AI calls have fixed retention periods, from 30 days up to twelve months. Which data stays and for how long is published as a table in the privacy policy. The dashboard shows usage, quality and cost of every AI function.</p>
+    </div>
+  </section>
+  <section>
+    <div class="wrap">
+      <p class="eyebrow">Control</p>
+      <h2>Who decides.</h2>
+      <p class="soft" style="max-width: 46em;">Nothing changes on its own. SCOPERA identifies potential improvements and suggests them. Authorized people on your side decide what gets implemented. In workflows you place approvals exactly where they matter. We make no decisions based solely on automated processing that have legal effect. Suggestions from the AI are aids, and you confirm them yourself.</p>
+    </div>
+  </section>
+  <section>
+    <div class="wrap">
+      <p class="eyebrow">Operations</p>
+      <h2>What runs in operations.</h2>
+      <p class="soft" style="max-width: 46em;">Operations, security and monitoring are on us. Automated tests run alongside, and backups are kept for seven days. You handle further development in your own department or you hand it to us. You decide, and you can change that decision at any time.</p>
+    </div>
+  </section>
+  <section>
+    <div class="wrap">
+      <p class="eyebrow">Ownership</p>
+      <h2>What belongs to you.</h2>
+      <p class="soft" style="max-width: 46em;">Your technical expertise stays with you. Custom development becomes your property. You use the platform under a license, adjustable every month, with no annual contract. You can receive your data in a common format at any time, and you can set your own retention periods for the content of your workspace. For that content you are the controller. We process it on your behalf.</p>
+    </div>
+  </section>
+  <section>
+    <div class="wrap">
+      <p class="eyebrow">Plainly put</p>
+      <h2>Where the limit is.</h2>
+      <p class="soft" style="max-width: 46em;">We claim no certification. What this page describes is how we operate today, and it is set out in detail in the <a href={`${base}en/privacy/`}>privacy policy</a>. This page does not replace a risk assessment of your own. If your procurement needs evidence that is not here, we will tell you plainly what we can provide and what we cannot.</p>
+    </div>
+  </section>
+  <CtaBanner lang={lang} titel="Questions from your IT?" text="Bring your security and data protection questions along. We go through them and we also say where we reach a limit." />
+</BaseLayout>

@@ -16,6 +16,7 @@ const abschnitte: [string, string][] = [
   ['automatisierte-entscheidungen', 'Automatisierte Entscheidungen'],
   ['aenderungen', 'Änderungen'],
 ];
+const base = import.meta.env.BASE_URL;
 ---
 <BaseLayout title="Datenschutz | SCOPERA." description="Datenschutzerklärung von SCOPERA, einer Marke der ADVANIS AG: Webseite, Plattform, KI-Funktionen, Empfänger und Aufbewahrung.">
   <section style="padding: 88px 0;">
@@ -23,6 +24,8 @@ const abschnitte: [string, string][] = [
       <h1 style="font-size: clamp(30px, 5vw, 44px);">Datenschutzerklärung</h1>
       <p class="soft">Stand: Oktober 2026</p>
       <p>Diese Erklärung beschreibt, wie die ADVANIS AG Personendaten bearbeitet, wenn Sie unsere Webseite www.scopera.ai besuchen und wenn Sie die Plattform SCOPERA nutzen: die Webanwendung unter app.scopera.ai und die Adressen Ihres Arbeitsbereichs (z. B. ihre-firma.scopera.ai), das Kundenportal (portal.scopera.ai), die öffentliche Spielwiese (playground.scopera.ai), die Schnittstelle für KI-Clients (mcp.scopera.ai) und die mobile App. SCOPERA ist eine Marke der ADVANIS AG. Die Erklärung richtet sich nach dem Schweizer Datenschutzgesetz (DSG) und, soweit anwendbar, nach der EU-Datenschutz-Grundverordnung (DSGVO).</p>
+
+      <p>Eine verständliche Übersicht dazu, wo Ihre Daten liegen, wer hineinsehen kann und was nachvollziehbar bleibt, finden Sie unter <a href={`${base}de/governance/`}>Governance</a>.</p>
 
       <nav class="inhalt" aria-label="Inhaltsverzeichnis">
         <ol>

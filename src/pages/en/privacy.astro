@@ -16,6 +16,7 @@ const abschnitte: [string, string][] = [
   ['automated-decisions', 'Automated decisions'],
   ['changes', 'Changes'],
 ];
+const base = import.meta.env.BASE_URL;
 ---
 <BaseLayout title="Privacy | SCOPERA." description="Privacy policy of SCOPERA, a brand of ADVANIS AG: website, platform, AI features, recipients and retention.">
   <section style="padding: 88px 0;">
@@ -23,6 +24,8 @@ const abschnitte: [string, string][] = [
       <h1 style="font-size: clamp(30px, 5vw, 44px);">Privacy Policy</h1>
       <p class="soft">Last updated: October 2026</p>
       <p>This policy describes how ADVANIS AG processes personal data when you visit our website www.scopera.ai and when you use the SCOPERA platform: the web application at app.scopera.ai and your workspace addresses (e.g. your-company.scopera.ai), the customer portal (portal.scopera.ai), the public playground (playground.scopera.ai), the interface for AI clients (mcp.scopera.ai) and the mobile app. SCOPERA is a brand of ADVANIS AG. This policy follows the Swiss Federal Act on Data Protection (FADP) and, where applicable, the EU General Data Protection Regulation (GDPR).</p>
+
+      <p>For a plain-language overview of where your data lives, who can look inside and what stays traceable, see <a href={`${base}en/governance/`}>Governance</a>.</p>
 
       <nav class="inhalt" aria-label="Table of contents">
         <ol>

@@ -145,6 +145,7 @@ const nav: [string, UiKey][] = [
     <div class="wrap">
       <nav>
         {nav.map(([href, key]) => <a href={`${base}${lang}/${href}/`}>{t(key)}</a>)}
+        <a href={`${base}${lang}/governance/`}>{t('nav.governance')}</a>
         <a href={`${base}${lang}/contact/`}>{t('nav.contact')}</a>
         <a href={`${base}${lang}/imprint/`}>{t('nav.imprint')}</a>
         <a href={`${base}${lang}/privacy/`}>{t('nav.privacy')}</a>
