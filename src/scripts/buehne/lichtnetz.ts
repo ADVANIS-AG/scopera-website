@@ -7,6 +7,7 @@
 //   fundament  Plattform-Kern mit einem Ring aus Funktionen (/product)
 //   kaskade    Opernhaus im Querschnitt: Bühne (ADVANIS), Rang 1 (Provider), Rang 2 (Mandanten) (/partner)
 //   mandanten  ein Rang mit vier Logen (/product, Mandantenfähigkeit)
+//   editionen  vom Einstieg (Trial) zu wachsenden Ensembles: Solo, Duett, Trio, Quartett (/editions)
 import {
   AdditiveBlending,
   BufferAttribute,
@@ -28,12 +29,12 @@ import {
 
 gsap.registerPlugin(ScrollTrigger);
 
-export type Variante = 'fundament' | 'kaskade' | 'mandanten';
+export type Variante = 'fundament' | 'kaskade' | 'mandanten' | 'editionen';
 
 interface Knoten {
   pos: Vector3;
   form: 0 | 1;      // 0 Kreis (Kern), 1 Loge (abgerundetes Quadrat)
-  groesse: number;  // Pixel bei 450px Flächenhöhe
+  groesse: number;  // Pixel bei 450px Flächenhöhe (0: unsichtbarer Anker für eine Beschriftung)
   an: number;       // Fortschritt, bei dem die Loge angeht
   label?: number;   // Index der HTML-Beschriftung
 }
@@ -45,6 +46,7 @@ interface Kante {
   bogen: number;    // Anhebung der Kontrollpunkte (gebogene Verbindung)
   staerke: number;  // Deckkraft der Linie
   fluss: number;    // Anzahl Lichtpartikel auf der Kante
+  kontrolle?: Vector3; // fester Kontrollpunkt statt der Anhebung über bogen
 }
 interface Graph {
   knoten: Knoten[];
@@ -74,6 +76,47 @@ function rangBogen(radius: number, y: number, zMitte: number, von: number, bis: 
 }
 
 function baueGraph(variante: Variante, labels: number, schmal: boolean): Graph {
+  if (variante === 'editionen') {
+    // Ein Pfad verzweigt sich; jeder Ast endet in einem Ensemble mit 1 bis 4 Logen.
+    const sx = schmal ? 0.75 : 1;
+    const sy = schmal ? 1.15 : 1;
+    const trial = new Vector3(-4.2 * sx, 0, 0);
+    const knoten: Knoten[] = [{ pos: trial, form: 0, groesse: 60, an: 0, label: 0 }];
+    const kanten: Kante[] = [];
+    const aeste = [
+      { y: 1.5, z: -0.5 }, { y: 0.5, z: 0.3 }, { y: -0.5, z: 0.3 }, { y: -1.5, z: -0.5 },
+    ].map((a) => ({ ...a, y: a.y * sy }));
+    const abstand = 0.5 * sx;
+    aeste.forEach((ast, i) => {
+      const anzahl = i + 1;
+      const eingang = new Vector3(1.6 * sx, ast.y, ast.z);
+      const start = 0.08 + i * 0.09;
+      const dauer = 0.28;
+      kanten.push({
+        von: trial, nach: eingang, start, dauer, bogen: 1, staerke: 0.75, fluss: schmal ? 6 : 9,
+        kontrolle: new Vector3(-0.8 * sx, 0, ast.z * 0.5),
+      });
+      let vorher = eingang;
+      for (let j = 0; j < anzahl; j++) {
+        const p = new Vector3(eingang.x + abstand * (j + 0.6), ast.y, ast.z);
+        const an = start + dauer + j * 0.05;
+        knoten.push({ pos: p, form: 1, groesse: 34, an: an + 0.02 });
+        kanten.push({ von: vorher, nach: p, start: an - 0.04, dauer: 0.05, bogen: 0, staerke: 0.5, fluss: 0 });
+        vorher = p;
+      }
+      // Anker für die Beschriftung unter der Mitte des Ensembles
+      const mitte = new Vector3(eingang.x + abstand * (anzahl / 2 + 0.1), ast.y, ast.z);
+      knoten.push({ pos: mitte, form: 1, groesse: 0, an: start + dauer + anzahl * 0.05, label: i + 1 });
+    });
+    return {
+      knoten, kanten, drehen: false, neigung: 0,
+      kameraVon: new Vector3(-2.6, -0.6, schmal ? 11.5 : 10.5),
+      // Die Mitte des Netzes liegt etwas links vom Ursprung
+      kameraNach: new Vector3(-0.3 * sx, 0.5, schmal ? 9.8 : 8.6),
+      blick: new Vector3(-0.3 * sx, -0.1, 0),
+    };
+  }
+
   if (variante === 'fundament') {
     const n = Math.max(labels, 6);
     const knoten: Knoten[] = [{ pos: new Vector3(0, 0, 0), form: 0, groesse: 92, an: 0 }];
@@ -273,7 +316,7 @@ export function starteLichtnetz(
   const lPos: number[] = [];
   const lT: number[] = [];
   const lKante: number[] = [];
-  const kontroll = (k: Kante) => k.von.clone().lerp(k.nach, 0.5).add(new Vector3(0, k.bogen, 0));
+  const kontroll = (k: Kante) => k.kontrolle?.clone() ?? k.von.clone().lerp(k.nach, 0.5).add(new Vector3(0, k.bogen, 0));
   const punktAuf = (k: Kante, t: number) => {
     const c = kontroll(k);
     const u = 1 - t;

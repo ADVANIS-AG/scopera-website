@@ -5,6 +5,7 @@ import PlaygroundBanner from '../../components/PlaygroundBanner.astro';
 import SignupBanner from '../../components/SignupBanner.astro';
 import HeroBild from '../../components/HeroBild.astro';
 import PfadGrafik from '../../components/PfadGrafik.astro';
+import LichtNetz from '../../components/LichtNetz.astro';
 import StufenKompakt from '../../components/StufenKompakt.astro';
 const base = import.meta.env.BASE_URL;
 const lang = 'de';
@@ -45,7 +46,7 @@ try {
   <HeroBild src={`${base}bilder/hero-pakete.jpg`} alt="Mehrere Ränge mit roten Logen in einem klassischen Opernhaus" />
   <section>
     <div class="wrap">
-      <div style="margin: 0 0 26px;"><PfadGrafik /></div>
+      <div style="margin: 0 0 26px;"><LichtNetz variante="editionen" labels={['Trial', 'Solo', 'Duett', 'Trio', 'Quartett']}><PfadGrafik /></LichtNetz></div>
       <p class="eyebrow">Im Detail</p>
       <h2 style="font-size:clamp(22px,3vw,30px);">Editionen im Vergleich.</h2>
       <div class="editionen-embed">
