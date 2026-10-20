@@ -31,6 +31,16 @@ npm run check      # Typ- und Template-Pruefung
 - `docs/superpowers/` — Design-Spec und Implementierungsplan
 - `worker/` — eigenstaendiges Cloudflare-Worker-Projekt (Lead-Gateway: Tracking-Beacon, Kontaktformular, CRM-Anbindung), eigenes `package.json`/Deploy, siehe `worker/README.md`
 
+## Bewegung und 3D
+
+- **Sitewide** ([src/scripts/motion.ts](src/scripts/motion.ts)): Lenis glättet das Scrollen, Überschriften und Karten blenden beim Erscheinen ein, die KlangLinie zeichnet sich. Bei `prefers-reduced-motion` passiert nichts davon.
+- **Startseite** ([BuehneHero.astro](src/components/BuehneHero.astro), [StufenAkte.astro](src/components/StufenAkte.astro), Szene in `src/scripts/buehne/`): Der Vorhang öffnet sich auf eine Partitur. Die Notenlinien stehen für die bewährten Prozesse, die Lichtnoten für AI. Danach fährt die Kamera pro Stufe zur passenden Notengruppe.
+- **/product und /partner** ([LichtNetz.astro](src/components/LichtNetz.astro)): Plattform-Grafiken als Lichtnetz. Die bisherigen SVG-Grafiken stecken im Slot und bleiben der Fallback.
+- **Fallback-Regeln:** Ohne WebGL, bei `prefers-reduced-motion` oder `navigator.deviceMemory < 4` bleiben statische Grafiken stehen (SVG-Poster, StufenBand, SVG-Grafiken). Text liegt immer als HTML vor, nie im Canvas.
+- **Farben** kommen zur Laufzeit aus den CSS-Tokens, die Szenen folgen dem Theme-Umschalter. Text über bewegtem Hintergrund steht immer auf einem Verlauf aus `--ground`. Für kleine goldene Schrift `--accent-text` verwenden (erfüllt WCAG AA in beiden Themes).
+- **Budget:** GSAP und Lenis sitewide rund 50 kB gzip. three.js und die Szenen (rund 135 kB gzip) laden erst nach dem ersten Rendern bzw. wenn die Grafik in die Nähe des Viewports kommt. Gerendert wird nur, solange die Fläche sichtbar ist.
+- Alles ist über npm gebündelt, darum braucht die CSP keine zusätzlichen Quellen.
+
 ## Bildnachweise
 
 Alle Fotos via Unsplash (Unsplash-Lizenz: kommerzielle Nutzung erlaubt, keine Attribution noetig — Nennung als Geste):
@@ -47,6 +57,7 @@ Alle Fotos via Unsplash (Unsplash-Lizenz: kommerzielle Nutzung erlaubt, keine At
 - `leistungen-workshop.jpg` — Larisa Birta (unsplash.com/photos/slbOcNlWNHA)
 - `leistungen-vibe.jpg` — Jens Thekkeveettil (unsplash.com/photos/dBWvUqBoOU8)
 - `hero-partner.jpg` (Seite `/partner`) — Aurora Song (unsplash.com/photos/xY8k70slet0)
+- `hero-governance.jpg` (Seite `/governance`) — Miguel Alcântara (unsplash.com/photos/v1w415C_HWs)
 - `ueber-uns-chor.jpg` (Seite `/about`, Gesangsszene) — Green Liu (unsplash.com/photos/ZaZcvU_WuF8)
 - `photo-1633991810204-8f75dafdd324.avif` (Insight "Wo ist das Gerät?") — Sidney Pearce (unsplash.com/photos/4Qv1wRxondk)
 - `kundendaten-dashboard.jpg` (Insight "Bereit vor jedem Kundenbesuch") — Bluestonex (unsplash.com/photos/Es33oEXaRrE)

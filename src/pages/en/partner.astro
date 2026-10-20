@@ -4,6 +4,7 @@ import CtaBanner from '../../components/CtaBanner.astro';
 import SignupBanner from '../../components/SignupBanner.astro';
 import HeroBild from '../../components/HeroBild.astro';
 import KaskadeGrafik from '../../components/KaskadeGrafik.astro';
+import LichtNetz from '../../components/LichtNetz.astro';
 import IconLayer from '../../components/icons/IconLayer.astro';
 import IconPartition from '../../components/icons/IconPartition.astro';
 import IconTicket from '../../components/icons/IconTicket.astro';
@@ -29,7 +30,7 @@ const lang = 'en';
     <div class="wrap">
       <p class="eyebrow">The model</p>
       <h2>One platform, used many times over.</h2>
-      <div style="margin: 8px 0 26px;"><KaskadeGrafik /></div>
+      <div style="margin: 8px 0 26px;"><LichtNetz variante="kaskade" labels={['Platform (ADVANIS)', 'Your brand (provider)', 'Your customers (tenants)']}><KaskadeGrafik /></LichtNetz></div>
       <p class="soft" style="max-width: 46em;">ADVANIS operates SCOPERA. You use the platform as a provider for your own customers: with your own brand, your own domain and your own pricing model. Your tenants see you, not us.</p>
     </div>
   </section>

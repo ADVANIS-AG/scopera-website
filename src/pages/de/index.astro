@@ -2,10 +2,10 @@
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import PersonaGrid from '../../components/PersonaGrid.astro';
 import CtaBanner from '../../components/CtaBanner.astro';
-import HeroBild from '../../components/HeroBild.astro';
+import BuehneHero from '../../components/BuehneHero.astro';
 import KlangLinie from '../../components/KlangLinie.astro';
 import VertrauensLeiste from '../../components/VertrauensLeiste.astro';
-import StufenBand from '../../components/StufenBand.astro';
+import StufenAkte from '../../components/StufenAkte.astro';
 import Wegweiser from '../../components/Wegweiser.astro';
 import IconFermate from '../../components/icons/IconFermate.astro';
 import IconAccelerando from '../../components/icons/IconAccelerando.astro';
@@ -14,31 +14,24 @@ const base = import.meta.env.BASE_URL;
 const lang = 'de';
 ---
 <BaseLayout title="SCOPERA. | AI-Lösungen, die einfach laufen" description="AI-Lösungen für Unternehmen in der Schweiz und DACH: von der Strategie bis zum laufenden Betrieb. Erste Resultate in Stunden, produktiv in Wochen, nicht Monaten. SCOPERA — powered by ADVANIS.">
-  <section style="padding: 96px 0 72px; border-bottom: none;">
-    <div class="wrap">
-      <p class="eyebrow">Die Plattform für individuelle Fachprozesse</p>
-      <h1>Software, die versteht, wie Sie wirklich arbeiten<span class="dot">.</span></h1>
-      <p class="lede">Resultate innert Stunden, produktiv innert Wochen, nicht Monaten. Aus Ihren Fachprozessen werden AI-Anwendungen auf einer abgesicherten Plattform. Beratung buchen Sie dazu, oder unabhängig davon.</p>
-      <p style="display:flex; gap:12px; flex-wrap:wrap; margin-top:26px;">
-        <a class="btn" href={`${base}de/contact/`}>Termin buchen</a>
-        <a class="btn-ghost" href={`${base}de/product/`}>Was auf der Plattform schon läuft</a>
-      </p>
-      <div style="margin-top:36px; padding-top:26px; border-top:1px solid var(--line);">
-        <VertrauensLeiste lang={lang} />
-      </div>
+  <BuehneHero lang={lang}>
+    <p class="eyebrow">Die Plattform für individuelle Fachprozesse</p>
+    <h1>Software, die versteht, wie Sie wirklich arbeiten<span class="dot">.</span></h1>
+    <p class="lede">Resultate innert Stunden, produktiv innert Wochen, nicht Monaten. Aus Ihren Fachprozessen werden AI-Anwendungen auf einer abgesicherten Plattform. Beratung buchen Sie dazu, oder unabhängig davon.</p>
+    <p style="display:flex; gap:12px; flex-wrap:wrap; margin-top:26px;">
+      <a class="btn" href={`${base}de/contact/`}>Termin buchen</a>
+      <a class="btn-ghost" href={`${base}de/product/`}>Was auf der Plattform schon läuft</a>
+    </p>
+    <div style="margin-top:36px; padding-top:26px; border-top:1px solid var(--line);">
+      <VertrauensLeiste lang={lang} />
     </div>
-  </section>
 
-  <HeroBild src={`${base}bilder/hero-start.jpg`} alt="Vergoldete Kuppeldecke eines historischen Opernhauses mit Kronleuchter und Rängen" />
-
-  <section>
-    <div class="wrap">
+    <StufenAkte slot="akte" lang={lang}>
       <p class="eyebrow">In fünf Stufen</p>
       <h2>So kommen Sie zur Lösung.</h2>
       <p class="soft" style="max-width:46em;">Je nach Reifegrad Ihres Vorhabens steigen Sie bei jeder Stufe ein — nicht zwingend bei Stufe 1.</p>
-      <StufenBand lang={lang} />
-    </div>
-  </section>
+    </StufenAkte>
+  </BuehneHero>
 
   <section>
     <div class="wrap">

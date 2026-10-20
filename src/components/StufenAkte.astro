@@ -1,0 +1,64 @@
+---
+// Die fünf Stufen als Akte auf der Bühne (nur Startseite, innerhalb von BuehneHero).
+// Läuft die Szene, scrollt pro Stufe eine Karte durch, und die Kamera fährt zur passenden
+// Notengruppe (src/scripts/buehne/szene.ts). Ohne Szene erscheint das gewohnte StufenBand.
+import { stufen } from '../data/stufen';
+import StufenKarte from './StufenKarte.astro';
+import StufenBand from './StufenBand.astro';
+import { defaultLang, type Lang } from '../i18n/ui';
+interface Props { lang?: Lang; }
+const { lang = defaultLang } = Astro.props;
+const gruppeLabel = lang === 'de' ? 'Werden meist im selben Zug gebucht' : 'Usually booked together';
+---
+<section class="stufen-akte">
+  <div class="wrap">
+    <div class="akte-kopf"><slot /></div>
+    <div class="akte-statisch"><StufenBand lang={lang} /></div>
+  </div>
+  <ol class="akte-liste">
+    {stufen.map((s, i) => (
+      <li class:list={['akt', i % 2 ? 'akt-rechts' : 'akt-links']}>
+        <div class="wrap">
+          <div class="akt-inhalt">
+            {i < 2 && <p class="stufen-gruppe-label">{gruppeLabel}</p>}
+            <StufenKarte s={s} lang={lang} />
+          </div>
+        </div>
+      </li>
+    ))}
+  </ol>
+</section>
+
+<style>
+  .stufen-akte { position: relative; z-index: 1; border-bottom: none; }
+  /* Lesbarkeit über der Szene: weicher Verlauf aus --ground statt einer Box */
+  .akte-kopf { position: relative; z-index: 0; padding: 32px 0 22px; }
+  .akte-kopf::before {
+    content: ""; position: absolute; z-index: -1; top: 0; bottom: 0; left: -50vw; right: 0; pointer-events: none;
+    background: linear-gradient(90deg, color-mix(in srgb, var(--ground) 92%, transparent) 75%, transparent);
+    -webkit-mask-image: linear-gradient(to bottom, transparent, #000 32px, #000 calc(100% - 22px), transparent);
+    mask-image: linear-gradient(to bottom, transparent, #000 32px, #000 calc(100% - 22px), transparent);
+  }
+  .akte-liste { display: none; list-style: none; margin: 0; padding: 0; }
+  :global(.buehne[data-modus="lebt"]) .akte-statisch { display: none; }
+  :global(.buehne[data-modus="lebt"]) .akte-liste { display: block; }
+
+  .akt { min-height: 100vh; min-height: 100svh; display: flex; align-items: flex-end; padding-bottom: 9vh; }
+  .akt .wrap { width: 100%; display: flex; }
+  .akt-rechts .wrap { justify-content: flex-end; }
+  .akt-inhalt {
+    width: min(100%, 400px); display: flex; flex-direction: column; gap: 8px;
+    opacity: 0; transform: translateY(18px); transition: opacity .6s ease, transform .6s ease;
+  }
+  /* Tastatur: eine Karte mit Fokus ist immer sichtbar, auch ausserhalb ihres Akts */
+  .akt:global(.aktiv) .akt-inhalt, .akt:focus-within .akt-inhalt { opacity: 1; transform: none; }
+  .akt-inhalt .stufen-gruppe-label {
+    align-self: flex-start; padding: 4px 10px; border-radius: var(--radius);
+    background: color-mix(in srgb, var(--ground) 90%, transparent);
+  }
+
+  @media (max-width: 760px) {
+    .akte-kopf::before { right: -50vw; background: color-mix(in srgb, var(--ground) 92%, transparent); }
+    .akt { min-height: 85vh; min-height: 85svh; padding-bottom: 6vh; }
+  }
+</style>

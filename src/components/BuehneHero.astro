@@ -1,0 +1,146 @@
+---
+// Startseiten-Hero als Opernbühne: der Hero-Text liegt vor dem Vorhang, beim Scrollen
+// öffnet sich der Vorhang auf die Partitur (siehe src/scripts/buehne/). Ohne WebGL, bei
+// prefers-reduced-motion oder wenig Gerätespeicher bleibt das SVG-Poster stehen.
+import { defaultLang, type Lang } from '../i18n/ui';
+interface Props { lang?: Lang; }
+const { lang = defaultLang } = Astro.props;
+
+const zitat = {
+  de: 'Ihre Prozesse geben den Takt vor. AI spielt die Stimmen.',
+  en: 'Your processes set the tempo. AI plays the parts.',
+};
+
+// Poster: Endbild der Szene als SVG, Farben aus den Tokens
+const mitte = 434;
+const abstand = 38;
+const linien = [-2, -1, 0, 1, 2].map((i) => mitte + i * abstand);
+const noten = [
+  [190, 2], [330, -1], [460, 1], [600, -3], [740, 0], [880, 3], [1020, -2], [1160, 1], [1300, -1], [1430, 2],
+].map(([x, schritt]) => ({ x, y: mitte - (schritt * abstand) / 2, oben: schritt > 0 ? false : true }));
+---
+<div class="buehne" data-reveal-aus>
+  <div class="buehne-flaeche" aria-hidden="true">
+    <svg class="buehne-poster" viewBox="0 0 1600 900" preserveAspectRatio="xMidYMid slice">
+      <defs>
+        <radialGradient id="buehne-spot" cx="50%" cy="42%" r="55%">
+          <stop offset="0" style="stop-color: var(--band)" />
+          <stop offset="1" style="stop-color: var(--ground)" />
+        </radialGradient>
+        <linearGradient id="buehne-samt-l" x1="0" x2="1">
+          <stop offset="0" style="stop-color: var(--ground)" />
+          <stop offset="1" style="stop-color: var(--band)" />
+        </linearGradient>
+        <linearGradient id="buehne-samt-r" x1="1" x2="0">
+          <stop offset="0" style="stop-color: var(--ground)" />
+          <stop offset="1" style="stop-color: var(--band)" />
+        </linearGradient>
+      </defs>
+      <rect width="1600" height="900" fill="url(#buehne-spot)" />
+    </svg>
+    <canvas class="buehne-canvas"></canvas>
+  </div>
+  <section class="buehne-text">
+    <div class="wrap">
+      <slot />
+    </div>
+  </section>
+  <div class="buehne-akt">
+    <svg class="buehne-poster poster-partitur" viewBox="0 0 1600 900" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
+      {linien.map((y) => (
+        <path d={`M -20 ${y} C 420 ${y - 12}, 1180 ${y + 12}, 1620 ${y}`} style="stroke: var(--accent)" stroke-width="2" fill="none" opacity="0.75" />
+      ))}
+      {noten.map((n) => (
+        <g style="fill: var(--accent)">
+          <ellipse cx={n.x} cy={n.y} rx="25" ry="18" transform={`rotate(-20 ${n.x} ${n.y})`} />
+          <rect x={n.oben ? n.x + 21 : n.x - 24} y={n.oben ? n.y - 128 : n.y} width="3" height="128" />
+        </g>
+      ))}
+      <path d="M0 0 H190 Q140 470 70 900 H0 Z" fill="url(#buehne-samt-l)" />
+      <path d="M1600 0 H1410 Q1460 470 1530 900 H1600 Z" fill="url(#buehne-samt-r)" />
+    </svg>
+    <div class="wrap">
+      <p class="buehne-zitat">{zitat[lang]}</p>
+    </div>
+  </div>
+  <slot name="akte" />
+</div>
+
+<script>
+  const wurzel = document.querySelector<HTMLElement>('.buehne');
+  const flaeche = wurzel?.querySelector<HTMLElement>('.buehne-flaeche');
+  const canvas = wurzel?.querySelector<HTMLCanvasElement>('.buehne-canvas');
+  const reduziert = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const speicher = (navigator as Navigator & { deviceMemory?: number }).deviceMemory;
+  const schwach = speicher !== undefined && speicher < 4;
+
+  if (wurzel && flaeche && canvas && !reduziert && !schwach) {
+    wurzel.dataset.modus = 'lebt';
+    const los = () => {
+      import('../scripts/buehne/szene')
+        .then(({ starteBuehne }) => starteBuehne(wurzel, flaeche, canvas))
+        .catch(() => {
+          // kein WebGL oder Ladefehler: zurück zum Poster
+          delete wurzel.dataset.modus;
+        });
+    };
+    if ('requestIdleCallback' in window) requestIdleCallback(los, { timeout: 1500 });
+    else setTimeout(los, 200);
+  }
+</script>
+
+<style>
+  .buehne { position: relative; border-bottom: 1px solid var(--line); }
+  .buehne-flaeche {
+    position: sticky; top: 0; z-index: 0; overflow: hidden;
+    height: 100vh; height: 100svh;
+    margin-bottom: -100vh; margin-bottom: -100svh;
+  }
+  .buehne-poster, .buehne-canvas { position: absolute; inset: 0; width: 100%; height: 100%; display: block; }
+  .buehne-canvas { opacity: 0; transition: opacity .9s ease; }
+  .buehne-canvas:global(.bereit) { opacity: 1; }
+  /* Solange die Szene lädt, zeigt das Poster nur das Bühnenlicht. Die Szene beginnt mit
+     geschlossenem Vorhang, die offene Partitur des Posters würde sonst kurz aufblitzen. */
+  .buehne[data-modus="lebt"] .poster-partitur { display: none; }
+  .poster-partitur { position: absolute; inset: 0; width: 100%; height: 100%; display: block; }
+
+  /* Der Text liegt nie direkt auf der bewegten Szene: ein Verlauf aus --ground hinter der
+     Textspalte hält den Kontrast in beiden Themes. Die Spalte endet rund 360px rechts der
+     Seitenmitte (h1 bei voller Grösse), danach läuft der Verlauf aus. */
+  .buehne-text { position: relative; z-index: 1; padding: 96px 0 72px; border-bottom: none; }
+  .buehne-text::before {
+    content: ""; position: absolute; inset: 0 0 -160px 0; z-index: -1; pointer-events: none;
+    background: linear-gradient(90deg,
+      color-mix(in srgb, var(--ground) 94%, transparent) calc(50% + 360px),
+      transparent calc(50% + 720px));
+    /* unten weich auslaufen, damit keine harte Kante über der Szene steht */
+    -webkit-mask-image: linear-gradient(to bottom, #000 calc(100% - 160px), transparent);
+    mask-image: linear-gradient(to bottom, #000 calc(100% - 160px), transparent);
+  }
+  .buehne-akt { position: relative; z-index: 1; }
+  .buehne-akt .wrap { position: relative; }
+  /* Statisch: die Partitur des Posters füllt den Zitat-Bereich, das Zitat steht darunter */
+  .buehne:not([data-modus="lebt"]) .buehne-akt {
+    display: flex; align-items: flex-end; padding-bottom: 6vh;
+    min-height: 100vh; min-height: 100svh;
+  }
+  .buehne:not([data-modus="lebt"]) .buehne-akt .wrap { width: 100%; }
+  .buehne[data-modus="lebt"] .buehne-akt { height: 150vh; padding: 0; }
+  /* Sticky braucht einen hohen Elternblock, sonst klebt das Zitat nicht */
+  .buehne[data-modus="lebt"] .buehne-akt .wrap { height: 100%; }
+  .buehne-zitat {
+    font-family: Georgia, "Iowan Old Style", "Times New Roman", ui-serif, serif;
+    font-size: clamp(22px, 3.4vw, 34px); line-height: 1.25; text-align: center; text-wrap: balance;
+    max-width: 24em; margin: 0 auto; padding: 28px 48px;
+    background: radial-gradient(closest-side, color-mix(in srgb, var(--ground) 90%, transparent) 70%, transparent);
+  }
+  .buehne[data-modus="lebt"] .buehne-zitat { opacity: 0; position: sticky; top: calc(100vh - 190px); top: calc(100svh - 190px); }
+
+  @media (max-width: 760px) {
+    .buehne-text { padding: 64px 0 48px; }
+    .buehne-text::before { background: color-mix(in srgb, var(--ground) 90%, transparent); }
+    .buehne-zitat { padding: 24px 20px; }
+    .buehne[data-modus="lebt"] .buehne-akt { height: 120vh; }
+    .buehne[data-modus="lebt"] .buehne-zitat { top: calc(100svh - 170px); }
+  }
+</style>

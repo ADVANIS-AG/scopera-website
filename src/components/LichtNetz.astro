@@ -1,0 +1,75 @@
+---
+// Plattform-Grafik als Lichtnetz (three.js, src/scripts/buehne/lichtnetz.ts). Der Slot enthält
+// die bisherige SVG-Grafik: Sie bleibt stehen ohne WebGL, bei prefers-reduced-motion oder
+// wenig Gerätespeicher, und bis die Szene geladen ist. Die Beschriftungen sind dekorativ
+// (aria-hidden), weil die gleichen Begriffe im Text daneben stehen.
+import type { Variante } from '../scripts/buehne/lichtnetz';
+interface Props { variante: Variante; labels?: string[]; }
+const { variante, labels = [] } = Astro.props;
+---
+<div class="lichtnetz" data-variante={variante}>
+  <div class="lichtnetz-fallback"><slot /></div>
+  <canvas class="lichtnetz-canvas" aria-hidden="true"></canvas>
+  {labels.length > 0 && (
+    <div class="lichtnetz-labels" aria-hidden="true">
+      {labels.map((l) => <span class="lichtnetz-label">{l}</span>)}
+    </div>
+  )}
+</div>
+
+<script>
+  import type { Variante } from '../scripts/buehne/lichtnetz';
+  const reduziert = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const speicher = (navigator as Navigator & { deviceMemory?: number }).deviceMemory;
+  const schwach = speicher !== undefined && speicher < 4;
+
+  if (!reduziert && !schwach) {
+    document.querySelectorAll<HTMLElement>('.lichtnetz').forEach((netz) => {
+      const canvas = netz.querySelector<HTMLCanvasElement>('.lichtnetz-canvas');
+      if (!canvas) return;
+      netz.dataset.modus = 'lebt';
+      // Erst laden, wenn die Grafik in die Nähe des Viewports kommt
+      const io = new IntersectionObserver(([eintrag]) => {
+        if (!eintrag.isIntersecting) return;
+        io.disconnect();
+        import('../scripts/buehne/lichtnetz')
+          .then(({ starteLichtnetz }) => starteLichtnetz(
+            netz, canvas, netz.dataset.variante as Variante,
+            [...netz.querySelectorAll<HTMLElement>('.lichtnetz-label')],
+          ))
+          .catch(() => { delete netz.dataset.modus; });
+      }, { rootMargin: '400px 0px' });
+      io.observe(netz);
+    });
+  }
+</script>
+
+<style>
+  .lichtnetz { position: relative; }
+  .lichtnetz-canvas, .lichtnetz-labels { display: none; }
+
+  .lichtnetz[data-modus="lebt"] { aspect-ratio: 16 / 7; overflow: hidden; border-radius: var(--radius); }
+  .lichtnetz[data-modus="lebt"] .lichtnetz-canvas {
+    display: block; position: absolute; inset: 0; width: 100%; height: 100%;
+    opacity: 0; transition: opacity .8s ease;
+  }
+  .lichtnetz[data-modus="lebt"] .lichtnetz-labels { display: block; position: absolute; inset: 0; pointer-events: none; }
+  .lichtnetz[data-modus="lebt"] .lichtnetz-fallback {
+    position: absolute; inset: 0; display: flex; align-items: center; transition: opacity .8s ease;
+  }
+  .lichtnetz:global(.bereit) .lichtnetz-canvas { opacity: 1; }
+  .lichtnetz:global(.bereit) .lichtnetz-fallback { opacity: 0; }
+
+  .lichtnetz-label {
+    position: absolute; left: 0; top: 0; margin-top: 20px; opacity: 0; white-space: nowrap;
+    font-size: 12px; font-weight: 600; letter-spacing: .02em; color: var(--ink);
+    padding: 2px 8px; border-radius: var(--radius);
+    background: color-mix(in srgb, var(--ground) 86%, transparent);
+  }
+
+  @media (max-width: 760px) {
+    .lichtnetz[data-modus="lebt"] { aspect-ratio: 4 / 3.4; }
+    /* Zehn Beschriftungen haben auf schmalen Bildschirmen keinen Platz; die Karten darunter nennen sie */
+    .lichtnetz[data-variante="fundament"] .lichtnetz-labels { display: none !important; }
+  }
+</style>

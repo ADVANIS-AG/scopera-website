@@ -210,6 +210,10 @@ const nav: [string, UiKey][] = [
       }
     }
   </script>
+  <script>
+    // Lenis, Reveals und KlangLinie (siehe src/scripts/motion.ts)
+    import '../scripts/motion';
+  </script>
   <CookieBanner lang={lang} />
   {WORKER_ENDPOINT && (
     <script is:inline define:vars={{ beaconUrl, base }}>

@@ -5,6 +5,7 @@ import SignupBanner from '../../components/SignupBanner.astro';
 import HeroBild from '../../components/HeroBild.astro';
 import StufenKompakt from '../../components/StufenKompakt.astro';
 import NetzGrafik from '../../components/NetzGrafik.astro';
+import LichtNetz from '../../components/LichtNetz.astro';
 import MandantenGrafik from '../../components/MandantenGrafik.astro';
 import ArchitekturGrafik from '../../components/ArchitekturGrafik.astro';
 import PortalGrafik from '../../components/PortalGrafik.astro';
@@ -71,7 +72,7 @@ try {
       <p class="eyebrow">What the platform brings</p>
       <h2>The foundation of every solution.</h2>
       <p class="soft" style="max-width: 46em;">Every feature is built so your department can use and adapt it directly, not just IT.</p>
-      <div style="margin: 8px 0 26px;"><NetzGrafik /></div>
+      <div style="margin: 8px 0 26px;"><LichtNetz variante="fundament" labels={features.map(([t]) => t)}><NetzGrafik /></LichtNetz></div>
       <div class="karten-3">
         {features.map(([t, x, neu]) => (
           <div class="karte">
@@ -87,7 +88,7 @@ try {
     <div class="wrap">
       <p class="eyebrow">Multi-tenancy</p>
       <h2>A tenant can be a department.</h2>
-      <div style="margin: 8px 0 26px;"><MandantenGrafik /></div>
+      <div style="margin: 8px 0 26px;"><LichtNetz variante="mandanten"><MandantenGrafik /></LichtNetz></div>
       <p class="soft" style="max-width: 46em;">Sales, marketing, HR: any department can work as its own tenant on the same data basis, cleanly separated, without its own infrastructure. The same principle that lets providers serve multiple customers also works inside a single company.</p>
       <p style="margin-top:16px;"><a href={`${base}en/partner/`}>More on the provider model →</a></p>
     </div>
@@ -107,6 +108,7 @@ try {
       <h2>How the platform is structured.</h2>
       <p class="soft" style="max-width: 46em; margin-bottom: 28px;">A rough sketch of how SCOPERA fits together under the hood, without going into every detail.</p>
       <ArchitekturGrafik lang={lang} />
+      <p class="soft" style="margin-top:18px; font-size:13px;"><a href={`${base}en/governance/`}>How we handle governance and data security →</a></p>
     </div>
   </section>
   <section style="border-bottom: none;">

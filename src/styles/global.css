@@ -2,12 +2,16 @@
   /* Loge — dunkel, Standard */
   --ground:#1C1815; --ink:#F3EBDD; --ink-soft:#B4A791; --line:#3C352B;
   --accent:#C89A55; --accent-ink:#1C1815; --card:#241F1A; --band:#2C241D;
+  /* Gold als Textfarbe fuer kleine Schrift, erfuellt WCAG AA (4.5:1) auf ground, card und band */
+  --accent-text:#C89A55;
   --radius: 6px;
 }
 :root[data-theme="light"] {
   /* Loge — helle Variante, nur per manuellem Umschalter */
   --ground:#F6F1E7; --ink:#211C16; --ink-soft:#6B6151; --line:#E1D8C4;
   --accent:#9C6F2E; --accent-ink:#FFFFFF; --card:#FFFFFF; --band:#ECE4D2;
+  /* #9C6F2E erreicht auf ground nur 3.95:1, darum fuer Text und Buttons ein dunklerer Ton */
+  --accent-text:#835C22;
 }
 * { box-sizing: border-box; }
 html { scroll-behavior: smooth; }
@@ -34,6 +38,7 @@ section { padding: 64px 0; border-bottom: 1px solid var(--line); }
   border: 1px solid var(--accent); border-radius: var(--radius);
 }
 .btn:hover { filter: brightness(1.08); }
+:root[data-theme="light"] .btn { background: var(--accent-text); border-color: var(--accent-text); }
 .btn-ghost {
   display: inline-block; background: transparent; color: var(--ink);
   padding: 12px 22px; font-weight: 700; text-decoration: none; font-size: 15px;
@@ -46,7 +51,7 @@ section { padding: 64px 0; border-bottom: 1px solid var(--line); }
 .karte { background: var(--card); border: 1px solid var(--line); border-radius: var(--radius); padding: 20px 18px; scroll-margin-top: 90px; }
 .karte ul { list-style: none; margin: 12px 0 0; padding: 0; }
 .karte li { padding: 5px 0; border-top: 1px solid var(--line); font-size: 14px; color: var(--ink-soft); }
-.tag { display: inline-block; font-size: 11px; letter-spacing: .1em; text-transform: uppercase; color: var(--accent); font-weight: 600; margin-bottom: 8px; }
+.tag { display: inline-block; font-size: 11px; letter-spacing: .1em; text-transform: uppercase; color: var(--accent-text); font-weight: 600; margin-bottom: 8px; }
 .ikon { width: 28px; height: 28px; color: var(--accent); margin-bottom: 12px; }
 /* Kennzahlen-Leiste (z.B. unter dem Home-Hero) */
 .stat-bar { display: flex; gap: 32px; flex-wrap: wrap; margin-top: 36px; padding-top: 26px; border-top: 1px solid var(--line); }
@@ -89,7 +94,7 @@ section { padding: 64px 0; border-bottom: 1px solid var(--line); }
 .stufen-band { display: flex; flex-direction: column; gap: 18px; margin-top: 18px; }
 .stufen-karte { display: flex; flex-direction: column; }
 .stufen-gruppe { background: var(--card); border: 1px solid var(--line); border-radius: var(--radius); padding: 20px; display: flex; flex-direction: column; gap: 14px; }
-.stufen-gruppe-label { font-size: 11px; text-transform: uppercase; letter-spacing: .08em; color: var(--accent); font-weight: 700; margin: 0; }
+.stufen-gruppe-label { font-size: 11px; text-transform: uppercase; letter-spacing: .08em; color: var(--accent-text); font-weight: 700; margin: 0; }
 .stufen-gruppe-inner { display: flex; gap: 20px; }
 .stufen-gruppe-inner > .stufen-karte { flex: 1; min-width: 0; border: none; padding: 0; background: transparent; }
 .stufen-rest { display: flex; gap: 14px; }
@@ -101,7 +106,7 @@ section { padding: 64px 0; border-bottom: 1px solid var(--line); }
 .stufen-kompakt { border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); padding: 14px 0; margin: 8px 0 26px; }
 .stufen-kompakt-liste { display: flex; flex-wrap: wrap; gap: 6px 16px; margin-top: 8px; }
 .stufen-kompakt-liste a { font-size: 13px; text-decoration: none; }
-.stufen-kompakt-liste a:hover { color: var(--accent); }
+.stufen-kompakt-liste a:hover { color: var(--accent-text); }
 .stufen-kompakt-liste .aktiv { font-weight: 700; }
 /* Signup-Banner (Selbst-Registrierung, abgesetzt vom beratungsgetriebenen CtaBanner) */
 .signup-band {
@@ -122,7 +127,7 @@ header.site { border-bottom: 2px solid var(--ink); background: var(--ground); po
 .nav-right { display: flex; align-items: center; gap: 10px; }
 .nav-links { display: flex; align-items: center; gap: 16px; list-style: none; margin: 0; padding: 0; }
 .nav-links a { text-decoration: none; font-size: 15px; font-weight: 500; }
-.nav-links a:hover { color: var(--accent); }
+.nav-links a:hover { color: var(--accent-text); }
 .nav-links .btn { padding: 9px 16px; }
 .burger { display: none; background: none; border: 1px solid var(--ink); border-radius: var(--radius); padding: 8px 10px; font: inherit; color: var(--ink); cursor: pointer; }
 .theme-toggle {
@@ -130,7 +135,7 @@ header.site { border-bottom: 2px solid var(--ink); background: var(--ground); po
   width: 34px; height: 34px; background: none; border: 1px solid var(--line);
   border-radius: var(--radius); color: var(--ink); cursor: pointer; padding: 0;
 }
-.theme-toggle:hover { border-color: var(--accent); color: var(--accent); }
+.theme-toggle:hover { border-color: var(--accent); color: var(--accent-text); }
 .theme-toggle svg { width: 17px; height: 17px; }
 .lang-toggle {
   display: inline-flex; align-items: center; justify-content: center;
@@ -138,7 +143,7 @@ header.site { border-bottom: 2px solid var(--ink); background: var(--ground); po
   border-radius: var(--radius); color: var(--ink); text-decoration: none;
   font-size: 12px; font-weight: 700; letter-spacing: .02em;
 }
-.lang-toggle:hover { border-color: var(--accent); color: var(--accent); }
+.lang-toggle:hover { border-color: var(--accent); color: var(--accent-text); }
 .theme-toggle .icon-moon { display: block; }
 .theme-toggle .icon-sun { display: none; }
 :root[data-theme="light"] .theme-toggle .icon-moon { display: none; }
@@ -147,7 +152,7 @@ header.site { border-bottom: 2px solid var(--ink); background: var(--ground); po
 footer.site { padding: 40px 0 60px; }
 footer.site nav { display: flex; flex-wrap: wrap; gap: 18px; margin-bottom: 18px; }
 footer.site nav a { font-size: 14px; text-decoration: none; color: var(--ink-soft); }
-footer.site nav a:hover { color: var(--accent); }
+footer.site nav a:hover { color: var(--accent-text); }
 .absender { font-size: 13px; color: var(--ink-soft); }
 /* Fuenf Spalten brauchen rund 834px. Darunter schrumpft das Raster nicht weiter, weil die
    laengste Beschriftung ("Geschaeftsfuehrung") eine Mindestbreite je Karte setzt, und es
@@ -183,4 +188,11 @@ footer.site nav a:hover { color: var(--accent); }
 }
 @media (max-width: 460px) { .karten { grid-template-columns: 1fr; } .karten-3 { grid-template-columns: 1fr; } .karten-5 { grid-template-columns: 1fr; } }
 @media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }
+/* Lenis glaettet das Scrollen selbst; das CSS-Smooth-Scrolling wuerde dagegen arbeiten. */
+html.lenis-aktiv { scroll-behavior: auto; }
+html.lenis, html.lenis body { height: auto; }
+.lenis.lenis-stopped { overflow: clip; }
+.lenis [data-lenis-prevent] { overscroll-behavior: contain; }
 :focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+/* Reveals (src/scripts/motion.ts) setzen Inline-Styles; im Druck muss alles sichtbar sein */
+@media print { main * { opacity: 1 !important; visibility: visible !important; transform: none !important; } }
