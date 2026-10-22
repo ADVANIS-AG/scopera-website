@@ -9,20 +9,22 @@ import LichtNetz from '../../components/LichtNetz.astro';
 import MandantenGrafik from '../../components/MandantenGrafik.astro';
 import ArchitekturGrafik from '../../components/ArchitekturGrafik.astro';
 import PortalGrafik from '../../components/PortalGrafik.astro';
-// [title, text, new?] - "new" renders the badge. With ten cards the three-column grid
-// resolves to 3 + 3 + 3 + 1. CSS (see <style> below) stretches the last card to full width
-// so it does not sit alone at a third of the row.
+// [title, text, new?] - "new" renders the badge. With twelve cards the three-column grid
+// resolves to 3 x 4. Should a card ever sit alone in the last row, CSS (see <style> below)
+// stretches it to full width.
 const features: [string, string, boolean?][] = [
   ['AI Agents', 'Assistants that get tasks done instead of just answering: with access to your data, rules and systems.'],
   ['Workflows', 'Automated processes across system boundaries, configured by your department itself, with human approvals where they matter.'],
   ['Knowledge', 'Your company knowledge, searchable and usable: documents, systems and experience in one place.'],
-  ['Integrations', 'Microsoft 365, Dynamics 365, SAP, Salesforce and more: seamlessly connected to what you already have, instead of another spreadsheet island.'],
+  ['Integrations', 'Microsoft 365 with Outlook calendar and inbox, Dynamics 365, SAP, Salesforce and more: connected to what you already have, instead of another spreadsheet island.'],
   ['Analytics', 'Usage, quality and cost of every AI function, transparent in a dashboard.'],
   ['Governance', 'Roles, department separation, field-level encryption, revFADP and GDPR tooling. Automated tests, backups and an audit log included.'],
-  ['Portal', 'Share selected information with customers and partners without handing out seats. You decide what is visible and who has access.', true],
-  ['WhatsApp', 'Receive messages and reply from within the platform, with its own number per tenant and AI support on call.', true],
+  ['Portal', 'Share selected information with customers and partners without handing out seats. You decide what is visible and who has access.'],
+  ['WhatsApp', 'Receive messages and reply from within the platform, with its own number per tenant and AI support on call.'],
   ['Room scanner', 'Capture rooms with an iPad or iPhone via LiDAR. The scan produces areas and quantities, straight into the quote.', true],
   ['Data quality', 'Validation rules, comparison against the source and detection of duplicate entries. Once during migration and at set intervals afterwards, every correction logged and reversible.', true],
+  ['Conversations', 'AI, people and channels in one place. Ask the AI privately and share good answers with the team as a card.', true],
+  ['Guided start', 'New members find their way in four stations, with short tours, sample data to try out and a path of its own for admins.', true],
 ];
 const faelle = [
   { tag: 'Security technology', titel: 'Project management instead of a D365 module', text: 'A Swiss security technology company replaced its Dynamics 365 project module: quotes with costing, project structures, service dispatch with mobile reports and customer signatures, full D365 integration. From concept to tested application in days.' },

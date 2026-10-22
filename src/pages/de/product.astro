@@ -9,20 +9,22 @@ import LichtNetz from '../../components/LichtNetz.astro';
 import MandantenGrafik from '../../components/MandantenGrafik.astro';
 import ArchitekturGrafik from '../../components/ArchitekturGrafik.astro';
 import PortalGrafik from '../../components/PortalGrafik.astro';
-// [Titel, Text, neu?] - "neu" setzt das Badge. Bei zehn Karten ergibt das Dreierraster
-// 3 + 3 + 3 + 1. Die letzte Karte geht per CSS (siehe <style> unten) ueber die volle Breite,
-// damit sie in der letzten Reihe nicht allein bei einem Drittel stehen bleibt.
+// [Titel, Text, neu?] - "neu" setzt das Badge. Bei zwoelf Karten geht das Dreierraster als
+// 3 x 4 auf. Bleibt einmal eine Karte allein in der letzten Reihe, geht sie per CSS
+// (siehe <style> unten) ueber die volle Breite.
 const features: [string, string, boolean?][] = [
   ['AI Agents', 'Assistenten, die Aufgaben erledigen statt nur antworten: mit Zugriff auf Ihre Daten, Regeln und Systeme.'],
   ['Workflows', 'Automatisierte Abläufe über Systemgrenzen hinweg, von Ihrem Fachbereich selbst konfiguriert, mit Freigaben durch Menschen, wo es darauf ankommt.'],
   ['Knowledge', 'Ihr Firmenwissen, durchsuchbar und nutzbar: Dokumente, Systeme und Erfahrung an einem Ort.'],
-  ['Integrationen', 'Microsoft 365, Dynamics 365, SAP, Salesforce und mehr: nahtlos angebunden an das, was Sie schon haben, statt neue Excel-Inseln.'],
+  ['Integrationen', 'Microsoft 365 mit Outlook-Kalender und Posteingang, Dynamics 365, SAP, Salesforce und mehr: angebunden an das, was Sie schon haben, statt neue Excel-Inseln.'],
   ['Analytics', 'Nutzung, Qualität und Kosten jeder AI-Funktion, transparent im Dashboard.'],
   ['Governance', 'Rollen, Abteilungstrennung, Feldverschlüsselung, revDSG und DSGVO-Werkzeuge. Automatisierte Tests, Backups und Audit-Log inklusive.'],
-  ['Portal', 'Gezielt Informationen mit Kundschaft und Partnern teilen, ohne Sitzplätze zu vergeben. Sie entscheiden, was sichtbar ist und wer Zugang hat.', true],
-  ['WhatsApp', 'Nachrichten empfangen und direkt aus der Plattform beantworten, mit eigener Nummer pro Mandant und KI-Unterstützung auf Zuruf.', true],
+  ['Portal', 'Gezielt Informationen mit Kundschaft und Partnern teilen, ohne Sitzplätze zu vergeben. Sie entscheiden, was sichtbar ist und wer Zugang hat.'],
+  ['WhatsApp', 'Nachrichten empfangen und direkt aus der Plattform beantworten, mit eigener Nummer pro Mandant und KI-Unterstützung auf Zuruf.'],
   ['Raumscanner', 'Räume mit iPad oder iPhone per LiDAR erfassen. Aus dem Scan entstehen Flächen und Mengen, direkt in der Offerte.', true],
   ['Datenqualität', 'Prüfregeln, Abgleich mit der Quelle und Erkennung von Mehrfacheinträgen. Einmalig bei der Migration und danach in festen Abständen, jede Korrektur protokolliert und rücksetzbar.', true],
+  ['Gespräche', 'KI, Personen und Kanäle an einer Stelle. Privat mit der KI fragen und gute Antworten als Karte im Team teilen.', true],
+  ['Geführter Einstieg', 'Neue Mitglieder finden sich in vier Stationen zurecht, mit kurzen Touren, Beispieldaten zum Ausprobieren und einem eigenen Pfad für Admins.', true],
 ];
 const faelle = [
   { tag: 'Sicherheitstechnik', titel: 'Projektmanagement statt D365-Modul', text: 'Ein Schweizer Sicherheitstechnik-Unternehmen ersetzt sein Dynamics-365-Projektmodul: Offerten mit Kalkulation, Projektstrukturen, Service-Disposition mit mobilem Rapport und Kundenunterschrift, vollständige D365-Integration. Vom Konzept zur getesteten Anwendung in Tagen.' },

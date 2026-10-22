@@ -73,6 +73,12 @@ Alle Fotos via Unsplash (Unsplash-Lizenz: kommerzielle Nutzung erlaubt, keine At
 - `besprechungsraum.jpg` (Insight "Probezeit ohne Bauchgefühl") — Mateusz Zatorski (unsplash.com/photos/wN9oyogyjQc)
 - `gemeinsam-am-tisch.jpg` (Insight "Warum ein Chatfenster noch keine Anwendung ist") — Koda Bookkeeping (unsplash.com/photos/EwmBLsCDIgo)
 - `karteikasten.jpg` (Insight "Dreimal dieselbe Firma") — Daniel Forsman (unsplash.com/photos/Ph4ZJrwf4x8)
+- `notizheft-kaffee.jpg` (Insight "Erst privat fragen, dann im Team teilen") — M. İkbal K (unsplash.com/photos/NEo3Y06oH9c)
+- `grundriss.jpg` (Insight "Erst der Bauplan, dann die Änderung") — Lucas Kepner (unsplash.com/photos/Yn8D5B8C-eY)
+- `besprechungstisch.jpg` (Insight "Eine KI im Gruppenchat, die weiss, wer mitliest") — Babak Eshaghian (unsplash.com/photos/WhvhZBkK5Y8)
+- `tischkalender.jpg` (Insight "Outlook anbinden, ohne Mails zu kopieren") — Swello (unsplash.com/photos/rjEyCqESNTk)
+- `nummerierte-faecher.jpg` (Insight "Auskunft, Löschung, Fristen") — Andre Bernier (unsplash.com/photos/VxcDRAODjJI)
+- `schluesselbund.jpg` (Insight "Die ersten Tage entscheiden") — Jakub Żerdzicki (unsplash.com/photos/Ebj87ehFNNU)
 
 SVG-Grafiken (KlangLinie, NetzGrafik, PfadGrafik, `src/components/icons/*`) sind Eigenentwicklungen im Brand-Stil.
 
