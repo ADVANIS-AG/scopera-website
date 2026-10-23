@@ -62,5 +62,6 @@ CF_ACCESS_AUD = "ea117c0e2fe791be8191c81a89120bd8669496ef92399866f522153479d6cea
 # Geheime Werte NICHT hier eintragen (Datei ist versioniert). Stattdessen:
 #   npx wrangler secret put CRM_API_KEY
 #   npx wrangler secret put APOLLO_WEBHOOK_SECRET
+#   npx wrangler secret put APOLLO_API_KEY            # Rueckkopplung zu Apollo, siehe README
 #   npx wrangler secret put TURNSTILE_SECRET_KEY
 #   npx wrangler secret put CF_API_TOKEN

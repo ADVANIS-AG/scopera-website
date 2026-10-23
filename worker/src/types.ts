@@ -8,6 +8,9 @@ export interface Env {
   CRM_LOOKUP_PATH: string;
   CRM_LEAD_PATH: string;
   APOLLO_WEBHOOK_SECRET: string;
+  APOLLO_API_KEY: string;
+  /** Nur fuer Pruefungen, siehe apollo-client.ts. In Produktion nicht gesetzt. */
+  APOLLO_API_BASE?: string;
   TURNSTILE_SECRET_KEY: string;
   LEAD_SCORE_THRESHOLD: string;
   CF_API_TOKEN: string;

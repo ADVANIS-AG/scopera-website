@@ -1,4 +1,5 @@
 import { recordClickEvents, recordLeadEvent, recordVisitorEvent, recordHeatEvents } from "./analytics";
+import { sendeRueckmeldung } from "./apollo-client";
 import { createLead, lookupExisting } from "./crm-client";
 import { REPEAT_VISIT_WINDOW_MS, scoreSession } from "./lead-scoring";
 import type { CompanyMatch, Env, PageVisit, SessionState } from "./types";
@@ -65,6 +66,7 @@ export async function recordPageview(
   recordClickEvents(env, page.path, klicks);
   recordHeatEvents(env, page.path, viewport, heat);
   await maybeSubmitLead(env, session);
+  await vielleichtApolloMelden(env, session);
   return session;
 }
 
@@ -102,7 +104,29 @@ export async function tagCompanyForIp(
 
   recordVisitorEvent(env, session);
   if (darfLeadErzeugen) await maybeSubmitLead(env, session);
+  // Auch ohne Lead-Erlaubnis nicht melden: Ein unbestaetigter Webhook-Aufruf koennte sonst eine
+  // beliebige Firma benennen und wir schrieben in deren Apollo-Konto.
+  if (darfLeadErzeugen) await vielleichtApolloMelden(env, session);
   return session;
+}
+
+/** Rueckmeldung an Apollo, sobald eine erkannte Firma die Schwelle erreicht.
+ *
+ *  Dieselbe Schwelle wie beim Lead: Unterhalb davon ist ein Besuch kein Signal, und ein Konto
+ *  mit einer Punktzahl von 10 zu beschreiben waere Rauschen im Vertrieb.
+ *
+ *  Der Aufruf ist bewusst nicht awaited eingebettet, sondern faengt jeden Fehler selbst ab:
+ *  Apollo ist ein fremder Dienst, und weder ein Ausfall dort noch ein abgelaufener Schluessel
+ *  darf einen Seitenaufruf oder die Lead-Erfassung zu Fall bringen. */
+async function vielleichtApolloMelden(env: Env, session: SessionState): Promise<void> {
+  if (!session.company?.name) return;
+  const schwelle = Number(env.LEAD_SCORE_THRESHOLD || "50");
+  if (session.score < schwelle) return;
+  try {
+    await sendeRueckmeldung(env, session);
+  } catch (err) {
+    console.warn("Apollo-Rueckmeldung fehlgeschlagen:", err instanceof Error ? err.message : err);
+  }
 }
 
 async function maybeSubmitLead(env: Env, session: SessionState): Promise<void> {

@@ -64,6 +64,8 @@ const base = import.meta.env.BASE_URL;
       <h3>Google Tag Manager and company identification (only with your consent)</h3>
       <p>Through Google Tag Manager, we load additional measurement and marketing tools when needed, currently the service Apollo to identify which company is visiting our site. These tools only load after you accept in the cookie banner. We store your choice locally in your browser (localStorage), not as a cookie. This processing may involve data outside Switzerland and the EU. You can give or withdraw consent at any time via "Cookie settings" in the footer. Withdrawal takes effect going forward; tools already loaded keep running until the next page load.</p>
 
+      <p>If Apollo identifies a company and that visit reaches a defined threshold of business interest, we send a summary back to that company's record in our Apollo account: the calculated score, the time of the last visit and the list of pages visited. This happens at most once per day per company. Your IP address, the session identifier and the details from the click evaluation are not sent back. The feedback relates to the company, not to you as a person.</p>
+
       <h3>Embedded content from the platform</h3>
       <p>Some pages embed content from our platform in a frame: the editions page a comparison from api.scopera.ai, the product page an offer banner from api.scopera.ai together with an image from our Azure storage, the playground page the playground from playground.scopera.ai. Loading this content transmits your IP address to the respective service. All three belong to SCOPERA; hosting details are in section 6.</p>
 
@@ -130,7 +132,7 @@ const base = import.meta.env.BASE_URL;
             <tr><td>GitHub (GitHub Pages)</td><td>Hosting of the website</td><td>USA/worldwide</td></tr>
             <tr><td>Cloudflare</td><td>Delivery of the website, contact form and visit data on our own infrastructure, name resolution, bot protection for public forms</td><td>worldwide</td></tr>
             <tr><td>Google (Tag Manager)</td><td>Loading further tools, only with consent</td><td>USA</td></tr>
-            <tr><td>Apollo (assets.apollo.io, aplo-evnt.com)</td><td>Company identification, only with consent</td><td>USA</td></tr>
+            <tr><td>Apollo (assets.apollo.io, aplo-evnt.com, api.apollo.io)</td><td>Company identification and feedback to the company record, only with consent</td><td>USA</td></tr>
             <tr><td>OpenAI</td><td>AI features, speech recognition, help search</td><td>USA</td></tr>
             <tr><td>Anthropic</td><td>AI features</td><td>USA</td></tr>
             <tr><td>Microsoft 365</td><td>Sending emails, appointment booking</td><td>Switzerland/EU</td></tr>

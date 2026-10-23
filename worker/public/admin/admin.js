@@ -227,6 +227,41 @@ async function zeigeHeatmap() {
   });
 }
 
+const APOLLO_ERGEBNIS = {
+  'ok': 'übertragen',
+  'kein-konto': 'kein passendes Konto in Apollo',
+  'felder-fehlen': 'Felder in Apollo fehlen',
+  'fehler': 'Fehler',
+};
+
+async function loadApollo() {
+  const koerper = document.getElementById('apollo-body');
+  const status = document.getElementById('apollo-status');
+  try {
+    const daten = await api('/apollo');
+    if (daten.error) {
+      status.textContent = `Fehler: ${daten.error}`;
+      koerper.innerHTML = `<tr><td colspan="5" class="soft">Fehler: ${esc(daten.error)}</td></tr>`;
+      return;
+    }
+    status.textContent = daten.aktiv
+      ? 'Aktiv. Je erkannte Firma höchstens eine Rückmeldung pro Tag, und erst ab der Lead-Schwelle.'
+      : daten.hinweis;
+    renderRows(koerper, daten.rueckmeldungen, 5, (r) => `
+      <tr>
+        <td>${esc(r.firma)}</td>
+        <td>${esc(APOLLO_ERGEBNIS[r.ergebnis] || r.ergebnis)}</td>
+        <td>${esc(r.score ?? '')}</td>
+        <td>${esc(r.zeitpunkt ? new Date(r.zeitpunkt).toLocaleString('de-CH') : '')}</td>
+        <td>${esc(r.meldung || '')}</td>
+      </tr>
+    `);
+  } catch (err) {
+    status.textContent = `Fehler: ${err.message}`;
+    koerper.innerHTML = `<tr><td colspan="5" class="soft">Fehler: ${esc(err.message)}</td></tr>`;
+  }
+}
+
 async function loadLeads() {
   const leadsBody = document.getElementById('leads-body');
   try {
@@ -367,6 +402,22 @@ async function loadRateLimits() {
   }
 }
 
+function initApollo() {
+  document.getElementById('apollo-felder-neu').addEventListener('click', async (e) => {
+    const knopf = e.currentTarget;
+    knopf.disabled = true;
+    try {
+      await api('/apollo/felder-neu-laden', { method: 'POST' });
+      document.getElementById('apollo-status').textContent =
+        'Feldzuordnung verworfen. Die nächste Rückmeldung lädt sie neu.';
+    } catch (err) {
+      document.getElementById('apollo-status').textContent = `Fehler: ${err.message}`;
+    } finally {
+      knopf.disabled = false;
+    }
+  });
+}
+
 function initHeatmap() {
   document.getElementById('heat-laden').addEventListener('click', zeigeHeatmap);
 }
@@ -375,12 +426,14 @@ initTabs();
 initCorsSave();
 initIpAdd();
 initHeatmap();
+initApollo();
 loadVisitors();
 loadPages();
 loadEngagement();
 // Die Seitenauswahl stammt aus derselben Abfrage, wird aber bewusst getrennt geladen: Scheitert
 // die eine, bleibt die andere bedienbar.
 loadHeatPfade();
+loadApollo();
 loadLeads();
 loadCrmStatus();
 loadCorsConfig();

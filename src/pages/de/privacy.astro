@@ -64,6 +64,8 @@ const base = import.meta.env.BASE_URL;
       <h3>Google Tag Manager und Firmenerkennung (nur mit Ihrer Einwilligung)</h3>
       <p>Über Google Tag Manager binden wir bei Bedarf weitere Mess- und Marketing-Werkzeuge ein, aktuell den Dienst Apollo zur Erkennung, welche Firma unsere Seite besucht. Diese Werkzeuge laden erst, nachdem Sie im Cookie-Banner zugestimmt haben. Ihre Wahl speichern wir lokal in Ihrem Browser (localStorage), nicht als Cookie. Dabei können Daten ausserhalb der Schweiz und der EU bearbeitet werden. Sie können Ihre Zustimmung jederzeit über «Cookie-Einstellungen» im Footer erteilen oder widerrufen. Ein Widerruf wirkt für die Zukunft; bereits geladene Werkzeuge laufen bis zum nächsten Seitenaufruf weiter.</p>
 
+      <p>Erkennt Apollo eine Firma und erreicht deren Besuch eine festgelegte Schwelle an geschäftlichem Interesse, melden wir eine Zusammenfassung an das Firmenkonto in unserem Apollo-Bestand zurück: die errechnete Punktzahl, den Zeitpunkt des letzten Besuchs und die Liste der besuchten Seiten. Je Firma geschieht das höchstens einmal täglich. Nicht zurück fliessen Ihre IP-Adresse, die Sitzungskennung und die Angaben aus der Klickauswertung. Die Rückmeldung bezieht sich auf die Firma, nicht auf Sie als Person.</p>
+
       <h3>Eingebettete Inhalte von der Plattform</h3>
       <p>Einzelne Seiten binden Inhalte unserer Plattform in einem Rahmen ein: die Seite Editionen einen Vergleich von api.scopera.ai, die Produktseite ein Angebotsbanner von api.scopera.ai samt Bild aus unserem Azure-Speicher, die Seite Spielwiese die Spielwiese von playground.scopera.ai. Beim Laden dieser Inhalte wird Ihre IP-Adresse an den jeweiligen Dienst übermittelt. Alle drei gehören zu SCOPERA, die Hosting-Angaben stehen in Abschnitt 6.</p>
 
@@ -130,7 +132,7 @@ const base = import.meta.env.BASE_URL;
             <tr><td>GitHub (GitHub Pages)</td><td>Hosting der Webseite</td><td>USA/weltweit</td></tr>
             <tr><td>Cloudflare</td><td>Auslieferung der Webseite, Kontaktformular und Besuchsdaten auf eigener Infrastruktur, Namensauflösung, Schutz öffentlicher Formulare vor Bots</td><td>weltweit</td></tr>
             <tr><td>Google (Tag Manager)</td><td>Einbindung weiterer Werkzeuge, nur mit Einwilligung</td><td>USA</td></tr>
-            <tr><td>Apollo (assets.apollo.io, aplo-evnt.com)</td><td>Firmenerkennung, nur mit Einwilligung</td><td>USA</td></tr>
+            <tr><td>Apollo (assets.apollo.io, aplo-evnt.com, api.apollo.io)</td><td>Firmenerkennung und Rückmeldung zum Firmenkonto, nur mit Einwilligung</td><td>USA</td></tr>
             <tr><td>OpenAI</td><td>KI-Funktionen, Spracherkennung, Hilfe-Suche</td><td>USA</td></tr>
             <tr><td>Anthropic</td><td>KI-Funktionen</td><td>USA</td></tr>
             <tr><td>Microsoft 365</td><td>Versand von E-Mails, Terminbuchung</td><td>Schweiz/EU</td></tr>

@@ -24,6 +24,8 @@ Intern, nur über `admin.scopera.ai` erreichbar und durch Cloudflare Access gesc
 - `GET /admin/api/crm/status`
 - `GET`/`PUT /admin/api/security/cors`, `GET`/`POST`/`DELETE /admin/api/security/ip-rules[/:id]`,
   `GET`/`POST /admin/api/security/rate-limits`
+- Apollo-Rückkopplung: `GET /admin/api/apollo`,
+  `POST /admin/api/apollo/felder-neu-laden`
 - Besucherauswertung: `GET /admin/api/pages`, `GET /admin/api/engagement`,
   `GET /admin/api/heatmap?path=…&viewport=mobil|tablet|desktop`
 - `GET /admin/api/preview?path=…` — liefert eine Seite der öffentlichen Webseite skriptfrei aus,
@@ -53,6 +55,25 @@ Intern, nur über `admin.scopera.ai` erreichbar und durch Cloudflare Access gesc
   aktive `sessionId` (30 Minuten TTL). Bei mehreren gleichzeitigen Besuchern hinter derselben
   IP (z.B. Firmen-NAT) kann das zur falschen Session führen — für den Start bewusst einfach gehalten,
   ggf. später verfeinern (z.B. über einen von Apollo mitgelieferten Zeitstempel).
+- **Apollo-Rückkopplung braucht Einrichtung in Apollo**: Ohne gesetztes `APOLLO_API_KEY` ist sie
+  abgeschaltet, der Rest läuft unverändert weiter. Zum Einschalten sind drei Schritte nötig:
+  1. In Apollo drei Felder am **Konto** anlegen (nicht am Kontakt), mit genau diesen
+     Beschriftungen: `SCOPERA Score`, `SCOPERA Letzter Besuch`, `SCOPERA Seiten`. Gesucht wird
+     über die Beschriftung, nicht über die Feld-ID: IDs müsste man von Hand abschreiben und bei
+     jeder Neuanlage nachführen.
+  2. Einen API-Schlüssel erzeugen, der `api/v1/fields/index`, `api/v1/accounts/search` und
+     `api/v1/accounts/update` umfasst (oder einen Master-Key). Fehlt ein Recht, antwortet Apollo
+     mit 403 und das steht in der Konsole.
+  3. `npx wrangler secret put APOLLO_API_KEY`, danach in der Konsole auf
+     **Feldzuordnung neu laden** drücken.
+
+  Ausgelöst wird je erkannte Firma höchstens einmal täglich, und erst ab `LEAD_SCORE_THRESHOLD`.
+  Ein unbestätigter Webhook-Aufruf löst nie aus, sonst könnte jemand eine fremde Firma benennen
+  und wir schrieben in deren Apollo-Konto. Fällt Apollo aus, bleibt es bei einem Eintrag in der
+  Konsole: Weder Beacon noch Lead-Erfassung dürfen daran scheitern.
+
+  `APOLLO_API_BASE` biegt die Gegenstelle um und ist nur für Prüfungen gegen einen nachgebauten
+  Apollo gedacht. In Produktion bleibt die Variable ungesetzt.
 - **CRM-Client ist ein Platzhalter**: `crm-client.ts` nimmt ein generisches REST/JSON-Schema mit
   Bearer-Auth an. Anzupassen, sobald die echte Lead-API-Doku vorliegt (Auth-Verfahren, Feldnamen,
   Response-Shape für Lookup und Lead-Erstellung).

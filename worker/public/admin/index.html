@@ -70,6 +70,20 @@
       <div id="heat-buehne" class="heat-buehne">
         <div class="soft heat-hinweis">Seite wählen und auf Anzeigen drücken.</div>
       </div>
+
+      <h2>Rückmeldungen an Apollo</h2>
+      <p class="soft" id="apollo-status">Lädt…</p>
+      <p class="soft">
+        Erwartet werden in Apollo drei Felder am <strong>Konto</strong> (nicht am Kontakt), mit genau
+        diesen Beschriftungen: «SCOPERA Score», «SCOPERA Letzter Besuch», «SCOPERA Seiten».
+        Nach dem Anlegen hier auf Neu laden drücken, sonst greift die Zuordnung noch bis zu sechs
+        Stunden auf den alten Stand zu.
+      </p>
+      <p><button id="apollo-felder-neu" type="button">Feldzuordnung neu laden</button></p>
+      <table>
+        <thead><tr><th>Firma</th><th>Ergebnis</th><th>Score</th><th>Zeitpunkt</th><th>Meldung</th></tr></thead>
+        <tbody id="apollo-body"><tr><td colspan="5" class="soft">Lädt…</td></tr></tbody>
+      </table>
     </section>
 
     <section id="tab-leads" class="tab" hidden>
