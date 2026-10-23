@@ -1,4 +1,4 @@
-import { apolloKonfiguriert, listeRueckmeldungen, vergissFeldZuordnung } from "../../apollo-client";
+import { apolloKonfiguriert, listeRueckmeldungen, pruefeVerbindung, vergissFeldZuordnung } from "../../apollo-client";
 import { jsonResponse } from "../../lib/json";
 import type { Env } from "../../types";
 
@@ -36,4 +36,17 @@ export async function handleGetApollo(env: Env): Promise<Response> {
 export async function handleApolloFelderNeuLaden(env: Env): Promise<Response> {
   await vergissFeldZuordnung(env);
   return jsonResponse({ ok: true, hinweis: "Feldzuordnung verworfen, wird beim naechsten Mal neu geladen." }, 200);
+}
+
+/** POST /admin/api/apollo/pruefen
+ *
+ *  Tastet Apollo einmal ab und schreibt dabei nichts. Gedacht fuer den Moment, in dem der
+ *  Schluessel gesetzt ist, die Felder aber noch nicht angelegt sind: Dann sagt die Antwort
+ *  bereits, ob Schluessel und Rechte taugen, und spaeter, ob die Beschriftungen passen. */
+export async function handleApolloPruefen(env: Env): Promise<Response> {
+  try {
+    return jsonResponse({ ok: true, pruefung: await pruefeVerbindung(env) }, 200);
+  } catch (err) {
+    return jsonResponse({ ok: false, error: err instanceof Error ? err.message : "unbekannt" }, 200);
+  }
 }

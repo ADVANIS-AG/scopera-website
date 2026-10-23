@@ -63,3 +63,5 @@ button.danger { background: #fff; color: #b3261e; border-color: #b3261e; }
    Schachbrett, mit ihm die Verlaeufe, um die es geht. */
 .heat-overlay { position: absolute; inset: 0; pointer-events: none; filter: blur(16px); opacity: .8; }
 .heat-zelle { position: absolute; border-radius: 50%; }
+
+.apollo-pruefung { white-space: pre-wrap; padding: .8rem; border: 1px solid #333; margin: .5rem 0; line-height: 1.6; }

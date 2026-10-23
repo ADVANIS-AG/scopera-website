@@ -25,6 +25,7 @@ Intern, nur über `admin.scopera.ai` erreichbar und durch Cloudflare Access gesc
 - `GET`/`PUT /admin/api/security/cors`, `GET`/`POST`/`DELETE /admin/api/security/ip-rules[/:id]`,
   `GET`/`POST /admin/api/security/rate-limits`
 - Apollo-Rückkopplung: `GET /admin/api/apollo`,
+  `POST /admin/api/apollo/pruefen` (tastet Apollo ab, schreibt nichts),
   `POST /admin/api/apollo/felder-neu-laden`
 - Besucherauswertung: `GET /admin/api/pages`, `GET /admin/api/engagement`,
   `GET /admin/api/heatmap?path=…&viewport=mobil|tablet|desktop`

@@ -131,6 +131,77 @@ async function schreibeProtokoll(env: Env, eintrag: RueckmeldungsProtokoll): Pro
   }
 }
 
+export interface Verbindungspruefung {
+  schluesselGesetzt: boolean;
+  felderAbruf: { status: number; ok: boolean; meldung?: string };
+  kontosuche: { status: number; ok: boolean; meldung?: string };
+  kontoFelder: string[];
+  erwartet: { score: boolean; letzterBesuch: boolean; seiten: boolean };
+  bereit: boolean;
+}
+
+/** Prueft die Verbindung zu Apollo, ohne irgendwo zu schreiben.
+ *
+ *  Zwei Dinge werden getrennt beantwortet, weil sie getrennt schiefgehen:
+ *  1. Taugt der Schluessel, und hat er die noetigen Rechte? Dafuer werden beide Lese-Endpunkte
+ *     einmal angetippt. Ein 403 heisst hier nicht "falscher Schluessel", sondern "Recht fehlt",
+ *     und das steht dann auch so da.
+ *  2. Sind die drei Konto-Felder in Apollo angelegt? Dafuer werden alle gefundenen Konto-Felder
+ *     mit ausgegeben - wenn eine Beschriftung nur leicht abweicht, sieht man es sofort, statt
+ *     zu raten, warum nichts passt.
+ *
+ *  Am Cache vorbei, sonst pruefte man den Stand von vor sechs Stunden. */
+export async function pruefeVerbindung(env: Env): Promise<Verbindungspruefung> {
+  const ergebnis: Verbindungspruefung = {
+    schluesselGesetzt: apolloKonfiguriert(env),
+    felderAbruf: { status: 0, ok: false },
+    kontosuche: { status: 0, ok: false },
+    kontoFelder: [],
+    erwartet: { score: false, letzterBesuch: false, seiten: false },
+    bereit: false,
+  };
+  if (!ergebnis.schluesselGesetzt) return ergebnis;
+
+  try {
+    const res = await apolloAnfrage(env, "/fields?source=custom", { method: "GET" });
+    ergebnis.felderAbruf = { status: res.status, ok: res.ok };
+    if (res.ok) {
+      const daten = (await res.json()) as { fields?: Array<{ label?: string; modality?: string }> };
+      for (const feld of daten.fields ?? []) {
+        if (feld.modality !== "account" || !feld.label) continue;
+        ergebnis.kontoFelder.push(feld.label);
+        const b = feld.label.trim().toLowerCase();
+        if (b === FELD_SCORE) ergebnis.erwartet.score = true;
+        else if (b === FELD_LETZTER_BESUCH) ergebnis.erwartet.letzterBesuch = true;
+        else if (b === FELD_SEITEN) ergebnis.erwartet.seiten = true;
+      }
+    } else {
+      ergebnis.felderAbruf.meldung = (await res.text()).slice(0, 200);
+    }
+  } catch (err) {
+    ergebnis.felderAbruf.meldung = err instanceof Error ? err.message : String(err);
+  }
+
+  try {
+    // Ein Name, der mit grosser Wahrscheinlichkeit nichts trifft. Es geht nur um Status und
+    // Recht, nicht um ein Ergebnis - geschrieben wird hier nichts.
+    const res = await apolloAnfrage(env, "/accounts/search", {
+      method: "POST",
+      body: JSON.stringify({ q_organization_name: "scopera-verbindungspruefung", per_page: 1 }),
+    });
+    ergebnis.kontosuche = { status: res.status, ok: res.ok };
+    if (!res.ok) ergebnis.kontosuche.meldung = (await res.text()).slice(0, 200);
+  } catch (err) {
+    ergebnis.kontosuche.meldung = err instanceof Error ? err.message : String(err);
+  }
+
+  ergebnis.bereit =
+    ergebnis.felderAbruf.ok &&
+    ergebnis.kontosuche.ok &&
+    (ergebnis.erwartet.score || ergebnis.erwartet.letzterBesuch || ergebnis.erwartet.seiten);
+  return ergebnis;
+}
+
 /** Verwirft die zwischengespeicherte Feldzuordnung.
  *
  *  Ohne das wuerde eine in Apollo neu angelegte Feldgruppe bis zu sechs Stunden lang nicht

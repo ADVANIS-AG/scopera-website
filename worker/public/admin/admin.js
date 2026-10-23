@@ -402,7 +402,75 @@ async function loadRateLimits() {
   }
 }
 
+/** Macht aus der Pruefung einen Text, den man ohne Vorwissen lesen kann. Absichtlich
+ *  Klartext statt roher JSON-Ausgabe: Die Frage lautet "woran liegt es", nicht "wie sieht das
+ *  Objekt aus". */
+function apolloPruefungText(p) {
+  const zeilen = [];
+  const ja = (b) => (b ? 'ja' : 'nein');
+
+  if (!p.schluesselGesetzt) {
+    return 'APOLLO_API_KEY ist nicht gesetzt. Nichts zu prüfen.';
+  }
+
+  const deutung = (teil, recht) => {
+    if (teil.ok) return 'ok';
+    if (teil.status === 401) return 'Schlüssel ungültig (401)';
+    if (teil.status === 403) return `Schlüssel gültig, aber Recht "${recht}" fehlt (403)`;
+    if (teil.status === 429) return 'Apollo drosselt gerade (429), später nochmals';
+    if (teil.status === 0) return `nicht erreichbar: ${teil.meldung || 'unbekannt'}`;
+    return `Fehler ${teil.status}: ${teil.meldung || ''}`;
+  };
+
+  zeilen.push(`Felder lesen    : ${deutung(p.felderAbruf, 'api/v1/fields/index')}`);
+  zeilen.push(`Konten suchen   : ${deutung(p.kontosuche, 'api/v1/accounts/search')}`);
+  zeilen.push('');
+
+  // Nur zeigen, was wir wirklich wissen: Scheitert der Abruf, waere ein "nein" hier eine
+  // Falschaussage - wir haben die Felder dann nicht gesehen, nicht ihr Fehlen festgestellt.
+  if (p.felderAbruf.ok) {
+    zeilen.push('Erwartete Felder am Konto:');
+    zeilen.push(`  SCOPERA Score          : ${ja(p.erwartet.score)}`);
+    zeilen.push(`  SCOPERA Letzter Besuch : ${ja(p.erwartet.letzterBesuch)}`);
+    zeilen.push(`  SCOPERA Seiten         : ${ja(p.erwartet.seiten)}`);
+    zeilen.push('');
+    zeilen.push(p.kontoFelder.length
+      ? `In Apollo am Konto gefunden (${p.kontoFelder.length}): ${p.kontoFelder.join(', ')}`
+      : 'In Apollo sind am Konto bisher keine eigenen Felder angelegt.');
+  } else {
+    zeilen.push('Ob die drei Felder in Apollo angelegt sind, liess sich nicht feststellen:');
+    zeilen.push('die Feldliste war nicht lesbar (siehe oben).');
+  }
+  zeilen.push('');
+
+  if (p.bereit) {
+    zeilen.push('Ergebnis: bereit. Die nächste erkannte Firma über der Schwelle wird gemeldet.');
+  } else if (!p.felderAbruf.ok || !p.kontosuche.ok) {
+    zeilen.push('Ergebnis: noch nicht bereit. Zuerst Schlüssel beziehungsweise Rechte klären.');
+  } else {
+    zeilen.push('Ergebnis: Schlüssel und Rechte sind in Ordnung, die Felder fehlen noch.');
+    zeilen.push('Nach dem Anlegen in Apollo auf «Feldzuordnung neu laden» drücken.');
+  }
+  return zeilen.join('\n');
+}
+
 function initApollo() {
+  document.getElementById('apollo-pruefen').addEventListener('click', async (e) => {
+    const knopf = e.currentTarget;
+    const feld = document.getElementById('apollo-pruefung');
+    knopf.disabled = true;
+    feld.hidden = false;
+    feld.textContent = 'Prüft…';
+    try {
+      const daten = await api('/apollo/pruefen', { method: 'POST' });
+      feld.textContent = apolloPruefungText(daten.pruefung);
+    } catch (err) {
+      feld.textContent = `Fehler: ${err.message}`;
+    } finally {
+      knopf.disabled = false;
+    }
+  });
+
   document.getElementById('apollo-felder-neu').addEventListener('click', async (e) => {
     const knopf = e.currentTarget;
     knopf.disabled = true;
