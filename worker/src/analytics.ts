@@ -59,6 +59,42 @@ export function recordClickEvents(env: Env, path: string, ziele: string[]): void
   }
 }
 
+/** Schreibt gerasterte Klickorte fuer die Heatmap.
+ *
+ *  Ein Datenpunkt je Zelle, nicht je Klick: Gleiche Zellen werden vorher zusammengefasst und die
+ *  Anzahl mitgegeben. Sonst entstuenden bei 30 Klicks 30 Schreibvorgaenge, von denen die meisten
+ *  dieselbe Zelle betreffen.
+ *
+ *  Bewusst ohne Sitzungs-ID und ohne IP: Aus "Spalte 7, Zeile 23 auf /de/product/, Desktop" laesst
+ *  sich keine Person zurueckrechnen. Damit bleibt die Heatmap von der Besucherauswertung getrennt,
+ *  die beiden Datenarten sind nicht wieder zusammenfuehrbar. */
+export function recordHeatEvents(
+  env: Env,
+  path: string,
+  viewport: string,
+  zellen: Array<{ spalte: number; zeile: number }>,
+): void {
+  if (!isConfigured(env) || zellen.length === 0 || !viewport) return;
+  try {
+    const anzahlJeZelle = new Map<string, number>();
+    for (const z of zellen) {
+      const schluessel = `${z.spalte}:${z.zeile}`;
+      anzahlJeZelle.set(schluessel, (anzahlJeZelle.get(schluessel) ?? 0) + 1);
+    }
+    for (const [schluessel, anzahl] of anzahlJeZelle) {
+      env.VISITOR_EVENTS.writeDataPoint({
+        // Die Zelle steht als Blob, nicht als zwei Doubles: Gruppieren ueber Blobs ist in
+        // dieser Datenbank bereits erprobt, ueber Doubles nicht.
+        blobs: ["heat", path, viewport, schluessel],
+        doubles: [anzahl],
+        indexes: [path],
+      });
+    }
+  } catch (err) {
+    console.warn("recordHeatEvents fehlgeschlagen:", err instanceof Error ? err.message : err);
+  }
+}
+
 /** Wird bei jedem Lead-Uebertragungsversuch aufgerufen (siehe crm-client.ts). */
 export function recordLeadEvent(env: Env, payload: CrmLeadPayload, outcome: "ok" | "failed" | "existing"): void {
   if (!isConfigured(env)) return;

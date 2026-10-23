@@ -24,6 +24,14 @@ Intern, nur über `admin.scopera.ai` erreichbar und durch Cloudflare Access gesc
 - `GET /admin/api/crm/status`
 - `GET`/`PUT /admin/api/security/cors`, `GET`/`POST`/`DELETE /admin/api/security/ip-rules[/:id]`,
   `GET`/`POST /admin/api/security/rate-limits`
+- Besucherauswertung: `GET /admin/api/pages`, `GET /admin/api/engagement`,
+  `GET /admin/api/heatmap?path=…&viewport=mobil|tablet|desktop`
+- `GET /admin/api/preview?path=…` — liefert eine Seite der öffentlichen Webseite skriptfrei aus,
+  damit die Konsole sie einbetten und die Heatmap darüberlegen kann. Nötig, weil www.scopera.ai
+  `X-Frame-Options: SAMEORIGIN` sendet. Kein öffentlicher Spiegel: liegt unter `/admin/api/` und
+  damit hinter Access. Beide Endpunkte nehmen nur Pfade an, die einer engen Erlaubnisliste
+  genügen (`/^\/[A-Za-z0-9/_.-]*$/`), weil der Wert in eine SQL-Abfrage beziehungsweise in einen
+  ausgehenden `fetch` wandert.
 
 ## Bekannte Einschränkungen / offene Punkte (siehe Plan)
 

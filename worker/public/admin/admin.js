@@ -108,6 +108,125 @@ async function loadEngagement() {
   }
 }
 
+// --- Heatmap ---------------------------------------------------------------
+// Die Farbskala geht von kuehl nach heiss. Bewusst nur drei Stuetzpunkte: Mehr Farben
+// suggerieren eine Genauigkeit, die ein 20-mal-50-Raster nicht hat.
+function heatFarbe(anteil) {
+  if (anteil < 0.5) {
+    const t = anteil / 0.5;
+    return `rgba(${Math.round(60 + t * 150)}, ${Math.round(130 + t * 70)}, 220, ${0.25 + t * 0.35})`;
+  }
+  const t = (anteil - 0.5) / 0.5;
+  return `rgba(${Math.round(210 + t * 45)}, ${Math.round(200 - t * 140)}, ${Math.round(220 - t * 200)}, ${0.6 + t * 0.35})`;
+}
+
+const HEAT_BREITEN = { mobil: 390, tablet: 900, desktop: 1280 };
+
+function heatStatus(text) {
+  document.getElementById('heat-status').textContent = text;
+}
+
+/** Fuellt die Seitenauswahl aus derselben Quelle wie die Tabelle "Meistbesuchte Seiten",
+ *  damit dort nur Pfade stehen, zu denen es ueberhaupt Daten gibt. */
+async function loadHeatPfade() {
+  const auswahl = document.getElementById('heat-pfad');
+  try {
+    const { pages } = await api('/pages');
+    const liste = (pages || []).filter((p) => p && p.path);
+    if (!liste.length) {
+      auswahl.innerHTML = '<option value="">Noch keine Seitendaten</option>';
+      return;
+    }
+    auswahl.innerHTML = liste
+      .map((p) => `<option value="${esc(p.path)}">${esc(p.path)}</option>`)
+      .join('');
+  } catch (err) {
+    auswahl.innerHTML = `<option value="">Fehler: ${esc(err.message)}</option>`;
+  }
+}
+
+async function zeigeHeatmap() {
+  const pfad = document.getElementById('heat-pfad').value;
+  const viewport = document.getElementById('heat-viewport').value;
+  const buehne = document.getElementById('heat-buehne');
+  if (!pfad) { heatStatus('Keine Seite gewählt.'); return; }
+
+  heatStatus('Lädt…');
+  buehne.textContent = '';
+
+  let daten;
+  try {
+    daten = await api(`/heatmap?path=${encodeURIComponent(pfad)}&viewport=${encodeURIComponent(viewport)}`);
+  } catch (err) {
+    heatStatus(`Fehler: ${err.message}`);
+    return;
+  }
+  if (daten.error) { heatStatus(`Fehler: ${daten.error}`); return; }
+
+  const breite = HEAT_BREITEN[viewport] || 1280;
+  const flaeche = document.createElement('div');
+  flaeche.className = 'heat-flaeche';
+  flaeche.style.width = `${breite}px`;
+
+  const rahmen = document.createElement('iframe');
+  rahmen.src = `/admin/api/preview?path=${encodeURIComponent(pfad)}`;
+  rahmen.width = String(breite);
+  rahmen.height = '800';
+  // Kein allow-scripts: Die Vorschau ist bereits skriptfrei, der Sandkasten haelt das fest.
+  rahmen.setAttribute('sandbox', 'allow-same-origin');
+  flaeche.appendChild(rahmen);
+  buehne.appendChild(flaeche);
+
+  rahmen.addEventListener('load', () => {
+    // Gleiche Herkunft, also ist die echte Dokumenthoehe lesbar. Der Rahmen wird darauf
+    // gezogen, damit er nicht selbst scrollt und Zeile 23 von 50 wirklich bei 46 Prozent liegt.
+    let hoehe = 800;
+    try {
+      const d = rahmen.contentDocument;
+      hoehe = Math.max(d.documentElement.scrollHeight, d.body ? d.body.scrollHeight : 0) || 800;
+    } catch (err) {
+      heatStatus('Vorschau nicht lesbar, Höhe geschätzt.');
+    }
+    rahmen.height = String(hoehe);
+    flaeche.style.height = `${hoehe}px`;
+
+    const overlay = document.createElement('div');
+    overlay.className = 'heat-overlay';
+    const zellBreite = breite / daten.spalten;
+    const zellHoehe = hoehe / daten.zeilen;
+    const maximum = daten.maximum || 1;
+    // Der Punkt ist absichtlich groesser als seine Zelle: zusammen mit dem Weichzeichner
+    // ergibt das weiche Uebergaenge statt sichtbarer Kacheln.
+    const durchmesser = Math.max(zellBreite, zellHoehe) * 1.8;
+
+    for (const z of daten.zellen) {
+      const punkt = document.createElement('div');
+      punkt.className = 'heat-zelle';
+      punkt.style.width = `${durchmesser}px`;
+      punkt.style.height = `${durchmesser}px`;
+      punkt.style.left = `${(z.spalte + 0.5) * zellBreite - durchmesser / 2}px`;
+      punkt.style.top = `${(z.zeile + 0.5) * zellHoehe - durchmesser / 2}px`;
+      punkt.style.background = heatFarbe(z.anzahl / maximum);
+      overlay.appendChild(punkt);
+    }
+    flaeche.appendChild(overlay);
+
+    // Breite Fensterklassen in die Buehne skalieren, ohne das Overlay gegen die Seite zu
+    // verschieben: skaliert wird die gemeinsame Flaeche, nicht der Rahmen allein.
+    const verfuegbar = buehne.clientWidth;
+    const faktor = verfuegbar && breite > verfuegbar ? verfuegbar / breite : 1;
+    flaeche.style.transform = `scale(${faktor})`;
+    buehne.style.height = `${Math.min(hoehe * faktor, window.innerHeight * 0.75)}px`;
+
+    const klicks = daten.zellen.reduce((summe, z) => summe + z.anzahl, 0);
+    heatStatus(
+      klicks === 0
+        ? 'Noch keine Klicks für diese Seite und Fensterklasse.'
+        : `${klicks} Klicks in ${daten.zellen.length} Zellen, stärkste Zelle ${maximum}.`,
+    );
+  });
+}
+
 async function loadLeads() {
   const leadsBody = document.getElementById('leads-body');
   try {
@@ -248,12 +367,20 @@ async function loadRateLimits() {
   }
 }
 
+function initHeatmap() {
+  document.getElementById('heat-laden').addEventListener('click', zeigeHeatmap);
+}
+
 initTabs();
 initCorsSave();
 initIpAdd();
+initHeatmap();
 loadVisitors();
 loadPages();
 loadEngagement();
+// Die Seitenauswahl stammt aus derselben Abfrage, wird aber bewusst getrennt geladen: Scheitert
+// die eine, bleibt die andere bedienbar.
+loadHeatPfade();
 loadLeads();
 loadCrmStatus();
 loadCorsConfig();

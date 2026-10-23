@@ -1,4 +1,4 @@
-import { recordClickEvents, recordLeadEvent, recordVisitorEvent } from "./analytics";
+import { recordClickEvents, recordLeadEvent, recordVisitorEvent, recordHeatEvents } from "./analytics";
 import { createLead, lookupExisting } from "./crm-client";
 import { REPEAT_VISIT_WINDOW_MS, scoreSession } from "./lead-scoring";
 import type { CompanyMatch, Env, PageVisit, SessionState } from "./types";
@@ -46,7 +46,15 @@ async function findSessionIdByIp(env: Env, ip: string): Promise<string | null> {
   return env.SESSIONS.get(`ip-session:${ip}`);
 }
 
-export async function recordPageview(env: Env, ip: string, sessionId: string, page: PageVisit, klicks: string[] = []): Promise<SessionState> {
+export async function recordPageview(
+  env: Env,
+  ip: string,
+  sessionId: string,
+  page: PageVisit,
+  klicks: string[] = [],
+  viewport = "",
+  heat: Array<{ spalte: number; zeile: number }> = [],
+): Promise<SessionState> {
   const session = await getSession(env, sessionId, ip);
   session.pages.push(page);
   session.lastSeen = Date.now();
@@ -55,12 +63,13 @@ export async function recordPageview(env: Env, ip: string, sessionId: string, pa
   await rememberIpToSession(env, ip, sessionId);
   recordVisitorEvent(env, session, page);
   recordClickEvents(env, page.path, klicks);
+  recordHeatEvents(env, page.path, viewport, heat);
   await maybeSubmitLead(env, session);
   return session;
 }
 
-/** Wird vom Apollo-Webhook aufgerufen, sobald eine Firma zu einer IP identifiziert wurde. */
-/** Markiert die laufende Session einer IP mit der erkannten Firma.
+/** Wird vom Apollo-Webhook aufgerufen, sobald eine Firma zu einer IP identifiziert wurde.
+ *  Markiert die laufende Session einer IP mit der erkannten Firma.
  *
  *  `darfLeadErzeugen` trennt die beiden Wirkungen bewusst: Die Markierung lebt nur so lange wie
  *  das Session-Fenster und ist damit selbstbegrenzt, ein Lead-Eintrag liegt dagegen ein Jahr im

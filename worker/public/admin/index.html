@@ -45,6 +45,31 @@
         <thead><tr><th>Seite</th><th>Ziel</th><th>Klicks</th></tr></thead>
         <tbody id="clicks-body"><tr><td colspan="3" class="soft">Lädt…</td></tr></tbody>
       </table>
+
+      <h2>Heatmap</h2>
+      <p class="soft">
+        Wo auf einer Seite geklickt wird, gelegt über die Seite selbst. Gezählt wird jeder Klick,
+        auch der auf etwas, das kein Link ist – Häufungen auf nicht klickbaren Stellen sind der
+        eigentliche Befund. Gespeichert wird nur die Rasterzelle, nie der Pixelwert, und ohne
+        Sitzungsbezug.
+      </p>
+      <div class="heat-steuerung">
+        <label>Seite
+          <select id="heat-pfad"><option value="">Lädt…</option></select>
+        </label>
+        <label>Fensterklasse
+          <select id="heat-viewport">
+            <option value="desktop">Desktop (ab 1045px)</option>
+            <option value="tablet">Tablet (760 bis 1044px)</option>
+            <option value="mobil">Mobil (unter 760px)</option>
+          </select>
+        </label>
+        <button id="heat-laden" type="button">Anzeigen</button>
+        <span id="heat-status" class="soft"></span>
+      </div>
+      <div id="heat-buehne" class="heat-buehne">
+        <div class="soft heat-hinweis">Seite wählen und auf Anzeigen drücken.</div>
+      </div>
     </section>
 
     <section id="tab-leads" class="tab" hidden>

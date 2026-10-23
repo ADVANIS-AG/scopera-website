@@ -243,10 +243,42 @@ const nav: [string, UiKey][] = [
         messeScroll();
         window.addEventListener('scroll', messeScroll, { passive: true });
 
+        // Fensterklasse an den Umbruchpunkten der Seite (760px und 1045px in global.css),
+        // damit die Heatmap dasselbe Layout zeigt, das die Person gesehen hat.
+        function fensterklasse() {
+          var b = window.innerWidth;
+          if (b < 760) return 'mobil';
+          if (b < 1045) return 'tablet';
+          return 'desktop';
+        }
+
+        // Klickort, gerastert: 20 Spalten quer, 50 Zeilen laengs. Gespeichert wird nur die
+        // Zellennummer, nie der Pixelwert - aus "Spalte 7, Zeile 23" laesst sich keine Person
+        // und keine Mausbewegung zurueckrechnen. Doppelte Zellen bleiben drin, sonst ginge die
+        // Intensitaet verloren, die eine Heatmap ja gerade zeigen soll.
+        var SPALTEN = 20;
+        var ZEILEN = 50;
+        var heat = [];
+        function merkeOrt(e) {
+          if (heat.length >= 30) return;
+          var breite = window.innerWidth;
+          var hoehe = document.documentElement.scrollHeight;
+          if (!breite || !hoehe) return;
+          var x = typeof e.clientX === 'number' ? e.clientX : -1;
+          var y = typeof e.pageY === 'number' ? e.pageY : -1;
+          if (x < 0 || y < 0) return;
+          var spalte = Math.min(SPALTEN - 1, Math.max(0, Math.floor((x / breite) * SPALTEN)));
+          var zeile = Math.min(ZEILEN - 1, Math.max(0, Math.floor((y / hoehe) * ZEILEN)));
+          heat.push(spalte + ':' + zeile);
+        }
+
         // Geklickte Links und Knoepfe, identifiziert ueber Ziel beziehungsweise data-klick.
-        // Kein Text, keine Koordinaten, keine Reihenfolge - nur was angeklickt wurde.
+        // Kein Text, keine Reihenfolge - nur was angeklickt wurde.
         var klicks = [];
         document.addEventListener('click', function (e) {
+          // Der Ort wird bei jedem Klick gemerkt, auch wenn er kein Link und kein Knopf war:
+          // Haeufungen auf Stellen, die nicht klickbar sind, sind der eigentliche Befund.
+          merkeOrt(e);
           if (klicks.length >= 20) return;
           var el = e.target && e.target.closest ? e.target.closest('a[href], button') : null;
           if (!el) return;
@@ -275,6 +307,8 @@ const nav: [string, UiKey][] = [
             durationMs: durationMs,
             scrollDepth: scrollTiefe,
             clicks: klicks,
+            viewport: fensterklasse(),
+            heat: heat,
           });
           if (navigator.sendBeacon) {
             navigator.sendBeacon(beaconUrl, new Blob([payload], { type: 'application/json' }));

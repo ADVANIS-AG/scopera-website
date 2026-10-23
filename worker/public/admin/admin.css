@@ -44,3 +44,22 @@ button.danger { background: #fff; color: #b3261e; border-color: #b3261e; }
 .inline-form { display: flex; gap: 8px; align-items: flex-start; }
 .inline-form input { margin-top: 0; }
 .inline-form button { margin-top: 0; white-space: nowrap; }
+
+/* --- Heatmap --- */
+.heat-steuerung { display: flex; flex-wrap: wrap; gap: 1rem; align-items: flex-end; margin: 1rem 0; }
+.heat-steuerung label { display: flex; flex-direction: column; gap: .3rem; font-size: .85rem; }
+.heat-steuerung select,
+.heat-steuerung button { padding: .4rem .6rem; font: inherit; }
+.heat-buehne { position: relative; overflow: auto; max-height: 75vh; border: 1px solid #333; }
+.heat-hinweis { padding: 2rem; }
+
+/* Rahmen und Overlay teilen sich dieselbe Flaeche. Der Rahmen wird auf die volle Dokumenthoehe
+   gezogen, damit er nicht selbst scrollt und das Raster 1:1 darueber passt. Verkleinert wird
+   die ganze Flaeche, nicht der Rahmen, sonst wandert das Overlay gegen die Seite. */
+.heat-flaeche { position: relative; transform-origin: top left; }
+.heat-flaeche iframe { display: block; border: 0; }
+
+/* Der Weichzeichner macht aus den Rasterzellen erst eine Heatmap: ohne ihn sieht man ein
+   Schachbrett, mit ihm die Verlaeufe, um die es geht. */
+.heat-overlay { position: absolute; inset: 0; pointer-events: none; filter: blur(16px); opacity: .8; }
+.heat-zelle { position: absolute; border-radius: 50%; }

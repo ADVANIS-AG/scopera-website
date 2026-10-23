@@ -53,6 +53,10 @@ export interface BeaconPayload {
   scrollDepth?: number;
   /** Angeklickte Links und Knoepfe, als Ziel oder data-klick. Ohne Reihenfolge, ohne Dubletten. */
   clicks?: string[];
+  /** Fensterklasse: mobil | tablet | desktop. Bestimmt, welches Layout die Person gesehen hat. */
+  viewport?: string;
+  /** Gerasterte Klickorte als "spalte:zeile", 20 Spalten quer, 50 Zeilen laengs. */
+  heat?: string[];
 }
 
 export interface ContactFormPayload {
