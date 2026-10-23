@@ -21,15 +21,24 @@ interface ClickRow {
  *  etwas schiefgeht. Scheitert eine der beiden Abfragen, kommt der andere Teil trotzdem durch.
  *
  *  double4 ist -1, wenn die Seite die Scrolltiefe nicht mitgeschickt hat (aeltere Fassung im
- *  Browser-Cache). Solche Zeilen zaehlen nicht in den Durchschnitt, darum sumIf/countIf statt
- *  avg, mit greatest(...) gegen eine Division durch null. */
+ *  Browser-Cache). Solche Zeilen gehoeren nicht in den Durchschnitt und werden im WHERE
+ *  aussortiert, nicht in der Aggregation.
+ *
+ *  Warum im WHERE: Der erste Versuch rechnete sumIf/countIf mit greatest(...) gegen eine
+ *  Division durch null. Analytics Engine kennt greatest nicht und antwortet mit
+ *  "unknown function call: GREATEST" (HTTP 422). Der Filter im WHERE braucht ueberhaupt keine
+ *  Bedingungsfunktion, und damit kommen hier nur noch Funktionen vor, die sich im bereits
+ *  laufenden /pages-Endpunkt bewiesen haben: count(), avg(), GROUP BY, ORDER BY, LIMIT.
+ *  Seiten ohne eine einzige Messung fallen dadurch aus der Liste, was fuer eine Ansicht
+ *  "wie weit wird gelesen" richtig ist. */
 export async function handleGetEngagement(env: Env): Promise<Response> {
   const scrollSql = `
     SELECT blob5 AS path,
-           sumIf(double4, double4 >= 0) / greatest(countIf(double4 >= 0), 1) AS avgScroll,
-           countIf(double4 >= 0) AS gemessen
+           avg(double4) AS avgScroll,
+           count() AS gemessen
     FROM ${VISITOR_EVENTS_DATASET}
-    WHERE blob1 = 'visitor' AND blob5 != '' AND timestamp > NOW() - INTERVAL '30' DAY
+    WHERE blob1 = 'visitor' AND blob5 != '' AND double4 >= 0
+      AND timestamp > NOW() - INTERVAL '30' DAY
     GROUP BY blob5
     ORDER BY gemessen DESC
     LIMIT 50
