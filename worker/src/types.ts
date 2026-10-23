@@ -39,6 +39,8 @@ export interface SessionState {
   pages: PageVisit[];
   score: number;
   company?: CompanyMatch;
+  /** Gesetzt, wenn dieselbe Firma innerhalb des Wiederbesuch-Fensters schon da war. */
+  repeatVisit?: boolean;
   leadSubmitted: boolean;
 }
 

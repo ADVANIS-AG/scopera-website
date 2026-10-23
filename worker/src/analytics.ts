@@ -1,5 +1,5 @@
 import { kuerzeIp } from "./lib/ip";
-import type { CrmLeadPayload, Env, SessionState } from "./types";
+import type { CrmLeadPayload, Env, PageVisit, SessionState } from "./types";
 
 // Muss mit wrangler.toml [[analytics_engine_datasets]] dataset = "..." uebereinstimmen.
 export const VISITOR_EVENTS_DATASET = "scopera_visitor_events";
@@ -16,12 +16,22 @@ function isConfigured(env: Env): boolean {
 /** Wird bei jedem Pageview/Firmen-Match aufgerufen (siehe session-store.ts). Nicht awaiten noetig -
  *  writeDataPoint() kehrt sofort zurueck, Cloudflare schreibt im Hintergrund. Lokal per `wrangler
  *  dev` ist das Binding nicht immer verfuegbar - siehe worker/README.md "Bekannte Einschraenkungen". */
-export function recordVisitorEvent(env: Env, session: SessionState): void {
+export function recordVisitorEvent(env: Env, session: SessionState, seite?: PageVisit): void {
   if (!isConfigured(env)) return;
   try {
     env.VISITOR_EVENTS.writeDataPoint({
-      blobs: ["visitor", session.sessionId, session.company?.name ?? "", session.company?.source ?? ""],
-      doubles: [session.score, session.pages.length],
+      // blob5 und double3 sind der aufgerufene Pfad und seine Verweildauer. Ohne sie war keine
+      // Seitenauswertung moeglich: Die Pfade erreichten zwar den Worker, lebten aber nur 30
+      // Minuten in KV und wurden nie dauerhaft geschrieben. Leer, wenn das Ereignis nicht von
+      // einem Seitenaufruf stammt, etwa bei einer Firmenerkennung.
+      blobs: [
+        "visitor",
+        session.sessionId,
+        session.company?.name ?? "",
+        session.company?.source ?? "",
+        seite?.path ?? "",
+      ],
+      doubles: [session.score, session.pages.length, seite?.durationMs ?? 0],
       // Gekuerzt, weil Analytics Engine keine Aufbewahrungsfrist kennt und der Index
       // abfragbar bleibt. Die volle IP steht nur in KV und laeuft dort nach 30 Minuten ab.
       indexes: [session.company?.name ?? kuerzeIp(session.ip)],

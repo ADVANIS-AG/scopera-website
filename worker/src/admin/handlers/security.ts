@@ -69,7 +69,7 @@ export async function handleListRateLimits(env: Env): Promise<Response> {
   const result = await listRateLimitRules(env);
   if (!result.ok) {
     return jsonResponse(
-      { ok: false, error: result.errors?.join("; "), hint: "Evtl. auf eurem Cloudflare-Plan nicht verfuegbar - siehe Plan 'Offene Abhaengigkeit'." },
+      { ok: false, error: result.errors?.join("; "), hint: "Evtl. auf eurem Cloudflare-Plan nicht verfuegbar - siehe worker/README.md." },
       502,
     );
   }
@@ -103,7 +103,7 @@ export async function handleCreateRateLimit(request: Request, env: Env): Promise
   });
   if (!result.ok) {
     return jsonResponse(
-      { ok: false, error: result.errors?.join("; "), hint: "Evtl. auf eurem Cloudflare-Plan nicht verfuegbar - siehe Plan 'Offene Abhaengigkeit'." },
+      { ok: false, error: result.errors?.join("; "), hint: "Evtl. auf eurem Cloudflare-Plan nicht verfuegbar - siehe worker/README.md." },
       502,
     );
   }

@@ -10,6 +10,7 @@ import {
   handleListRateLimits,
   handlePutCorsConfig,
 } from "./handlers/security";
+import { handleGetPages } from "./handlers/pages";
 import { handleGetVisitors } from "./handlers/visitors";
 import { jsonResponse } from "../lib/json";
 import type { Env } from "../types";
@@ -27,6 +28,7 @@ export async function handleAdminApi(request: Request, env: Env): Promise<Respon
   const method = request.method;
 
   if (method === "GET" && path === "/visitors") return handleGetVisitors(env);
+  if (method === "GET" && path === "/pages") return handleGetPages(env);
 
   if (method === "GET" && path === "/leads") return handleGetLeads(env);
   if (method === "GET" && path === "/leads/failed") return handleGetFailedLeads(env);

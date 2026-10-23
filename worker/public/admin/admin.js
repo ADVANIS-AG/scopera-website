@@ -10,10 +10,31 @@ async function api(path, options) {
   return data;
 }
 
+/** Alles, was aus der API kommt, muss hier durch. Firmennamen stammen aus dem Apollo-Webhook
+ *  und Fehlertexte aus CRM-Antworten, beides ist von aussen beeinflussbar - ohne Escaping waere
+ *  das gespeichertes XSS auf einer Seite mit gueltiger Access-Sitzung. Deckt auch Attribute ab,
+ *  deshalb sind Anfuehrungszeichen mit dabei. */
+function esc(value) {
+  return String(value ?? '')
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;')
+    .replace(/"/g, '&quot;')
+    .replace(/'/g, '&#39;');
+}
+
 function fmtTime(value) {
   if (!value) return '–';
   const d = new Date(value);
   return Number.isNaN(d.getTime()) ? String(value) : d.toLocaleString('de-CH');
+}
+
+function fmtDauer(ms) {
+  const zahl = Number(ms);
+  if (!Number.isFinite(zahl) || zahl <= 0) return '–';
+  const sekunden = Math.round(zahl / 1000);
+  if (sekunden < 60) return `${sekunden}s`;
+  return `${Math.floor(sekunden / 60)}m ${String(sekunden % 60).padStart(2, '0')}s`;
 }
 
 function renderRows(tbody, rows, colCount, rowFn) {
@@ -42,10 +63,22 @@ async function loadVisitors() {
   try {
     const { visitors } = await api('/visitors');
     renderRows(tbody, visitors, 5, (v) => `
-      <tr><td>${v.subject ?? '–'}</td><td>${v.source ?? '–'}</td><td>${v.score ?? 0}</td><td>${v.pages ?? 0}</td><td>${fmtTime(v.timestamp)}</td></tr>
+      <tr><td>${esc(v.subject ?? '–')}</td><td>${esc(v.source ?? '–')}</td><td>${esc(v.score ?? 0)}</td><td>${esc(v.pages ?? 0)}</td><td>${esc(fmtTime(v.timestamp))}</td></tr>
     `);
   } catch (err) {
-    tbody.innerHTML = `<tr><td colspan="5" class="soft">Fehler: ${err.message}</td></tr>`;
+    tbody.innerHTML = `<tr><td colspan="5" class="soft">Fehler: ${esc(err.message)}</td></tr>`;
+  }
+}
+
+async function loadPages() {
+  const tbody = document.getElementById('pages-body');
+  try {
+    const { pages } = await api('/pages');
+    renderRows(tbody, pages, 3, (p) => `
+      <tr><td>${esc(p.path)}</td><td>${esc(p.views ?? 0)}</td><td>${esc(fmtDauer(p.avgDurationMs))}</td></tr>
+    `);
+  } catch (err) {
+    tbody.innerHTML = `<tr><td colspan="3" class="soft">Fehler: ${esc(err.message)}</td></tr>`;
   }
 }
 
@@ -54,10 +87,10 @@ async function loadLeads() {
   try {
     const { leads } = await api('/leads');
     renderRows(leadsBody, leads, 5, (l) => `
-      <tr><td>${l.company || l.subject || '–'}</td><td>${l.source ?? '–'}</td><td>${l.outcome ?? '–'}</td><td>${l.score ?? 0}</td><td>${fmtTime(l.timestamp)}</td></tr>
+      <tr><td>${esc(l.company || l.subject || '–')}</td><td>${esc(l.source ?? '–')}</td><td>${esc(l.outcome ?? '–')}</td><td>${esc(l.score ?? 0)}</td><td>${esc(fmtTime(l.timestamp))}</td></tr>
     `);
   } catch (err) {
-    leadsBody.innerHTML = `<tr><td colspan="5" class="soft">Fehler: ${err.message}</td></tr>`;
+    leadsBody.innerHTML = `<tr><td colspan="5" class="soft">Fehler: ${esc(err.message)}</td></tr>`;
   }
 
   const failedBody = document.getElementById('failed-leads-body');
@@ -65,10 +98,10 @@ async function loadLeads() {
     const { failed } = await api('/leads/failed');
     renderRows(failedBody, failed, 4, (f) => `
       <tr>
-        <td>${f.payload.company || f.payload.contactEmail || '–'}</td>
-        <td>${f.error}</td>
-        <td>${fmtTime(f.createdAt)}</td>
-        <td><button data-retry="${f.id}">Retry</button></td>
+        <td>${esc(f.payload.company || f.payload.contactEmail || '–')}</td>
+        <td>${esc(f.error)}</td>
+        <td>${esc(fmtTime(f.createdAt))}</td>
+        <td><button data-retry="${esc(f.id)}">Retry</button></td>
       </tr>
     `);
     failedBody.querySelectorAll('[data-retry]').forEach((btn) => {
@@ -86,7 +119,7 @@ async function loadLeads() {
       });
     });
   } catch (err) {
-    failedBody.innerHTML = `<tr><td colspan="4" class="soft">Fehler: ${err.message}</td></tr>`;
+    failedBody.innerHTML = `<tr><td colspan="4" class="soft">Fehler: ${esc(err.message)}</td></tr>`;
   }
 }
 
@@ -138,8 +171,8 @@ async function loadIpRules() {
     const { rules } = await api('/security/ip-rules');
     const blocked = rules.filter((r) => r.mode === 'block');
     renderRows(tbody, blocked, 3, (r) => `
-      <tr><td>${r.configuration?.value ?? '–'}</td><td>${r.notes ?? ''}</td>
-      <td><button class="danger" data-delete-ip="${r.id}">Entsperren</button></td></tr>
+      <tr><td>${esc(r.configuration?.value ?? '–')}</td><td>${esc(r.notes ?? '')}</td>
+      <td><button class="danger" data-delete-ip="${esc(r.id)}">Entsperren</button></td></tr>
     `);
     tbody.querySelectorAll('[data-delete-ip]').forEach((btn) => {
       btn.addEventListener('click', async () => {
@@ -154,7 +187,7 @@ async function loadIpRules() {
       });
     });
   } catch (err) {
-    tbody.innerHTML = `<tr><td colspan="3" class="soft">Fehler: ${err.message}</td></tr>`;
+    tbody.innerHTML = `<tr><td colspan="3" class="soft">Fehler: ${esc(err.message)}</td></tr>`;
   }
 }
 
@@ -181,7 +214,7 @@ async function loadRateLimits() {
     const { rules } = await api('/security/rate-limits');
     hint.textContent = '';
     renderRows(tbody, rules, 2, (r) => `
-      <tr><td>${r.description}</td><td>${r.ratelimit?.requests_per_period ?? '–'} / ${r.ratelimit?.period ?? '–'}s</td></tr>
+      <tr><td>${esc(r.description)}</td><td>${esc(r.ratelimit?.requests_per_period ?? '–')} / ${esc(r.ratelimit?.period ?? '–')}s</td></tr>
     `);
   } catch (err) {
     hint.textContent = `Nicht verfügbar: ${err.message} (evtl. Plan-Einschränkung, siehe worker/README.md).`;
@@ -193,6 +226,7 @@ initTabs();
 initCorsSave();
 initIpAdd();
 loadVisitors();
+loadPages();
 loadLeads();
 loadCrmStatus();
 loadCorsConfig();

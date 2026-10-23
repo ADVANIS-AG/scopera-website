@@ -24,6 +24,13 @@
         <thead><tr><th>Firma / IP</th><th>Quelle</th><th>Score</th><th>Seiten</th><th>Zeitpunkt</th></tr></thead>
         <tbody id="visitors-body"><tr><td colspan="5" class="soft">Lädt…</td></tr></tbody>
       </table>
+
+      <h2>Meistbesuchte Seiten</h2>
+      <p class="soft">Letzte 30 Tage. Erst ab Einführung dieser Auswertung befüllt, nicht rückwirkend.</p>
+      <table>
+        <thead><tr><th>Seite</th><th>Aufrufe</th><th>Ø Verweildauer</th></tr></thead>
+        <tbody id="pages-body"><tr><td colspan="3" class="soft">Lädt…</td></tr></tbody>
+      </table>
     </section>
 
     <section id="tab-leads" class="tab" hidden>
@@ -33,9 +40,12 @@
         <tbody id="leads-body"><tr><td colspan="5" class="soft">Lädt…</td></tr></tbody>
       </table>
 
-      <h2>Fehlgeschlagen — wartet auf Retry</h2>
+      <h2>Kontaktanfragen</h2>
+      <p class="soft">Solange kein CRM angebunden ist, landet hier <strong>jede</strong> Anfrage aus dem
+      Kontaktformular. Das ist der Posteingang, keine Fehlerliste. Es gibt keine Benachrichtigung,
+      also regelmässig hineinschauen. Retry versucht die Übergabe ans CRM und schlägt bis dahin fehl.</p>
       <table>
-        <thead><tr><th>Firma / Kontakt</th><th>Fehler</th><th>Angelegt</th><th></th></tr></thead>
+        <thead><tr><th>Firma / Kontakt</th><th>Status</th><th>Eingegangen</th><th></th></tr></thead>
         <tbody id="failed-leads-body"><tr><td colspan="4" class="soft">Lädt…</td></tr></tbody>
       </table>
 

@@ -42,8 +42,10 @@ Intern, nur über `admin.scopera.ai` erreichbar und durch Cloudflare Access gesc
   nicht implementiert.
 - **Rate-Limiting-API evtl. plan-abhängig**: `cf-api-client.ts` `createRateLimitRule`/`listRateLimitRules`
   nutzen Cloudflares Zone-Rulesets-API — auf manchen (insb. Free-)Plänen evtl. nicht verfügbar.
-  Cloudflares Fehlermeldung kommt 1:1 im Admin-Panel an (kein Absturz). Fallback bei Bedarf: eigenes
-  KV-Zähler-basiertes Rate-Limiting im Worker (noch nicht gebaut).
+  Cloudflares Fehlermeldung kommt 1:1 im Admin-Panel an (kein Absturz). Für das Kontaktformular
+  gibt es inzwischen eine eigene Drossel im Worker (`src/lib/ratelimit.ts`, 5 Anfragen je Stunde
+  und IP, Schlüssel als Hash). Sie ist unabhängig von den Cloudflare-Zonenregeln und taucht im
+  Reiter Rate-Limits deshalb **nicht** auf.
 - **Access/Analytics Engine lokal nicht vollständig testbar**: `wrangler dev` kennt weder echte
   Cloudflare-Access-Logins noch schreibt es zuverlässig in Analytics Engine — Endverifikation braucht
   einen echten Deploy (siehe Verifikation im Plan).
@@ -76,12 +78,14 @@ npm run typecheck
 
 ### Vor dem ersten Deploy zu befüllen
 
-1. **KV-Namespaces anlegen**: `npm run kv:create-sessions` und `npm run kv:create-admin-store`,
-   die ausgegebenen IDs in `wrangler.toml` unter den jeweiligen `[[kv_namespaces]] id` eintragen
-   (ersetzt `PLATZHALTER_KV_NAMESPACE_ID` / `PLATZHALTER_ADMIN_STORE_NAMESPACE_ID`).
-2. **`wrangler.toml` → `[vars]`** befüllen: `ALLOWED_ORIGIN`, `CRM_API_BASE_URL`, `CRM_LOOKUP_PATH`,
-   `CRM_LEAD_PATH`, `CF_ACCOUNT_ID`, `CF_ZONE_ID`, `CF_ACCESS_TEAM_DOMAIN`, `CF_ACCESS_AUD` (alle
-   aktuell `PLATZHALTER_...`).
+1. **KV-Namespaces**: bereits angelegt, die IDs stehen in `wrangler.toml`. Nur bei einem neuen
+   Konto nötig: `npm run kv:create-sessions` und `npm run kv:create-admin-store`, dann die
+   ausgegebenen IDs unter den jeweiligen `[[kv_namespaces]] id` eintragen.
+2. **`wrangler.toml` → `[vars]`**: `ALLOWED_ORIGIN`, `CF_ACCOUNT_ID`, `CF_ZONE_ID`,
+   `CF_ACCESS_TEAM_DOMAIN` und `CF_ACCESS_AUD` sind gesetzt. Offen sind nur noch die drei
+   CRM-Werte (`CRM_API_BASE_URL`, `CRM_LOOKUP_PATH`, `CRM_LEAD_PATH`), alle drei noch
+   `PLATZHALTER_...`. Solange das so ist, landet jede Kontaktanfrage in KV statt im CRM, siehe
+   Reiter „Kontaktanfragen" im Admin-Panel.
 3. **Secrets setzen** (nicht in `wrangler.toml`, da versioniert):
    ```bash
    npx wrangler secret put CRM_API_KEY
@@ -113,6 +117,6 @@ npm run typecheck
 ## Deploy
 
 Manuell über `npm run deploy`, oder über den GitHub-Actions-Workflow
-`.github/workflows/deploy-worker.yml` im Hauptrepo (aktuell `workflow_dispatch`-only, da noch keine
-Cloudflare-Secrets im Repo hinterlegt sind — auf Push umstellen, sobald `CLOUDFLARE_API_TOKEN` und
-`CLOUDFLARE_ACCOUNT_ID` als Repo-Secrets gesetzt sind).
+`.github/workflows/deploy-worker.yml` im Hauptrepo. Der löst bei jedem Push auf `main` aus, der
+etwas unter `worker/**` ändert, zusätzlich manuell über `workflow_dispatch`. `CLOUDFLARE_API_TOKEN`
+und `CLOUDFLARE_ACCOUNT_ID` sind als Repo-Secrets hinterlegt.

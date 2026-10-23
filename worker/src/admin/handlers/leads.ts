@@ -50,6 +50,8 @@ export async function handleRetryFailedLead(env: Env, id: string): Promise<Respo
   // failed-lead-Datensatz an - ohne das Loeschen hier wuerden sich bei wiederholten Fehlversuchen
   // Karteileichen des urspruenglichen Eintrags ansammeln.
   await env.ADMIN_STORE.delete(failedLeadKey(id));
-  const result = await createLead(env, record.payload);
+  // ID und Eingangsdatum weiterreichen, damit ein erneuter Fehlschlag denselben Eintrag
+  // wiederherstellt statt einen neuen mit heutigem Datum anzulegen.
+  const result = await createLead(env, record.payload, { id: record.id, createdAt: record.createdAt });
   return jsonResponse({ ok: result.ok, error: result.error }, result.ok ? 200 : 502);
 }

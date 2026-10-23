@@ -4,14 +4,30 @@ import type { CrmLeadPayload, CrmLeadResult, CrmLookupQuery, CrmLookupResult, En
 // PLATZHALTER-MODUL: Request/Response-Form an die echte CRM-API anpassen, sobald die Doku vorliegt.
 // Angenommen wird vorerst ein simples REST/JSON-Schema mit Bearer-Auth - beides ist zu bestaetigen.
 
-const FAILED_LEAD_TTL_SECONDS = 30 * 24 * 60 * 60; // 30 Tage, siehe Plan M3
+// Solange kein CRM angebunden ist, landet JEDE Kontaktanfrage hier - diese Eintraege sind der
+// faktische Posteingang, nicht eine Fehlerliste. Mit den urspruenglichen 30 Tagen verfielen
+// unbearbeitete Anfragen still, zumal es keine Benachrichtigung gibt. Ein Jahr gibt Luft, bis
+// entweder ein CRM steht oder eine Benachrichtigung existiert.
+const FAILED_LEAD_TTL_SECONDS = 365 * 24 * 60 * 60;
 
 export function failedLeadKey(id: string): string {
   return `failed-lead:${id}`;
 }
 
-async function persistFailedLead(env: Env, payload: CrmLeadPayload, error: string): Promise<void> {
-  const record: FailedLeadRecord = { id: crypto.randomUUID(), payload, error, createdAt: Date.now() };
+/** `bestehend` wird beim Retry mitgegeben: Ohne das bekaeme der Eintrag eine neue ID und ein
+ *  neues Eingangsdatum, womit bei jedem Versuch verloren ginge, wann die Anfrage wirklich kam. */
+async function persistFailedLead(
+  env: Env,
+  payload: CrmLeadPayload,
+  error: string,
+  bestehend?: Pick<FailedLeadRecord, "id" | "createdAt">,
+): Promise<void> {
+  const record: FailedLeadRecord = {
+    id: bestehend?.id ?? crypto.randomUUID(),
+    payload,
+    error,
+    createdAt: bestehend?.createdAt ?? Date.now(),
+  };
   await env.ADMIN_STORE.put(failedLeadKey(record.id), JSON.stringify(record), {
     expirationTtl: FAILED_LEAD_TTL_SECONDS,
   });
@@ -52,10 +68,14 @@ export async function lookupExisting(env: Env, query: CrmLookupQuery): Promise<C
 }
 
 /** Legt einen neuen Lead im CRM an. */
-export async function createLead(env: Env, payload: CrmLeadPayload): Promise<CrmLeadResult> {
+export async function createLead(
+  env: Env,
+  payload: CrmLeadPayload,
+  bestehend?: Pick<FailedLeadRecord, "id" | "createdAt">,
+): Promise<CrmLeadResult> {
   if (!isConfigured(env)) {
     console.warn("CRM nicht konfiguriert - createLead uebersprungen (Platzhalter aktiv)", payload);
-    await persistFailedLead(env, payload, "crm-not-configured");
+    await persistFailedLead(env, payload, "crm-not-configured", bestehend);
     recordLeadEvent(env, payload, "failed");
     return { ok: false, error: "crm-not-configured" };
   }
@@ -75,7 +95,7 @@ export async function createLead(env: Env, payload: CrmLeadPayload): Promise<Crm
   } catch (err) {
     const message = err instanceof Error ? err.message : "network-error";
     console.error(`CRM-Lead-Erstellung fehlgeschlagen (Netzwerk): ${message}`);
-    await persistFailedLead(env, payload, message);
+    await persistFailedLead(env, payload, message, bestehend);
     recordLeadEvent(env, payload, "failed");
     return { ok: false, error: message };
   }

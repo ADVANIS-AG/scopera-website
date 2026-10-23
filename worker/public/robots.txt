@@ -1,5 +1,38 @@
 # admin.scopera.ai ist reine Infrastruktur: Kontaktformular-Endpunkt, Besucher-Beacon,
 # Apollo-Webhook und das interne Admin-UI. Nichts davon gehoert in eine Suchmaschine.
-# Ohne diese Datei versucht Google die Startseite zu crawlen und meldet sie als 404.
+#
+# Warum die Suchmaschinen einzeln stehen: Cloudflare stellt dieser Datei seit Kurzem eine
+# verwaltete robots.txt voran ("Content Signals"), die "User-agent: * / Allow: /" enthaelt.
+# Gleichlautende Gruppen werden zusammengefuehrt, und bei gleich spezifischen Regeln gewinnt
+# Allow - ein blosses "User-agent: * / Disallow: /" hier waere also wirkungslos. Eine Gruppe
+# mit konkretem Namen schlaegt dagegen die Sternchen-Gruppe und bindet.
+#
+# Zusaetzlich sendet der Worker auf allen von ihm beantworteten Pfaden X-Robots-Tag: noindex,
+# und /admin/* liegt ohnehin hinter Cloudflare Access.
+
+User-agent: Googlebot
+Disallow: /
+
+User-agent: Googlebot-Image
+Disallow: /
+
+User-agent: Bingbot
+Disallow: /
+
+User-agent: Slurp
+Disallow: /
+
+User-agent: DuckDuckBot
+Disallow: /
+
+User-agent: Applebot
+Disallow: /
+
+User-agent: YandexBot
+Disallow: /
+
+User-agent: Baiduspider
+Disallow: /
+
 User-agent: *
 Disallow: /

@@ -1,6 +1,6 @@
 import { recordLeadEvent, recordVisitorEvent } from "./analytics";
 import { createLead, lookupExisting } from "./crm-client";
-import { REPEAT_VISIT_BONUS, REPEAT_VISIT_WINDOW_MS, scorePages } from "./lead-scoring";
+import { REPEAT_VISIT_WINDOW_MS, scoreSession } from "./lead-scoring";
 import type { CompanyMatch, Env, PageVisit, SessionState } from "./types";
 
 const SESSION_TTL_SECONDS = 30 * 60; // Session laeuft 30min nach letzter Aktivitaet ab
@@ -50,10 +50,10 @@ export async function recordPageview(env: Env, ip: string, sessionId: string, pa
   const session = await getSession(env, sessionId, ip);
   session.pages.push(page);
   session.lastSeen = Date.now();
-  session.score = scorePages(session.pages);
+  session.score = scoreSession(session.pages, session.repeatVisit === true);
   await saveSession(env, session);
   await rememberIpToSession(env, ip, sessionId);
-  recordVisitorEvent(env, session);
+  recordVisitorEvent(env, session, page);
   await maybeSubmitLead(env, session);
   return session;
 }
@@ -71,7 +71,9 @@ export async function tagCompanyForIp(env: Env, ip: string, company: Omit<Compan
   const isRepeatVisit = lastSeen !== null && Date.now() - Number(lastSeen) < REPEAT_VISIT_WINDOW_MS;
 
   session.company = { ...company, matchedAt: Date.now() };
-  session.score = scorePages(session.pages) + (isRepeatVisit ? REPEAT_VISIT_BONUS : 0);
+  // Auf der Session merken, sonst rechnet der naechste Beacon den Bonus wieder weg.
+  session.repeatVisit = isRepeatVisit;
+  session.score = scoreSession(session.pages, isRepeatVisit);
   await saveSession(env, session);
   await env.SESSIONS.put(companyHistoryKey(company.name), String(Date.now()), {
     expirationTtl: COMPANY_HISTORY_TTL_SECONDS,
