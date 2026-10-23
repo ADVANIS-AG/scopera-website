@@ -21,6 +21,18 @@ nav { display: flex; gap: 8px; }
 .tab-btn.active { background: var(--ink); color: #fff; border-color: var(--ink); font-weight: 600; }
 main { padding: 24px; max-width: 960px; margin: 0 auto; }
 .tab[hidden] { display: none; }
+
+/* Zweite Ebene innerhalb eines Reiters. Bewusst flacher gehalten als die oberste: unterstrichen
+   statt gefuellt, damit auf einen Blick klar bleibt, welche Ebene welche ist. */
+.subnav { display: flex; flex-wrap: wrap; gap: 4px; margin: 0 0 20px; border-bottom: 1px solid var(--line); }
+.subtab-btn {
+  padding: 8px 12px; border: 0; border-bottom: 2px solid transparent; background: none;
+  color: var(--ink-soft); cursor: pointer; font: inherit; font-size: 13px; margin: 0;
+}
+.subtab-btn:hover { color: var(--ink); }
+.subtab-btn.active { color: var(--ink); border-bottom-color: var(--ink); font-weight: 600; }
+.subtab-btn:focus-visible { outline: 2px solid var(--accent); outline-offset: -2px; }
+.subtab[hidden] { display: none; }
 h2 { font-size: 16px; margin: 28px 0 8px; }
 h2:first-child { margin-top: 0; }
 .soft { color: var(--ink-soft); font-size: 13px; }

@@ -18,6 +18,14 @@
 
   <main>
     <section id="tab-visitors" class="tab">
+      <nav class="subnav">
+        <button class="subtab-btn" data-subtab="ueberblick">Überblick</button>
+        <button class="subtab-btn" data-subtab="verhalten">Verhalten</button>
+        <button class="subtab-btn" data-subtab="heatmap">Heatmap</button>
+        <button class="subtab-btn" data-subtab="apollo">Apollo</button>
+      </nav>
+
+      <div id="subtab-ueberblick" class="subtab">
       <h2>Letzte Firmenbesuche</h2>
       <p class="soft">Aus Workers Analytics Engine, aktualisiert bei jedem Seitenaufruf.</p>
       <table>
@@ -31,7 +39,9 @@
         <thead><tr><th>Seite</th><th>Aufrufe</th><th>Ø Verweildauer</th></tr></thead>
         <tbody id="pages-body"><tr><td colspan="3" class="soft">Lädt…</td></tr></tbody>
       </table>
+      </div>
 
+      <div id="subtab-verhalten" class="subtab" hidden>
       <h2>Wie weit wird gelesen</h2>
       <p class="soft">Grösste erreichte Scrolltiefe je Seite, in Stufen von 25 Prozent.</p>
       <table>
@@ -45,7 +55,9 @@
         <thead><tr><th>Seite</th><th>Ziel</th><th>Klicks</th></tr></thead>
         <tbody id="clicks-body"><tr><td colspan="3" class="soft">Lädt…</td></tr></tbody>
       </table>
+      </div>
 
+      <div id="subtab-heatmap" class="subtab" hidden>
       <h2>Heatmap</h2>
       <p class="soft">
         Wo auf einer Seite geklickt wird, gelegt über die Seite selbst. Gezählt wird jeder Klick,
@@ -70,7 +82,9 @@
       <div id="heat-buehne" class="heat-buehne">
         <div class="soft heat-hinweis">Seite wählen und auf Anzeigen drücken.</div>
       </div>
+      </div>
 
+      <div id="subtab-apollo" class="subtab" hidden>
       <h2>Rückmeldungen an Apollo</h2>
       <p class="soft" id="apollo-status">Lädt…</p>
       <p class="soft">
@@ -88,6 +102,8 @@
         <thead><tr><th>Firma</th><th>Ergebnis</th><th>Score</th><th>Zeitpunkt</th><th>Meldung</th></tr></thead>
         <tbody id="apollo-body"><tr><td colspan="5" class="soft">Lädt…</td></tr></tbody>
       </table>
+      </div>
+    
     </section>
 
     <section id="tab-leads" class="tab" hidden>

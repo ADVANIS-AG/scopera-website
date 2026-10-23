@@ -45,17 +45,42 @@ function renderRows(tbody, rows, colCount, rowFn) {
   tbody.innerHTML = rows.map(rowFn).join('');
 }
 
+/** Eine Umschaltung fuer beide Ebenen, statt derselben Schleife zweimal.
+ *
+ *  `beiOeffnen` wird je Ziel hoechstens einmal aufgerufen. Damit laedt eine Ansicht erst, wenn
+ *  sie jemand ansieht: Vorher holte die Konsole beim Start sechs Auswertungen auf einmal,
+ *  darunter vier Abfragen gegen Analytics Engine, von denen die meisten niemand brauchte. */
+function initUmschaltung(knopfKlasse, bereichKlasse, praefix, beiOeffnen) {
+  const knoepfe = document.querySelectorAll(knopfKlasse);
+  const geladen = new Set();
+
+  function oeffne(knopf) {
+    knoepfe.forEach((b) => b.classList.remove('active'));
+    knopf.classList.add('active');
+    document.querySelectorAll(bereichKlasse).forEach((t) => { t.hidden = true; });
+    const ziel = knopf.dataset[praefix];
+    document.getElementById(`${praefix}-${ziel}`).hidden = false;
+    if (beiOeffnen && !geladen.has(ziel)) {
+      geladen.add(ziel);
+      beiOeffnen(ziel);
+    }
+  }
+
+  knoepfe.forEach((knopf) => knopf.addEventListener('click', () => oeffne(knopf)));
+  if (knoepfe[0]) oeffne(knoepfe[0]);
+}
+
 function initTabs() {
-  const buttons = document.querySelectorAll('.tab-btn');
-  buttons.forEach((btn) => {
-    btn.addEventListener('click', () => {
-      buttons.forEach((b) => b.classList.remove('active'));
-      btn.classList.add('active');
-      document.querySelectorAll('.tab').forEach((t) => { t.hidden = true; });
-      document.getElementById(`tab-${btn.dataset.tab}`).hidden = false;
-    });
+  initUmschaltung('.tab-btn', '.tab', 'tab', (ziel) => {
+    if (ziel === 'leads') { loadLeads(); loadCrmStatus(); }
+    if (ziel === 'security') { loadCorsConfig(); loadIpRules(); loadRateLimits(); }
   });
-  buttons[0]?.classList.add('active');
+  initUmschaltung('.subtab-btn', '.subtab', 'subtab', (ziel) => {
+    if (ziel === 'ueberblick') { loadVisitors(); loadPages(); }
+    if (ziel === 'verhalten') loadEngagement();
+    if (ziel === 'heatmap') loadHeatPfade();
+    if (ziel === 'apollo') loadApollo();
+  });
 }
 
 async function loadVisitors() {
@@ -490,20 +515,10 @@ function initHeatmap() {
   document.getElementById('heat-laden').addEventListener('click', zeigeHeatmap);
 }
 
-initTabs();
+// Reihenfolge: erst die Knoepfe verdrahten, dann umschalten. initTabs oeffnet den jeweils
+// ersten Reiter und stoesst damit das Laden an - die Knoepfe darin muessen vorher stehen.
 initCorsSave();
 initIpAdd();
 initHeatmap();
 initApollo();
-loadVisitors();
-loadPages();
-loadEngagement();
-// Die Seitenauswahl stammt aus derselben Abfrage, wird aber bewusst getrennt geladen: Scheitert
-// die eine, bleibt die andere bedienbar.
-loadHeatPfade();
-loadApollo();
-loadLeads();
-loadCrmStatus();
-loadCorsConfig();
-loadIpRules();
-loadRateLimits();
+initTabs();
