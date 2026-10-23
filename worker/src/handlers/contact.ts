@@ -34,7 +34,7 @@ export async function handleContact(request: Request, env: Env): Promise<Respons
   const ip = request.headers.get("CF-Connecting-IP") ?? "";
 
   // Vor allem anderen: begrenzt Massenversand auch dann, wenn Turnstile nicht eingerichtet ist.
-  if (await zuVieleAnfragen(env, ip)) {
+  if (await zuVieleAnfragen(env, "contact", ip)) {
     return jsonResponse({ ok: false, error: "too-many-requests" }, 429);
   }
 

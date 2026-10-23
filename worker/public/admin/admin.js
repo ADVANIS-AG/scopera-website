@@ -82,6 +82,32 @@ async function loadPages() {
   }
 }
 
+async function loadEngagement() {
+  const scrollBody = document.getElementById('scroll-body');
+  const clicksBody = document.getElementById('clicks-body');
+  try {
+    const data = await api('/engagement');
+    if (data.scrollError) {
+      scrollBody.innerHTML = `<tr><td colspan="3" class="soft">Fehler: ${esc(data.scrollError)}</td></tr>`;
+    } else {
+      renderRows(scrollBody, data.scroll, 3, (s) => `
+        <tr><td>${esc(s.path)}</td><td>${esc(Math.round(s.avgScroll ?? 0))}%</td><td>${esc(s.gemessen ?? 0)}</td></tr>
+      `);
+    }
+    if (data.clicksError) {
+      clicksBody.innerHTML = `<tr><td colspan="3" class="soft">Fehler: ${esc(data.clicksError)}</td></tr>`;
+    } else {
+      renderRows(clicksBody, data.clicks, 3, (c) => `
+        <tr><td>${esc(c.path)}</td><td>${esc(c.target)}</td><td>${esc(c.clicks ?? 0)}</td></tr>
+      `);
+    }
+  } catch (err) {
+    const zeile = `<tr><td colspan="3" class="soft">Fehler: ${esc(err.message)}</td></tr>`;
+    scrollBody.innerHTML = zeile;
+    clicksBody.innerHTML = zeile;
+  }
+}
+
 async function loadLeads() {
   const leadsBody = document.getElementById('leads-body');
   try {
@@ -227,6 +253,7 @@ initCorsSave();
 initIpAdd();
 loadVisitors();
 loadPages();
+loadEngagement();
 loadLeads();
 loadCrmStatus();
 loadCorsConfig();

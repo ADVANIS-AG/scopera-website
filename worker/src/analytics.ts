@@ -31,13 +31,31 @@ export function recordVisitorEvent(env: Env, session: SessionState, seite?: Page
         session.company?.source ?? "",
         seite?.path ?? "",
       ],
-      doubles: [session.score, session.pages.length, seite?.durationMs ?? 0],
+      doubles: [session.score, session.pages.length, seite?.durationMs ?? 0, seite?.scrollDepth ?? -1],
       // Gekuerzt, weil Analytics Engine keine Aufbewahrungsfrist kennt und der Index
       // abfragbar bleibt. Die volle IP steht nur in KV und laeuft dort nach 30 Minuten ab.
       indexes: [session.company?.name ?? kuerzeIp(session.ip)],
     });
   } catch (err) {
     console.warn("recordVisitorEvent fehlgeschlagen:", err instanceof Error ? err.message : err);
+  }
+}
+
+/** Ein Ereignis je angeklicktem Ziel. Bewusst getrennt vom Besucher-Ereignis: Pro Seitenaufruf
+ *  gibt es genau ein Besucher-Ereignis, aber beliebig viele Klicks. Ohne Sitzungs-ID, damit sich
+ *  daraus kein Bewegungsprofil einer Person zusammensetzen laesst. */
+export function recordClickEvents(env: Env, path: string, ziele: string[]): void {
+  if (!isConfigured(env) || ziele.length === 0) return;
+  try {
+    for (const ziel of ziele) {
+      env.VISITOR_EVENTS.writeDataPoint({
+        blobs: ["click", path, ziel],
+        doubles: [1],
+        indexes: [path],
+      });
+    }
+  } catch (err) {
+    console.warn("recordClickEvents fehlgeschlagen:", err instanceof Error ? err.message : err);
   }
 }
 

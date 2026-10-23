@@ -28,9 +28,19 @@ Intern, nur über `admin.scopera.ai` erreichbar und durch Cloudflare Access gesc
 ## Bekannte Einschränkungen / offene Punkte (siehe Plan)
 
 - **Apollo-Payload unbekannt**: `handlers/apollo-webhook.ts` geht von Feldnamen wie `company_name`
-  und `ip` aus — reine Annahme. Sobald die echte Apollo-Webhook-/API-Doku vorliegt, Feldnamen prüfen
-  und anpassen. Ohne IP im Payload kann eine Firmenerkennung nicht mit einer Session verknüpft
-  werden (wird dann nur geloggt, siehe `202 accepted, unlinked`).
+  und `ip` aus — reine Annahme. Damit das aufhört, Annahme zu sein, protokolliert der Handler jeden
+  eingehenden Payload vollständig (`console.info("Apollo-Payload: …")`, auf 2000 Zeichen gekappt).
+  **Beim nächsten echten Apollo-Aufruf also `npx wrangler tail` mitlaufen lassen** — dann steht das
+  reale Schema im Log und die Zuordnung lässt sich darauf festziehen. Ohne IP im Payload kann eine
+  Firmenerkennung nicht mit einer Session verknüpft werden (wird dann nur geloggt, siehe
+  `202 accepted, unlinked`).
+- **Apollo-Webhook läuft ohne Secret, aber nicht offen**: solange `APOLLO_WEBHOOK_SECRET` nicht
+  gesetzt ist, nimmt der Endpunkt Aufrufe weiterhin an (sonst wäre die Firmenerkennung tot), aber:
+  Drossel von 60 Aufrufen pro Stunde und IP, und ein unbestätigter Aufruf darf die Session zwar
+  markieren (lebt 30 Minuten, selbstbegrenzt), **keinen Lead anlegen** — Lead-Einträge liegen ein
+  Jahr im Posteingang und wären sonst zumüllbar. Sobald das Secret gesetzt ist, schaltet der
+  Endpunkt von selbst auf strikt um (401 bei fehlendem oder falschem Header, zeitkonstanter
+  Vergleich), ohne Codeänderung. Setzen mit `npx wrangler secret put APOLLO_WEBHOOK_SECRET`.
 - **IP→Session-Zuordnung ist eine Vereinfachung**: `session-store.ts` merkt sich pro IP die zuletzt
   aktive `sessionId` (30 Minuten TTL). Bei mehreren gleichzeitigen Besuchern hinter derselben
   IP (z.B. Firmen-NAT) kann das zur falschen Session führen — für den Start bewusst einfach gehalten,

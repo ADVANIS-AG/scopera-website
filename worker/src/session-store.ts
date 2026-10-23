@@ -1,4 +1,4 @@
-import { recordLeadEvent, recordVisitorEvent } from "./analytics";
+import { recordClickEvents, recordLeadEvent, recordVisitorEvent } from "./analytics";
 import { createLead, lookupExisting } from "./crm-client";
 import { REPEAT_VISIT_WINDOW_MS, scoreSession } from "./lead-scoring";
 import type { CompanyMatch, Env, PageVisit, SessionState } from "./types";
@@ -46,7 +46,7 @@ async function findSessionIdByIp(env: Env, ip: string): Promise<string | null> {
   return env.SESSIONS.get(`ip-session:${ip}`);
 }
 
-export async function recordPageview(env: Env, ip: string, sessionId: string, page: PageVisit): Promise<SessionState> {
+export async function recordPageview(env: Env, ip: string, sessionId: string, page: PageVisit, klicks: string[] = []): Promise<SessionState> {
   const session = await getSession(env, sessionId, ip);
   session.pages.push(page);
   session.lastSeen = Date.now();
@@ -54,12 +54,24 @@ export async function recordPageview(env: Env, ip: string, sessionId: string, pa
   await saveSession(env, session);
   await rememberIpToSession(env, ip, sessionId);
   recordVisitorEvent(env, session, page);
+  recordClickEvents(env, page.path, klicks);
   await maybeSubmitLead(env, session);
   return session;
 }
 
 /** Wird vom Apollo-Webhook aufgerufen, sobald eine Firma zu einer IP identifiziert wurde. */
-export async function tagCompanyForIp(env: Env, ip: string, company: Omit<CompanyMatch, "matchedAt">): Promise<SessionState | null> {
+/** Markiert die laufende Session einer IP mit der erkannten Firma.
+ *
+ *  `darfLeadErzeugen` trennt die beiden Wirkungen bewusst: Die Markierung lebt nur so lange wie
+ *  das Session-Fenster und ist damit selbstbegrenzt, ein Lead-Eintrag liegt dagegen ein Jahr im
+ *  Posteingang. Solange der Apollo-Webhook ohne Secret laeuft und jeden Aufruf annimmt, darf ein
+ *  unbestaetigter Aufruf deshalb markieren, aber keinen Eintrag anlegen. */
+export async function tagCompanyForIp(
+  env: Env,
+  ip: string,
+  company: Omit<CompanyMatch, "matchedAt">,
+  darfLeadErzeugen = true,
+): Promise<SessionState | null> {
   const sessionId = await findSessionIdByIp(env, ip);
   if (!sessionId) {
     console.warn(`Kein aktives Session-Fenster fuer IP ${ip} gefunden - Firmenerkennung "${company.name}" bleibt unverknuepft`);
@@ -80,7 +92,7 @@ export async function tagCompanyForIp(env: Env, ip: string, company: Omit<Compan
   });
 
   recordVisitorEvent(env, session);
-  await maybeSubmitLead(env, session);
+  if (darfLeadErzeugen) await maybeSubmitLead(env, session);
   return session;
 }
 

@@ -229,11 +229,53 @@ const nav: [string, UiKey][] = [
 
         var start = performance.now();
         var sent = false;
+
+        // Groesste erreichte Scrolltiefe in Stufen von 25 Prozent. Bewusst gestuft und nicht
+        // pixelgenau: Es geht darum, ob eine Seite zu Ende gelesen wird, nicht um ein Profil.
+        var scrollTiefe = 0;
+        function messeScroll() {
+          var hoehe = document.documentElement.scrollHeight - window.innerHeight;
+          if (hoehe <= 0) { scrollTiefe = 100; return; }
+          var anteil = (window.scrollY / hoehe) * 100;
+          var stufe = Math.min(100, Math.floor(anteil / 25) * 25);
+          if (stufe > scrollTiefe) scrollTiefe = stufe;
+        }
+        messeScroll();
+        window.addEventListener('scroll', messeScroll, { passive: true });
+
+        // Geklickte Links und Knoepfe, identifiziert ueber Ziel beziehungsweise data-klick.
+        // Kein Text, keine Koordinaten, keine Reihenfolge - nur was angeklickt wurde.
+        var klicks = [];
+        document.addEventListener('click', function (e) {
+          if (klicks.length >= 20) return;
+          var el = e.target && e.target.closest ? e.target.closest('a[href], button') : null;
+          if (!el) return;
+          var kennung = el.getAttribute('data-klick');
+          if (!kennung && el.tagName === 'A') {
+            var href = el.getAttribute('href') || '';
+            try {
+              var u = new URL(href, location.href);
+              kennung = u.origin === location.origin ? u.pathname : u.host;
+            } catch (x) { kennung = href; }
+          }
+          if (!kennung) kennung = (el.textContent || '').trim().slice(0, 40);
+          if (!kennung) return;
+          kennung = kennung.slice(0, 64);
+          if (klicks.indexOf(kennung) === -1) klicks.push(kennung);
+        }, true);
+
         function send() {
           if (sent) return;
           sent = true;
+          messeScroll();
           var durationMs = Math.round(performance.now() - start);
-          var payload = JSON.stringify({ sessionId: sessionId, path: path, durationMs: durationMs });
+          var payload = JSON.stringify({
+            sessionId: sessionId,
+            path: path,
+            durationMs: durationMs,
+            scrollDepth: scrollTiefe,
+            clicks: klicks,
+          });
           if (navigator.sendBeacon) {
             navigator.sendBeacon(beaconUrl, new Blob([payload], { type: 'application/json' }));
           } else {

@@ -22,6 +22,7 @@ export interface Env {
 export interface PageVisit {
   path: string;
   durationMs: number;
+  scrollDepth?: number;
 }
 
 export interface CompanyMatch {
@@ -48,6 +49,10 @@ export interface BeaconPayload {
   sessionId: string;
   path: string;
   durationMs: number;
+  /** Groesste erreichte Scrolltiefe in Stufen von 25 Prozent. */
+  scrollDepth?: number;
+  /** Angeklickte Links und Knoepfe, als Ziel oder data-klick. Ohne Reihenfolge, ohne Dubletten. */
+  clicks?: string[];
 }
 
 export interface ContactFormPayload {
