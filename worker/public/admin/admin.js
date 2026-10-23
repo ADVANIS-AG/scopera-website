@@ -134,18 +134,59 @@ async function loadEngagement() {
 }
 
 // --- Heatmap ---------------------------------------------------------------
-// Die Farbskala geht von kuehl nach heiss. Bewusst nur drei Stuetzpunkte: Mehr Farben
-// suggerieren eine Genauigkeit, die ein 20-mal-50-Raster nicht hat.
-function heatFarbe(anteil) {
-  if (anteil < 0.5) {
-    const t = anteil / 0.5;
-    return `rgba(${Math.round(60 + t * 150)}, ${Math.round(130 + t * 70)}, 220, ${0.25 + t * 0.35})`;
+
+/** Farbskala von kuehl nach heiss, in fuenf Stuetzpunkten.
+ *
+ *  Der Anteil geht als Wurzel ein, nicht linear. Grund: Bei einem Maximum von 40 waere eine
+ *  Zelle mit einem Klick linear bei 2,5 Prozent und damit praktisch unsichtbar - gerade die
+ *  vereinzelten Klicks will man aber sehen. Die Wurzel hebt den unteren Bereich an, ohne die
+ *  Rangfolge zu verdrehen. Dazu eine Mindestdeckkraft, damit nichts voellig verschwindet. */
+const HEAT_STUFEN = [
+  [0.0, [70, 120, 220]],
+  [0.25, [60, 190, 200]],
+  [0.5, [120, 210, 90]],
+  [0.75, [245, 200, 60]],
+  [1.0, [230, 50, 35]],
+];
+
+function heatFarbe(anzahl, maximum, deckkraft) {
+  const anteil = Math.sqrt(Math.max(0, Math.min(1, anzahl / (maximum || 1))));
+  let i = 0;
+  while (i < HEAT_STUFEN.length - 2 && anteil > HEAT_STUFEN[i + 1][0]) i++;
+  const [p0, c0] = HEAT_STUFEN[i];
+  const [p1, c1] = HEAT_STUFEN[i + 1];
+  const t = p1 === p0 ? 0 : (anteil - p0) / (p1 - p0);
+  const kanal = (k) => Math.round(c0[k] + (c1[k] - c0[k]) * t);
+  const alpha = deckkraft === undefined ? 0.45 + anteil * 0.5 : deckkraft;
+  return `rgba(${kanal(0)}, ${kanal(1)}, ${kanal(2)}, ${alpha})`;
+}
+
+/** Legende aus derselben Funktion aufbauen, nicht aus einer zweiten Farbliste: Sonst zeigt die
+ *  Legende irgendwann etwas anderes als das Bild. */
+function zeichneLegende(maximum) {
+  const stufen = [];
+  for (let i = 0; i <= 20; i++) {
+    const anteil = i / 20;
+    // Rueckwaerts: welche Anzahl ergaebe diesen Anteil nach der Wurzel?
+    stufen.push(`${heatFarbe(anteil * anteil * maximum, maximum, 1)} ${anteil * 100}%`);
   }
-  const t = (anteil - 0.5) / 0.5;
-  return `rgba(${Math.round(210 + t * 45)}, ${Math.round(200 - t * 140)}, ${Math.round(220 - t * 200)}, ${0.6 + t * 0.35})`;
+  document.getElementById('heat-skala').style.background = `linear-gradient(to right, ${stufen.join(', ')})`;
+  document.getElementById('heat-skala-max').textContent = String(maximum);
+  document.getElementById('heat-legende').hidden = false;
 }
 
 const HEAT_BREITEN = { mobil: 390, tablet: 900, desktop: 1280 };
+
+/** Arbeitet auf den gerade vorhandenen Ebenen, statt sie in einen Abschluss einzusperren.
+ *  Sonst haengte bei jedem Anzeigen ein weiterer Zuhoerer am Auswahlfeld, der auf laengst
+ *  entfernte Elemente zeigt. */
+function wendeDarstellungAn() {
+  const art = document.getElementById('heat-darstellung').value;
+  const overlay = document.querySelector('.heat-overlay');
+  const raster = document.querySelector('.heat-raster');
+  if (overlay) overlay.hidden = art === 'raster';
+  if (raster) raster.hidden = art === 'verlauf';
+}
 
 function heatStatus(text) {
   document.getElementById('heat-status').textContent = text;
@@ -178,6 +219,10 @@ async function zeigeHeatmap() {
 
   heatStatus('Lädt…');
   buehne.textContent = '';
+  document.getElementById('heat-legende').hidden = true;
+  document.getElementById('heat-ablesung').textContent = 'Mit der Maus über das Bild fahren';
+  document.getElementById('heat-liste-titel').hidden = true;
+  document.getElementById('heat-liste-tabelle').hidden = true;
 
   let daten;
   try {
@@ -215,15 +260,18 @@ async function zeigeHeatmap() {
     rahmen.height = String(hoehe);
     flaeche.style.height = `${hoehe}px`;
 
-    const overlay = document.createElement('div');
-    overlay.className = 'heat-overlay';
     const zellBreite = breite / daten.spalten;
     const zellHoehe = hoehe / daten.zeilen;
     const maximum = daten.maximum || 1;
-    // Der Punkt ist absichtlich groesser als seine Zelle: zusammen mit dem Weichzeichner
-    // ergibt das weiche Uebergaenge statt sichtbarer Kacheln.
-    const durchmesser = Math.max(zellBreite, zellHoehe) * 1.8;
 
+    // Nachschlagwerk fuer die Ablesung unter der Maus.
+    const nachZelle = new Map(daten.zellen.map((z) => [`${z.spalte}:${z.zeile}`, z.anzahl]));
+
+    // Ebene 1: der weiche Verlauf. Der Punkt ist absichtlich groesser als seine Zelle,
+    // zusammen mit dem Weichzeichner ergibt das Uebergaenge statt sichtbarer Kacheln.
+    const overlay = document.createElement('div');
+    overlay.className = 'heat-overlay';
+    const durchmesser = Math.max(zellBreite, zellHoehe) * 1.8;
     for (const z of daten.zellen) {
       const punkt = document.createElement('div');
       punkt.className = 'heat-zelle';
@@ -231,10 +279,29 @@ async function zeigeHeatmap() {
       punkt.style.height = `${durchmesser}px`;
       punkt.style.left = `${(z.spalte + 0.5) * zellBreite - durchmesser / 2}px`;
       punkt.style.top = `${(z.zeile + 0.5) * zellHoehe - durchmesser / 2}px`;
-      punkt.style.background = heatFarbe(z.anzahl / maximum);
+      punkt.style.background = heatFarbe(z.anzahl, maximum);
       overlay.appendChild(punkt);
     }
     flaeche.appendChild(overlay);
+
+    // Ebene 2: dieselben Zellen scharf umrissen und beziffert. Der Verlauf zeigt, wo etwas
+    // los ist, das Raster zeigt, wie viel - ohne Zahl bleibt es Deuten.
+    const raster = document.createElement('div');
+    raster.className = 'heat-raster';
+    for (const z of daten.zellen) {
+      const kachel = document.createElement('div');
+      kachel.className = 'heat-zahl';
+      kachel.style.width = `${zellBreite}px`;
+      kachel.style.height = `${zellHoehe}px`;
+      kachel.style.left = `${z.spalte * zellBreite}px`;
+      kachel.style.top = `${z.zeile * zellHoehe}px`;
+      kachel.style.background = heatFarbe(z.anzahl, maximum, 0.3);
+      kachel.textContent = String(z.anzahl);
+      raster.appendChild(kachel);
+    }
+    flaeche.appendChild(raster);
+
+    wendeDarstellungAn();
 
     // Breite Fensterklassen in die Buehne skalieren, ohne das Overlay gegen die Seite zu
     // verschieben: skaliert wird die gemeinsame Flaeche, nicht der Rahmen allein.
@@ -243,48 +310,51 @@ async function zeigeHeatmap() {
     flaeche.style.transform = `scale(${faktor})`;
     buehne.style.height = `${Math.min(hoehe * faktor, window.innerHeight * 0.75)}px`;
 
+    // Ablesung: Die Flaeche ist skaliert, getBoundingClientRect liefert also die skalierten
+    // Masse. Der Anteil darin ist derselbe wie im unskalierten Raster, darum wird ueber den
+    // Anteil gerechnet und nicht ueber Pixel.
+    const ablesung = document.getElementById('heat-ablesung');
+    flaeche.addEventListener('mousemove', (e) => {
+      const r = flaeche.getBoundingClientRect();
+      if (!r.width || !r.height) return;
+      const sp = Math.min(daten.spalten - 1, Math.floor(((e.clientX - r.left) / r.width) * daten.spalten));
+      const ze = Math.min(daten.zeilen - 1, Math.floor(((e.clientY - r.top) / r.height) * daten.zeilen));
+      if (sp < 0 || ze < 0) return;
+      const anzahl = nachZelle.get(`${sp}:${ze}`) || 0;
+      ablesung.textContent = `Spalte ${sp + 1} von ${daten.spalten}, Zeile ${ze + 1} von ${daten.zeilen}: ${anzahl} Klicks`;
+    });
+    flaeche.addEventListener('mouseleave', () => {
+      ablesung.textContent = 'Mit der Maus über das Bild fahren';
+    });
+
+    // Uebersicht ueber alle Stellen. Bei 50 Zeilen auf einer 7600 Pixel hohen Seite muesste man
+    // sonst durch das ganze Bild scrollen, um zu sehen, wo ueberhaupt etwas ist.
+    const liste = document.getElementById('heat-liste');
+    const sortiert = [...daten.zellen].sort((a, c) => c.anzahl - a.anzahl).slice(0, 15);
+    liste.innerHTML = sortiert.map((z) => {
+      const vonOben = Math.round(((z.zeile + 0.5) / daten.zeilen) * 100);
+      const quer = Math.round(((z.spalte + 0.5) / daten.spalten) * 100);
+      const breiteBalken = Math.max(6, Math.round((z.anzahl / maximum) * 90));
+      return `<tr>
+        <td><span class="heat-balken" style="width:${breiteBalken}px;background:${heatFarbe(z.anzahl, maximum, 1)}"></span>${esc(z.anzahl)}</td>
+        <td>${esc(vonOben)}% von oben (rund ${esc(Math.round(((z.zeile + 0.5) / daten.zeilen) * hoehe))} px)</td>
+        <td>${esc(quer)}% von links</td>
+        <td>Spalte ${esc(z.spalte + 1)}, Zeile ${esc(z.zeile + 1)}</td>
+      </tr>`;
+    }).join('');
+    const listeSichtbar = sortiert.length > 0;
+    document.getElementById('heat-liste-titel').hidden = !listeSichtbar;
+    document.getElementById('heat-liste-tabelle').hidden = !listeSichtbar;
+
     const klicks = daten.zellen.reduce((summe, z) => summe + z.anzahl, 0);
-    heatStatus(
-      klicks === 0
-        ? 'Noch keine Klicks für diese Seite und Fensterklasse.'
-        : `${klicks} Klicks in ${daten.zellen.length} Zellen, stärkste Zelle ${maximum}.`,
-    );
-  });
-}
-
-const APOLLO_ERGEBNIS = {
-  'ok': 'übertragen',
-  'kein-konto': 'kein passendes Konto in Apollo',
-  'felder-fehlen': 'Felder in Apollo fehlen',
-  'fehler': 'Fehler',
-};
-
-async function loadApollo() {
-  const koerper = document.getElementById('apollo-body');
-  const status = document.getElementById('apollo-status');
-  try {
-    const daten = await api('/apollo');
-    if (daten.error) {
-      status.textContent = `Fehler: ${daten.error}`;
-      koerper.innerHTML = `<tr><td colspan="5" class="soft">Fehler: ${esc(daten.error)}</td></tr>`;
-      return;
+    if (klicks === 0) {
+      document.getElementById('heat-legende').hidden = true;
+      heatStatus('Noch keine Klicks für diese Seite und Fensterklasse.');
+    } else {
+      zeichneLegende(maximum);
+      heatStatus(`${klicks} Klicks in ${daten.zellen.length} von ${daten.spalten * daten.zeilen} Zellen, stärkste Zelle ${maximum}. Eine Zeile entspricht rund ${Math.round(zellHoehe)} Pixeln Seitenhöhe.`);
     }
-    status.textContent = daten.aktiv
-      ? 'Aktiv. Je erkannte Firma höchstens eine Rückmeldung pro Tag, und erst ab der Lead-Schwelle.'
-      : daten.hinweis;
-    renderRows(koerper, daten.rueckmeldungen, 5, (r) => `
-      <tr>
-        <td>${esc(r.firma)}</td>
-        <td>${esc(APOLLO_ERGEBNIS[r.ergebnis] || r.ergebnis)}</td>
-        <td>${esc(r.score ?? '')}</td>
-        <td>${esc(r.zeitpunkt ? new Date(r.zeitpunkt).toLocaleString('de-CH') : '')}</td>
-        <td>${esc(r.meldung || '')}</td>
-      </tr>
-    `);
-  } catch (err) {
-    status.textContent = `Fehler: ${err.message}`;
-    koerper.innerHTML = `<tr><td colspan="5" class="soft">Fehler: ${esc(err.message)}</td></tr>`;
-  }
+  });
 }
 
 async function loadLeads() {
@@ -513,6 +583,7 @@ function initApollo() {
 
 function initHeatmap() {
   document.getElementById('heat-laden').addEventListener('click', zeigeHeatmap);
+  document.getElementById('heat-darstellung').addEventListener('change', wendeDarstellungAn);
 }
 
 // Reihenfolge: erst die Knoepfe verdrahten, dann umschalten. initTabs oeffnet den jeweils

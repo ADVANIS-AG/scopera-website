@@ -76,12 +76,31 @@
             <option value="mobil">Mobil (unter 760px)</option>
           </select>
         </label>
+        <label>Darstellung
+          <select id="heat-darstellung">
+            <option value="beides">Verlauf und Raster</option>
+            <option value="verlauf">Nur Verlauf</option>
+            <option value="raster">Nur Raster mit Zahlen</option>
+          </select>
+        </label>
         <button id="heat-laden" type="button">Anzeigen</button>
-        <span id="heat-status" class="soft"></span>
       </div>
+      <div class="heat-legende" id="heat-legende" hidden>
+        <span class="soft">Klicks je Rasterzelle</span>
+        <span class="heat-skala-wert soft" id="heat-skala-min">1</span>
+        <span class="heat-skala" id="heat-skala"></span>
+        <span class="heat-skala-wert soft" id="heat-skala-max">–</span>
+        <span class="heat-ablesung soft" id="heat-ablesung">Mit der Maus über das Bild fahren</span>
+      </div>
+      <p class="soft" id="heat-status"></p>
       <div id="heat-buehne" class="heat-buehne">
         <div class="soft heat-hinweis">Seite wählen und auf Anzeigen drücken.</div>
       </div>
+      <h3 id="heat-liste-titel" hidden>Stärkste Stellen</h3>
+      <table id="heat-liste-tabelle" hidden>
+        <thead><tr><th>Klicks</th><th>Höhe auf der Seite</th><th>Quer</th><th>Zelle</th></tr></thead>
+        <tbody id="heat-liste"></tbody>
+      </table>
       </div>
 
       <div id="subtab-apollo" class="subtab" hidden>

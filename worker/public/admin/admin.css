@@ -69,7 +69,9 @@ button.danger { background: #fff; color: #b3261e; border-color: #b3261e; }
    gezogen, damit er nicht selbst scrollt und das Raster 1:1 darueber passt. Verkleinert wird
    die ganze Flaeche, nicht der Rahmen, sonst wandert das Overlay gegen die Seite. */
 .heat-flaeche { position: relative; transform-origin: top left; }
-.heat-flaeche iframe { display: block; border: 0; }
+/* Ohne pointer-events: none verschluckt der Rahmen jede Mausbewegung und die Ablesung bliebe
+   stumm. Die Vorschau ist skriptfrei und nicht bedienbar, es geht also nichts verloren. */
+.heat-flaeche iframe { display: block; border: 0; pointer-events: none; }
 
 /* Der Weichzeichner macht aus den Rasterzellen erst eine Heatmap: ohne ihn sieht man ein
    Schachbrett, mit ihm die Verlaeufe, um die es geht. */
@@ -77,3 +79,24 @@ button.danger { background: #fff; color: #b3261e; border-color: #b3261e; }
 .heat-zelle { position: absolute; border-radius: 50%; }
 
 .apollo-pruefung { white-space: pre-wrap; padding: .8rem; border: 1px solid #333; margin: .5rem 0; line-height: 1.6; }
+
+.heat-legende { display: flex; flex-wrap: wrap; align-items: center; gap: .6rem; margin: .4rem 0 .8rem; }
+.heat-legende[hidden] { display: none; }
+.heat-skala { display: inline-block; width: 200px; height: 12px; border: 1px solid var(--line); }
+.heat-skala-wert { font-variant-numeric: tabular-nums; }
+.heat-ablesung { margin-left: auto; font-variant-numeric: tabular-nums; }
+
+/* Rasteransicht: dieselben Zellen, aber lesbar statt stimmungsvoll. Ohne Weichzeichner, mit
+   Umriss und Zahl - hier geht es um den Wert, nicht um den Eindruck. */
+.heat-raster { position: absolute; inset: 0; pointer-events: none; }
+.heat-raster[hidden] { display: none; }
+.heat-zahl {
+  position: absolute; display: flex; align-items: center; justify-content: center;
+  font: 600 11px/1 system-ui, sans-serif; color: #fff;
+  text-shadow: 0 0 3px #000, 0 0 6px #000;
+  border: 1px solid rgba(255, 255, 255, .55); box-sizing: border-box;
+}
+.heat-flaeche { cursor: crosshair; }
+
+h3 { font-size: 14px; margin: 24px 0 4px; }
+.heat-balken { display: inline-block; height: 10px; vertical-align: middle; margin-right: 6px; }
