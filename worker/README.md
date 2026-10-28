@@ -26,9 +26,14 @@ Intern, nur über `admin.scopera.ai` erreichbar und durch Cloudflare Access gesc
   `GET`/`POST /admin/api/security/rate-limits`
 - Apollo-Rückkopplung: `GET /admin/api/apollo`,
   `POST /admin/api/apollo/pruefen` (tastet Apollo ab, schreibt nichts),
-  `POST /admin/api/apollo/felder-neu-laden`
+  `POST /admin/api/apollo/felder-neu-laden`,
+  `POST /admin/api/apollo/test` (Probelauf oder Testrückmeldung mit Score 0 an ein gewähltes Konto).
+  Das Protokoll speichert die Apollo-Konto-ID, die Konsole verlinkt damit direkt auf das Konto.
 - Besucherauswertung: `GET /admin/api/pages`, `GET /admin/api/engagement`,
-  `GET /admin/api/heatmap?path=…&viewport=mobil|tablet|desktop`
+  `GET /admin/api/heatmap?path=…&viewport=mobil|tablet|desktop`,
+  `GET /admin/api/heatmap/verlauf?path=…` (letzte 100 Seitenaufrufe mit Klicks, `path` optional).
+  Klickziele und Klickorte eines Aufrufs tragen eine zufällige Aufruf-Kennung (blob4 bzw. blob5),
+  die je Seitenaufruf neu gezogen wird und nicht mit Sitzung oder IP verknüpft ist.
 - `GET /admin/api/preview?path=…` — liefert eine Seite der öffentlichen Webseite skriptfrei aus,
   damit die Konsole sie einbetten und die Heatmap darüberlegen kann. Nötig, weil www.scopera.ai
   `X-Frame-Options: SAMEORIGIN` sendet. Kein öffentlicher Spiegel: liegt unter `/admin/api/` und

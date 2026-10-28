@@ -12,7 +12,7 @@ import {
   handlePutCorsConfig,
 } from "./handlers/security";
 import { handleGetEngagement } from "./handlers/engagement";
-import { handleGetHeatmap } from "./handlers/heatmap";
+import { handleGetHeatmap, handleGetHeatVerlauf } from "./handlers/heatmap";
 import { handleGetPages } from "./handlers/pages";
 import { handleGetPreview } from "./handlers/preview";
 import { handleGetVisitors } from "./handlers/visitors";
@@ -35,6 +35,7 @@ export async function handleAdminApi(request: Request, env: Env): Promise<Respon
   if (method === "GET" && path === "/pages") return handleGetPages(env);
   if (method === "GET" && path === "/engagement") return handleGetEngagement(env);
   if (method === "GET" && path === "/heatmap") return handleGetHeatmap(request, env);
+  if (method === "GET" && path === "/heatmap/verlauf") return handleGetHeatVerlauf(request, env);
   if (method === "GET" && path === "/preview") return handleGetPreview(request, env);
 
   if (method === "GET" && path === "/leads") return handleGetLeads(env);

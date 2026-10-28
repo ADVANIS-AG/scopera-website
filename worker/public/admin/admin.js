@@ -78,7 +78,7 @@ function initTabs() {
   initUmschaltung('.subtab-btn', '.subtab', 'subtab', (ziel) => {
     if (ziel === 'ueberblick') { loadVisitors(); loadPages(); }
     if (ziel === 'verhalten') loadEngagement();
-    if (ziel === 'heatmap') loadHeatPfade();
+    if (ziel === 'heatmap') { loadHeatPfade(); loadHeatVerlauf(); }
     if (ziel === 'apollo') loadApollo();
   });
 }
@@ -211,6 +211,78 @@ async function loadHeatPfade() {
   }
 }
 
+/** Vom Verlauf gewaehlter Aufruf: { pfad, viewport, zellen }. Wird beim naechsten Zeichnen umrahmt. */
+let heatMarkierung = null;
+let heatVerlauf = [];
+
+const GERAET = { desktop: 'Desktop', tablet: 'Tablet', mobil: 'Mobil' };
+
+function klickortText(z, spalten, zeilen) {
+  const vonOben = Math.round(((z.zeile + 0.5) / zeilen) * 100);
+  const quer = (z.spalte + 0.5) / spalten;
+  const seite = quer < 0.34 ? 'links' : quer > 0.66 ? 'rechts' : 'Mitte';
+  return `${vonOben}% von oben, ${seite}${z.anzahl > 1 ? ` (${z.anzahl}×)` : ''}`;
+}
+
+/** Analytics Engine liefert "2026-10-28 05:12:26" ohne Zone, gemeint ist UTC. Werte mit Zone
+ *  oder im ISO-Format bleiben unveraendert. */
+function aeZeit(wert) {
+  const s = String(wert || '');
+  if (/^\d{4}-\d{2}-\d{2} \d{2}:\d{2}:\d{2}$/.test(s)) return `${s.replace(' ', 'T')}Z`;
+  return s;
+}
+
+async function loadHeatVerlauf() {
+  const tbody = document.getElementById('heat-verlauf-body');
+  const nurSeite = document.getElementById('heat-verlauf-nur-seite').checked;
+  const pfad = document.getElementById('heat-pfad').value;
+  tbody.innerHTML = '<tr><td colspan="3" class="soft">Lädt…</td></tr>';
+  try {
+    const daten = await api(`/heatmap/verlauf${nurSeite && pfad ? `?path=${encodeURIComponent(pfad)}` : ''}`);
+    heatVerlauf = daten.aufrufe;
+    renderRows(tbody, heatVerlauf, 3, (a, i) => {
+      const orte = a.zellen.map((z) => klickortText(z, daten.spalten, daten.zeilen));
+      const ziele = a.ziele.length ? `<ul class="heat-ziele">${a.ziele.map((zi) => `<li>${esc(zi)}</li>`).join('')}</ul>` : '';
+      const orteText = orte.length ? `<div class="soft">${orte.length} Klickort${orte.length > 1 ? 'e' : ''}: ${esc(orte.slice(0, 4).join('; '))}${orte.length > 4 ? ' …' : ''}</div>` : '';
+      return `<tr data-index="${i}">
+        <td class="heat-zeit">${esc(kurzeZeit(aeZeit(a.zeit)))}</td>
+        <td>${esc(a.pfad)}<div class="soft">${esc(GERAET[a.viewport] || 'Gerät unbekannt')}</div></td>
+        <td>${ziele}${orteText || (ziele ? '' : '–')}</td>
+      </tr>`;
+    });
+    tbody.querySelectorAll('tr[data-index]').forEach((zeile) => {
+      zeile.addEventListener('click', () => waehleVerlaufsEintrag(Number(zeile.dataset.index), zeile));
+    });
+  } catch (err) {
+    tbody.innerHTML = `<tr><td colspan="3" class="soft">Fehler: ${esc(err.message)}</td></tr>`;
+  }
+}
+
+function kurzeZeit(wert) {
+  const d = new Date(wert);
+  if (Number.isNaN(d.getTime())) return String(wert);
+  return d.toLocaleString('de-CH', { day: '2-digit', month: '2-digit', hour: '2-digit', minute: '2-digit' });
+}
+
+function waehleVerlaufsEintrag(index, zeile) {
+  const a = heatVerlauf[index];
+  if (!a) return;
+  document.querySelectorAll('#heat-verlauf-body tr.aktiv').forEach((z) => z.classList.remove('aktiv'));
+  zeile.classList.add('aktiv');
+  const pfadWahl = document.getElementById('heat-pfad');
+  if (![...pfadWahl.options].some((o) => o.value === a.pfad)) {
+    const option = document.createElement('option');
+    option.value = a.pfad;
+    option.textContent = a.pfad;
+    pfadWahl.appendChild(option);
+  }
+  pfadWahl.value = a.pfad;
+  // Ohne bekannte Fensterklasse (nur Klickziele, keine Klickorte) bleibt die gewaehlte stehen.
+  if (a.viewport) document.getElementById('heat-viewport').value = a.viewport;
+  heatMarkierung = { pfad: a.pfad, viewport: a.viewport, zellen: a.zellen };
+  zeigeHeatmap();
+}
+
 async function zeigeHeatmap() {
   const pfad = document.getElementById('heat-pfad').value;
   const viewport = document.getElementById('heat-viewport').value;
@@ -301,6 +373,21 @@ async function zeigeHeatmap() {
     }
     flaeche.appendChild(raster);
 
+    // Klickorte eines im Verlauf gewaehlten Aufrufs umrahmen, aber nur, wenn Seite und
+    // Fensterklasse passen: Dieselbe Zelle liegt auf Mobil an einer anderen Stelle als auf Desktop.
+    const markierung = heatMarkierung;
+    if (markierung && markierung.pfad === pfad && markierung.viewport === viewport) {
+      for (const z of markierung.zellen) {
+        const rahmenZelle = document.createElement('div');
+        rahmenZelle.className = 'heat-markiert';
+        rahmenZelle.style.width = `${zellBreite}px`;
+        rahmenZelle.style.height = `${zellHoehe}px`;
+        rahmenZelle.style.left = `${z.spalte * zellBreite}px`;
+        rahmenZelle.style.top = `${z.zeile * zellHoehe}px`;
+        flaeche.appendChild(rahmenZelle);
+      }
+    }
+
     wendeDarstellungAn();
 
     // Breite Fensterklassen in die Buehne skalieren, ohne das Overlay gegen die Seite zu
@@ -345,6 +432,12 @@ async function zeigeHeatmap() {
     const listeSichtbar = sortiert.length > 0;
     document.getElementById('heat-liste-titel').hidden = !listeSichtbar;
     document.getElementById('heat-liste-tabelle').hidden = !listeSichtbar;
+
+    // Zum ersten markierten Klickort scrollen, sonst liegt er auf langen Seiten ausser Sicht.
+    if (markierung && markierung.pfad === pfad && markierung.viewport === viewport && markierung.zellen.length) {
+      const obersteZeile = Math.min(...markierung.zellen.map((z) => z.zeile));
+      buehne.scrollTop = Math.max(0, obersteZeile * zellHoehe * faktor - 80);
+    }
 
     const klicks = daten.zellen.reduce((summe, z) => summe + z.anzahl, 0);
     if (klicks === 0) {
@@ -556,6 +649,12 @@ const APOLLO_ERGEBNIS = {
   'fehler': 'Fehler',
 };
 
+/** Link auf das Konto in Apollo. Nur fuer IDs in der Form, die Apollo vergibt (24 Hex-Zeichen). */
+function apolloKontoLink(kontoId, text) {
+  if (!kontoId || !/^[a-f0-9]{24}$/i.test(kontoId)) return esc(text);
+  return `<a href="https://app.apollo.io/#/accounts/${esc(kontoId)}" target="_blank" rel="noopener noreferrer">${esc(text)} ↗</a>`;
+}
+
 async function loadApollo() {
   const koerper = document.getElementById('apollo-body');
   const status = document.getElementById('apollo-status');
@@ -566,7 +665,7 @@ async function loadApollo() {
       : daten.hinweis;
     renderRows(koerper, daten.rueckmeldungen, 5, (r) => `
       <tr>
-        <td>${esc(r.firma)}</td>
+        <td>${apolloKontoLink(r.kontoId, r.firma)}</td>
         <td>${esc(APOLLO_ERGEBNIS[r.ergebnis] || r.ergebnis)}</td>
         <td>${esc(r.score ?? '')}</td>
         <td>${esc(fmtTime(r.zeitpunkt))}</td>
@@ -618,6 +717,9 @@ async function apolloTest(schreiben) {
   try {
     const { test } = await api('/apollo/test', { method: 'POST', body: JSON.stringify({ firma, domain, schreiben }) });
     feld.textContent = apolloTestText(test, schreiben);
+    const link = document.getElementById('apollo-test-link');
+    link.hidden = !test.konto;
+    link.innerHTML = test.konto ? `In Apollo öffnen: ${apolloKontoLink(test.konto.id, test.konto.name)}` : '';
     if (schreiben) loadApollo();
   } catch (err) {
     feld.textContent = `Fehler: ${err.message}`;
@@ -662,7 +764,14 @@ function initApollo() {
 }
 
 function initHeatmap() {
-  document.getElementById('heat-laden').addEventListener('click', zeigeHeatmap);
+  document.getElementById('heat-laden').addEventListener('click', () => {
+    // Manuelles Anzeigen hebt die Markierung eines Verlaufseintrags auf.
+    heatMarkierung = null;
+    document.querySelectorAll('#heat-verlauf-body tr.aktiv').forEach((z) => z.classList.remove('aktiv'));
+    zeigeHeatmap();
+    if (document.getElementById('heat-verlauf-nur-seite').checked) loadHeatVerlauf();
+  });
+  document.getElementById('heat-verlauf-nur-seite').addEventListener('change', loadHeatVerlauf);
   document.getElementById('heat-darstellung').addEventListener('change', wendeDarstellungAn);
 }
 

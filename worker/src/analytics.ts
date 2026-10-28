@@ -43,13 +43,17 @@ export function recordVisitorEvent(env: Env, session: SessionState, seite?: Page
 
 /** Ein Ereignis je angeklicktem Ziel. Bewusst getrennt vom Besucher-Ereignis: Pro Seitenaufruf
  *  gibt es genau ein Besucher-Ereignis, aber beliebig viele Klicks. Ohne Sitzungs-ID, damit sich
- *  daraus kein Bewegungsprofil einer Person zusammensetzen laesst. */
-export function recordClickEvents(env: Env, path: string, ziele: string[]): void {
+ *  daraus kein Bewegungsprofil einer Person zusammensetzen laesst.
+ *
+ *  `aufruf` ist eine zufaellige Kennung je Seitenaufruf (siehe recordPageview). Sie haelt Klickziele
+ *  und Klickorte desselben Aufrufs zusammen, fuer den Verlauf in der Heatmap. Sie wird pro Aufruf
+ *  neu gezogen und nirgends mit Sitzung oder IP gespeichert, verbindet also keine zwei Seiten. */
+export function recordClickEvents(env: Env, path: string, ziele: string[], aufruf = ""): void {
   if (!isConfigured(env) || ziele.length === 0) return;
   try {
     for (const ziel of ziele) {
       env.VISITOR_EVENTS.writeDataPoint({
-        blobs: ["click", path, ziel],
+        blobs: ["click", path, ziel, aufruf],
         doubles: [1],
         indexes: [path],
       });
@@ -73,6 +77,7 @@ export function recordHeatEvents(
   path: string,
   viewport: string,
   zellen: Array<{ spalte: number; zeile: number }>,
+  aufruf = "",
 ): void {
   if (!isConfigured(env) || zellen.length === 0 || !viewport) return;
   try {
@@ -85,7 +90,7 @@ export function recordHeatEvents(
       env.VISITOR_EVENTS.writeDataPoint({
         // Die Zelle steht als Blob, nicht als zwei Doubles: Gruppieren ueber Blobs ist in
         // dieser Datenbank bereits erprobt, ueber Doubles nicht.
-        blobs: ["heat", path, viewport, schluessel],
+        blobs: ["heat", path, viewport, schluessel, aufruf],
         doubles: [anzahl],
         indexes: [path],
       });

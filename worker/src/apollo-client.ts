@@ -35,6 +35,8 @@ export interface RueckmeldungsProtokoll {
   ergebnis: "ok" | "kein-konto" | "fehler" | "felder-fehlen";
   meldung?: string;
   score?: number;
+  /** Apollo-Konto-ID, fuer den direkten Link in der Admin-Konsole. Fehlt bei aelteren Eintraegen. */
+  kontoId?: string;
 }
 
 export function apolloKonfiguriert(env: Env): boolean {
@@ -290,11 +292,11 @@ export async function sendeTestRueckmeldung(
   ergebnis.status = res.status;
   if (!res.ok) {
     ergebnis.meldung = (await res.text()).slice(0, 200);
-    await schreibeProtokoll(env, { firma: konto.name, zeitpunkt, ergebnis: "fehler", score: 0, meldung: `Test: PATCH ${res.status}: ${ergebnis.meldung}` });
+    await schreibeProtokoll(env, { firma: konto.name, zeitpunkt, ergebnis: "fehler", score: 0, meldung: `Test: PATCH ${res.status}: ${ergebnis.meldung}`, kontoId: konto.id });
     return ergebnis;
   }
   ergebnis.geschrieben = true;
-  await schreibeProtokoll(env, { firma: konto.name, zeitpunkt, ergebnis: "ok", score: 0, meldung: "Test aus der Admin-Konsole" });
+  await schreibeProtokoll(env, { firma: konto.name, zeitpunkt, ergebnis: "ok", score: 0, meldung: "Test aus der Admin-Konsole", kontoId: konto.id });
   return ergebnis;
 }
 
@@ -341,11 +343,11 @@ export async function sendeRueckmeldung(env: Env, session: SessionState): Promis
     const res = await schreibeKontoFelder(env, konto.id, felder, { score: session.score, zeitpunkt, seiten });
     if (!res.ok) {
       const text = (await res.text()).slice(0, 200);
-      await schreibeProtokoll(env, { firma, zeitpunkt, ergebnis: "fehler", meldung: `PATCH ${res.status}: ${text}`, score: session.score });
+      await schreibeProtokoll(env, { firma, zeitpunkt, ergebnis: "fehler", meldung: `PATCH ${res.status}: ${text}`, score: session.score, kontoId: konto.id });
       return;
     }
 
-    await schreibeProtokoll(env, { firma, zeitpunkt, ergebnis: "ok", score: session.score });
+    await schreibeProtokoll(env, { firma, zeitpunkt, ergebnis: "ok", score: session.score, kontoId: konto.id });
   } catch (err) {
     await schreibeProtokoll(env, {
       firma,

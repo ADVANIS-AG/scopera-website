@@ -93,8 +93,28 @@
         <span class="heat-ablesung soft" id="heat-ablesung">Mit der Maus über das Bild fahren</span>
       </div>
       <p class="soft" id="heat-status"></p>
-      <div id="heat-buehne" class="heat-buehne">
-        <div class="soft heat-hinweis">Seite wählen und auf Anzeigen drücken.</div>
+      <div class="heat-layout">
+        <div id="heat-buehne" class="heat-buehne">
+          <div class="soft heat-hinweis">Seite wählen und auf Anzeigen drücken.</div>
+        </div>
+        <aside class="heat-verlauf">
+          <div class="heat-verlauf-kopf">
+            <h3>Verlauf</h3>
+            <label class="soft heat-verlauf-filter"><input id="heat-verlauf-nur-seite" type="checkbox" /> nur gewählte Seite</label>
+          </div>
+          <p class="soft heat-verlauf-hinweis">
+            Seitenaufrufe mit Klicks, neueste zuerst, letzte 30 Tage. Der Browser meldet Klicks gesammelt
+            beim Verlassen der Seite: Die Zeit ist die des Aufrufs, innerhalb einer Seite gibt es keine
+            Reihenfolge. Mausbewegungen werden nicht erfasst. Zeile anklicken: Die Seite erscheint in der
+            Heatmap, die Klickorte dieses Aufrufs sind umrahmt.
+          </p>
+          <div class="heat-verlauf-liste">
+            <table>
+              <thead><tr><th>Zeit</th><th>Seite</th><th>Klicks</th></tr></thead>
+              <tbody id="heat-verlauf-body"><tr><td colspan="3" class="soft">Lädt…</td></tr></tbody>
+            </table>
+          </div>
+        </aside>
       </div>
       <h3 id="heat-liste-titel" hidden>Stärkste Stellen</h3>
       <table id="heat-liste-tabelle" hidden>
@@ -132,6 +152,7 @@
         <button id="apollo-test-senden" type="button">Testrückmeldung senden</button>
       </p>
       <pre id="apollo-test-ergebnis" class="soft apollo-pruefung" hidden></pre>
+      <p id="apollo-test-link" hidden></p>
 
       <h3>Protokoll</h3>
       <table>

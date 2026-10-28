@@ -63,8 +63,10 @@ export async function recordPageview(
   await saveSession(env, session);
   await rememberIpToSession(env, ip, sessionId);
   recordVisitorEvent(env, session, page);
-  recordClickEvents(env, page.path, klicks);
-  recordHeatEvents(env, page.path, viewport, heat);
+  // Kennung nur fuer diesen einen Seitenaufruf, bewusst ohne Bezug zur Sitzung (siehe analytics.ts).
+  const aufruf = crypto.randomUUID().slice(0, 12);
+  recordClickEvents(env, page.path, klicks, aufruf);
+  recordHeatEvents(env, page.path, viewport, heat, aufruf);
   await maybeSubmitLead(env, session);
   await vielleichtApolloMelden(env, session);
   return session;
