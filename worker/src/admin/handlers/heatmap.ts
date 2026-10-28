@@ -73,7 +73,7 @@ export async function handleGetHeatmap(request: Request, env: Env): Promise<Resp
 }
 
 interface VerlaufRoh {
-  zeit: string;
+  timestamp: string;
   art: string;
   pfad: string;
   b3: string;
@@ -106,11 +106,13 @@ export async function handleGetHeatVerlauf(request: Request, env: Env): Promise<
     return jsonResponse({ ok: false, error: "invalid-path" }, 400);
   }
 
+  // timestamp nicht umbenennen: Mit Alias findet Analytics Engine die Spalte fuer ORDER BY nicht
+  // mehr ("unable to find type of column"). Die anderen Abfragen der Konsole halten es genauso.
   const sql = `
-    SELECT timestamp AS zeit, blob1 AS art, blob2 AS pfad, blob3 AS b3, blob4 AS b4, blob5 AS b5,
+    SELECT timestamp, blob1 AS art, blob2 AS pfad, blob3 AS b3, blob4 AS b4, blob5 AS b5,
            double1 AS anzahl
     FROM ${VISITOR_EVENTS_DATASET}
-    WHERE blob1 IN ('heat', 'click') ${pfad ? `AND blob2 = '${pfad}'` : ""}
+    WHERE (blob1 = 'heat' OR blob1 = 'click') ${pfad ? `AND blob2 = '${pfad}'` : ""}
       AND timestamp > NOW() - INTERVAL '30' DAY
     ORDER BY timestamp DESC
     LIMIT 2000
@@ -123,11 +125,11 @@ export async function handleGetHeatVerlauf(request: Request, env: Env): Promise<
   const aufrufe = new Map<string, VerlaufEintrag>();
   for (const z of ergebnis.result ?? []) {
     const kennung = z.art === "click" ? z.b4 : z.b5;
-    const schluessel = kennung || `${z.pfad}|${String(z.zeit).slice(0, 19)}`;
+    const schluessel = kennung || `${z.pfad}|${String(z.timestamp).slice(0, 19)}`;
     let eintrag = aufrufe.get(schluessel);
     if (!eintrag) {
       if (aufrufe.size >= VERLAUF_MAX_AUFRUFE) continue;
-      eintrag = { zeit: z.zeit, pfad: z.pfad, viewport: "", ziele: [], zellen: [] };
+      eintrag = { zeit: z.timestamp, pfad: z.pfad, viewport: "", ziele: [], zellen: [] };
       aufrufe.set(schluessel, eintrag);
     }
     if (z.art === "click") {

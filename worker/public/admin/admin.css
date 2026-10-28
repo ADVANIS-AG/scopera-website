@@ -118,6 +118,8 @@ h3 { font-size: 14px; margin: 24px 0 4px; }
 .heat-ziele li { overflow-wrap: anywhere; }
 .heat-zeit { white-space: nowrap; }
 .heat-verlauf-filter { white-space: nowrap; display: flex; align-items: center; gap: .3rem; }
+/* Der globale input-Stil setzt width:100% und margin-top - fuer ein Kontrollkaestchen falsch */
+.heat-verlauf-filter input { width: auto; margin: 0; }
 .heat-verlauf-liste td:first-child, .heat-verlauf-liste th:first-child { padding-left: .3rem; }
 /* Klickorte des gewaehlten Aufrufs, ueber Verlauf und Raster */
 .heat-markiert { position: absolute; border: 3px solid #0a84ff; box-shadow: 0 0 0 2px #fff; pointer-events: none; }
