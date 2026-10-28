@@ -102,7 +102,7 @@ async function ladeFeldZuordnung(env: Env): Promise<FeldZuordnung> {
  *  Stichwortsuche. Darum wird das Ergebnis hier gegengeprueft: Nur ein Konto, dessen Name oder
  *  Domain wirklich passt, wird genommen. Ohne diese Pruefung wuerde "Meier AG" das erstbeste
  *  "Meier Holding" treffen und fremde Konten beschreiben. */
-async function findeKontoId(env: Env, firma: string, domain?: string): Promise<string | null> {
+async function findeKonto(env: Env, firma: string, domain?: string): Promise<{ id: string; name: string } | null> {
   const res = await apolloAnfrage(env, "/accounts/search", {
     method: "POST",
     body: JSON.stringify({ q_organization_name: firma, per_page: 10 }),
@@ -116,8 +116,9 @@ async function findeKontoId(env: Env, firma: string, domain?: string): Promise<s
   for (const konto of daten.accounts ?? []) {
     if (!konto.id) continue;
     const kontoDomain = (konto.domain ?? "").trim().toLowerCase().replace(/^www\./, "");
-    if (gesuchteDomain && kontoDomain && kontoDomain === gesuchteDomain) return konto.id;
-    if ((konto.name ?? "").trim().toLowerCase() === gesuchterName) return konto.id;
+    const treffer = { id: konto.id, name: konto.name ?? firma };
+    if (gesuchteDomain && kontoDomain && kontoDomain === gesuchteDomain) return treffer;
+    if ((konto.name ?? "").trim().toLowerCase() === gesuchterName) return treffer;
   }
   return null;
 }
@@ -222,6 +223,81 @@ export async function listeRueckmeldungen(env: Env): Promise<RueckmeldungsProtok
   }
 }
 
+interface KontoWerte { score: number; zeitpunkt: string; seiten: string; }
+
+/** Werte je Feld-ID, so wie sie unter typed_custom_fields an Apollo gehen. Der Score geht als
+ *  Zahl raus (Feldtyp Number), der Zeitpunkt als ISO-Zeitstempel (Feldtyp Date/time). */
+function feldWerte(felder: FeldZuordnung, w: KontoWerte): Record<string, string | number> {
+  const werte: Record<string, string | number> = {};
+  if (felder.score) werte[felder.score] = w.score;
+  if (felder.letzterBesuch) werte[felder.letzterBesuch] = w.zeitpunkt;
+  if (felder.seiten) werte[felder.seiten] = w.seiten.slice(0, 500);
+  return werte;
+}
+
+function schreibeKontoFelder(env: Env, kontoId: string, felder: FeldZuordnung, w: KontoWerte): Promise<Response> {
+  return apolloAnfrage(env, `/accounts/${kontoId}`, {
+    method: "PATCH",
+    body: JSON.stringify({ typed_custom_fields: feldWerte(felder, w) }),
+  });
+}
+
+export interface TestErgebnis {
+  felder: { score: boolean; letzterBesuch: boolean; seiten: boolean };
+  konto?: { id: string; name: string };
+  werte?: { score: number; letzterBesuch: string; seiten: string };
+  geschrieben: boolean;
+  status?: number;
+  meldung?: string;
+}
+
+/** Testrueckmeldung aus der Admin-Konsole: derselbe Weg wie bei einem echten Besuch (Felder
+ *  zuordnen, Konto suchen, Felder schreiben), aber mit erkennbaren Testwerten und ohne die
+ *  Tagessperre. Score 0, damit das Konto in Apollo nicht als heisser Lead erscheint.
+ *
+ *  Mit schreiben=false ein reiner Probelauf: zeigt, welches Konto getroffen wuerde und was
+ *  hineinginge, ohne in Apollo etwas zu aendern und ohne Protokolleintrag. */
+export async function sendeTestRueckmeldung(
+  env: Env,
+  firma: string,
+  domain: string | undefined,
+  schreiben: boolean,
+): Promise<TestErgebnis> {
+  await vergissFeldZuordnung(env);
+  const felder = await ladeFeldZuordnung(env);
+  const ergebnis: TestErgebnis = {
+    felder: { score: !!felder.score, letzterBesuch: !!felder.letzterBesuch, seiten: !!felder.seiten },
+    geschrieben: false,
+  };
+  const zeitpunkt = new Date().toISOString();
+  if (!felder.score && !felder.letzterBesuch && !felder.seiten) {
+    ergebnis.meldung = "Keines der drei Konto-Felder in Apollo gefunden";
+    return ergebnis;
+  }
+
+  const konto = await findeKonto(env, firma, domain);
+  if (!konto) {
+    ergebnis.meldung = "Kein Konto mit genau diesem Namen oder dieser Domain gefunden";
+    if (schreiben) await schreibeProtokoll(env, { firma, zeitpunkt, ergebnis: "kein-konto", score: 0, meldung: "Test aus der Admin-Konsole" });
+    return ergebnis;
+  }
+  ergebnis.konto = konto;
+  const werte: KontoWerte = { score: 0, zeitpunkt, seiten: "Test aus der Admin-Konsole: /de/, /de/product/, /de/editions/" };
+  ergebnis.werte = { score: werte.score, letzterBesuch: werte.zeitpunkt, seiten: werte.seiten };
+  if (!schreiben) return ergebnis;
+
+  const res = await schreibeKontoFelder(env, konto.id, felder, werte);
+  ergebnis.status = res.status;
+  if (!res.ok) {
+    ergebnis.meldung = (await res.text()).slice(0, 200);
+    await schreibeProtokoll(env, { firma: konto.name, zeitpunkt, ergebnis: "fehler", score: 0, meldung: `Test: PATCH ${res.status}: ${ergebnis.meldung}` });
+    return ergebnis;
+  }
+  ergebnis.geschrieben = true;
+  await schreibeProtokoll(env, { firma: konto.name, zeitpunkt, ergebnis: "ok", score: 0, meldung: "Test aus der Admin-Konsole" });
+  return ergebnis;
+}
+
 /** Meldet die Auswertung einer Sitzung an das Apollo-Konto der erkannten Firma zurueck.
  *
  *  Zurueck fliessen drei Angaben: Punktzahl, Zeitpunkt des letzten Besuchs und die besuchten
@@ -255,23 +331,14 @@ export async function sendeRueckmeldung(env: Env, session: SessionState): Promis
       return;
     }
 
-    const kontoId = await findeKontoId(env, firma, session.company?.domain);
-    if (!kontoId) {
+    const konto = await findeKonto(env, firma, session.company?.domain);
+    if (!konto) {
       await schreibeProtokoll(env, { firma, zeitpunkt, ergebnis: "kein-konto", score: session.score });
       return;
     }
 
     const seiten = [...new Set(session.pages.map((p) => p.path))].slice(0, 20).join(", ");
-    // Der Score geht als Zahl raus, weil das Feld in Apollo vom Typ Number ist.
-    const werte: Record<string, string | number> = {};
-    if (felder.score) werte[felder.score] = session.score;
-    if (felder.letzterBesuch) werte[felder.letzterBesuch] = zeitpunkt;
-    if (felder.seiten) werte[felder.seiten] = seiten.slice(0, 500);
-
-    const res = await apolloAnfrage(env, `/accounts/${kontoId}`, {
-      method: "PATCH",
-      body: JSON.stringify({ typed_custom_fields: werte }),
-    });
+    const res = await schreibeKontoFelder(env, konto.id, felder, { score: session.score, zeitpunkt, seiten });
     if (!res.ok) {
       const text = (await res.text()).slice(0, 200);
       await schreibeProtokoll(env, { firma, zeitpunkt, ergebnis: "fehler", meldung: `PATCH ${res.status}: ${text}`, score: session.score });

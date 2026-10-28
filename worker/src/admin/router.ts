@@ -1,5 +1,5 @@
 import { unauthorizedResponse, verifyAccessIdentity } from "./auth";
-import { handleApolloFelderNeuLaden, handleApolloPruefen, handleGetApollo } from "./handlers/apollo";
+import { handleApolloFelderNeuLaden, handleApolloPruefen, handleApolloTest, handleGetApollo } from "./handlers/apollo";
 import { handleCrmStatus } from "./handlers/crm-status";
 import { handleGetFailedLeads, handleGetLeads, handleRetryFailedLead } from "./handlers/leads";
 import {
@@ -46,6 +46,7 @@ export async function handleAdminApi(request: Request, env: Env): Promise<Respon
   if (method === "GET" && path === "/apollo") return handleGetApollo(env);
   if (method === "POST" && path === "/apollo/felder-neu-laden") return handleApolloFelderNeuLaden(env);
   if (method === "POST" && path === "/apollo/pruefen") return handleApolloPruefen(env);
+  if (method === "POST" && path === "/apollo/test") return handleApolloTest(request, env);
 
   if (method === "GET" && path === "/security/cors") return handleGetCorsConfig(env);
   if (method === "PUT" && path === "/security/cors") return handlePutCorsConfig(request, env);

@@ -549,7 +549,87 @@ function apolloPruefungText(p) {
   return zeilen.join('\n');
 }
 
+const APOLLO_ERGEBNIS = {
+  'ok': 'übertragen',
+  'kein-konto': 'kein passendes Konto in Apollo',
+  'felder-fehlen': 'Felder in Apollo fehlen',
+  'fehler': 'Fehler',
+};
+
+async function loadApollo() {
+  const koerper = document.getElementById('apollo-body');
+  const status = document.getElementById('apollo-status');
+  try {
+    const daten = await api('/apollo');
+    status.textContent = daten.aktiv
+      ? 'Aktiv. Je erkannte Firma höchstens eine Rückmeldung pro Tag, und erst ab der Lead-Schwelle.'
+      : daten.hinweis;
+    renderRows(koerper, daten.rueckmeldungen, 5, (r) => `
+      <tr>
+        <td>${esc(r.firma)}</td>
+        <td>${esc(APOLLO_ERGEBNIS[r.ergebnis] || r.ergebnis)}</td>
+        <td>${esc(r.score ?? '')}</td>
+        <td>${esc(fmtTime(r.zeitpunkt))}</td>
+        <td>${esc(r.meldung || '')}</td>
+      </tr>
+    `);
+  } catch (err) {
+    status.textContent = `Fehler: ${err.message}`;
+    koerper.innerHTML = `<tr><td colspan="5" class="soft">Fehler: ${esc(err.message)}</td></tr>`;
+  }
+}
+
+function apolloTestText(t, schreiben) {
+  const ja = (w) => (w ? 'ja' : 'nein');
+  const zeilen = [
+    schreiben ? 'Testrückmeldung' : 'Probelauf (in Apollo wird nichts geändert)',
+    '',
+    `Felder gefunden : Score ${ja(t.felder.score)}, Last Visit ${ja(t.felder.letzterBesuch)}, Pages ${ja(t.felder.seiten)}`,
+    `Konto           : ${t.konto ? `${t.konto.name} (${t.konto.id})` : 'keines gefunden'}`,
+  ];
+  if (t.werte) {
+    zeilen.push('', 'Werte:');
+    zeilen.push(`  SCOPERA Score      : ${t.werte.score}`);
+    zeilen.push(`  SCOPERA Last Visit : ${t.werte.letzterBesuch}`);
+    zeilen.push(`  SCOPERA Pages      : ${t.werte.seiten}`);
+  }
+  if (t.meldung) zeilen.push('', `Meldung: ${t.meldung}`);
+  zeilen.push('');
+  if (schreiben) {
+    zeilen.push(t.geschrieben
+      ? 'Ergebnis: in Apollo geschrieben. Am Konto unter den drei SCOPERA-Feldern nachsehen.'
+      : `Ergebnis: nicht geschrieben${t.status ? ` (HTTP ${t.status})` : ''}.`);
+  } else {
+    zeilen.push(t.konto ? 'Ergebnis: Konto gefunden. «Testrückmeldung senden» schreibt diese Werte.' : 'Ergebnis: ohne passendes Konto wird nichts geschrieben.');
+  }
+  return zeilen.join('\n');
+}
+
+async function apolloTest(schreiben) {
+  const firma = document.getElementById('apollo-test-firma').value.trim();
+  const domain = document.getElementById('apollo-test-domain').value.trim();
+  const feld = document.getElementById('apollo-test-ergebnis');
+  if (!firma) { feld.hidden = false; feld.textContent = 'Bitte einen Firmennamen eingeben, so wie das Konto in Apollo heisst.'; return; }
+  if (schreiben && !confirm(`Testwerte (Score 0) in das Apollo-Konto «${firma}» schreiben?`)) return;
+  const knoepfe = document.querySelectorAll('#apollo-test-probe, #apollo-test-senden');
+  knoepfe.forEach((k) => { k.disabled = true; });
+  feld.hidden = false;
+  feld.textContent = schreiben ? 'Sendet…' : 'Prüft…';
+  try {
+    const { test } = await api('/apollo/test', { method: 'POST', body: JSON.stringify({ firma, domain, schreiben }) });
+    feld.textContent = apolloTestText(test, schreiben);
+    if (schreiben) loadApollo();
+  } catch (err) {
+    feld.textContent = `Fehler: ${err.message}`;
+  } finally {
+    knoepfe.forEach((k) => { k.disabled = false; });
+  }
+}
+
 function initApollo() {
+  document.getElementById('apollo-test-probe').addEventListener('click', () => apolloTest(false));
+  document.getElementById('apollo-test-senden').addEventListener('click', () => apolloTest(true));
+
   document.getElementById('apollo-pruefen').addEventListener('click', async (e) => {
     const knopf = e.currentTarget;
     const feld = document.getElementById('apollo-pruefung');

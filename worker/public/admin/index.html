@@ -117,6 +117,23 @@
         <button id="apollo-felder-neu" type="button">Feldzuordnung neu laden</button>
       </p>
       <pre id="apollo-pruefung" class="soft apollo-pruefung" hidden></pre>
+
+      <h3>Rückmeldung simulieren</h3>
+      <p class="soft">
+        Durchläuft denselben Weg wie ein echter Besuch, ohne auf einen zu warten: Felder zuordnen,
+        Konto über Name oder Domain suchen, Felder schreiben. Der Probelauf ändert nichts. Die
+        Testrückmeldung schreibt Score 0, den aktuellen Zeitpunkt und einen erkennbaren Testtext in
+        das gefundene Konto. Am besten ein eigenes Konto nehmen, z.B. ADVANIS.
+      </p>
+      <p>
+        <input id="apollo-test-firma" type="text" placeholder="Firmenname wie in Apollo" maxlength="120" />
+        <input id="apollo-test-domain" type="text" placeholder="Domain (optional), z.B. advanis.ch" maxlength="120" />
+        <button id="apollo-test-probe" type="button">Probelauf</button>
+        <button id="apollo-test-senden" type="button">Testrückmeldung senden</button>
+      </p>
+      <pre id="apollo-test-ergebnis" class="soft apollo-pruefung" hidden></pre>
+
+      <h3>Protokoll</h3>
       <table>
         <thead><tr><th>Firma</th><th>Ergebnis</th><th>Score</th><th>Zeitpunkt</th><th>Meldung</th></tr></thead>
         <tbody id="apollo-body"><tr><td colspan="5" class="soft">Lädt…</td></tr></tbody>

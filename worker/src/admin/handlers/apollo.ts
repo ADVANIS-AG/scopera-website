@@ -1,4 +1,6 @@
-import { apolloKonfiguriert, listeRueckmeldungen, pruefeVerbindung, vergissFeldZuordnung } from "../../apollo-client";
+import {
+  apolloKonfiguriert, listeRueckmeldungen, pruefeVerbindung, sendeTestRueckmeldung, vergissFeldZuordnung,
+} from "../../apollo-client";
 import { jsonResponse } from "../../lib/json";
 import type { Env } from "../../types";
 
@@ -46,6 +48,26 @@ export async function handleApolloFelderNeuLaden(env: Env): Promise<Response> {
 export async function handleApolloPruefen(env: Env): Promise<Response> {
   try {
     return jsonResponse({ ok: true, pruefung: await pruefeVerbindung(env) }, 200);
+  } catch (err) {
+    return jsonResponse({ ok: false, error: err instanceof Error ? err.message : "unbekannt" }, 200);
+  }
+}
+
+/** POST /admin/api/apollo/test  { firma, domain?, schreiben }
+ *
+ *  Simuliert eine Rueckmeldung, ohne auf einen echten Besuch zu warten. schreiben=false ist ein
+ *  Probelauf ohne jede Aenderung in Apollo; schreiben=true schreibt Testwerte (Score 0) in das
+ *  gefundene Konto und legt einen Protokolleintrag an. */
+export async function handleApolloTest(request: Request, env: Env): Promise<Response> {
+  if (!apolloKonfiguriert(env)) {
+    return jsonResponse({ ok: false, error: "APOLLO_API_KEY ist nicht gesetzt" }, 200);
+  }
+  const body = (await request.json().catch(() => ({}))) as { firma?: unknown; domain?: unknown; schreiben?: unknown };
+  const firma = typeof body.firma === "string" ? body.firma.trim().slice(0, 120) : "";
+  const domain = typeof body.domain === "string" && body.domain.trim() ? body.domain.trim().slice(0, 120) : undefined;
+  if (!firma) return jsonResponse({ ok: false, error: "Firmenname fehlt" }, 400);
+  try {
+    return jsonResponse({ ok: true, test: await sendeTestRueckmeldung(env, firma, domain, body.schreiben === true) }, 200);
   } catch (err) {
     return jsonResponse({ ok: false, error: err instanceof Error ? err.message : "unbekannt" }, 200);
   }
