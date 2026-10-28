@@ -59,7 +59,7 @@ Intern, nur über `admin.scopera.ai` erreichbar und durch Cloudflare Access gesc
 - **Apollo-Rückkopplung braucht Einrichtung in Apollo**: Ohne gesetztes `APOLLO_API_KEY` ist sie
   abgeschaltet, der Rest läuft unverändert weiter. Zum Einschalten sind drei Schritte nötig:
   1. In Apollo drei Felder am **Konto** anlegen (nicht am Kontakt), mit genau diesen
-     Beschriftungen: `SCOPERA Score`, `SCOPERA Letzter Besuch`, `SCOPERA Seiten`. Gesucht wird
+     Beschriftungen: `SCOPERA Score` (Number), `SCOPERA Last Visit` (Date/time), `SCOPERA Pages` (Multi-line text). Gesucht wird
      über die Beschriftung, nicht über die Feld-ID: IDs müsste man von Hand abschreiben und bei
      jeder Neuanlage nachführen.
   2. Einen API-Schlüssel erzeugen, der `api/v1/fields/index`, `api/v1/accounts/search` und

@@ -15,8 +15,10 @@ function basis(env: Env): string {
  *  Beschriftung, nicht ueber die ID: IDs muesste jemand von Hand abschreiben und bei jeder
  *  Neuanlage nachfuehren, Beschriftungen stehen in Apollo sichtbar vor Augen. */
 const FELD_SCORE = "scopera score";
-const FELD_LETZTER_BESUCH = "scopera letzter besuch";
-const FELD_SEITEN = "scopera seiten";
+// Beschriftungen in der Sprache der Apollo-Oberflaeche (englisch). Feldtypen in Apollo:
+// Score = Number, Last Visit = Date/time (ISO-Zeitstempel), Pages = Multi-line text.
+const FELD_LETZTER_BESUCH = "scopera last visit";
+const FELD_SEITEN = "scopera pages";
 
 const FELD_CACHE_SCHLUESSEL = "apollo:feldzuordnung";
 const FELD_CACHE_TTL = 60 * 60 * 6;
@@ -260,8 +262,9 @@ export async function sendeRueckmeldung(env: Env, session: SessionState): Promis
     }
 
     const seiten = [...new Set(session.pages.map((p) => p.path))].slice(0, 20).join(", ");
-    const werte: Record<string, string> = {};
-    if (felder.score) werte[felder.score] = String(session.score);
+    // Der Score geht als Zahl raus, weil das Feld in Apollo vom Typ Number ist.
+    const werte: Record<string, string | number> = {};
+    if (felder.score) werte[felder.score] = session.score;
     if (felder.letzterBesuch) werte[felder.letzterBesuch] = zeitpunkt;
     if (felder.seiten) werte[felder.seiten] = seiten.slice(0, 500);
 

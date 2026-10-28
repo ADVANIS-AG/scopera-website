@@ -526,8 +526,8 @@ function apolloPruefungText(p) {
   if (p.felderAbruf.ok) {
     zeilen.push('Erwartete Felder am Konto:');
     zeilen.push(`  SCOPERA Score          : ${ja(p.erwartet.score)}`);
-    zeilen.push(`  SCOPERA Letzter Besuch : ${ja(p.erwartet.letzterBesuch)}`);
-    zeilen.push(`  SCOPERA Seiten         : ${ja(p.erwartet.seiten)}`);
+    zeilen.push(`  SCOPERA Last Visit     : ${ja(p.erwartet.letzterBesuch)}`);
+    zeilen.push(`  SCOPERA Pages          : ${ja(p.erwartet.seiten)}`);
     zeilen.push('');
     zeilen.push(p.kontoFelder.length
       ? `In Apollo am Konto gefunden (${p.kontoFelder.length}): ${p.kontoFelder.join(', ')}`
