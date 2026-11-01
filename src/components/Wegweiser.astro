@@ -1,5 +1,5 @@
 ---
-import { BOOKING_URL, SIGNUP_URL } from '../config';
+import { BOOKING_URL, signupTrial } from '../config';
 import { defaultLang, type Lang } from '../i18n/ui';
 interface Props { lang?: Lang; }
 const { lang = defaultLang } = Astro.props;
@@ -51,7 +51,8 @@ const pfade = [
     },
     weg: { de: 'Kostenlose Trial-Lizenz', en: 'Free trial license' },
     cta: { de: 'Trial starten', en: 'Start trial' },
-    href: SIGNUP_URL,
+    href: signupTrial('startseite'),
+    extern: true,
   },
 ];
 ---
@@ -60,7 +61,7 @@ const pfade = [
     <div class="karte">
       <p style="font-style:italic;">{p.zitat[lang]}</p>
       <p class="soft" style="font-size:13px;">→ {p.weg[lang]}</p>
-      <p style="margin-top:10px;"><a class="btn-ghost" href={p.href}>{p.cta[lang]}</a></p>
+      <p style="margin-top:10px;"><a class="btn-ghost" href={p.href} target={p.extern ? '_blank' : undefined} rel={p.extern ? 'noopener noreferrer' : undefined}>{p.cta[lang]}</a></p>
     </div>
   ))}
 </div>
