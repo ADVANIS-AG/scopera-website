@@ -80,7 +80,7 @@ Alle Fotos via Unsplash (Unsplash-Lizenz: kommerzielle Nutzung erlaubt, keine At
 - `nummerierte-faecher.jpg` (Insight "Auskunft, Löschung, Fristen") — Andre Bernier (unsplash.com/photos/VxcDRAODjJI)
 - `schluesselbund.jpg` (Insight "Die ersten Tage entscheiden") — Jakub Żerdzicki (unsplash.com/photos/Ebj87ehFNNU)
 - `gitter-schloss.jpg` (Insight "Wer darf die KI was?") — Masaaki Komori (unsplash.com/photos/_we0BQQewBo)
-- `notfallknopf.jpg` (Insight "Wenn Automationen scheitern") — Pieter de Boer (unsplash.com/photos/CUsRUpn9icc)
+- `motor-stop.jpg` (Insight "Wenn Automationen scheitern") — Hans Westbeek (unsplash.com/photos/Po6upO2VQig)
 - `dirigent.jpg` (Insight "Einer führt, zwei arbeiten") — DM David (unsplash.com/photos/mqqcU42QOwU)
 
 SVG-Grafiken (KlangLinie, NetzGrafik, PfadGrafik, `src/components/icons/*`) sind Eigenentwicklungen im Brand-Stil.

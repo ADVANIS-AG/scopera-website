@@ -2,8 +2,8 @@
 title: "When automations fail: emergency brake and workflow monitor"
 description: "A broken workflow doesn't run on forever, and errors don't stay invisible. What SCOPERA does when an automation fails."
 pubDate: 2026-11-04
-cover: ./notfallknopf.jpg
-coverAlt: "A large red emergency button on a yellow base on a grey wall"
+cover: ./motor-stop.jpg
+coverAlt: "A red button below a \"Motor Stop\" plate on a worn metal panel"
 ---
 
 A scheduled workflow sends reminders every night. Since a change to the module, it fails on every run, and nobody notices. Or everybody notices, because each failed attempt sends a message and soon nobody looks anymore. Both are unpleasant, and both can be avoided.

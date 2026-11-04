@@ -2,8 +2,8 @@
 title: "Wenn Automationen scheitern: Notbremse und Workflow-Monitor"
 description: "Ein kaputter Workflow läuft nicht endlos weiter, und Fehler bleiben nicht unsichtbar. Was SCOPERA tut, wenn eine Automation scheitert."
 pubDate: 2026-11-04
-cover: ./notfallknopf.jpg
-coverAlt: "Grosser roter Notfallknopf auf gelbem Sockel an einer grauen Wand"
+cover: ./motor-stop.jpg
+coverAlt: "Roter Knopf unter einem Schild mit der Aufschrift «Motor Stop» auf einer abgenutzten Metallplatte"
 ---
 
 Ein geplanter Workflow verschickt jede Nacht Erinnerungen. Seit einer Änderung am Modul scheitert er bei jedem Lauf, und niemand merkt es. Oder alle merken es, weil bei jedem Fehlversuch eine Meldung kommt und bald niemand mehr hinschaut. Beides ist unangenehm, und beides lässt sich vermeiden.
