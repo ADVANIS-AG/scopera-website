@@ -2,6 +2,8 @@
 title: "Wer darf die KI was? Freigaben statt Vertrauen"
 description: "Die KI sieht nie mehr als die fragende Person und dazu nur, was freigegeben ist. Wie Freigaben und Schreibmodus in SCOPERA zusammenspielen."
 pubDate: 2026-11-04
+cover: ./gitter-schloss.jpg
+coverAlt: "Geschlossenes Scherengitter aus Metall mit Kette und messingfarbenem Vorhängeschloss"
 ---
 
 «Darf die KI eigentlich auch unsere Lohndaten lesen?» Wer eine KI in die eigenen Abläufe holt, bekommt diese Frage früher oder später. Eine beruhigende Antwort hilft dann wenig. Hilfreich ist eine Einstellung, die man zeigen kann.

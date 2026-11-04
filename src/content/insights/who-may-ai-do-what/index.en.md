@@ -2,6 +2,8 @@
 title: "What may the AI do? Approvals over trust"
 description: "The AI never sees more than the person asking, and only what has been approved. How approvals and write mode work together in SCOPERA."
 pubDate: 2026-11-04
+cover: ./gitter-schloss.jpg
+coverAlt: "A closed metal lattice gate with a chain and a brass padlock"
 ---
 
 "Can the AI actually read our payroll data?" Anyone who brings AI into their own processes gets this question sooner or later. A reassuring answer doesn't help much at that point. What helps is a setting you can show.

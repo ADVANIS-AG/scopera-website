@@ -2,6 +2,8 @@
 title: "One leads, two work: agents in Team Chat"
 description: "In the channel, SCOPERA AI, a data agent and a build agent work together. Every task runs with the permissions of the person who gave it."
 pubDate: 2026-11-04
+cover: ./dirigent.jpg
+coverAlt: "A conductor with raised baton in a pool of light, seen from behind"
 ---
 
 In the project channel someone writes: "How many complaints did we have last month, and can we build an overview for them?" That is two tasks: an analysis and a build request. The [first article on AI in the channel](/en/insights/ai-in-channel-knows-who-reads/) was about who sees an answer. This one is about who does the work.

@@ -2,6 +2,8 @@
 title: "Einer führt, zwei arbeiten: Agenten im Team-Chat"
 description: "Im Kanal arbeiten die SCOPERA KI, ein Daten-Agent und ein Bau-Agent zusammen. Jede Aufgabe läuft mit den Rechten der Person, die sie gegeben hat."
 pubDate: 2026-11-04
+cover: ./dirigent.jpg
+coverAlt: "Dirigent mit erhobenem Taktstock im Lichtkegel, von hinten gesehen"
 ---
 
 Im Projektkanal schreibt jemand: «Wie viele Reklamationen hatten wir letzten Monat, und können wir dafür eine eigene Übersicht bauen?» Das sind zwei Aufgaben: eine Auswertung und ein Bauauftrag. Im [ersten Beitrag zur KI im Kanal](/de/insights/ai-in-channel-knows-who-reads/) ging es darum, wer eine Antwort sieht. Hier geht es darum, wer die Arbeit macht.
