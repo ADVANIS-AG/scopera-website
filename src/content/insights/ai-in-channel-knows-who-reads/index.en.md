@@ -18,7 +18,7 @@ In the project channel someone asks: “How many open quotes does this customer 
 
 ## The same rules everywhere
 
-What your organisation sets per role, meaning which rows and which fields someone sees, now applies everywhere: in the assistant, on module pages, in link pickers, in history, in the trash and on the start page. A picker for a module someone may not read stays empty. Some members therefore see less than before. That is not a bug but the rule now applying without gaps.
+What your organisation sets per role, meaning which rows and which fields someone sees, now applies everywhere: in the assistant, on module pages, in link pickers, in history, in the trash and on the start page. A picker for a module someone may not read stays empty. Some members therefore see less than before. That is the rule now applying in all these places.
 
 That is the difference from a chat window that sits next to the systems. An AI working inside the same system knows its rights. More on the [Governance](/en/governance/) page.
 

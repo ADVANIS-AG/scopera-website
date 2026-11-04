@@ -1,6 +1,6 @@
 ---
 title: "Measuring by scan: from the room to the quote"
-description: "Scan the room with an iPad or iPhone, take over dimensions and quantities, create the quote. No notepad, no re-entry back at the office."
+description: "Scan the room with the SCOPERA app on an iPad or iPhone, take over dimensions and quantities, create the quote. No notepad, no re-entry back at the office."
 pubDate: 2026-09-02
 cover: ./rohbau-aufmass.jpg
 coverAlt: "An empty shell of a room with a skylight and exposed wooden beams"
@@ -10,7 +10,7 @@ Taking measurements often still means a folding rule, a notepad, photos, and typ
 
 ## How it works
 
-- **Scan on site**: You capture the room with the LiDAR sensor of an iPad or iPhone. No special device, no extra tripod.
+- **Scan on site**: You capture the room with the SCOPERA app and the LiDAR sensor of an iPad or iPhone. No special device, no extra tripod. We provide the app by invitation, and the room scan depends on your edition.
 - **Take over the dimensions**: The scan produces areas, lengths and quantities, directly in the application.
 - **Create the quote**: The quantities feed into the costing. Line items and prices are ready before you leave the site.
 

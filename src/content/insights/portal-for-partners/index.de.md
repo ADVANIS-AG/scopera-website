@@ -17,6 +17,15 @@ Das Portal zeigt genau den Ausschnitt, den Sie freigeben. Ihr Mandant bleibt ges
 - **Keine Sitzplätze für Externe**: Kundschaft und Partner belegen keine Plätze in Ihrer Edition.
 - **Auch für Provider**: Wer SCOPERA als Provider betreibt, kann Portale für die eigenen Mandanten anbieten.
 
+## Wer welche App sieht
+
+Unter Verwaltung steht die Liste Ihrer «Portal-Nutzer». Dort weisen Sie je Person Apps zu und geben einzelne Datensätze frei. Die Person findet ihre Apps im Portal unter «Meine Apps».
+
+- **Zuweisung statt Rundumsicht**: Eine Portal-App sehen nur Personen, denen sie zugewiesen ist oder die darin freigegebene Datensätze haben.
+- **Übersicht über alle Zugänge**: Die Liste zeigt Status, letzte Aktivität, Apps und Freigaben je Person.
+- **Sperren oder Entfernen**: «Sperren» nimmt den Zugang sofort und lässt die Freigaben stehen. «Entfernen» nimmt auch die Freigaben.
+- **Einladung per Link**: Kommt eine Einladung nicht an, erzeugt «Link kopieren» einen neuen Link. Der bisherige wird damit ungültig.
+
 ## Wofür sich das eignet
 
 Im Service verfolgen Kundinnen und Kunden den Stand eines Auftrags, bestätigen Termine und sehen den Rapport nach dem Einsatz. Im Vertrieb geben Sie Offerten frei und lassen sie direkt annehmen. Und wenn Nachbestellungen immer wieder telefonisch hereinkommen, wird daraus ein einfacher Bestellprozess im Portal.

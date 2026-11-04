@@ -13,7 +13,7 @@ A general chat assistant can do a remarkable amount. It explains, drafts, writes
 - **One shared state**: Everyone works on the same application. What one person changes, the others see.
 - **The result runs**: At the end there is an application on the platform, with roles, data and permissions. No snippet of code still looking for a home.
 - **The context is already there**: The AI knows your data structure and your rules, because it works inside the same system.
-- **Traceable**: Every change is logged and reversible.
+- **Traceable**: Changes are logged, and app versions can be reset.
 
 ## Why that makes the difference
 

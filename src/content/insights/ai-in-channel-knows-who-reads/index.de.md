@@ -18,7 +18,7 @@ Im Projektkanal fragt jemand: «Wie viele offene Offerten hat dieser Kunde?» Di
 
 ## Dieselben Regeln an jeder Stelle
 
-Was Ihr Unternehmen je Rolle festlegt, also welche Zeilen und welche Felder jemand sieht, gilt jetzt überall: im Assistenten, auf Modulseiten, in Verknüpfungsauswahlen, im Verlauf, im Papierkorb und auf der Startseite. Eine Auswahl für ein Modul, das jemand nicht lesen darf, bleibt leer. Manche Mitglieder sehen dadurch weniger als vorher. Das ist kein Fehler, sondern die Regel, die jetzt lückenlos greift.
+Was Ihr Unternehmen je Rolle festlegt, also welche Zeilen und welche Felder jemand sieht, gilt jetzt überall: im Assistenten, auf Modulseiten, in Verknüpfungsauswahlen, im Verlauf, im Papierkorb und auf der Startseite. Eine Auswahl für ein Modul, das jemand nicht lesen darf, bleibt leer. Manche Mitglieder sehen dadurch weniger als vorher. Das ist die Regel, die jetzt an all diesen Stellen greift.
 
 Darin liegt der Unterschied zu einem Chatfenster, das neben den Systemen steht. Eine KI, die im selben System arbeitet, kennt dessen Rechte. Mehr dazu auf der Seite [Governance](/de/governance/).
 

@@ -8,8 +8,8 @@ import IconMagnify from '../../components/icons/IconMagnify.astro';
 
 const zugriff = [
   { titel: 'Tenant', Icon: IconPartition, text: 'Every company works in its own isolated space. In a dedicated, separate database schema if you prefer.' },
-  { titel: 'Roles and departments', Icon: IconBalance, text: 'Permissions follow roles. Departments can be separated, up to a tenant of their own on the same data.' },
-  { titel: 'Only what is needed', Icon: IconMagnify, text: 'Access is limited to what is necessary and logged. Connections are encrypted, and the database and cache are not reachable from the internet.' },
+  { titel: 'Roles and departments', Icon: IconBalance, text: 'Permissions follow roles, down to filters on individual rows. Departments can be separated, up to a tenant of their own on the same data.' },
+  { titel: 'Only what is needed', Icon: IconMagnify, text: 'Access is limited to what is necessary and logged. Connections are encrypted, and the database and cache are not reachable from the internet. Your admins can tighten the password policy, but not loosen it.' },
 ];
 const base = import.meta.env.BASE_URL;
 const lang = 'en';
@@ -65,6 +65,7 @@ const lang = 'en';
       <p class="eyebrow">AI calls</p>
       <h2>What is protected on AI calls.</h2>
       <p class="soft" style="max-width: 46em;">Before a request goes to an AI model, we remove recognisable patterns such as email addresses, Swiss social security, IBAN, phone and card numbers. Fields classified as especially sensitive are masked. Of the call itself we store the shortened request, the tools used and the usage, for billing and troubleshooting.</p>
+      <p class="soft" style="max-width: 46em; margin-top: 14px;">What the AI may read at all, and whether it may write, is set per tenant by your technical admins, under Administration → AI settings → Access. The approvals form a chain from platform through provider to tenant, and each level can only restrict.</p>
       <p class="soft" style="max-width: 46em; margin-top: 14px;">If you use SCOPERA from your own AI client over the MCP interface, we store only the tool, outcome, duration and size per call, so no inputs and no answers. Which providers are in use and what terms apply there is set out in the <a href={`${base}en/privacy/`}>privacy policy</a>.</p>
     </div>
   </section>
@@ -72,7 +73,7 @@ const lang = 'en';
     <div class="wrap">
       <p class="eyebrow">Traceability</p>
       <h2>What stays traceable.</h2>
-      <p class="soft" style="max-width: 46em;">Every change is logged and reversible. The change log records who changed what and when. Sign-in attempts, technical logs and the log of AI calls have fixed retention periods, from 30 days up to twelve months. Which data stays and for how long is published as a table in the privacy policy. The dashboard shows usage, quality and cost of every AI function.</p>
+      <p class="soft" style="max-width: 46em;">The change log records who changed what and when. App and module versions can be reset, and deleted items can be restored from the trash. Sign-in attempts, technical logs and the log of AI calls have fixed retention periods, from 30 days up to twelve months. Which data stays and for how long is published as a table in the privacy policy. The dashboard shows usage, quality and cost of every AI function.</p>
     </div>
   </section>
   <section>
@@ -93,7 +94,7 @@ const lang = 'en';
     <div class="wrap">
       <p class="eyebrow">Ownership</p>
       <h2>What belongs to you.</h2>
-      <p class="soft" style="max-width: 46em;">Your technical expertise stays with you. Custom development becomes your property. You use the platform under a license, adjustable every month, with no annual contract. You can receive your data in a common format at any time, and you can set your own retention periods for the content of your workspace. For that content you are the controller. We process it on your behalf.</p>
+      <p class="soft" style="max-width: 46em;">Your technical expertise stays with you. Custom development becomes your property. You use the platform under a license, adjustable every month, with no annual contract. You can receive your data in a common format at any time. You decide how long Team Chat messages are kept. Records in your apps stay stored until you delete them or the contract ends. For that content you are the controller. We process it on your behalf.</p>
     </div>
   </section>
   <section>

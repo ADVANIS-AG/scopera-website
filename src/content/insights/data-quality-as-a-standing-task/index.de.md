@@ -1,6 +1,6 @@
 ---
 title: "Dreimal dieselbe Firma: Datenqualität als Daueraufgabe"
-description: "Prüfregeln, Abgleich mit der Quelle und Erkennung von Mehrfacheinträgen. Wie eine Datenbasis sauber wird und in festen Abständen sauber bleibt."
+description: "Prüfregeln, Abgleich mit der Quelle und Erkennung von Mehrfacheinträgen. Wie eine Datenbasis im Projekt sauber wird und im Betrieb sauber bleibt."
 pubDate: 2026-09-25
 cover: ./karteikasten.jpg
 coverAlt: "Eine Hand zieht eine Karte aus einem Karteikasten"
@@ -8,7 +8,9 @@ coverAlt: "Eine Hand zieht eine Karte aus einem Karteikasten"
 
 Dieselbe Firma steht dreimal im System, zweimal mit Tippfehler im Namen. Eine Postleitzahl fehlt, ein Rechnungsdatum liegt vor dem Auftragsdatum, eine Ansprechperson hat den Betrieb vor zwei Jahren verlassen. Jede Kleinigkeit für sich kostet wenig. Zusammen kosten sie das Vertrauen in die Auswertung, und irgendwann rechnet jemand wieder in Excel nach.
 
-## Was geprüft wird
+## Was wir im Projekt prüfen
+
+Das klären wir mit Ihnen vor der Migration, je nach Datenbestand:
 
 - **Vollständigkeit**: Pflichtfelder, die leer geblieben sind, und Datensätze ohne Bezug zu Kunde, Projekt oder Auftrag.
 - **Format**: Telefonnummern, IBAN, Postleitzahlen, Länder und Rechtsformen. Einheitlich geschrieben, damit Filter und Auswertungen überhaupt greifen.
@@ -21,11 +23,11 @@ Das gilt für Kunden- und Lieferantendaten genauso wie für Artikel, Verträge, 
 
 ## Einmal reicht nicht
 
-Eine Bereinigung vor dem Go-live ist Pflichtarbeit. Der eigentliche Teil beginnt danach. Jeder Import, jede Schnittstelle und jede manuelle Erfassung bringt neue Abweichungen. Darum laufen die Prüfungen weiter, in festen Abständen und je Bereich unterschiedlich getaktet. Neue Einträge werden schon bei der Erfassung geprüft, bevor der Fehler im Bestand ist. Was auffällt, wird zur Aufgabe mit verantwortlicher Person und Frist.
+Eine Bereinigung vor dem Go-live ist Pflichtarbeit. Der eigentliche Teil beginnt danach. Jeder Import, jede Schnittstelle und jede manuelle Erfassung bringt neue Abweichungen. In der Plattform prüfen Feldregeln neue Eingaben schon bei der Erfassung, bevor der Fehler im Bestand ist. Bei Geschäftspartnern hilft die Dublettenprüfung, Mehrfacheinträge zu finden. Wo es sich lohnt, legen wir im Projekt fest, welche Prüfungen wiederkehrend laufen sollen und wer das Ergebnis bekommt.
 
 ## Wer entscheidet
 
-Eindeutige Fälle korrigiert die Plattform selbst, nach Regeln, die Sie vorher freigegeben haben. Alles Uneindeutige kommt als Vorschlag zu einer autorisierten Person. Das Zusammenführen von zwei Kundendatensätzen gehört immer in diese zweite Gruppe. Jede Änderung ist protokolliert und rücksetzbar, mit Angabe der Regel und der freigebenden Person. Im Dashboard sehen Sie, wie sich die Qualität über die Monate entwickelt.
+Die Regeln für die Bereinigung geben Sie frei, bevor wir sie anwenden. Alles Uneindeutige kommt als Vorschlag zu einer berechtigten Person. Das Zusammenführen von zwei Kundendatensätzen gehört immer dazu: Es wird protokolliert, und rückgängig machen lässt es sich nicht auf Knopfdruck. Darum entscheidet hier ein Mensch.
 
 ## Womit anfangen?
 

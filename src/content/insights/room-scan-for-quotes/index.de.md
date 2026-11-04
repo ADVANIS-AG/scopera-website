@@ -1,6 +1,6 @@
 ---
 title: "Aufmass per Scan: vom Raum zur Offerte"
-description: "Mit iPad oder iPhone den Raum scannen, Masse und Mengen übernehmen, Offerte erstellen. Ohne Zettel, ohne Nacherfassung im Büro."
+description: "Mit der SCOPERA-App auf iPad oder iPhone den Raum scannen, Masse und Mengen übernehmen, Offerte erstellen. Ohne Zettel, ohne Nacherfassung im Büro."
 pubDate: 2026-09-02
 cover: ./rohbau-aufmass.jpg
 coverAlt: "Leerer Rohbau mit Dachfenster und offenen Holzbalken"
@@ -10,7 +10,7 @@ Aufmass nehmen heisst oft noch: Zollstock, Notizblock, Fotos, und am Abend alles
 
 ## Wie es abläuft
 
-- **Scannen vor Ort**: Mit dem LiDAR-Sensor von iPad oder iPhone nehmen Sie den Raum auf. Kein Spezialgerät, kein zusätzliches Stativ.
+- **Scannen vor Ort**: Mit der SCOPERA-App und dem LiDAR-Sensor von iPad oder iPhone nehmen Sie den Raum auf. Kein Spezialgerät, kein zusätzliches Stativ. Die App stellen wir auf Einladung bereit, der Raumscan hängt von Ihrer Edition ab.
 - **Masse übernehmen**: Aus dem Scan entstehen Flächen, Längen und Mengen, direkt in der Anwendung.
 - **Offerte erstellen**: Die Mengen fliessen in die Kalkulation. Positionen und Preise stehen, bevor Sie die Baustelle verlassen.
 

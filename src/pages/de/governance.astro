@@ -8,8 +8,8 @@ import IconMagnify from '../../components/icons/IconMagnify.astro';
 
 const zugriff = [
   { titel: 'Mandant', Icon: IconPartition, text: 'Jedes Unternehmen arbeitet in einem eigenen, isolierten Bereich. Auf Wunsch in einem eigenen, getrennten Datenbank-Schema.' },
-  { titel: 'Rollen und Abteilungen', Icon: IconBalance, text: 'Berechtigungen hängen an Rollen. Abteilungen lassen sich trennen, bis hin zum eigenen Mandanten auf derselben Datenbasis.' },
-  { titel: 'Nur das Nötige', Icon: IconMagnify, text: 'Zugriffe sind auf das Nötige beschränkt und werden protokolliert. Verbindungen sind verschlüsselt, Datenbank und Zwischenspeicher sind nicht aus dem Internet erreichbar.' },
+  { titel: 'Rollen und Abteilungen', Icon: IconBalance, text: 'Berechtigungen hängen an Rollen, bis hin zu Filtern auf einzelne Zeilen. Abteilungen lassen sich trennen, bis hin zum eigenen Mandanten auf derselben Datenbasis.' },
+  { titel: 'Nur das Nötige', Icon: IconMagnify, text: 'Zugriffe sind auf das Nötige beschränkt und werden protokolliert. Verbindungen sind verschlüsselt, Datenbank und Zwischenspeicher sind nicht aus dem Internet erreichbar. Die Passwortrichtlinie können Ihre Admins verschärfen, aber nicht lockern.' },
 ];
 const base = import.meta.env.BASE_URL;
 const lang = 'de';
@@ -65,6 +65,7 @@ const lang = 'de';
       <p class="eyebrow">KI-Aufrufe</p>
       <h2>Was bei KI-Aufrufen geschützt wird.</h2>
       <p class="soft" style="max-width: 46em;">Bevor eine Anfrage an ein KI-Modell geht, entfernen wir erkennbare Muster wie E-Mail-Adressen, AHV-, IBAN-, Telefon- und Kartennummern. Felder, die als besonders schützenswert eingestuft sind, werden maskiert. Vom Aufruf selbst speichern wir die gekürzte Anfrage, die benutzten Werkzeuge und den Verbrauch, für Abrechnung und Fehlersuche.</p>
+      <p class="soft" style="max-width: 46em; margin-top: 14px;">Was die KI überhaupt lesen und ob sie schreiben darf, legen Ihre technischen Admins je Mandant fest, unter Verwaltung → KI-Einstellungen → Zugriffe. Die Freigaben bilden eine Kette von Plattform über Provider zum Mandanten, jede Ebene kann nur einschränken.</p>
       <p class="soft" style="max-width: 46em; margin-top: 14px;">Nutzen Sie SCOPERA aus einem eigenen KI-Client über die MCP-Schnittstelle, speichern wir pro Aufruf nur Werkzeug, Ergebnis, Dauer und Umfang, also keine Eingaben und keine Antworten. Welche Anbieter im Einsatz sind und welche Bedingungen dort gelten, steht in der <a href={`${base}de/privacy/`}>Datenschutzerklärung</a>.</p>
     </div>
   </section>
@@ -72,7 +73,7 @@ const lang = 'de';
     <div class="wrap">
       <p class="eyebrow">Nachvollziehbarkeit</p>
       <h2>Was nachvollziehbar bleibt.</h2>
-      <p class="soft" style="max-width: 46em;">Jede Änderung ist protokolliert und rücksetzbar. Das Änderungsprotokoll hält fest, wer wann was geändert hat. Anmeldeversuche, technische Protokolle und das Protokoll der KI-Aufrufe haben feste Aufbewahrungsfristen, von 30 Tagen bis zu zwölf Monaten. Welche Daten wie lange bleiben, ist in der Datenschutzerklärung als Tabelle veröffentlicht. Im Dashboard sehen Sie Nutzung, Qualität und Kosten jeder AI-Funktion.</p>
+      <p class="soft" style="max-width: 46em;">Das Änderungsprotokoll hält fest, wer wann was geändert hat. App- und Modul-Versionen lassen sich zurücksetzen, Gelöschtes aus dem Papierkorb wiederherstellen. Anmeldeversuche, technische Protokolle und das Protokoll der KI-Aufrufe haben feste Aufbewahrungsfristen, von 30 Tagen bis zu zwölf Monaten. Welche Daten wie lange bleiben, ist in der Datenschutzerklärung als Tabelle veröffentlicht. Im Dashboard sehen Sie Nutzung, Qualität und Kosten jeder AI-Funktion.</p>
     </div>
   </section>
   <section>
@@ -93,7 +94,7 @@ const lang = 'de';
     <div class="wrap">
       <p class="eyebrow">Eigentum</p>
       <h2>Was Ihnen gehört.</h2>
-      <p class="soft" style="max-width: 46em;">Das fachliche Wissen bleibt bei Ihnen. Individuelle Entwicklungen gehen in Ihr Eigentum über. Die Plattform nutzen Sie als Lizenz, monatlich anpassbar, ohne Jahresvertrag. Ihre Daten erhalten Sie jederzeit in einem gängigen Format heraus, und für die Inhalte Ihres Arbeitsbereichs können Sie eigene Löschfristen festlegen. Für diese Inhalte sind Sie die verantwortliche Stelle. Wir bearbeiten sie in Ihrem Auftrag.</p>
+      <p class="soft" style="max-width: 46em;">Das fachliche Wissen bleibt bei Ihnen. Individuelle Entwicklungen gehen in Ihr Eigentum über. Die Plattform nutzen Sie als Lizenz, monatlich anpassbar, ohne Jahresvertrag. Ihre Daten erhalten Sie jederzeit in einem gängigen Format heraus. Wie lange Nachrichten im Team-Chat aufbewahrt werden, legen Sie selbst fest. Datensätze in Ihren Apps bleiben gespeichert, bis Sie sie löschen oder der Vertrag endet. Für diese Inhalte sind Sie die verantwortliche Stelle. Wir bearbeiten sie in Ihrem Auftrag.</p>
     </div>
   </section>
   <section>

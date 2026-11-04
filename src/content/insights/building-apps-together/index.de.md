@@ -13,7 +13,7 @@ Ein allgemeiner Chat-Assistent kann erstaunlich viel. Er erklärt, formuliert, s
 - **Ein gemeinsamer Stand**: Alle arbeiten an derselben Anwendung. Was jemand ändert, sehen die anderen.
 - **Das Ergebnis läuft**: Am Ende steht eine Anwendung auf der Plattform, mit Rollen, Daten und Berechtigungen. Kein Codeschnipsel, der noch ein Zuhause sucht.
 - **Der Kontext ist schon da**: Die KI kennt Ihre Datenstruktur und Ihre Regeln, weil sie im selben System arbeitet.
-- **Nachvollziehbar**: Jede Änderung ist protokolliert und rücksetzbar.
+- **Nachvollziehbar**: Änderungen sind protokolliert, App-Versionen lassen sich zurücksetzen.
 
 ## Warum das den Unterschied macht
 

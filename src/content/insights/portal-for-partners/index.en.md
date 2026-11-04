@@ -17,6 +17,15 @@ The portal shows exactly the slice you release. Your tenant stays closed, the re
 - **No seats for external parties**: Customers and partners take up no seats in your edition.
 - **For providers too**: Anyone running SCOPERA as a provider can offer portals to their own tenants.
 
+## Who sees which app
+
+Under Administration you find the list of your "Portal users". There you assign apps per person and release individual records. The person finds their apps in the portal under "My apps".
+
+- **Assignment, not a full view**: A portal app is only visible to people it is assigned to, or who have released records in it.
+- **An overview of all access**: The list shows status, last activity, apps and releases per person.
+- **Block or remove**: "Block" ends access immediately and keeps the releases. "Remove" takes the releases away too.
+- **Invitation by link**: If an invitation does not arrive, "Copy link" creates a new link. The previous one stops working.
+
 ## What it works well for
 
 In service, customers track the status of an order, confirm appointments and view the report after the job. In sales, you release quotes and let them be accepted directly. And when reorders keep coming in by phone, they turn into a simple ordering process in the portal.

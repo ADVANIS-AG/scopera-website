@@ -1,18 +1,18 @@
 ---
 title: "Ask first, then build: all in the same chat"
-description: "Team chat, direct messages and support chat in SCOPERA, with AI on call in every conversation, all the way to a jointly built application."
+description: "Team chat and direct messages in SCOPERA, with AI on call, all the way to a jointly built application. Plus support chat in the same place."
 pubDate: 2026-07-28
 cover: ./team-chat-ki.jpg
 coverAlt: "Several hands working together at a laptop"
 ---
 
-Your team discusses a problem in chat, someone wonders how much effort a fix would take, and by the time an answer arrives the moment has often passed. SCOPERA brings communication and AI support to the same place: team chat, direct messages with colleagues and the chat with SCOPERA support, all of them let you pull in AI on purpose.
+Your team discusses a problem in chat, someone wonders how much effort a fix would take, and by the time an answer arrives the moment has often passed. SCOPERA brings communication and AI support to the same place: in team chat and direct messages with colleagues you can pull in AI on purpose. The chat with SCOPERA support sits in the same place.
 
 ## What this means day to day
 
 - **Team chat with AI on call**: The AI isn't part of every conversation by default. You bring it in deliberately, when you need it. No separate tool, no tab switch.
 - **Direct messages for the short way**: Questions to colleagues run directly in SCOPERA, without a detour through another app.
-- **Support chat for the real cases**: Questions about the platform go straight to SCOPERA, in the same conversation as the rest of your teamwork.
+- **Support chat for the real cases**: Questions about the platform go straight to SCOPERA, in the same place as the rest of your teamwork. AI deliberately stays out of this channel, because it reaches beyond your tenant.
 - **Build together, live**: The same principle as "Vibe your Issue" now works as a team: several people, one AI, one application, built in the same conversation where the problem came up.
 
 ## Where to start?

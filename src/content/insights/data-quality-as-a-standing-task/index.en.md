@@ -1,6 +1,6 @@
 ---
 title: "The same company three times over: data quality as a standing task"
-description: "Validation rules, comparison against the source and detection of duplicate entries. How a data set gets clean and stays clean at set intervals."
+description: "Validation rules, comparison against the source and detection of duplicate entries. How a data set gets clean in the project and stays clean in daily use."
 pubDate: 2026-09-25
 cover: ./karteikasten.jpg
 coverAlt: "A hand pulling a card from a card catalogue"
@@ -8,7 +8,9 @@ coverAlt: "A hand pulling a card from a card catalogue"
 
 The same company sits in the system three times, twice with a typo in the name. A postcode is missing, an invoice date falls before the order date, a contact left the company two years ago. Each detail on its own costs little. Together they cost trust in the reporting, and sooner or later someone recalculates in a spreadsheet.
 
-## What gets checked
+## What we check in the project
+
+We work this out with you before the migration, depending on your data:
 
 - **Completeness**: Mandatory fields left empty, and records with no link to a customer, project or order.
 - **Format**: Phone numbers, IBANs, postcodes, countries and legal forms. Written consistently, so filters and reports work at all.
@@ -21,11 +23,11 @@ This applies to customer and supplier data as much as to items, contracts, recei
 
 ## Once is not enough
 
-A clean-up before go-live is mandatory groundwork. The real part starts afterwards. Every import, every interface and every manual entry brings new deviations. So the checks keep running, at set intervals and on a different cadence per area. New entries are checked as they are created, before the error is in the data set. Anything flagged becomes a task with an owner and a deadline.
+A clean-up before go-live is mandatory groundwork. The real part starts afterwards. Every import, every interface and every manual entry brings new deviations. In the platform, field rules check new entries as they are made, before the error is in the data set. For business partners, the duplicate check helps find repeated entries. Where it pays off, we agree in the project which checks should recur and who receives the result.
 
 ## Who decides
 
-Clear-cut cases are corrected by the platform itself, by rules you approved beforehand. Anything ambiguous goes to an authorized person as a suggestion. Merging two customer records always belongs in that second group. Every change is logged and reversible, with the rule and the approver on record. The dashboard shows how quality develops over the months.
+You approve the clean-up rules before we apply them. Anything ambiguous goes to an authorized person as a suggestion. Merging two customer records always belongs there: it is logged, and it cannot be undone at the push of a button. That is why a person decides.
 
 ## Where to start?
 
