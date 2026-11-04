@@ -1,7 +1,7 @@
 ---
 title: "Einer führt, zwei arbeiten: Agenten im Team-Chat"
 description: "Im Kanal arbeiten die SCOPERA KI, ein Daten-Agent und ein Bau-Agent zusammen. Jede Aufgabe läuft mit den Rechten der Person, die sie gegeben hat."
-pubDate: 2026-11-04
+pubDate: 2026-11-02
 cover: ./dirigent.jpg
 coverAlt: "Dirigent mit erhobenem Taktstock im Lichtkegel, von hinten gesehen"
 ---

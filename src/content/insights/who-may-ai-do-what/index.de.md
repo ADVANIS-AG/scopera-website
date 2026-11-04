@@ -1,7 +1,7 @@
 ---
 title: "Wer darf die KI was? Freigaben statt Vertrauen"
 description: "Die KI sieht nie mehr als die fragende Person und dazu nur, was freigegeben ist. Wie Freigaben und Schreibmodus in SCOPERA zusammenspielen."
-pubDate: 2026-11-04
+pubDate: 2026-10-28
 cover: ./gitter-schloss.jpg
 coverAlt: "Geschlossenes Scherengitter aus Metall mit Kette und messingfarbenem Vorhängeschloss"
 ---

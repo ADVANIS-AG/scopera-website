@@ -1,7 +1,7 @@
 ---
 title: "One leads, two work: agents in Team Chat"
 description: "In the channel, SCOPERA AI, a data agent and a build agent work together. Every task runs with the permissions of the person who gave it."
-pubDate: 2026-11-04
+pubDate: 2026-11-02
 cover: ./dirigent.jpg
 coverAlt: "A conductor with raised baton in a pool of light, seen from behind"
 ---
