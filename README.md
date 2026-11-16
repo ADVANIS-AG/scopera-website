@@ -82,6 +82,7 @@ Alle Fotos via Unsplash (Unsplash-Lizenz: kommerzielle Nutzung erlaubt, keine At
 - `gitter-schloss.jpg` (Insight "Wer darf die KI was?") — Masaaki Komori (unsplash.com/photos/_we0BQQewBo)
 - `motor-stop.jpg` (Insight "Wenn Automationen scheitern") — Hans Westbeek (unsplash.com/photos/Po6upO2VQig)
 - `dirigent.jpg` (Insight "Einer führt, zwei arbeiten") — DM David (unsplash.com/photos/mqqcU42QOwU)
+- `hobelbank.jpg` (Insight "Mit eigener KI bauen") — HENG YIN (unsplash.com/photos/KKY0GrQPqVo)
 
 SVG-Grafiken (KlangLinie, NetzGrafik, PfadGrafik, `src/components/icons/*`) sind Eigenentwicklungen im Brand-Stil.
 
