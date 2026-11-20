@@ -22,7 +22,7 @@ const base = import.meta.env.BASE_URL;
   <section style="padding: 88px 0;">
     <div class="wrap rechtstext">
       <h1 style="font-size: clamp(30px, 5vw, 44px);">Datenschutzerklärung</h1>
-      <p class="soft">Stand: Oktober 2026</p>
+      <p class="soft">Stand: November 2026</p>
       <p>Diese Erklärung beschreibt, wie die ADVANIS AG Personendaten bearbeitet, wenn Sie unsere Webseite www.scopera.ai besuchen und wenn Sie die Plattform SCOPERA nutzen: die Webanwendung unter app.scopera.ai und die Adressen Ihres Arbeitsbereichs (z. B. ihre-firma.scopera.ai), das Kundenportal (portal.scopera.ai), die öffentliche Spielwiese (playground.scopera.ai), die Schnittstelle für KI-Clients (mcp.scopera.ai) und die mobile App. SCOPERA ist eine Marke der ADVANIS AG. Die Erklärung richtet sich nach dem Schweizer Datenschutzgesetz (DSG) und, soweit anwendbar, nach der EU-Datenschutz-Grundverordnung (DSGVO).</p>
 
       <p>Eine verständliche Übersicht dazu, wo Ihre Daten liegen, wer hineinsehen kann und was nachvollziehbar bleibt, finden Sie unter <a href={`${base}de/governance/`}>Governance</a>.</p>
@@ -70,7 +70,7 @@ const base = import.meta.env.BASE_URL;
       <p>Einzelne Seiten binden Inhalte unserer Plattform in einem Rahmen ein: die Seite Editionen einen Vergleich von api.scopera.ai, die Produktseite ein Angebotsbanner von api.scopera.ai samt Bild aus unserem Azure-Speicher, die Seite Spielwiese die Spielwiese von playground.scopera.ai. Beim Laden dieser Inhalte wird Ihre IP-Adresse an den jeweiligen Dienst übermittelt. Alle drei gehören zu SCOPERA, die Hosting-Angaben stehen in Abschnitt 6.</p>
 
       <h3>Spielwiese</h3>
-      <p>Auf der Webseite und unter playground.scopera.ai können Sie ohne Konto ausprobieren, wie SCOPERA aus einer Beschreibung eine App entwirft. Ihre Eingabe geht an einen KI-Anbieter (siehe Abschnitt 6) und wird bei uns nicht gespeichert. Wir speichern nur statistische Angaben (Länge, Ergebnis, Dauer) und Ihre IP-Adresse gekürzt; zum Schutz vor Missbrauch prüft Cloudflare Turnstile, ob ein Mensch die Seite nutzt.</p>
+      <p>Auf der Webseite und unter playground.scopera.ai können Sie ohne Konto ausprobieren, wie SCOPERA aus einer Beschreibung eine App baut und den Ablauf dahinter zeichnet. Ihre Eingabe geht an einen KI-Anbieter (siehe Abschnitt 6). Damit Sie die App nachschärfen können, behalten wir Ihre Eingaben und die gebaute App höchstens zwei Stunden in einem Zwischenspeicher. Die gebaute App (Programmcode und erfundene Beispieldaten) liegt höchstens zwei Tage in unserem Speicher, damit sie angezeigt werden kann, und wird danach gelöscht. Länger, nämlich 12 Monate, speichern wir nur statistische Angaben (Länge, Ergebnis, Dauer) und Ihre IP-Adresse gekürzt; zum Schutz vor Missbrauch prüft Cloudflare Turnstile, ob ein Mensch die Seite nutzt. Wählen Sie «In SCOPERA weiterbauen», bewahren wir Beschreibung, App und Ablauf bis zu sieben Tage auf, damit sie nach der Bestätigung Ihrer E-Mail-Adresse in Ihrem neuen Arbeitsbereich bereitstehen; danach oder nach der Übernahme löschen wir diese Kopie.</p>
 
       <h2 id="plattform">4. Nutzung der Plattform SCOPERA</h2>
 
@@ -167,6 +167,9 @@ const base = import.meta.env.BASE_URL;
             <tr><td>Protokoll der KI-Aufrufe</td><td>12 Monate</td></tr>
             <tr><td>Protokoll der KI-Verbindungen (MCP)</td><td>12 Monate</td></tr>
             <tr><td>Sprachaufnahmen für die Transkription</td><td>bis zur Verarbeitung, höchstens 30 Tage</td></tr>
+            <tr><td>Eingaben und App der Spielwiese im Zwischenspeicher</td><td>2 Stunden</td></tr>
+            <tr><td>Gebaute App der Spielwiese (Programmcode, Beispieldaten)</td><td>höchstens 2 Tage</td></tr>
+            <tr><td>Übergabe «In SCOPERA weiterbauen» (Beschreibung, App, Ablauf)</td><td>bis zur Übernahme, höchstens 7 Tage</td></tr>
             <tr><td>Statistik der Spielwiese (IP-Adresse gekürzt)</td><td>12 Monate</td></tr>
             <tr><td>Technische Protokolle</td><td>30 Tage</td></tr>
             <tr><td>Datensicherungen</td><td>7 Tage</td></tr>
