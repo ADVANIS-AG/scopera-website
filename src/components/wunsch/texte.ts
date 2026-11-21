@@ -25,7 +25,7 @@ const de = {
     },
     fuerAlle: 'Für alle, die mitmachen',
     geschenkHtml:
-      '<strong>Dein Geschenk:</strong> Aus deinem Wunsch entsteht dein persönlicher, bedienbarer Prototyp. Du probierst ihn bis 15. Januar 2027 kostenlos aus.',
+      '<strong>Dein Geschenk:</strong> Aus deinem Wunsch entsteht dein persönlicher, bedienbarer Prototyp. Du probierst ihn bis 31. Januar 2027 kostenlos aus.',
     gewinnHtml:
       '<strong>Und mit etwas Glück:</strong> Einen Wunsch setzen wir 2027 kostenlos um, und du nutzt die Lösung das ganze Jahr kostenlos.',
     knopfHtml: 'Wunsch<br>aufschreiben',
@@ -125,7 +125,7 @@ const de = {
   formular: {
     label: 'Wunschzettel abschicken',
     an: 'An: ADVANIS-Team, Winterthur',
-    wie: 'Wir lesen jeden Wunschzettel persönlich und schicken dir den Zugang zu deinem Prototyp per E-Mail. Du nutzt ihn bis 15. Januar 2027 kostenlos.',
+    wie: 'Wir lesen jeden Wunschzettel persönlich und schicken dir den Zugang zu deinem Prototyp per E-Mail. Du nutzt ihn bis 31. Januar 2027 kostenlos.',
     name: 'Name',
     firma: 'Firma',
     mail: 'E-Mail für deinen Zugang',
@@ -151,7 +151,7 @@ const de = {
     hand: 'Danke, {name}.',
     handOhneName: 'Danke.',
     titel: 'Dein Wunsch ist unterwegs.',
-    lede: 'Aus deiner Idee kann jetzt etwas Echtes werden. Dein Geschenk, deinen persönlichen Prototyp, schicken wir dir per E-Mail. Probier ihn bis 15. Januar kostenlos aus.',
+    lede: 'Aus deiner Idee kann jetzt etwas Echtes werden. Dein Geschenk, deinen persönlichen Prototyp, schicken wir dir per E-Mail. Probier ihn bis 31. Januar kostenlos aus.',
     gewinn: 'Und vielleicht geht dein Wunsch 2027 ganz in Erfüllung: Den überzeugendsten setzen wir mit dir kostenlos um.',
     hinter: 'Hinter deinem Prototyp',
     aufloesung:
@@ -202,7 +202,7 @@ const en: Texte = {
     },
     fuerAlle: 'For everyone who takes part',
     geschenkHtml:
-      '<strong>Your gift:</strong> Your wish becomes your own personal prototype that you can actually use. Try it free of charge until 15 January 2027.',
+      '<strong>Your gift:</strong> Your wish becomes your own personal prototype that you can actually use. Try it free of charge until 31 January 2027.',
     gewinnHtml:
       '<strong>And with a little luck:</strong> We implement one wish free of charge in 2027, and you use the solution free of charge all year.',
     knopfHtml: 'Write down<br>your wish',
@@ -302,7 +302,7 @@ const en: Texte = {
   formular: {
     label: 'Send your wish list',
     an: 'To: the ADVANIS team, Winterthur',
-    wie: 'We read every wish list personally and email you the access to your prototype. You can use it free of charge until 15 January 2027.',
+    wie: 'We read every wish list personally and email you the access to your prototype. You can use it free of charge until 31 January 2027.',
     name: 'Name',
     firma: 'Company',
     mail: 'Email for your access',
@@ -327,7 +327,7 @@ const en: Texte = {
     hand: 'Thank you, {name}.',
     handOhneName: 'Thank you.',
     titel: 'Your wish is on its way.',
-    lede: 'Your idea can now become something real. Your gift, your personal prototype, is on its way to your inbox. Try it free of charge until 15 January.',
+    lede: 'Your idea can now become something real. Your gift, your personal prototype, is on its way to your inbox. Try it free of charge until 31 January.',
     gewinn: 'And perhaps your wish comes true completely in 2027: we implement the most convincing one with you, free of charge.',
     hinter: 'Behind your prototype',
     aufloesung:
