@@ -1,0 +1,35 @@
+---
+// Ziel des QR-Codes auf der Weihnachtskarte ohne Geschenk: scopera.ai/wunsch/karte/. Sprachweiche nach dem
+// Muster von src/pages/index.astro, aber nicht im Suchindex (die Kampagne ist nur per Karte gedacht).
+const base = import.meta.env.BASE_URL;
+---
+<!doctype html>
+<html lang="de">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="robots" content="noindex" />
+  <link rel="icon" href={`${base}favicon.ico`} sizes="any" />
+  <link rel="icon" type="image/png" sizes="32x32" href={`${base}favicon-32x32.png`} />
+  <link rel="apple-touch-icon" href={`${base}apple-touch-icon.png`} />
+  <title>Wünsch dir was. Für 2027.</title>
+  <script is:inline define:vars={{ base }}>
+    var ziel = (navigator.language || '').toLowerCase().startsWith('en') ? 'en' : 'de';
+    location.replace(base + ziel + '/wunsch/karte/' + location.search);
+  </script>
+  <meta http-equiv="refresh" content={`0; url=${base}de/wunsch/karte/`} />
+  <style>
+    body { margin: 0; min-height: 100vh; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 18px; background: #1C1815; color: #F3EBDD; font-family: "Helvetica Neue", Helvetica, Arial, sans-serif; text-align: center; padding: 24px; }
+    h1 { font-family: Georgia, "Iowan Old Style", "Times New Roman", ui-serif, serif; font-size: 32px; font-weight: 400; margin: 0; }
+    .sprachen { display: flex; gap: 12px; }
+    .sprachen a { color: #F3EBDD; text-decoration: none; font-weight: 700; font-size: 15px; padding: 12px 22px; border: 1px solid #C89A55; border-radius: 6px; }
+  </style>
+</head>
+<body>
+  <h1>Wünsch dir was. Für 2027.</h1>
+  <div class="sprachen">
+    <a href={`${base}de/wunsch/karte/`}>Deutsch</a>
+    <a href={`${base}en/wunsch/karte/`}>English</a>
+  </div>
+</body>
+</html>

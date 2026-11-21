@@ -1,0 +1,11 @@
+---
+// Weihnachtsaktion «Wünsch dir was. Für 2027.»: nur per QR-Code erreichbar (scopera.ai/wunsch/),
+// darum ohne Navigation und nicht im Suchindex.
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+import Wunschseite from '../../../components/wunsch/Wunschseite.astro';
+import { texte } from '../../../components/wunsch/texte';
+const t = texte.de;
+---
+<BaseLayout title={t.meta.title} description={t.meta.description} noindex schlicht>
+  <Wunschseite lang="de" />
+</BaseLayout>

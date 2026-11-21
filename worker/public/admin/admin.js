@@ -73,6 +73,7 @@ function initUmschaltung(knopfKlasse, bereichKlasse, praefix, beiOeffnen) {
 function initTabs() {
   initUmschaltung('.tab-btn', '.tab', 'tab', (ziel) => {
     if (ziel === 'leads') { loadLeads(); loadCrmStatus(); }
+    if (ziel === 'wuensche') loadWuensche();
     if (ziel === 'security') { loadCorsConfig(); loadIpRules(); loadRateLimits(); }
   });
   initUmschaltung('.subtab-btn', '.subtab', 'subtab', (ziel) => {
@@ -491,6 +492,77 @@ async function loadLeads() {
   }
 }
 
+// --- Wunschzettel der Weihnachtsaktion ---
+const WUNSCH_HAEUFIGKEIT = { taeglich: 'täglich', woechentlich: 'jede Woche', monatlich: 'einmal im Monat', seltener: 'seltener' };
+const WUNSCH_DAUER = { minuten: 'ein paar Minuten', halbestunde: 'eine halbe Stunde', stunde: 'etwa eine Stunde', stunden: 'mehrere Stunden' };
+let wuenscheCache = [];
+
+function wunschZeile(label, wert) {
+  if (!wert) return '';
+  return `<dt>${esc(label)}</dt><dd>${esc(wert).replace(/\n/g, '<br>')}</dd>`;
+}
+
+async function loadWuensche() {
+  const liste = document.getElementById('wuensche-liste');
+  const zahl = document.getElementById('wuensche-zahl');
+  const csv = document.getElementById('wuensche-csv');
+  liste.innerHTML = '<p class="soft">Lädt…</p>';
+  try {
+    const { wuensche } = await api('/wuensche');
+    wuenscheCache = wuensche;
+    csv.disabled = !wuensche.length;
+    zahl.textContent = wuensche.length === 1 ? '1 Wunschzettel' : `${wuensche.length} Wunschzettel`;
+    if (!wuensche.length) { liste.innerHTML = '<p class="soft">Noch keine Wünsche.</p>'; return; }
+    liste.innerHTML = wuensche.map((w) => {
+      const z = w.zettel || {};
+      const oft = [WUNSCH_HAEUFIGKEIT[z.haeufigkeit], WUNSCH_DAUER[z.dauer] && `jedes Mal ${WUNSCH_DAUER[z.dauer]}`].filter(Boolean).join(', ');
+      return `
+        <details class="wunsch">
+          <summary><strong>${esc(z.titel || '(ohne Titel)')}</strong> <span class="soft">· ${esc(w.firma)} · ${esc(w.name)} · ${esc(fmtTime(w.createdAt))} · ${esc((w.lang || 'de').toUpperCase())} · ${w.quelle === 'karte' ? 'Karte' : 'Geschenkbox'}</span></summary>
+          <dl>
+            ${wunschZeile('E-Mail', w.email)}
+            ${wunschZeile('Wunsch (Originaltext)', z.wunsch)}
+            ${wunschZeile('Heute so', z.heute)}
+            ${wunschZeile('2027 so', z.morgen)}
+            ${wunschZeile('Wie oft', oft)}
+            ${wunschZeile('Zeitgewinn', z.zeitgewinn)}
+            ${wunschZeile('Bemerkung', w.bemerkung)}
+            ${wunschZeile('Zustimmung', w.zustimmung ? `${fmtTime(w.zustimmung.am)} (${w.zustimmung.fassung})` : '')}
+          </dl>
+          <p><a href="mailto:${esc(encodeURIComponent(w.email)).replace(/%40/g, '@')}">E-Mail schreiben</a></p>
+        </details>`;
+    }).join('');
+  } catch (err) {
+    liste.innerHTML = `<p class="soft">Fehler: ${esc(err.message)}</p>`;
+  }
+}
+
+function wuenscheAlsCsv() {
+  const spalten = ['Eingang', 'Sprache', 'Weg', 'Name', 'Firma', 'E-Mail', 'Titel', 'Wunsch', 'Heute so', '2027 so', 'Wie oft', 'Dauer', 'Zeitgewinn', 'Bemerkung'];
+  // Fuehrendes =, +, - oder @ wuerde Excel als Formel lesen. Ein Apostroph davor entschaerft das.
+  const zelle = (v) => {
+    let t = String(v ?? '');
+    if (/^[=+\-@]/.test(t)) t = `'${t}`;
+    return `"${t.replace(/"/g, '""')}"`;
+  };
+  const zeilen = wuenscheCache.map((w) => {
+    const z = w.zettel || {};
+    return [fmtTime(w.createdAt), w.lang, w.quelle === 'karte' ? 'Karte' : 'Geschenkbox', w.name, w.firma, w.email, z.titel, z.wunsch, z.heute, z.morgen,
+      WUNSCH_HAEUFIGKEIT[z.haeufigkeit] || '', WUNSCH_DAUER[z.dauer] || '', z.zeitgewinn, w.bemerkung].map(zelle).join(';');
+  });
+  const inhalt = '\ufeff' + [spalten.map(zelle).join(';'), ...zeilen].join('\r\n');
+  const link = document.createElement('a');
+  link.href = URL.createObjectURL(new Blob([inhalt], { type: 'text/csv;charset=utf-8' }));
+  link.download = `wunschzettel-2027-${new Date().toISOString().slice(0, 10)}.csv`;
+  link.click();
+  setTimeout(() => URL.revokeObjectURL(link.href), 1000);
+}
+
+function initWuensche() {
+  document.getElementById('wuensche-laden').addEventListener('click', loadWuensche);
+  document.getElementById('wuensche-csv').addEventListener('click', wuenscheAlsCsv);
+}
+
 async function loadCrmStatus() {
   const el = document.getElementById('crm-status');
   try {
@@ -781,4 +853,5 @@ initCorsSave();
 initIpAdd();
 initHeatmap();
 initApollo();
+initWuensche();
 initTabs();

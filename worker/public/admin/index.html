@@ -12,6 +12,7 @@
     <nav>
       <button class="tab-btn" data-tab="visitors">Besucher</button>
       <button class="tab-btn" data-tab="leads">CRM-Integration</button>
+      <button class="tab-btn" data-tab="wuensche">Wünsche</button>
       <button class="tab-btn" data-tab="security">Security</button>
     </nav>
   </header>
@@ -181,6 +182,16 @@
 
       <h2>CRM-Status</h2>
       <p id="crm-status" class="soft">Prüfe…</p>
+    </section>
+
+    <section id="tab-wuensche" class="tab" hidden>
+      <h2>Wunschzettel 2027</h2>
+      <p class="soft">Eingereichte Wünsche der Weihnachtsaktion (www.scopera.ai/wunsch/). Es gibt keine
+      Benachrichtigung, also regelmässig hineinschauen. Teilnahmeschluss ist der 31.01.2027, die
+      Einträge löschen sich am 01.01.2028 von selbst. Den Zugang zum Prototyp per E-Mail schicken.</p>
+      <p><button id="wuensche-laden" type="button">Neu laden</button> <button id="wuensche-csv" type="button" disabled>Als CSV herunterladen</button></p>
+      <p id="wuensche-zahl" class="soft"></p>
+      <div id="wuensche-liste"><p class="soft">Lädt…</p></div>
     </section>
 
     <section id="tab-security" class="tab" hidden>

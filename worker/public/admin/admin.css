@@ -123,3 +123,11 @@ h3 { font-size: 14px; margin: 24px 0 4px; }
 .heat-verlauf-liste td:first-child, .heat-verlauf-liste th:first-child { padding-left: .3rem; }
 /* Klickorte des gewaehlten Aufrufs, ueber Verlauf und Raster */
 .heat-markiert { position: absolute; border: 3px solid #0a84ff; box-shadow: 0 0 0 2px #fff; pointer-events: none; }
+
+/* --- Wunschzettel --- */
+.wunsch { border: 1px solid var(--line); background: #fff; padding: 10px 14px; margin-top: 8px; }
+.wunsch summary { cursor: pointer; font-size: 14px; }
+.wunsch dl { display: grid; grid-template-columns: 170px 1fr; gap: 6px 14px; margin: 12px 0 0; font-size: 13px; }
+.wunsch dt { color: var(--ink-soft); }
+.wunsch dd { margin: 0; white-space: normal; }
+@media (max-width: 640px) { .wunsch dl { grid-template-columns: 1fr; } }

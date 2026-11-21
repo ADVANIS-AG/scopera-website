@@ -72,6 +72,11 @@ const base = import.meta.env.BASE_URL;
       <h3>Spielwiese</h3>
       <p>Auf der Webseite und unter playground.scopera.ai können Sie ohne Konto ausprobieren, wie SCOPERA aus einer Beschreibung eine App baut und den Ablauf dahinter zeichnet. Ihre Eingabe geht an einen KI-Anbieter (siehe Abschnitt 6). Damit Sie die App nachschärfen können, behalten wir Ihre Eingaben und die gebaute App höchstens zwei Stunden in einem Zwischenspeicher. Die gebaute App (Programmcode und erfundene Beispieldaten) liegt höchstens zwei Tage in unserem Speicher, damit sie angezeigt werden kann, und wird danach gelöscht. Länger, nämlich 12 Monate, speichern wir nur statistische Angaben (Länge, Ergebnis, Dauer) und Ihre IP-Adresse gekürzt; zum Schutz vor Missbrauch prüft Cloudflare Turnstile, ob ein Mensch die Seite nutzt. Wählen Sie «In SCOPERA weiterbauen», bewahren wir Beschreibung, App und Ablauf bis zu sieben Tage auf, damit sie nach der Bestätigung Ihrer E-Mail-Adresse in Ihrem neuen Arbeitsbereich bereitstehen; danach oder nach der Übernahme löschen wir diese Kopie.</p>
 
+      <h3 id="weihnachtsaktion">Weihnachtsaktion «Wünsch dir was. Für 2027.»</h3>
+      <p>Unter www.scopera.ai/wunsch/ können Sie bis zum 15. Januar 2027 einen Wunschzettel einreichen. Bis zum Abschicken bleibt der Zettel in Ihrem Browser, für die Dauer der Sitzung. Mit dem Abschicken speichern wir Ihren Wunsch, Ihre Antworten auf die beiden Fragen, den bearbeiteten Wunschzettel, eine allfällige Bemerkung, Name, Firma und E-Mail-Adresse sowie Zeitpunkt und Sprachfassung Ihrer Zustimmung zu den Teilnahmebedingungen. Die Angaben gehen über unsere eigene, bei Cloudflare betriebene Infrastruktur an uns und werden dort gespeichert. Wir verwenden sie nur für die Aktion: um Ihnen den Zugang zu Ihrem Prototyp zu schicken, um den überzeugendsten Wunsch auszuwählen und um Sie über das Ergebnis zu informieren. Spätestens am 31. Dezember 2027 werden sie automatisch gelöscht. Zum Schutz vor Massenversand gilt dieselbe Drossel wie beim Kontaktformular.</p>
+      <p>Wenn Sie Ihren Wunsch per Mikrofon erzählen, wandelt die Spracherkennung Ihres Browsers die Sprache in Text um. Dafür übermittelt der Browser die Aufnahme an seinen Hersteller (zum Beispiel Google bei Chrome, Microsoft bei Edge, Apple bei Safari), der sie nach seinen eigenen Datenschutzbestimmungen bearbeitet, teils in den USA. Wir selbst erhalten und speichern keine Tonaufnahme, sondern nur den Text, und auch diesen erst, wenn Sie den Wunschzettel abschicken. Möchten Sie das nicht, schreiben Sie Ihren Wunsch einfach ins Feld.</p>
+      <p>Probieren Sie Ihren Wunsch auf der eingebetteten Spielwiese aus, gilt dafür der Abschnitt «Spielwiese». Richten wir Ihnen einen Arbeitsbereich für Ihren Prototyp ein, gelten dafür die Angaben in Abschnitt 4.</p>
+
       <h2 id="plattform">4. Nutzung der Plattform SCOPERA</h2>
 
       <h3>Registrierung und Benutzerkonto</h3>
@@ -130,7 +135,7 @@ const base = import.meta.env.BASE_URL;
           <tbody>
             <tr><td>Microsoft Azure</td><td>Hosting aller Plattform-Daten (Datenbank, Dateien, Anwendung, Protokolle) und der Bilder in eingebetteten Bannern</td><td>Schweiz (Region Schweiz Nord)</td></tr>
             <tr><td>GitHub (GitHub Pages)</td><td>Hosting der Webseite</td><td>USA/weltweit</td></tr>
-            <tr><td>Cloudflare</td><td>Auslieferung der Webseite, Kontaktformular und Besuchsdaten auf eigener Infrastruktur, Namensauflösung, Schutz öffentlicher Formulare vor Bots</td><td>weltweit</td></tr>
+            <tr><td>Cloudflare</td><td>Auslieferung der Webseite, Kontaktformular, Wunschzettel der Weihnachtsaktion und Besuchsdaten auf eigener Infrastruktur, Namensauflösung, Schutz öffentlicher Formulare vor Bots</td><td>weltweit</td></tr>
             <tr><td>Google (Tag Manager)</td><td>Einbindung weiterer Werkzeuge, nur mit Einwilligung</td><td>USA</td></tr>
             <tr><td>Apollo (assets.apollo.io, aplo-evnt.com, api.apollo.io)</td><td>Firmenerkennung und Rückmeldung zum Firmenkonto, nur mit Einwilligung</td><td>USA</td></tr>
             <tr><td>OpenAI</td><td>KI-Funktionen, Spracherkennung, Hilfe-Suche</td><td>USA</td></tr>
@@ -158,6 +163,7 @@ const base = import.meta.env.BASE_URL;
             <tr><td>Daten eines Arbeitsbereichs nach Vertragsende</td><td>30 Tage nach der Löschung bzw. 90 Tage nach der Archivierung, danach vollständig gelöscht, einschliesslich Dateien</td></tr>
             <tr><td>Nachweis des Vertragsschlusses, Rechnungs- und Abrechnungsdaten</td><td>10 Jahre (gesetzliche Aufbewahrungspflicht)</td></tr>
             <tr><td>Kontaktanfragen über das Formular</td><td>30 Tage bis zur Bearbeitung</td></tr>
+            <tr><td>Wunschzettel der Weihnachtsaktion (mit Name, Firma, E-Mail-Adresse)</td><td>bis zum Abschluss der Aktion, spätestens 31.12.2027</td></tr>
             <tr><td>Besuchsdaten der Webseite (Sitzung)</td><td>30 Minuten nach der letzten Aktivität</td></tr>
             <tr><td>Zähler der Formular-Drossel (IP-Adresse nur als Hashwert)</td><td>1 Stunde</td></tr>
             <tr><td>Anmeldeversuche</td><td>90 Tage</td></tr>

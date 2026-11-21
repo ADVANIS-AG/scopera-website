@@ -1,0 +1,52 @@
+---
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+import { ADRESSE } from '../../../config';
+const base = import.meta.env.BASE_URL;
+---
+<BaseLayout title="Terms of participation “Make a wish. For 2027.” | SCOPERA." description="Terms of participation for the ADVANIS AG Christmas campaign “Make a wish. For 2027.”" noindex schlicht>
+  <section class="recht-seite">
+    <div class="wrap">
+      <p class="eyebrow">Christmas campaign 2026</p>
+      <h1>Terms of participation<span class="dot">.</span></h1>
+      <p class="lede soft">“Make a wish. For 2027.” Last updated: November 2026</p>
+
+      <h2>1. Who runs the campaign</h2>
+      <p>The campaign is run by ADVANIS AG, {ADRESSE}, Switzerland (“we”).</p>
+
+      <h2>2. Who can take part</h2>
+      <p>Anyone of legal age who works for a company can take part, in particular customers and business partners of ADVANIS AG. Employees of ADVANIS AG are excluded. Taking part is free of charge and does not depend on any purchase. You may submit more than one wish.</p>
+
+      <h2>3. How it works</h2>
+      <p>You write down your wish for your working day at <a href={`${base}en/wunsch/`}>scopera.ai/wunsch</a> (or via the QR code on the Christmas card), answer two quick questions and send your wish list with your name, company and email address. The closing date is 15 January 2027, 23:59 (Swiss time).</p>
+
+      <h2>4. Your prototype until 15 January</h2>
+      <p>For everyone who sends a wish list, we set up a prototype based on the wish in a SCOPERA workspace of their own. We send the access by email, usually within a few working days. You can use the prototype free of charge until 15 January 2027. After that, the free use ends automatically; there are no costs and no subscription. If you want to continue, you switch to a paid workspace without starting over. If you do not switch, we delete the workspace and its contents no later than 30 days after it expires.</p>
+      <p>A prototype is a first working draft with sample data. It is meant for trying things out and does not replace a tested solution for productive use.</p>
+
+      <h2>5. Selection and prize</h2>
+      <p>A jury from ADVANIS AG selects the most convincing wish by the end of February 2027. We look at how much time the solution saves in everyday work, how well it can be implemented and how many people it helps.</p>
+      <p>The prize: in 2027, together with the winner’s company, we implement the selected wish free of charge on SCOPERA. The solution can be used free of charge until 31 December 2027. We agree on the scope together before we start. The prize cannot be paid out in cash and is not transferable.</p>
+      <p>We notify the winner by email. If we do not hear back within four weeks, we may select another wish. Everyone who took part will hear from us about the outcome.</p>
+
+      <h2>6. Your idea</h2>
+      <p>Your wish remains yours. We use your wish list for this campaign: to set up your prototype, to select the most convincing wish and to implement it. Without your explicit consent, we publish nothing that could identify you or your company. We may use wishes, solution ideas and results in anonymised form for our communication and to develop SCOPERA further, provided no conclusions about individuals or companies are possible.</p>
+      <p>The prize includes a success story created together, naming the company and showing its logo. Accepting the prize therefore requires the company’s consent. We agree on the content together beforehand and publish it only once you have approved it.</p>
+
+      <h2>7. Privacy</h2>
+      <p>Which data we store, for what purpose and for how long is described in the <a href={`${base}en/privacy/#christmas-campaign`}>privacy policy</a> under “Christmas campaign”. In short: we use your data only for the campaign and delete it no later than 31 December 2027. Please do not enter confidential company data or sensitive personal data.</p>
+
+      <h2>8. Other provisions</h2>
+      <p>For good reason, for example in case of misuse or technical problems, we may adjust the campaign or end it early. Anyone who violates these terms or manipulates the campaign may be excluded. No correspondence will be entered into regarding the jury’s selection. Swiss law applies; the place of jurisdiction is Winterthur.</p>
+
+      <p style="margin-top:32px;"><a href={`${base}en/wunsch/`}>← Back to your wish list</a></p>
+    </div>
+  </section>
+</BaseLayout>
+<style>
+  .recht-seite { padding: 72px 0 80px; }
+  .recht-seite .wrap { max-width: 760px; }
+  .recht-seite h1 { margin-bottom: 8px; }
+  .recht-seite h2 { font-size: clamp(21px, 3vw, 26px); margin: 34px 0 10px; }
+  .recht-seite p { color: var(--ink); }
+  .recht-seite .soft { color: var(--ink-soft); }
+</style>

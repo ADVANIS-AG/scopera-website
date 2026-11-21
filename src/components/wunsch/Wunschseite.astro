@@ -1,0 +1,555 @@
+---
+// Weihnachtsaktion «Wünsch dir was. Für 2027.»: eine Seite, fuenf Ansichten (Start, Wunsch,
+// Fragen, Wunschzettel, Prototyp mit Abschicken) und der Dank. Die Logik steht in
+// src/scripts/wunsch.ts, die Texte in ./texte.ts.
+//
+// Die Buehne oben (Wald, Stern, Schnee) ist bewusst in WunschBuehne.astro ausgelagert: Das Banner
+// wird noch final gestaltet und laesst sich dort tauschen, ohne den Ablauf anzufassen.
+import { KONTAKT_EMAIL, TURNSTILE_SITE_KEY, WORKER_ENDPOINT } from '../../config';
+import { texte, HAEUFIGKEIT, DAUER, type WunschLang } from './texte';
+import WunschBuehne from './WunschBuehne.astro';
+
+// variante: «box» für den QR-Code in der Geschenkbox (/wunsch/), «karte» für die Weihnachtskarte ohne Geschenk (/wunsch/karte/).
+interface Props { lang: WunschLang; variante?: 'box' | 'karte'; }
+const { lang, variante = 'box' } = Astro.props;
+const t = texte[lang];
+const base = import.meta.env.BASE_URL;
+// mode=wunsch: Wunsch-Modus der Spielwiese (übernimmt den Wunsch und baut sofort, ohne Werbekarten).
+// Kennt die Plattform ihn noch nicht, ignoriert sie den Parameter, und die Kopierhilfe springt ein.
+const spielwieseUrl = `https://playground.scopera.ai/playground?mode=wunsch&lang=${lang}`;
+const teilnahmeUrl = `${base}${lang}/wunsch/teilnahme/`;
+const datenschutzUrl = `${base}${lang}/privacy/#${lang === 'de' ? 'weihnachtsaktion' : 'christmas-campaign'}`;
+const startseite = `${base}${lang}/`;
+const nutzungUrl = 'https://app.scopera.ai/legal/terms';
+
+// Nur was das Skript zur Laufzeit braucht, als JSON in die Seite. So bleibt das Skript fuer
+// beide Sprachen dasselbe gebuendelte Modul.
+const laufzeit = {
+  lang,
+  variante,
+  endpunkt: WORKER_ENDPOINT ? `${WORKER_ENDPOINT}/wunsch` : '',
+  kontakt: KONTAKT_EMAIL,
+  schnee: t.schnee,
+  warten: t.frage.warten,
+  du: t.frage.du,
+  f1: t.frage.f1Optionen,
+  f2: t.frage.f2Optionen,
+  beispiel: t.eingabe.beispiel,
+  satz: t.satz,
+  dank: { hand: t.dank.hand, handOhneName: t.dank.handOhneName },
+  proto: { kopiert: t.proto.kopiert, kopierFehler: t.proto.kopierFehler },
+  mic: t.eingabe.mic,
+  zettel: { zaehler: t.zettel.zaehler, zaehlerStart: t.zettel.zaehlerStart, felder: { titel: lang === 'de' ? 'Titel' : 'Title', heute: t.zettel.heute, morgen: t.zettel.morgen, gewinn: t.zettel.gewinn } },
+  micFehler: t.eingabe.micFehler,
+  formular: {
+    knopf: t.formular.knopf,
+    sendet: t.formular.sendet,
+    fehlerFelder: t.formular.fehlerFelder,
+    fehlerOk: t.formular.fehlerOk,
+    fehlerSenden: t.formular.fehlerSenden,
+    fehlerZuViele: t.formular.fehlerZuViele,
+    fehlerGeschlossen: t.formular.fehlerGeschlossen,
+  },
+};
+
+const pfeil = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>';
+---
+<div class="wz" id="wz" data-szene="start">
+  <script type="application/json" id="wz-laufzeit" set:html={JSON.stringify(laufzeit)} />
+  <WunschBuehne />
+
+  <div class="wz-spalte">
+    <div class="wz-leiste">
+      <span class="wz-leiste-titel">{t.leiste}</span>
+      <div class="wz-fortschritt" aria-hidden="true"><span></span><span></span><span></span><span></span><span></span><span></span></div>
+      <button class="wz-rund" type="button" id="wz-schnee-knopf" aria-pressed="true" aria-label={t.schnee.aus} title={t.schnee.aus}>
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><path d="M12 2v20M4 7l16 10M20 7L4 17M9 3.5l3 2.5 3-2.5M9 20.5l3-2.5 3 2.5"/></svg>
+      </button>
+    </div>
+
+    <!-- Start -->
+    <div class="wz-schritt wz-mitte wz-held" id="wz-start">
+      <p class="wz-hand wz-schreibt">{t.start.hand}</p>
+      <h1 id="wz-t-start" class="wz-titel wz-zeichenweise">{t.start.titel}</h1>
+      <p class="wz-lede wz-einblenden" style="--d:1.5s" set:html={t.start.ledeHtml[variante]} />
+      <div class="wz-knoepfe wz-einblenden" style="--d:1.65s">
+        {/* Ohne Spracherkennung im Browser (z.B. Firefox) bleibt nur «Wunsch aufschreiben» sichtbar.
+            Das Skript blendet sonst «Wunsch erzählen» und «Lieber schreiben» ein. */}
+        <button class="wz-kreisknopf" type="button" id="wz-los" data-klick="wunsch-start">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 20h4L19 9a2.8 2.8 0 0 0-4-4L4 16z"/><path d="M13.5 6.5l4 4"/></svg>
+          <span set:html={t.start.knopfHtml} />
+        </button>
+        <button class="wz-kreisknopf" type="button" id="wz-los-sprechen" data-klick="wunsch-start-sprechen" hidden>
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><rect x="9" y="3" width="6" height="11" rx="3"/><path d="M5 11a7 7 0 0 0 14 0M12 18v3"/></svg>
+          <span set:html={t.start.sprechenHtml} />
+        </button>
+        <button class="wz-btn wz-leise" type="button" id="wz-los-schreiben" data-klick="wunsch-start-schreiben" hidden>{t.start.schreiben}</button>
+      </div>
+      <div class="wz-angebot wz-einblenden" style="--d:1.8s">
+      <p class="wz-geschenk">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3.5" y="9" width="17" height="11.5" rx="1.5"/><path d="M2.5 9h19M12 9v11.5M12 9C10.5 5 6.5 4.5 6.5 7c0 1.5 3 2 5.5 2M12 9c1.5-4 5.5-4.5 5.5-2 0 1.5-3 2-5.5 2"/></svg>
+        <span><span class="wz-fuer-alle">{t.start.fuerAlle}</span><Fragment set:html={t.start.geschenkHtml} /></span>
+      </p>
+      <p class="wz-gewinn-hinweis"><svg viewBox="-12 -12 24 24" fill="currentColor" aria-hidden="true"><path d="M0-12C1 -3 3 -1 12 0C3 1 1 3 0 12C-1 3-3 1-12 0C-3-1-1-3 0-12Z"/></svg><span set:html={t.start.gewinnHtml} /></p>
+      </div>
+      <p class="wz-klein wz-einblenden" style="--d:1.95s">{t.start.klein}</p>
+      <ol class="wz-ablauf wz-einblenden" style="--d:2.1s" aria-label={t.start.ablaufLabel}>
+        {t.start.ablauf.map(([titel, text], i) => (
+          <li><span class="wz-nr">{i + 1}</span><b>{titel}</b><span>{text}</span></li>
+        ))}
+      </ol>
+    </div>
+
+    <!-- Schritt 1: Wunsch -->
+    <div class="wz-schritt wz-karte-schritt" id="wz-eingabe" hidden>
+      <div><button class="wz-link" type="button" data-zu="start">{t.eingabe.zurueck}</button></div>
+      <p class="wz-eyebrow">{t.eingabe.schritt}</p>
+      <h2 id="wz-t-eingabe">{t.eingabe.titel}</h2>
+      <p class="wz-lede">{t.eingabe.lede}</p>
+      <div class="wz-karte">
+        <label for="wz-wunsch" class="wz-label">{t.eingabe.label}</label>
+        <div class="wz-aufnahme" id="wz-aufnahme" hidden>
+          <button class="wz-mic" id="wz-mic" type="button" aria-pressed="false" aria-label={t.eingabe.mic.start} data-klick="wunsch-mic">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><rect x="9" y="3" width="6" height="11" rx="3"/><path d="M5 11a7 7 0 0 0 14 0M12 18v3"/></svg>
+          </button>
+          <p class="wz-mic-status" id="wz-mic-status" aria-live="polite">{t.eingabe.mic.bereit}</p>
+          <p class="wz-zwischen" id="wz-zwischen" aria-hidden="true"></p>
+        </div>
+        <textarea id="wz-wunsch" maxlength="500" rows="5" placeholder={t.eingabe.platzhalter}></textarea>
+        <div class="wz-zeile">
+          <p class="wz-klein" id="wz-diktat">{t.eingabe.diktat}</p>
+          <p class="wz-zaehler"><span id="wz-zaehler">0</span> {t.eingabe.zaehler}</p>
+        </div>
+        <div class="wz-zeile">
+          <button class="wz-btn" type="button" id="wz-zur-frage" disabled>{t.eingabe.weiter} <Fragment set:html={pfeil} /></button>
+          <p class="wz-klein" id="wz-zu-kurz">{t.eingabe.zuKurz}</p>
+        </div>
+        <p class="wz-klein wz-mic-hinweis" id="wz-mic-hinweis" hidden>{t.eingabe.micHinweis}</p>
+        <div class="wz-ideen">
+          <p class="wz-klein">{t.eingabe.ideen}</p>
+          <div class="wz-chips">
+            {t.eingabe.anstoesse.map(([label, anfang]) => (
+              <button class="wz-chip" type="button" data-anstoss={anfang}>{label}</button>
+            ))}
+            <button class="wz-chip" type="button" id="wz-beispiel">{t.eingabe.beispielKnopf}</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Schritt 2: zwei Fragen -->
+    <div class="wz-schritt wz-karte-schritt" id="wz-frage" hidden>
+      <div><button class="wz-link" type="button" data-zu="eingabe">{t.frage.zurueck}</button></div>
+      <p class="wz-eyebrow">{t.frage.schritt}</p>
+      <h2 id="wz-t-frage">{t.frage.titel}</h2>
+      <div class="wz-karte wz-verlauf">
+        <p class="wz-blase wz-du"><span class="wz-wer">{t.frage.du}</span><span id="wz-zitat"></span></p>
+        <p class="wz-blase wz-wir"><span class="wz-wer">{t.frage.wir}</span>{t.frage.f1}</p>
+        <div class="wz-chips" data-frage="haeufigkeit" id="wz-chips-1">
+          {HAEUFIGKEIT.map((k) => <button class="wz-chip" type="button" data-wert={k}>{t.frage.f1Optionen[k]}</button>)}
+        </div>
+        <p class="wz-blase wz-du" id="wz-antwort-1" hidden></p>
+        <p class="wz-blase wz-wir" id="wz-frage-2" hidden><span class="wz-wer">{t.frage.wir}</span>{t.frage.f2}</p>
+        <div class="wz-chips" data-frage="dauer" id="wz-chips-2" hidden>
+          {DAUER.map((k) => <button class="wz-chip" type="button" data-wert={k}>{t.frage.f2Optionen[k]}</button>)}
+        </div>
+        <p class="wz-blase wz-du" id="wz-antwort-2" hidden></p>
+        <div class="wz-warten" id="wz-warten" hidden aria-live="polite"><span class="wz-kreisel" aria-hidden="true"></span><span id="wz-wartetext"></span></div>
+      </div>
+    </div>
+
+    <!-- Schritt 3: Wunschzettel -->
+    <div class="wz-schritt wz-mitte wz-zettel-schritt" id="wz-zettel" hidden>
+      <p class="wz-eyebrow">{t.zettel.schritt}</p>
+      <h2 id="wz-t-zettel">{t.zettel.titel}</h2>
+      <p class="wz-lede">{t.zettel.lede}</p>
+      <article class="wz-zettel" aria-labelledby="wz-t-zettel">
+        <span class="wz-siegel" aria-hidden="true">2027</span>
+        <p class="wz-zettel-kopf">{t.zettel.kopf}</p>
+        <h3 contenteditable="true" spellcheck="false" id="wz-z-titel" data-platzhalter={t.zettel.titelPlatzhalter} aria-label={t.zettel.titelPlatzhalter} role="textbox"></h3>
+        <div class="wz-feld"><span class="wz-feld-label" id="wz-l-heute">{t.zettel.heute}</span><div contenteditable="true" spellcheck="false" id="wz-z-heute" role="textbox" aria-multiline="true" aria-labelledby="wz-l-heute"></div></div>
+        <div class="wz-feld"><span class="wz-feld-label" id="wz-l-morgen">{t.zettel.morgen}</span><div contenteditable="true" spellcheck="false" id="wz-z-morgen" role="textbox" aria-multiline="true" aria-labelledby="wz-l-morgen" data-platzhalter={t.zettel.morgenPlatzhalter}></div></div>
+        <div class="wz-feld"><span class="wz-feld-label">{t.zettel.wieOft}</span><div id="wz-z-oft"></div></div>
+        <div class="wz-feld"><span class="wz-feld-label" id="wz-l-gewinn">{t.zettel.gewinn}</span>
+          <span class="wz-gewinn" contenteditable="true" spellcheck="false" id="wz-z-gewinn" role="textbox" aria-labelledby="wz-l-gewinn"></span>
+          <span class="wz-annahme">{t.zettel.annahme}</span>
+        </div>
+      </article>
+      <p class="wz-zettel-zaehler" id="wz-z-zaehler" aria-live="polite">{t.zettel.zaehlerStart}</p>
+      <div class="wz-knoepfe">
+        <button class="wz-btn wz-gross" type="button" id="wz-zum-proto">{t.zettel.weiter} <Fragment set:html={pfeil} /></button>
+      </div>
+      <button class="wz-link" type="button" id="wz-neu">{t.zettel.neu}</button>
+    </div>
+
+    <!-- Prototyp und Abschicken -->
+    <div class="wz-schritt wz-breit" id="wz-proto" hidden>
+      <div><button class="wz-link" type="button" data-zu="zettel">{t.proto.zurueck}</button></div>
+      <header class="wz-proto-kopf">
+        <p class="wz-eyebrow">{t.proto.eyebrow}</p>
+        <h2 id="wz-t-proto">{t.proto.titel}</h2>
+        <p class="wz-lede">{t.proto.lede}</p>
+      </header>
+      {/* Nur als Rückfall sichtbar: wenn die Spielwiese den Wunsch nicht selbst übernimmt (src/scripts/wunsch.ts). */}
+      <div class="wz-proto-hilfe" id="wz-proto-hilfe" hidden>
+        <p class="wz-label wz-hilfe-titel">{t.proto.hilfeTitel}</p>
+        <ol class="wz-anleitung">
+          {t.proto.schritte.map((s) => <li>{s}</li>)}
+        </ol>
+        <div class="wz-karte wz-prompt">
+          <label class="wz-label" for="wz-prompt">{t.proto.promptLabel}</label>
+          <textarea id="wz-prompt" rows="4" readonly></textarea>
+          <div class="wz-zeile">
+            <button class="wz-btn" type="button" id="wz-kopieren" data-klick="wunsch-kopieren">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="9" y="9" width="11" height="11" rx="2"/><path d="M5 15V5a2 2 0 0 1 2-2h10"/></svg>
+              {t.proto.kopieren}
+            </button>
+            <p class="wz-klein" id="wz-kopier-status" aria-live="polite"></p>
+          </div>
+        </div>
+      </div>
+      <div class="wz-spielwiese">
+        {/* src setzt das Skript erst, wenn diese Ansicht offen ist, samt passendem Theme. */}
+        <iframe id="wz-rahmen" data-src={spielwieseUrl} title={t.proto.rahmenTitel} referrerpolicy="strict-origin-when-cross-origin"></iframe>
+      </div>
+      <noscript><p class="wz-klein">{t.proto.ohneJs} <a href={spielwieseUrl} target="_blank" rel="noopener noreferrer">{t.proto.direkt} →</a></p></noscript>
+
+      <form class="wz-karte wz-formular" id="wz-formular" novalidate>
+        <p class="wz-label">{t.formular.label}</p>
+        <div class="wz-empfaenger">
+          <span class="wz-marke-mini" aria-hidden="true">2027</span>
+          <span class="wz-an">{t.formular.an}</span>
+          <span class="wz-wie">{t.formular.wie}</span>
+        </div>
+        <label class="wz-feld-kurz">{t.formular.name}<input type="text" id="wz-f-name" name="name" autocomplete="name" maxlength="120" required /></label>
+        <label class="wz-feld-kurz">{t.formular.firma}<input type="text" id="wz-f-firma" name="firma" autocomplete="organization" maxlength="160" required /></label>
+        <label class="wz-feld-kurz">{t.formular.mail}<input type="email" id="wz-f-mail" name="email" autocomplete="email" maxlength="200" required /></label>
+        <label><span>{t.formular.bemerkung} <span class="wz-freiwillig">{t.formular.freiwillig}</span></span>
+          <textarea id="wz-f-bemerkung" name="bemerkung" maxlength="600" rows="3" placeholder={t.formular.bemerkungPlatzhalter}></textarea>
+        </label>
+        {/* Honigtopf gegen Programme: fuer Menschen unsichtbar und nicht per Tab erreichbar. */}
+        <div class="wz-honig" aria-hidden="true"><label>Website<input type="text" id="wz-f-website" name="website" tabindex="-1" autocomplete="off" /></label></div>
+        <label class="wz-zustimmung"><input type="checkbox" id="wz-f-ok" />
+          <span>{t.formular.zustimmungVor}<a href={teilnahmeUrl} target="_blank" rel="noopener">{t.formular.zustimmungLink}</a>{t.formular.zustimmungMitte}<a href={datenschutzUrl} target="_blank" rel="noopener">{t.formular.datenschutzLink}</a>{t.formular.zustimmungNach}</span>
+        </label>
+        {TURNSTILE_SITE_KEY && <script is:inline src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>}
+        {TURNSTILE_SITE_KEY && <div class="cf-turnstile" data-sitekey={TURNSTILE_SITE_KEY}></div>}
+        <p class="wz-fehler" id="wz-fehler" aria-live="polite"></p>
+        <div class="wz-abschluss">
+          <button class="wz-btn wz-versiegeln" type="submit" id="wz-senden" data-klick="wunsch-senden"><span class="wz-mini-siegel" aria-hidden="true">2027</span><span id="wz-senden-text">{t.formular.knopf}</span></button>
+          <p class="wz-klein">{t.formular.wohin}</p>
+        </div>
+      </form>
+    </div>
+
+    <!-- Dank -->
+    <div class="wz-schritt wz-mitte" id="wz-dank" hidden>
+      <div class="wz-flug" aria-hidden="true">
+        <div class="wz-umschlag" id="wz-umschlag">
+          <div class="u-offen"></div>
+          <div class="u-rueck"></div>
+          <div class="u-brief" set:html={t.dank.briefHtml} />
+          <div class="u-front"></div>
+          <div class="u-klappe"></div>
+          <span class="u-siegel">2027</span>
+        </div>
+      </div>
+      <p class="wz-hand wz-nachher" id="wz-d-hand">{t.dank.handOhneName}</p>
+      <h2 id="wz-t-dank" class="wz-titel wz-dank-titel wz-nachher" style="--d:.1s">{t.dank.titel}</h2>
+      <p class="wz-lede wz-nachher" style="--d:.25s">{t.dank.lede}</p>
+      <p class="wz-gewinn-hinweis wz-nachher" style="--d:.35s"><svg viewBox="-12 -12 24 24" fill="currentColor" aria-hidden="true"><path d="M0-12C1 -3 3 -1 12 0C3 1 1 3 0 12C-1 3-3 1-12 0C-3-1-1-3 0-12Z"/></svg><span>{t.dank.gewinn}</span></p>
+      <div class="wz-aufloesung wz-nachher" style="--d:.5s">
+        <p class="wz-klein wz-versal">{t.dank.hinter}</p>
+        <p class="wz-marke"><img src={`${base}favicon.png`} alt="" width="44" height="44" /><span>SCOPERA<span class="dot">.</span></span></p>
+        <p class="wz-lede">{t.dank.aufloesung}</p>
+        <div class="wz-verbindung">
+          {variante === 'box' && <Fragment><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><rect x="6" y="3" width="12" height="18" rx="2"/><path d="M10 6h4"/></svg>
+          <span>{t.dank.karte}</span></Fragment>}
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>
+          <span>{t.dank.scopera}</span>
+        </div>
+        <div class="wz-knoepfe wz-dank-knoepfe">
+          <a class="wz-btn wz-cta" href={startseite} data-klick="wunsch-weiter">{t.dank.cta} <Fragment set:html={pfeil} /></a>
+          <button class="wz-link wz-gross-link" type="button" id="wz-nochmal">{t.dank.nochmal}</button>
+          <p class="wz-klein">{t.dank.nochmalHinweis}</p>
+        </div>
+        <p class="wz-gruss"><span class="wz-hand">{t.dank.gruss}</span><img class="wz-advanis" src={`${base}brand/advanis-logo.png`} alt="ADVANIS" width="106" height="21" loading="lazy" /></p>
+      </div>
+    </div>
+
+    <p class="wz-recht"><a href={teilnahmeUrl}>{t.recht.teilnahme}</a><a href={nutzungUrl} target="_blank" rel="noopener noreferrer">{t.recht.nutzung}</a><a href={datenschutzUrl}>{t.recht.datenschutz}</a></p>
+  </div>
+</div>
+
+<script>
+  import '../../scripts/wunsch';
+</script>
+
+<style is:global>
+  @font-face {
+    font-family: 'Caveat';
+    font-style: normal;
+    font-weight: 600;
+    font-display: swap;
+    src: url('/fonts/caveat-600-latin.woff2') format('woff2');
+  }
+  .wz {
+    --wz-glow: rgba(200, 154, 85, .22);
+    --wz-snow: rgba(243, 235, 221, .55);
+    --wz-hand: 'Caveat', 'Bradley Hand', 'Segoe Print', cursive;
+    --wz-serif: Georgia, 'Iowan Old Style', 'Times New Roman', ui-serif, serif;
+    --wz-logo: invert(1) sepia(.18) brightness(.97);
+    --wz-szene-h: min(calc(100svh - 66px), 940px);
+    /* clip statt nur hidden: hidden laesst sich per Fokus oder scrollIntoView verschieben, dann
+       rutscht der Inhalt nach links oben weg (Baeume ragen beim Eintauchen ueber den Rand). */
+    position: relative; isolation: isolate; overflow: hidden; overflow: clip;
+    padding: 24px 16px 40px;
+  }
+  :root[data-theme="light"] .wz {
+    --wz-glow: rgba(156, 111, 46, .16);
+    --wz-snow: rgba(156, 111, 46, .28);
+    --wz-logo: none;
+  }
+  .wz [hidden] { display: none !important; }
+  .wz :focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; }
+  .wz [tabindex="-1"]:focus { outline: none; }
+  .wz button, .wz input, .wz textarea { font: inherit; color: inherit; }
+  .wz h2 { margin: 0; }
+  .wz p { margin: 0; }
+
+  .wz-spalte { max-width: 1080px; margin: 0 auto; display: grid; gap: 22px; min-width: 0; }
+  .wz-leiste { display: flex; align-items: center; gap: 16px; font-size: 12px; letter-spacing: .16em; text-transform: uppercase; color: var(--ink-soft); }
+  .wz-leiste-titel { white-space: nowrap; }
+  .wz-fortschritt { display: flex; gap: 6px; flex: 1; }
+  .wz-fortschritt span { height: 3px; flex: 1; border-radius: 2px; background: var(--line); transition: background .4s; }
+  .wz-fortschritt span.an { background: var(--accent); }
+  .wz-rund { width: 34px; height: 34px; flex: none; border-radius: 50%; border: 1px solid var(--line); background: transparent; color: var(--ink-soft); display: grid; place-items: center; cursor: pointer; transition: color .3s, border-color .3s; }
+  .wz-rund svg { width: 16px; height: 16px; }
+  .wz-rund:hover { color: var(--accent-text); border-color: var(--accent); }
+  .wz-rund[aria-pressed="false"] { opacity: .55; }
+
+  .wz-schritt { display: grid; gap: 18px; min-width: 0; animation: wz-auf .5s ease both; }
+  @keyframes wz-auf { from { opacity: .001; transform: translateY(8px); } to { opacity: 1; transform: none; } }
+  .wz-mitte { max-width: 760px; width: 100%; margin-inline: auto; text-align: center; justify-items: center; }
+  .wz-karte-schritt { max-width: 760px; width: 100%; margin-inline: auto; }
+  .wz-breit { width: 100%; }
+  .wz-held { min-height: calc(var(--wz-szene-h) - 150px); align-content: center; }
+
+  .wz h2 { font-family: var(--wz-serif); font-weight: 400; font-size: clamp(28px, 6vw, 40px); line-height: 1.1; text-wrap: balance; }
+  .wz-titel { font-family: var(--wz-serif); font-weight: 400; font-size: clamp(36px, 9vw, 58px); line-height: 1.04; letter-spacing: -.01em; margin: 0; text-wrap: balance; }
+  .wz-dank-titel { font-size: clamp(32px, 8vw, 48px) !important; }
+  .wz-lede { font-size: 17px; color: var(--ink-soft); max-width: 36em; }
+  .wz-lede em { font-style: normal; color: var(--ink); }
+  .wz-mitte .wz-lede { margin-inline: auto; }
+  .wz-eyebrow { font-size: 12px; letter-spacing: .14em; text-transform: uppercase; color: var(--accent-text); font-weight: 600; }
+  .wz-hand { font-family: var(--wz-hand); font-weight: 600; color: var(--accent-text); font-size: 1.6em; line-height: 1.1; }
+  .wz-klein { font-size: 13px; color: var(--ink-soft); }
+  .wz-versal { letter-spacing: .14em; text-transform: uppercase; }
+  .wz-label { font-size: 12px; letter-spacing: .1em; text-transform: uppercase; color: var(--ink-soft); }
+
+  .wz-knoepfe { display: flex; flex-wrap: wrap; gap: 12px; align-items: center; justify-content: center; }
+  .wz-btn {
+    display: inline-flex; align-items: center; justify-content: center; gap: 10px; min-height: 46px; padding: 11px 20px;
+    border-radius: var(--radius); border: 1px solid var(--accent); background: var(--accent); color: var(--accent-ink);
+    font-weight: 700; font-size: 15px; cursor: pointer; text-decoration: none; transition: filter .2s, translate .25s, box-shadow .25s;
+  }
+  :root[data-theme="light"] .wz-btn { background: var(--accent-text); border-color: var(--accent-text); }
+  .wz-btn:hover { filter: brightness(1.08); }
+  .wz-btn:disabled { opacity: .5; cursor: not-allowed; filter: none; }
+  .wz-btn svg { width: 18px; height: 18px; flex: none; }
+  .wz-btn.wz-leise, :root[data-theme="light"] .wz-btn.wz-leise { background: transparent; color: var(--ink); border-color: var(--line); }
+  .wz-btn.wz-leise:hover { border-color: var(--accent); color: var(--accent-text); filter: none; }
+  :root[data-theme="light"] .wz-btn.wz-leise { border-color: var(--ink-soft); }
+  .wz-gross { min-height: 54px; padding: 13px 24px; font-size: 16px; }
+  .wz-link { background: none; border: 0; padding: 0; color: var(--ink-soft); text-decoration: underline; text-underline-offset: 3px; cursor: pointer; font-size: 14px; justify-self: start; }
+  .wz-link:hover { color: var(--accent-text); }
+  .wz-gross-link { font-size: 15px; color: var(--ink); justify-self: center; }
+
+  .wz-karte { background: var(--card); border: 1px solid var(--line); border-radius: 10px; padding: 18px; display: grid; gap: 12px; min-width: 0; text-align: left; }
+  .wz textarea, .wz input[type="text"], .wz input[type="email"] {
+    width: 100%; padding: 10px 12px; border-radius: var(--radius); border: 1px solid var(--line); background: var(--ground); color: var(--ink); line-height: 1.5; font-size: 15px;
+  }
+  .wz textarea { resize: vertical; }
+  .wz textarea:focus, .wz input:focus { border-color: var(--accent); outline: none; box-shadow: 0 0 0 3px color-mix(in srgb, var(--accent) 30%, transparent); }
+  .wz-zeile { display: flex; flex-wrap: wrap; gap: 8px 16px; align-items: center; justify-content: space-between; }
+  .wz-zaehler { font-size: 12px; color: var(--ink-soft); white-space: nowrap; }
+  .wz-ideen { border-top: 1px solid var(--line); padding-top: 12px; display: grid; gap: 8px; }
+  .wz-chips { display: flex; flex-wrap: wrap; gap: 8px; }
+  .wz-chip { border: 1px solid var(--line); background: var(--ground); color: var(--ink); border-radius: 999px; padding: 8px 13px; font-size: 14px; cursor: pointer; text-align: left; }
+  .wz-chip:hover { border-color: var(--accent); }
+
+  /* Sprachaufnahme ueber die Spracherkennung des Browsers */
+  .wz-aufnahme { display: grid; justify-items: center; gap: 10px; padding: 6px 0 4px; text-align: center; }
+  .wz-mic { width: 76px; height: 76px; border-radius: 50%; border: 0; cursor: pointer; background: var(--accent); color: var(--accent-ink); display: grid; place-items: center; position: relative; }
+  :root[data-theme="light"] .wz-mic { background: var(--accent-text); }
+  .wz-mic svg { width: 30px; height: 30px; }
+  .wz-mic.wz-laeuft::after { content: ""; position: absolute; inset: -8px; border-radius: 50%; border: 2px solid var(--accent); animation: wz-puls 1.4s ease-out infinite; }
+  @keyframes wz-puls { from { transform: scale(.9); opacity: 1; } to { transform: scale(1.35); opacity: 0; } }
+  .wz-mic-status { font-size: 14px; color: var(--ink-soft); }
+  .wz-mic-status.wz-fehlerton { color: #D46A5C; }
+  :root[data-theme="light"] .wz-mic-status.wz-fehlerton { color: #A63A2D; }
+  .wz-zwischen { font-size: 15px; color: var(--ink); opacity: .7; font-style: italic; min-height: 0; }
+  .wz-zwischen:empty { display: none; }
+  .wz-mic-hinweis { font-size: 12px; }
+
+  /* Fragen als kurzes Gespraech */
+  .wz-verlauf { gap: 10px; }
+  .wz-blase { max-width: 92%; padding: 10px 13px; border-radius: 10px; font-size: 15px; }
+  .wz-blase.wz-du { justify-self: end; background: color-mix(in srgb, var(--accent) 14%, var(--card)); border: 1px solid color-mix(in srgb, var(--accent) 45%, transparent); }
+  .wz-blase.wz-wir { justify-self: start; background: var(--ground); border: 1px solid var(--line); }
+  .wz-wer { display: block; font-size: 11px; letter-spacing: .08em; text-transform: uppercase; color: var(--accent-text); margin-bottom: 2px; }
+  .wz-verlauf .wz-chips { justify-content: flex-end; }
+  .wz-warten { display: flex; gap: 10px; align-items: center; color: var(--ink-soft); font-size: 14px; }
+  .wz-kreisel { width: 16px; height: 16px; border-radius: 50%; border: 2px solid var(--line); border-top-color: var(--accent); animation: wz-dreh 1s linear infinite; }
+  @keyframes wz-dreh { to { transform: rotate(360deg); } }
+
+  /* Wunschzettel: Papier mit Linien, Siegel */
+  .wz-zettel {
+    position: relative; width: 100%; max-width: 780px; text-align: left; display: grid; gap: 4px;
+    background-color: var(--card);
+    background-image: repeating-linear-gradient(180deg, transparent 0 29px, color-mix(in srgb, var(--line) 75%, transparent) 29px 30px);
+    background-position: 0 14px; border: 1px solid color-mix(in srgb, var(--accent) 55%, var(--line)); border-radius: 10px;
+    padding: 30px 22px 24px; box-shadow: 0 34px 60px -34px rgba(0,0,0,.65); rotate: -.5deg;
+    animation: wz-auflegen .8s cubic-bezier(.2,.7,.2,1) both;
+  }
+  @keyframes wz-auflegen { from { opacity: 0; translate: 0 26px; rotate: -3deg; } }
+  .wz-siegel {
+    position: absolute; right: 22px; top: -22px; width: 66px; height: 66px; border-radius: 50%; display: grid; place-items: center;
+    background: radial-gradient(circle at 35% 30%, #E2BE7E, #A9783A 70%); color: #3A2A14; font-family: var(--wz-serif); font-size: 15px;
+    box-shadow: 0 3px 8px rgba(0,0,0,.3), inset 0 0 0 3px rgba(255,255,255,.18); transform: rotate(8deg);
+  }
+  .wz-zettel-kopf { font-family: var(--wz-hand); font-size: 26px; color: var(--ink-soft); line-height: 30px; }
+  .wz-zettel h3 { font-size: 24px; line-height: 30px; margin: 0 0 4px; padding-right: 60px; }
+  .wz-feld { display: grid; margin: 0 0 4px; }
+  .wz-feld-label { font-size: 11px; letter-spacing: .1em; text-transform: uppercase; color: var(--accent-text); line-height: 30px; }
+  .wz-zettel [contenteditable] { line-height: 30px; font-size: 16px; outline: none; border-radius: 2px; white-space: pre-wrap; overflow-wrap: anywhere; min-height: 30px; }
+  .wz-zettel h3[contenteditable] { font-size: 24px; }
+  .wz-zettel [contenteditable]:hover { background: color-mix(in srgb, var(--accent) 12%, transparent); }
+  .wz-zettel [contenteditable]:focus { background: color-mix(in srgb, var(--accent) 20%, transparent); }
+  .wz-zettel [contenteditable]:empty::before { content: attr(data-platzhalter); color: var(--ink-soft); opacity: .7; }
+  .wz-zettel #wz-z-oft { line-height: 30px; font-size: 16px; }
+  .wz-zettel .wz-gewinn { font-family: var(--wz-hand); font-size: 34px; color: var(--accent-text); }
+  .wz-annahme { font-size: 12.5px; color: var(--ink-soft); line-height: 30px; }
+
+  /* Startseite */
+  .wz-geschenk { display: flex; gap: 12px; align-items: flex-start; text-align: left; max-width: 36em; padding: 12px 16px; border: 1px solid color-mix(in srgb, var(--accent) 45%, transparent); border-radius: 10px; background: color-mix(in srgb, var(--card) 60%, transparent); font-size: 15px; color: var(--ink-soft); }
+  .wz-geschenk svg { width: 24px; height: 24px; flex: none; color: var(--accent-text); margin-top: 1px; }
+  .wz-geschenk strong { color: var(--accent-text); }
+  .wz-angebot { display: grid; gap: 10px; width: 100%; max-width: 36em; }
+  .wz-angebot .wz-geschenk { max-width: none; padding: 16px 18px; font-size: 16px; color: var(--ink); border-width: 1.5px; border-color: var(--accent); box-shadow: 0 10px 30px -18px var(--accent); }
+  .wz-angebot .wz-geschenk svg { width: 28px; height: 28px; }
+  .wz-fuer-alle { display: block; margin-bottom: 4px; font-size: 11.5px; letter-spacing: .14em; text-transform: uppercase; color: var(--accent-text); }
+  .wz-gewinn-hinweis { display: flex; gap: 12px; align-items: flex-start; text-align: left; margin: 0; padding: 10px 18px; border: 1px dashed color-mix(in srgb, var(--ink-soft) 55%, transparent); border-radius: 10px; font-size: 14.5px; color: var(--ink-soft); max-width: 36em; }
+  .wz-gewinn-hinweis svg { width: 18px; height: 18px; flex: none; margin-top: 2px; color: var(--accent); }
+  .wz-gewinn-hinweis strong { color: var(--ink); }
+  .wz-zettel-zaehler { margin: -6px 0 0; font-size: 12.5px; color: var(--ink-soft); text-align: center; min-height: 1.3em; font-variant-numeric: tabular-nums; }
+  .wz-zettel-zaehler.wz-zuviel { color: #C4584B; }
+  .wz-kreisknopf {
+    position: relative; isolation: isolate; overflow: hidden; width: 140px; height: 140px; border-radius: 50%;
+    display: grid; place-content: center; justify-items: center; gap: 6px; padding: 12px;
+    border: 1px solid color-mix(in srgb, var(--accent) 70%, transparent); background: color-mix(in srgb, var(--card) 45%, transparent);
+    -webkit-backdrop-filter: blur(8px); backdrop-filter: blur(8px); color: var(--ink); font-weight: 700; font-size: 14.5px; line-height: 1.2; cursor: pointer;
+    animation: wz-atmen 3.2s ease-in-out infinite; transition: color .35s;
+  }
+  .wz-kreisknopf::before { content: ""; position: absolute; inset: 0; border-radius: 50%; background: var(--accent); scale: 0; transition: scale .5s cubic-bezier(.2,.7,.2,1); z-index: -1; }
+  .wz-kreisknopf:hover::before, .wz-kreisknopf:focus-visible::before { scale: 1; }
+  .wz-kreisknopf:hover, .wz-kreisknopf:focus-visible { color: var(--accent-ink); }
+  .wz-kreisknopf svg { width: 26px; height: 26px; transition: translate .35s; }
+  .wz-kreisknopf:hover svg { translate: 0 -2px; }
+  @keyframes wz-atmen { 0%, 100% { box-shadow: 0 0 0 0 var(--wz-glow); } 50% { box-shadow: 0 0 0 14px transparent, 0 0 40px 4px var(--wz-glow); } }
+  .wz-ablauf { list-style: none; margin: 6px 0 0; padding: 0; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 12px; width: 100%; max-width: 760px; text-align: left; }
+  .wz-ablauf li { display: grid; grid-template-columns: auto 1fr; gap: 2px 10px; align-items: start; padding: 12px; border: 1px solid var(--line); border-radius: 10px; background: color-mix(in srgb, var(--ground) 82%, transparent); -webkit-backdrop-filter: blur(4px); backdrop-filter: blur(4px); }
+  .wz-nr { grid-row: span 2; width: 26px; height: 26px; border-radius: 50%; border: 1px solid var(--accent); color: var(--accent-text); display: grid; place-items: center; font-family: var(--wz-serif); font-size: 14px; }
+  .wz-ablauf b { font-size: 14.5px; }
+  .wz-ablauf span:not(.wz-nr) { font-size: 13.5px; color: var(--ink-soft); line-height: 1.4; }
+  @media (max-width: 640px) { .wz-ablauf { grid-template-columns: 1fr; gap: 8px; } }
+
+  /* Auftritt: Handschrift schreibt sich, Buchstaben steigen auf */
+  .wz-schreibt { width: fit-content; animation: wz-schreiben 1.3s cubic-bezier(.5,0,.3,1) .3s backwards; }
+  @keyframes wz-schreiben { from { clip-path: inset(0 100% 0 0); } to { clip-path: inset(0 0 0 0); } }
+  .wz-wort { white-space: nowrap; display: inline-block; }
+  .wz-zeichen { display: inline-block; animation: wz-steigen .8s cubic-bezier(.2,.7,.2,1) backwards; animation-delay: calc(.8s + var(--i) * 26ms); transition: translate .3s cubic-bezier(.3,1.6,.5,1), color .3s; }
+  .wz-zeichen:hover { translate: 0 -.12em; color: var(--accent-text); }
+  @keyframes wz-steigen { from { opacity: 0; translate: 0 .45em; filter: blur(6px); } }
+  .wz-einblenden { animation: wz-auf .9s ease backwards; animation-delay: var(--d, 0s); }
+
+  /* Prototyp */
+  .wz-proto-kopf { display: grid; gap: 8px; }
+  .wz-proto-hilfe { display: grid; gap: 16px; align-items: start; }
+  @media (min-width: 900px) { .wz-proto-hilfe { grid-template-columns: minmax(0, 5fr) minmax(0, 7fr); } }
+  .wz-hilfe-titel { grid-column: 1 / -1; margin: 0; }
+  .wz-anleitung { margin: 0; padding: 0; list-style: none; counter-reset: wz-schritt; display: grid; gap: 10px; }
+  .wz-anleitung li { counter-increment: wz-schritt; display: grid; grid-template-columns: auto 1fr; gap: 10px; align-items: start; font-size: 15px; }
+  .wz-anleitung li::before { content: counter(wz-schritt); width: 26px; height: 26px; border-radius: 50%; border: 1px solid var(--accent); color: var(--accent-text); display: grid; place-items: center; font-family: var(--wz-serif); font-size: 14px; }
+  .wz-prompt textarea { font-size: 14.5px; background: var(--ground); }
+  .wz-spielwiese { border: 1px solid var(--line); border-radius: 12px; overflow: hidden; background: var(--card); box-shadow: 0 30px 60px -36px rgba(0,0,0,.6); }
+  .wz-spielwiese iframe { display: block; width: 100%; border: 0; min-height: 820px; }
+
+  /* Abschicken: Empfaenger wie auf einem Umschlag */
+  .wz-formular { scroll-margin-top: 90px; }
+  .wz-formular label { display: grid; gap: 4px; font-size: 14px; color: var(--ink-soft); }
+  .wz-empfaenger { display: grid; grid-template-columns: auto 1fr; gap: 4px 14px; align-items: center; padding: 14px 16px; border: 1px dashed color-mix(in srgb, var(--accent) 55%, var(--line)); border-radius: 8px; background: color-mix(in srgb, var(--accent) 7%, var(--card)); }
+  .wz-marke-mini { grid-row: span 2; width: 44px; height: 52px; border: 1.5px dashed var(--accent); border-radius: 3px; display: grid; place-items: center; color: var(--accent-text); font-family: var(--wz-hand); font-size: 18px; line-height: 1; rotate: 4deg; }
+  .wz-an { font-family: var(--wz-hand); font-size: 26px; line-height: 1.1; color: var(--ink); }
+  .wz-wie { font-size: 13.5px; color: var(--ink-soft); }
+  .wz-freiwillig { font-size: 12.5px; white-space: nowrap; }
+  .wz-honig { position: absolute; left: -10000px; width: 1px; height: 1px; overflow: hidden; }
+  .wz .wz-zustimmung { display: flex; gap: 10px; align-items: flex-start; }
+  .wz-zustimmung input { margin-top: 4px; accent-color: var(--accent); width: 16px; height: 16px; flex: none; }
+  .wz-zustimmung a { color: var(--ink); }
+  .wz-fehler { color: #D46A5C; font-size: 14px; min-height: 1.2em; }
+  :root[data-theme="light"] .wz-fehler { color: #A63A2D; }
+  .wz-abschluss { display: grid; justify-items: start; gap: 8px; }
+  .wz-versiegeln { min-height: 58px; padding: 10px 26px 10px 12px; font-size: 16px; gap: 12px; border-radius: 999px; box-shadow: 0 10px 24px -12px rgba(0,0,0,.6); }
+  .wz-versiegeln:hover:not(:disabled) { translate: 0 -2px; box-shadow: 0 16px 30px -14px rgba(0,0,0,.65); }
+  .wz-mini-siegel { width: 38px; height: 38px; border-radius: 50%; display: grid; place-items: center; background: radial-gradient(circle at 35% 30%, #B5473C, #7A2A23 72%); color: #F3D9C9; font-family: var(--wz-serif); font-size: 11px; font-weight: 400; box-shadow: inset 0 0 0 2px rgba(255,255,255,.14); transition: rotate .4s cubic-bezier(.3,1.6,.5,1); }
+  .wz-versiegeln:hover .wz-mini-siegel { rotate: -18deg; }
+  @media (min-width: 900px) {
+    .wz-formular { grid-template-columns: repeat(3, minmax(0, 1fr)); column-gap: 14px; padding: 24px; }
+    .wz-formular > :not(.wz-feld-kurz) { grid-column: 1 / -1; }
+  }
+
+  /* Dank: Zettel in den Umschlag, Siegel drauf, Flug zum Stern */
+  #wz-dank { position: relative; min-height: calc(var(--wz-szene-h) - 150px); align-content: start; }
+  .wz-flug { position: absolute; left: 0; right: 0; top: 0; display: grid; justify-items: center; pointer-events: none; z-index: 2; }
+  .wz-umschlag { position: relative; width: 184px; height: 118px; margin-top: 96px; filter: drop-shadow(0 12px 18px rgba(0,0,0,.35)); }
+  .u-offen { position: absolute; left: 0; right: 0; bottom: 100%; height: 66px; background: #BB9C6E; clip-path: polygon(0 100%, 50% 0, 100% 100%); transform-origin: 50% 100%; animation: wz-klappe-weg .22s ease-in .85s forwards; }
+  .u-rueck { position: absolute; inset: 0; background: #C3A577; border-radius: 3px; }
+  .u-brief { position: absolute; left: 16px; right: 16px; top: -64px; height: 104px; border-radius: 2px; padding: 8px 10px; background: #FBF6EC; background-image: repeating-linear-gradient(180deg, transparent 0 15px, rgba(80,60,30,.13) 15px 16px); box-shadow: 0 1px 3px rgba(0,0,0,.2); font-family: var(--wz-hand); font-size: 15px; line-height: 16px; color: #6B5432; text-align: left; animation: wz-einstecken .75s cubic-bezier(.5,0,.3,1) .15s forwards; }
+  .u-front { position: absolute; inset: 0; background: #D7BD93; border-radius: 3px; clip-path: polygon(0 0, 50% 54%, 100% 0, 100% 100%, 0 100%); }
+  .u-klappe { position: absolute; left: 0; right: 0; top: 0; height: 66px; background: #CCAF83; clip-path: polygon(0 0, 100% 0, 50% 100%); transform-origin: 50% 0; scale: 1 0; animation: wz-klappe-zu .26s ease-out 1.05s forwards; }
+  .u-siegel { position: absolute; left: 50%; top: 62px; width: 42px; height: 42px; translate: -50% -50%; border-radius: 50%; display: grid; place-items: center; background: radial-gradient(circle at 35% 30%, #B5473C, #7A2A23 72%); color: #F3D9C9; font-family: var(--wz-serif); font-size: 12px; box-shadow: 0 2px 5px rgba(0,0,0,.35), inset 0 0 0 3px rgba(255,255,255,.12); scale: 0; animation: wz-stempeln .4s cubic-bezier(.3,1.6,.5,1) 1.4s forwards; }
+  @keyframes wz-einstecken { to { translate: 0 70px; } }
+  @keyframes wz-klappe-weg { to { scale: 1 0; } }
+  @keyframes wz-klappe-zu { to { scale: 1 1; } }
+  @keyframes wz-stempeln { to { scale: 1; } }
+  .wz-nachher { animation: wz-auf .9s ease backwards; animation-delay: calc(3.2s + var(--d, 0s)); }
+  .wz-aufloesung { display: grid; gap: 14px; justify-items: center; width: 100%; padding-top: 18px; border-top: 1px solid var(--line); }
+  .wz-marke { display: flex; align-items: center; gap: 12px; font-weight: 800; font-size: 30px; letter-spacing: -.03em; }
+  .wz-marke img { display: block; width: 44px; height: 44px; border-radius: 6px; }
+  .wz-verbindung { display: grid; grid-template-columns: auto 1fr; gap: 6px 14px; align-items: center; font-size: 15px; text-align: left; width: fit-content; max-width: 100%; }
+  .wz-verbindung svg { width: 26px; height: 26px; color: var(--accent); }
+  .wz-dank-knoepfe { flex-direction: column; gap: 14px; margin-top: 6px; }
+  .wz-cta { min-height: 58px; padding: 14px 30px; font-size: 17px; border-radius: 999px; box-shadow: 0 14px 30px -14px var(--accent); }
+  .wz-cta:hover { translate: 0 -2px; box-shadow: 0 18px 36px -14px var(--accent); }
+  .wz-cta svg { transition: translate .25s; }
+  .wz-cta:hover svg { translate: 3px 0; }
+  .wz-gruss { display: grid; justify-items: center; gap: 10px; }
+  .wz-gruss .wz-hand { font-size: 26px; }
+  .wz-advanis { display: block; height: 19px; width: auto; filter: var(--wz-logo); }
+
+  .wz-recht { display: flex; flex-wrap: wrap; gap: 6px 18px; justify-content: center; font-size: 13px; padding-top: 10px; }
+  .wz-recht a { color: var(--ink-soft); }
+  .wz-recht a:hover { color: var(--accent-text); }
+
+  @media (max-width: 480px) {
+    .wz-leiste-titel { display: none; }
+    .wz-karte { padding: 14px; }
+    .wz-zettel { padding: 28px 16px 20px; }
+    .wz-zettel h3, .wz-zettel h3[contenteditable] { font-size: 21px; }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .wz *, .wz *::before, .wz *::after { animation: none !important; transition: none !important; }
+    .wz-flug { display: none; }
+  }
+</style>

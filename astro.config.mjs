@@ -13,7 +13,8 @@ export default defineConfig({
         defaultLocale: 'de',
         locales: { de: 'de', en: 'en' },
       },
-      filter: (page) => !/\/(de|en)\/packages\/?$/.test(page),
+      // Kampagnenseiten der Weihnachtsaktion sind nur per QR-Code gedacht und tragen noindex.
+      filter: (page) => !/\/(de|en)\/packages\/?$/.test(page) && !/\/wunsch(\/|$)/.test(page),
     }),
   ],
   i18n: {

@@ -16,6 +16,7 @@ import { handleGetHeatmap, handleGetHeatVerlauf } from "./handlers/heatmap";
 import { handleGetPages } from "./handlers/pages";
 import { handleGetPreview } from "./handlers/preview";
 import { handleGetVisitors } from "./handlers/visitors";
+import { handleGetWuensche } from "./handlers/wuensche";
 import { jsonResponse } from "../lib/json";
 import type { Env } from "../types";
 
@@ -42,6 +43,8 @@ export async function handleAdminApi(request: Request, env: Env): Promise<Respon
   if (method === "GET" && path === "/leads/failed") return handleGetFailedLeads(env);
   const retryMatch = path.match(/^\/leads\/failed\/([^/]+)\/retry$/);
   if (method === "POST" && retryMatch) return handleRetryFailedLead(env, retryMatch[1]);
+
+  if (method === "GET" && path === "/wuensche") return handleGetWuensche(env);
 
   if (method === "GET" && path === "/crm/status") return handleCrmStatus(env);
   if (method === "GET" && path === "/apollo") return handleGetApollo(env);

@@ -1,0 +1,52 @@
+---
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+import { ADRESSE } from '../../../config';
+const base = import.meta.env.BASE_URL;
+---
+<BaseLayout title="Teilnahmebedingungen «Wünsch dir was. Für 2027.» | SCOPERA." description="Teilnahmebedingungen der Weihnachtsaktion «Wünsch dir was. Für 2027.» der ADVANIS AG." noindex schlicht>
+  <section class="recht-seite">
+    <div class="wrap">
+      <p class="eyebrow">Weihnachtsaktion 2026</p>
+      <h1>Teilnahmebedingungen<span class="dot">.</span></h1>
+      <p class="lede soft">«Wünsch dir was. Für 2027.» Stand: November 2026</p>
+
+      <h2>1. Wer die Aktion durchführt</h2>
+      <p>Die Aktion führt die ADVANIS AG, {ADRESSE}, durch (im Folgenden «wir»).</p>
+
+      <h2>2. Wer mitmachen kann</h2>
+      <p>Mitmachen können volljährige Personen, die für ein Unternehmen tätig sind, insbesondere Kundinnen, Kunden und Geschäftspartner der ADVANIS AG. Mitarbeitende der ADVANIS AG sind ausgeschlossen. Die Teilnahme ist kostenlos und hängt von keinem Kauf ab. Du darfst mehrere Wünsche einreichen.</p>
+
+      <h2>3. So läuft es</h2>
+      <p>Du schreibst deinen Wunsch für den Arbeitsalltag auf <a href={`${base}de/wunsch/`}>scopera.ai/wunsch</a> (oder über den QR-Code der Weihnachtskarte) auf, beantwortest zwei kurze Fragen und schickst deinen Wunschzettel mit Name, Firma und E-Mail-Adresse ab. Einsendeschluss ist der 15. Januar 2027, 23:59 Uhr (Schweizer Zeit).</p>
+
+      <h2>4. Dein Prototyp bis 15. Januar</h2>
+      <p>Für alle, die einen Wunschzettel abschicken, richten wir aus dem Wunsch einen Prototyp in einem eigenen SCOPERA-Arbeitsbereich ein. Den Zugang schicken wir per E-Mail, in der Regel innert weniger Arbeitstage. Du nutzt den Prototyp bis zum 15. Januar 2027 kostenlos. Danach endet die kostenlose Nutzung von selbst; es entstehen keine Kosten und kein Abonnement. Möchtest du weitermachen, wechselst du in einen kostenpflichtigen Arbeitsbereich, ohne neu anzufangen. Wechselst du nicht, löschen wir den Arbeitsbereich samt Inhalten spätestens 30 Tage nach Ablauf.</p>
+      <p>Ein Prototyp ist ein erster, bedienbarer Entwurf mit Beispieldaten. Er ist für das Ausprobieren gedacht und ersetzt keine geprüfte Lösung für den produktiven Einsatz.</p>
+
+      <h2>5. Auswahl und Gewinn</h2>
+      <p>Eine Jury der ADVANIS AG wählt bis Ende Februar 2027 den überzeugendsten Wunsch aus. Wir achten darauf, wie viel Zeit die Lösung im Alltag spart, wie gut sie sich umsetzen lässt und wie vielen Menschen sie hilft.</p>
+      <p>Der Gewinn: Wir setzen den ausgewählten Wunsch 2027 gemeinsam mit dem Unternehmen der Gewinnerin oder des Gewinners kostenlos auf SCOPERA um. Die Lösung lässt sich bis zum 31. Dezember 2027 kostenlos nutzen. Den Umfang legen wir vor Beginn gemeinsam fest. Eine Barauszahlung ist nicht möglich, der Gewinn ist nicht übertragbar.</p>
+      <p>Wir benachrichtigen die Gewinnerin oder den Gewinner per E-Mail. Meldet sich niemand innert vier Wochen, dürfen wir einen anderen Wunsch auswählen. Alle, die mitgemacht haben, hören von uns, wie die Aktion ausgegangen ist.</p>
+
+      <h2>6. Deine Idee</h2>
+      <p>Dein Wunsch bleibt deiner. Wir verwenden deinen Wunschzettel für diese Aktion: um deinen Prototyp einzurichten, den überzeugendsten Wunsch auszuwählen und ihn umzusetzen. Ohne deine ausdrückliche Zustimmung veröffentlichen wir nichts, was auf dich oder dein Unternehmen schliessen lässt. Wünsche, Lösungsideen und Ergebnisse dürfen wir in anonymisierter Form für unsere Kommunikation und für die Weiterentwicklung von SCOPERA nutzen, sofern keine Rückschlüsse auf Personen oder Unternehmen möglich sind.</p>
+      <p>Zum Gewinn gehört eine gemeinsam erstellte Erfolgsgeschichte mit Firmenname und Logo. Die Annahme des Gewinns setzt deshalb die Zustimmung des Unternehmens voraus. Die Inhalte stimmen wir vorher gemeinsam ab und veröffentlichen sie erst nach eurer Freigabe.</p>
+
+      <h2>7. Datenschutz</h2>
+      <p>Welche Angaben wir speichern, wofür und wie lange, steht in der <a href={`${base}de/privacy/#weihnachtsaktion`}>Datenschutzerklärung</a> im Abschnitt «Weihnachtsaktion». Kurz: Wir nutzen deine Angaben nur für die Aktion und löschen sie spätestens am 31. Dezember 2027. Bitte gib keine vertraulichen Unternehmensdaten und keine besonders schützenswerten Personendaten ein.</p>
+
+      <h2>8. Weiteres</h2>
+      <p>Aus wichtigem Grund, etwa bei Missbrauch oder technischen Problemen, dürfen wir die Aktion anpassen oder vorzeitig beenden. Wer gegen diese Bedingungen verstösst oder die Aktion manipuliert, kann ausgeschlossen werden. Über die Auswahl der Jury wird keine Korrespondenz geführt. Es gilt Schweizer Recht, Gerichtsstand ist Winterthur.</p>
+
+      <p style="margin-top:32px;"><a href={`${base}de/wunsch/`}>← Zurück zum Wunschzettel</a></p>
+    </div>
+  </section>
+</BaseLayout>
+<style>
+  .recht-seite { padding: 72px 0 80px; }
+  .recht-seite .wrap { max-width: 760px; }
+  .recht-seite h1 { margin-bottom: 8px; }
+  .recht-seite h2 { font-size: clamp(21px, 3vw, 26px); margin: 34px 0 10px; }
+  .recht-seite p { color: var(--ink); }
+  .recht-seite .soft { color: var(--ink-soft); }
+</style>

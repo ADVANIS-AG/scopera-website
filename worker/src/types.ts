@@ -110,6 +110,29 @@ export interface FailedLeadRecord {
   createdAt: number;
 }
 
+/** Eingereichter Wunschzettel der Weihnachtsaktion 2027 (siehe handlers/wunsch.ts). */
+export interface WunschRecord {
+  id: string;
+  createdAt: number;
+  lang: "de" | "en";
+  /** Über welchen QR-Code der Wunsch kam: Geschenkbox oder nur Weihnachtskarte. */
+  quelle: "box" | "karte";
+  name: string;
+  firma: string;
+  email: string;
+  bemerkung: string;
+  zettel: {
+    wunsch: string;
+    haeufigkeit: string;
+    dauer: string;
+    titel: string;
+    heute: string;
+    morgen: string;
+    zeitgewinn: string;
+  };
+  zustimmung: { am: number; fassung: string };
+}
+
 export interface CorsConfig {
   allowedOrigins: string[];
 }

@@ -2,6 +2,7 @@ import { handleAdminApi } from "./admin/router";
 import { handleApolloWebhook } from "./handlers/apollo-webhook";
 import { handleBeacon } from "./handlers/beacon";
 import { handleContact } from "./handlers/contact";
+import { handleWunsch } from "./handlers/wunsch";
 import { corsHeaders, handleOptions } from "./lib/cors";
 import type { Env } from "./types";
 
@@ -27,6 +28,8 @@ export default {
       response = await handleApolloWebhook(request, env);
     } else if (request.method === "POST" && url.pathname === "/contact") {
       response = await handleContact(request, env);
+    } else if (request.method === "POST" && url.pathname === "/wunsch") {
+      response = await handleWunsch(request, env);
     } else if (url.pathname === "/health") {
       response = new Response("ok", { status: 200 });
     } else {
