@@ -2,12 +2,17 @@
 //
 // Ablauf: Start, Wunsch, zwei Fragen, Wunschzettel, Prototyp mit Abschicken, Dank. Alles bis zum
 // Abschicken bleibt im Browser (sessionStorage, damit ein Neuladen nichts verliert). Erst
-// «Wunsch versiegeln und abschicken» sendet an den Worker (POST /wunsch).
+// «Wunschzettel abschicken» sendet an den Worker (POST /wunsch).
 //
 // Prototyp: Der Rahmen laedt die Spielwiese mit `mode=wunsch`, beim Laden geht der Wunsch als
 // `scopera:playground:prefill` hinein. Im Wunsch-Modus baut die Spielwiese daraus sofort die App
 // und bestaetigt mit `scopera:playground:wish-ready`. Bleibt die Bestaetigung aus (Plattform noch
 // ohne Wunsch-Modus), erscheint als Rueckfall die Kopierhilfe.
+//
+// Abschicken: Im Wunsch-Modus fragt die Seite den Rahmen zuerst mit `scopera:playground:wish-submit`
+// nach einem Schluessel zur gebauten App (erst mit dem Abschicken stimmt die Person der
+// Aufbewahrung zu). Antwort `scopera:playground:wish-built {key, expires_at}`; der Schluessel geht
+// als `prototyp` mit an den Worker. Kommt nach WARTE_AUF_SCHLUESSEL nichts, geht der Wunsch ohne.
 
 const URSPRUNG = 'https://playground.scopera.ai';
 const SPEICHER = 'scopera_wunsch_2027';
@@ -379,6 +384,27 @@ function starte(wz: HTMLElement, L: Laufzeit): void {
     window.clearTimeout(hilfeTimer);
     if (!wunschModus) hilfeTimer = window.setTimeout(() => { if (!wunschModus) $('wz-proto-hilfe').hidden = false; }, WARTE_AUF_SPIELWIESE);
   }
+  // Schluessel zur gebauten App, damit das Team den Zugang ohne Neubau verschicken kann.
+  type Prototyp = { key: string; bis: string };
+  const KEIN_PROTOTYP: Prototyp = { key: '', bis: '' };
+  const WARTE_AUF_SCHLUESSEL = 4000;
+  let gesichert: Prototyp | null = null;
+  let schluesselAntwort: ((p: Prototyp) => void) | null = null;
+  function holePrototyp(): Promise<Prototyp> {
+    if (gesichert) return Promise.resolve(gesichert);
+    const ziel = rahmen.contentWindow;
+    if (!wunschModus || !ziel) return Promise.resolve(KEIN_PROTOTYP);
+    return new Promise((fertig) => {
+      const timer = window.setTimeout(() => { schluesselAntwort = null; fertig(KEIN_PROTOTYP); }, WARTE_AUF_SCHLUESSEL);
+      schluesselAntwort = (p) => {
+        window.clearTimeout(timer);
+        schluesselAntwort = null;
+        if (p.key) gesichert = p;
+        fertig(p);
+      };
+      ziel.postMessage({ type: 'scopera:playground:wish-submit' }, URSPRUNG);
+    });
+  }
   function ladeSpielwiese(): void {
     $<HTMLTextAreaElement>('wz-prompt').value = promptText();
     $('wz-kopier-status').textContent = '';
@@ -397,7 +423,13 @@ function starte(wz: HTMLElement, L: Laufzeit): void {
   }).observe(document.documentElement, { attributes: true, attributeFilter: ['data-theme'] });
   window.addEventListener('message', (e) => {
     if (e.origin !== URSPRUNG) return;
-    const d = e.data as { type?: string; height?: unknown } | null;
+    const d = e.data as { type?: string; height?: unknown; key?: unknown; expires_at?: unknown } | null;
+    if (d && d.type === 'scopera:playground:wish-built') {
+      const key = typeof d.key === 'string' && /^[A-Za-z0-9_-]{1,64}$/.test(d.key) ? d.key : '';
+      const bis = key && typeof d.expires_at === 'string' ? d.expires_at.slice(0, 40) : '';
+      schluesselAntwort?.({ key, bis });
+      return;
+    }
     if (d && d.type === 'scopera:playground:wish-ready') {
       wunschModus = true;
       window.clearTimeout(hilfeTimer);
@@ -441,6 +473,7 @@ function starte(wz: HTMLElement, L: Laufzeit): void {
     $('wz-senden-text').textContent = L.formular.sendet;
     const daten = new FormData(formular);
     try {
+      const prototyp = await holePrototyp();
       const res = await fetch(L.endpunkt, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
@@ -457,6 +490,8 @@ function starte(wz: HTMLElement, L: Laufzeit): void {
           heute: z.heute,
           morgen: z.morgen,
           zeitgewinn: z.gewinn,
+          prototyp: prototyp.key,
+          prototypBis: prototyp.bis,
           zustimmung: true,
           turnstileToken: daten.get('cf-turnstile-response') || '',
         }),

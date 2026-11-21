@@ -18,6 +18,8 @@ export interface Env {
   CF_ZONE_ID: string;
   CF_ACCESS_TEAM_DOMAIN: string;
   CF_ACCESS_AUD: string;
+  /** Optional (Secret): Teams-Workflow-Webhook, meldet neue Wunschzettel im Kanal. Ohne: keine Meldung. */
+  WUNSCH_MELDUNG_URL?: string;
   /** NUR ueber .dev.vars setzbar (siehe .gitignore) - existiert bei `wrangler deploy` nie. */
   DEV_BYPASS_ADMIN_AUTH?: string;
 }
@@ -130,6 +132,10 @@ export interface WunschRecord {
     morgen: string;
     zeitgewinn: string;
   };
+  /** Schluessel zur gebauten App der Spielwiese (Link app.scopera.ai/handoff?key=…), leer ohne. */
+  prototyp?: string;
+  /** Ablauf des Schluessels als ISO-Datum, leer ohne. */
+  prototypBis?: string;
   zustimmung: { am: number; fassung: string };
 }
 

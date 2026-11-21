@@ -496,6 +496,14 @@ async function loadLeads() {
 const WUNSCH_HAEUFIGKEIT = { taeglich: 'täglich', woechentlich: 'jede Woche', monatlich: 'einmal im Monat', seltener: 'seltener' };
 const WUNSCH_DAUER = { minuten: 'ein paar Minuten', halbestunde: 'eine halbe Stunde', stunde: 'etwa eine Stunde', stunden: 'mehrere Stunden' };
 let wuenscheCache = [];
+// Uebergabe-Link der Spielwiese: Wer ihn oeffnet, uebernimmt die App. Darum nur zum Kopieren und
+// Weiterleiten anzeigen, nicht als anklickbaren Link (sonst landet sie im eigenen Arbeitsbereich).
+const HANDOFF_URL = 'https://app.scopera.ai/handoff?key=';
+const prototypLink = (w) => (w.prototyp ? `${HANDOFF_URL}${encodeURIComponent(w.prototyp)}` : '');
+const fmtDatum = (iso) => {
+  const d = new Date(iso || '');
+  return Number.isNaN(d.getTime()) ? '' : d.toLocaleDateString('de-CH');
+};
 
 function wunschZeile(label, wert) {
   if (!wert) return '';
@@ -516,6 +524,12 @@ async function loadWuensche() {
     liste.innerHTML = wuensche.map((w) => {
       const z = w.zettel || {};
       const oft = [WUNSCH_HAEUFIGKEIT[z.haeufigkeit], WUNSCH_DAUER[z.dauer] && `jedes Mal ${WUNSCH_DAUER[z.dauer]}`].filter(Boolean).join(', ');
+      const link = prototypLink(w);
+      const bis = fmtDatum(w.prototypBis);
+      const prototypZeile = link
+        ? `<dt>Prototyp-Link</dt><dd><code class="wunsch-link">${esc(link)}</code><br><span class="soft">Zum Weiterleiten an die Person, nicht selbst öffnen.${bis ? ` Gültig bis ${esc(bis)}.` : ''}</span></dd>`
+        : wunschZeile('Prototyp', 'Kein Schlüssel, aus dem Wunsch neu bauen.');
+      const mail = `mailto:${esc(encodeURIComponent(w.email)).replace(/%40/g, '@')}${link ? `?body=${esc(encodeURIComponent(link))}` : ''}`;
       return `
         <details class="wunsch">
           <summary><strong>${esc(z.titel || '(ohne Titel)')}</strong> <span class="soft">· ${esc(w.firma)} · ${esc(w.name)} · ${esc(fmtTime(w.createdAt))} · ${esc((w.lang || 'de').toUpperCase())} · ${w.quelle === 'karte' ? 'Karte' : 'Geschenkbox'}</span></summary>
@@ -527,9 +541,10 @@ async function loadWuensche() {
             ${wunschZeile('Wie oft', oft)}
             ${wunschZeile('Zeitgewinn', z.zeitgewinn)}
             ${wunschZeile('Bemerkung', w.bemerkung)}
+            ${prototypZeile}
             ${wunschZeile('Zustimmung', w.zustimmung ? `${fmtTime(w.zustimmung.am)} (${w.zustimmung.fassung})` : '')}
           </dl>
-          <p><a href="mailto:${esc(encodeURIComponent(w.email)).replace(/%40/g, '@')}">E-Mail schreiben</a></p>
+          <p><a href="${mail}">E-Mail schreiben</a>${link ? ' <span class="soft">(mit Prototyp-Link)</span>' : ''}</p>
         </details>`;
     }).join('');
   } catch (err) {
@@ -538,7 +553,7 @@ async function loadWuensche() {
 }
 
 function wuenscheAlsCsv() {
-  const spalten = ['Eingang', 'Sprache', 'Weg', 'Name', 'Firma', 'E-Mail', 'Titel', 'Wunsch', 'Heute so', '2027 so', 'Wie oft', 'Dauer', 'Zeitgewinn', 'Bemerkung'];
+  const spalten = ['Eingang', 'Sprache', 'Weg', 'Name', 'Firma', 'E-Mail', 'Titel', 'Wunsch', 'Heute so', '2027 so', 'Wie oft', 'Dauer', 'Zeitgewinn', 'Bemerkung', 'Prototyp-Link', 'Link gültig bis'];
   // Fuehrendes =, +, - oder @ wuerde Excel als Formel lesen. Ein Apostroph davor entschaerft das.
   const zelle = (v) => {
     let t = String(v ?? '');
@@ -548,7 +563,7 @@ function wuenscheAlsCsv() {
   const zeilen = wuenscheCache.map((w) => {
     const z = w.zettel || {};
     return [fmtTime(w.createdAt), w.lang, w.quelle === 'karte' ? 'Karte' : 'Geschenkbox', w.name, w.firma, w.email, z.titel, z.wunsch, z.heute, z.morgen,
-      WUNSCH_HAEUFIGKEIT[z.haeufigkeit] || '', WUNSCH_DAUER[z.dauer] || '', z.zeitgewinn, w.bemerkung].map(zelle).join(';');
+      WUNSCH_HAEUFIGKEIT[z.haeufigkeit] || '', WUNSCH_DAUER[z.dauer] || '', z.zeitgewinn, w.bemerkung, prototypLink(w), fmtDatum(w.prototypBis)].map(zelle).join(';');
   });
   const inhalt = '\ufeff' + [spalten.map(zelle).join(';'), ...zeilen].join('\r\n');
   const link = document.createElement('a');

@@ -130,4 +130,5 @@ h3 { font-size: 14px; margin: 24px 0 4px; }
 .wunsch dl { display: grid; grid-template-columns: 170px 1fr; gap: 6px 14px; margin: 12px 0 0; font-size: 13px; }
 .wunsch dt { color: var(--ink-soft); }
 .wunsch dd { margin: 0; white-space: normal; }
+.wunsch-link { word-break: break-all; user-select: all; font-size: 12px; }
 @media (max-width: 640px) { .wunsch dl { grid-template-columns: 1fr; } }

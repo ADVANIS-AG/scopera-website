@@ -7,7 +7,7 @@ import { corsHeaders, handleOptions } from "./lib/cors";
 import type { Env } from "./types";
 
 export default {
-  async fetch(request: Request, env: Env): Promise<Response> {
+  async fetch(request: Request, env: Env, ctx: ExecutionContext): Promise<Response> {
     const url = new URL(request.url);
 
     // /admin/api/* wird von admin.scopera.ai aus same-origin aufgerufen (Admin-UI wird vom
@@ -29,7 +29,7 @@ export default {
     } else if (request.method === "POST" && url.pathname === "/contact") {
       response = await handleContact(request, env);
     } else if (request.method === "POST" && url.pathname === "/wunsch") {
-      response = await handleWunsch(request, env);
+      response = await handleWunsch(request, env, ctx);
     } else if (url.pathname === "/health") {
       response = new Response("ok", { status: 200 });
     } else {

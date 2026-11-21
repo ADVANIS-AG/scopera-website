@@ -11,7 +11,7 @@ import type { Env, WunschRecord } from "../types";
 
 export const WUNSCH_PREFIX = "wunsch:";
 
-/** Teilnahmeschluss laut Teilnahmebedingungen: 31.01.2027, 23:59 Uhr Schweizer Zeit. */
+/** Teilnahmeschluss laut Teilnahmebedingungen: 15.01.2027, 23:59 Uhr Schweizer Zeit. */
 const TEILNAHMESCHLUSS_MS = Date.UTC(2027, 0, 15, 22, 59, 59);
 /** KV loescht die Eintraege von selbst am 01.01.2028, 00:00 UTC. */
 const LOESCHUNG_SEKUNDEN = Date.UTC(2028, 0, 1) / 1000;
@@ -46,7 +46,47 @@ function auswahl<T extends readonly string[]>(wert: unknown, erlaubt: T): T[numb
   return typeof wert === "string" && (erlaubt as readonly string[]).includes(wert) ? (wert as T[number]) : null;
 }
 
-export async function handleWunsch(request: Request, env: Env): Promise<Response> {
+/** Meldung an den Teams-Kanal (Workflow «Post to a channel when a webhook request is received»).
+ *  Bewusst ohne Personendaten und ohne Inhalt des Wunsches: Die bleiben in ADMIN_STORE, die Meldung
+ *  sagt nur, dass etwas da ist. Die Webhook-URL enthaelt eine Signatur und wird nie geloggt. */
+async function meldeNeuenWunsch(url: string, record: WunschRecord): Promise<void> {
+  const fakten = [
+    { title: "Weg", value: record.quelle === "karte" ? "Weihnachtskarte" : "Geschenkbox" },
+    { title: "Sprache", value: record.lang.toUpperCase() },
+    { title: "Prototyp", value: record.prototyp ? "gesichert, Link in der Konsole" : "neu bauen" },
+  ];
+  const karte = {
+    type: "message",
+    attachments: [
+      {
+        contentType: "application/vnd.microsoft.card.adaptive",
+        content: {
+          $schema: "http://adaptivecards.io/schemas/adaptive-card.json",
+          type: "AdaptiveCard",
+          version: "1.4",
+          body: [
+            { type: "TextBlock", text: "Neuer Wunschzettel 2027", weight: "Bolder", size: "Medium" },
+            { type: "FactSet", facts: fakten },
+          ],
+          actions: [{ type: "Action.OpenUrl", title: "Reiter «Wünsche» öffnen", url: "https://admin.scopera.ai/admin/" }],
+        },
+      },
+    ],
+  };
+  try {
+    const res = await fetch(url, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(karte),
+      signal: AbortSignal.timeout(8000),
+    });
+    if (!res.ok) console.warn(`wunsch: Teams-Meldung abgelehnt (${res.status})`);
+  } catch (err) {
+    console.warn(`wunsch: Teams-Meldung fehlgeschlagen (${err instanceof Error ? err.name : "unbekannt"})`);
+  }
+}
+
+export async function handleWunsch(request: Request, env: Env, ctx?: ExecutionContext): Promise<Response> {
   if (Date.now() > TEILNAHMESCHLUSS_MS) {
     return jsonResponse({ ok: false, error: "closed" }, 410);
   }
@@ -81,6 +121,14 @@ export async function handleWunsch(request: Request, env: Env): Promise<Response
   const dauer = auswahl(body.dauer, DAUER);
   const sprache = body.lang === "en" ? "en" : "de";
   const quelle = body.quelle === "karte" ? "karte" : "box";
+  // Schluessel zur gebauten App der Spielwiese (Uebergabe). Optional: Ein ungueltiger Wert laesst
+  // den Wunsch nicht scheitern, er faellt nur weg (dann baut das Team den Prototyp neu).
+  const prototyp =
+    typeof body.prototyp === "string" && /^[A-Za-z0-9_-]{1,64}$/.test(body.prototyp) ? body.prototyp : "";
+  const bisMs = prototyp && typeof body.prototypBis === "string" && body.prototypBis.length <= 40
+    ? Date.parse(body.prototypBis)
+    : NaN;
+  const prototypBis = Number.isFinite(bisMs) ? new Date(bisMs).toISOString() : "";
 
   if (Object.values(felder).some((v) => v === null) || haeufigkeit === null || dauer === null) {
     return jsonResponse({ ok: false, error: "invalid-payload" }, 400);
@@ -125,6 +173,8 @@ export async function handleWunsch(request: Request, env: Env): Promise<Response
       morgen: f.morgen,
       zeitgewinn: f.zeitgewinn,
     },
+    prototyp,
+    prototypBis,
     // Nachweis der Zustimmung zu den Teilnahmebedingungen: Zeitpunkt und Sprachfassung.
     zustimmung: { am: jetzt, fassung: `teilnahme-2027-${sprache}` },
   };
@@ -132,6 +182,10 @@ export async function handleWunsch(request: Request, env: Env): Promise<Response
   await env.ADMIN_STORE.put(`${WUNSCH_PREFIX}${record.id}`, JSON.stringify(record), {
     expiration: LOESCHUNG_SEKUNDEN,
   });
+
+  // Erst nach dem Speichern melden, und ohne die Antwort an die Person aufzuhalten.
+  const meldung = env.WUNSCH_MELDUNG_URL?.trim();
+  if (meldung && meldung.startsWith("https://")) ctx?.waitUntil(meldeNeuenWunsch(meldung, record));
 
   return jsonResponse({ ok: true, id: record.id }, 200);
 }
