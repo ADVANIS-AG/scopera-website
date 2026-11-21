@@ -46,15 +46,41 @@ function auswahl<T extends readonly string[]>(wert: unknown, erlaubt: T): T[numb
   return typeof wert === "string" && (erlaubt as readonly string[]).includes(wert) ? (wert as T[number]) : null;
 }
 
+/** Wer in der Teams-Meldung erwaehnt wird. Kommt aus dem Secret WUNSCH_MELDUNG_ERWAEHNEN (das Repo
+ *  ist oeffentlich, darum keine Adressen im Code), Format: «Vorname Name <upn@firma.ch>», mehrere
+ *  durch Semikolon oder Zeilenumbruch getrennt. Unlesbare Eintraege fallen weg. */
+export function leseErwaehnungen(roh: string | undefined): { name: string; id: string }[] {
+  if (!roh) return [];
+  return roh
+    .split(/[;\n]+/)
+    .map((teil) => teil.trim().match(/^([^<>]+?)\s*<([^<>\s@]+@[^<>\s@]+\.[^<>\s@]+)>$/))
+    .filter((m): m is RegExpMatchArray => m !== null)
+    .map((m) => ({ name: m[1].trim(), id: m[2] }))
+    .slice(0, 10);
+}
+
 /** Meldung an den Teams-Kanal (Workflow «Post to a channel when a webhook request is received»).
- *  Bewusst ohne Personendaten und ohne Inhalt des Wunsches: Die bleiben in ADMIN_STORE, die Meldung
- *  sagt nur, dass etwas da ist. Die Webhook-URL enthaelt eine Signatur und wird nie geloggt. */
-async function meldeNeuenWunsch(url: string, record: WunschRecord): Promise<void> {
+ *  Bewusst ohne Personendaten der einreichenden Person und ohne Inhalt des Wunsches: Die bleiben in
+ *  ADMIN_STORE, die Meldung sagt nur, dass etwas da ist. Die Webhook-URL enthaelt eine Signatur und
+ *  wird nie geloggt. */
+async function meldeNeuenWunsch(url: string, record: WunschRecord, erwaehnen: { name: string; id: string }[]): Promise<void> {
   const fakten = [
     { title: "Weg", value: record.quelle === "karte" ? "Weihnachtskarte" : "Geschenkbox" },
-    { title: "Sprache", value: record.lang.toUpperCase() },
-    { title: "Prototyp", value: record.prototyp ? "gesichert, Link in der Konsole" : "neu bauen" },
+    { title: "Sprache", value: record.lang === "en" ? "Englisch" : "Deutsch" },
+    { title: "Prototyp", value: record.prototyp ? "gesichert, Link in der Konsole" : "aus dem Wunsch neu bauen" },
   ];
+  const body: unknown[] = [
+    { type: "TextBlock", text: "🎁 Neuer Wunschzettel 2027", weight: "Bolder", size: "Medium", wrap: true },
+    { type: "FactSet", facts: fakten },
+  ];
+  if (erwaehnen.length) {
+    body.push({
+      type: "TextBlock",
+      wrap: true,
+      spacing: "Medium",
+      text: `${erwaehnen.map((e) => `<at>${e.name}</at>`).join(" ")} bitte anschauen und den Zugang zum Prototyp verschicken.`,
+    });
+  }
   const karte = {
     type: "message",
     attachments: [
@@ -64,11 +90,12 @@ async function meldeNeuenWunsch(url: string, record: WunschRecord): Promise<void
           $schema: "http://adaptivecards.io/schemas/adaptive-card.json",
           type: "AdaptiveCard",
           version: "1.4",
-          body: [
-            { type: "TextBlock", text: "Neuer Wunschzettel 2027", weight: "Bolder", size: "Medium" },
-            { type: "FactSet", facts: fakten },
-          ],
+          body,
           actions: [{ type: "Action.OpenUrl", title: "Reiter «Wünsche» öffnen", url: "https://admin.scopera.ai/admin/" }],
+          msteams: {
+            width: "Full",
+            entities: erwaehnen.map((e) => ({ type: "mention", text: `<at>${e.name}</at>`, mentioned: { id: e.id, name: e.name } })),
+          },
         },
       },
     ],
@@ -185,7 +212,7 @@ export async function handleWunsch(request: Request, env: Env, ctx?: ExecutionCo
 
   // Erst nach dem Speichern melden, und ohne die Antwort an die Person aufzuhalten.
   const meldung = env.WUNSCH_MELDUNG_URL?.trim();
-  if (meldung && meldung.startsWith("https://")) ctx?.waitUntil(meldeNeuenWunsch(meldung, record));
+  if (meldung && meldung.startsWith("https://")) ctx?.waitUntil(meldeNeuenWunsch(meldung, record, leseErwaehnungen(env.WUNSCH_MELDUNG_ERWAEHNEN)));
 
   return jsonResponse({ ok: true, id: record.id }, 200);
 }

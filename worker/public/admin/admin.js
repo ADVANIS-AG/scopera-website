@@ -505,6 +505,25 @@ const fmtDatum = (iso) => {
   return Number.isNaN(d.getTime()) ? '' : d.toLocaleDateString('de-CH');
 };
 
+// Ohne Titel: Anfang des Wunsches als Ueberschrift, damit sich die Eintraege unterscheiden lassen.
+function kurz(text) {
+  const t = String(text || '').replace(/\s+/g, ' ').trim();
+  if (!t) return '(ohne Titel)';
+  return t.length > 70 ? `${t.slice(0, 69).replace(/\s+\S*$/, '')}…` : t;
+}
+
+async function loescheWunsch(knopf) {
+  if (!confirm(`Wunschzettel von ${knopf.dataset.wer} endgültig löschen? Das lässt sich nicht rückgängig machen.`)) return;
+  knopf.disabled = true;
+  try {
+    await api(`/wuensche/${encodeURIComponent(knopf.dataset.id)}`, { method: 'DELETE' });
+    await loadWuensche();
+  } catch (err) {
+    knopf.disabled = false;
+    alert(`Löschen fehlgeschlagen: ${err.message}`);
+  }
+}
+
 function wunschZeile(label, wert) {
   if (!wert) return '';
   return `<dt>${esc(label)}</dt><dd>${esc(wert).replace(/\n/g, '<br>')}</dd>`;
@@ -532,11 +551,11 @@ async function loadWuensche() {
       const mail = `mailto:${esc(encodeURIComponent(w.email)).replace(/%40/g, '@')}${link ? `?body=${esc(encodeURIComponent(link))}` : ''}`;
       return `
         <details class="wunsch">
-          <summary><strong>${esc(z.titel || '(ohne Titel)')}</strong> <span class="soft">· ${esc(w.firma)} · ${esc(w.name)} · ${esc(fmtTime(w.createdAt))} · ${esc((w.lang || 'de').toUpperCase())} · ${w.quelle === 'karte' ? 'Karte' : 'Geschenkbox'}</span></summary>
+          <summary><strong>${esc(z.titel || kurz(z.wunsch))}</strong> <span class="soft">· ${esc(w.firma)} · ${esc(w.name)} · ${esc(fmtTime(w.createdAt))} · ${esc((w.lang || 'de').toUpperCase())} · ${w.quelle === 'karte' ? 'Karte' : 'Geschenkbox'}</span></summary>
           <dl>
             ${wunschZeile('E-Mail', w.email)}
             ${wunschZeile('Wunsch (Originaltext)', z.wunsch)}
-            ${wunschZeile('Heute so', z.heute)}
+            ${z.heute && z.heute !== z.wunsch ? wunschZeile('Heute so', z.heute) : ''}
             ${wunschZeile('2027 so', z.morgen)}
             ${wunschZeile('Wie oft', oft)}
             ${wunschZeile('Zeitgewinn', z.zeitgewinn)}
@@ -544,7 +563,8 @@ async function loadWuensche() {
             ${prototypZeile}
             ${wunschZeile('Zustimmung', w.zustimmung ? `${fmtTime(w.zustimmung.am)} (${w.zustimmung.fassung})` : '')}
           </dl>
-          <p><a href="${mail}">E-Mail schreiben</a>${link ? ' <span class="soft">(mit Prototyp-Link)</span>' : ''}</p>
+          <p class="wunsch-aktionen"><a href="${mail}">E-Mail schreiben</a>${link ? ' <span class="soft">(mit Prototyp-Link)</span>' : ''}
+            <button type="button" class="wunsch-loeschen" data-id="${esc(w.id)}" data-wer="${esc(`${w.name}, ${w.firma}`)}">Löschen</button></p>
         </details>`;
     }).join('');
   } catch (err) {
@@ -576,6 +596,10 @@ function wuenscheAlsCsv() {
 function initWuensche() {
   document.getElementById('wuensche-laden').addEventListener('click', loadWuensche);
   document.getElementById('wuensche-csv').addEventListener('click', wuenscheAlsCsv);
+  document.getElementById('wuensche-liste').addEventListener('click', (e) => {
+    const knopf = e.target.closest('.wunsch-loeschen');
+    if (knopf) loescheWunsch(knopf);
+  });
 }
 
 async function loadCrmStatus() {

@@ -20,6 +20,8 @@ export interface Env {
   CF_ACCESS_AUD: string;
   /** Optional (Secret): Teams-Workflow-Webhook, meldet neue Wunschzettel im Kanal. Ohne: keine Meldung. */
   WUNSCH_MELDUNG_URL?: string;
+  /** Optional (Secret): wer in der Meldung erwaehnt wird, «Name <upn@firma.ch>; …». */
+  WUNSCH_MELDUNG_ERWAEHNEN?: string;
   /** NUR ueber .dev.vars setzbar (siehe .gitignore) - existiert bei `wrangler deploy` nie. */
   DEV_BYPASS_ADMIN_AUTH?: string;
 }

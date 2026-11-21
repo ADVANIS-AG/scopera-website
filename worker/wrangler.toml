@@ -66,3 +66,4 @@ CF_ACCESS_AUD = "ea117c0e2fe791be8191c81a89120bd8669496ef92399866f522153479d6cea
 #   npx wrangler secret put TURNSTILE_SECRET_KEY
 #   npx wrangler secret put CF_API_TOKEN
 #   npx wrangler secret put WUNSCH_MELDUNG_URL        # optional: Teams-Webhook fuer neue Wunschzettel
+#   npx wrangler secret put WUNSCH_MELDUNG_ERWAEHNEN  # optional: «Name <upn@firma.ch>; …», in der Meldung erwaehnt

@@ -130,5 +130,7 @@ h3 { font-size: 14px; margin: 24px 0 4px; }
 .wunsch dl { display: grid; grid-template-columns: 170px 1fr; gap: 6px 14px; margin: 12px 0 0; font-size: 13px; }
 .wunsch dt { color: var(--ink-soft); }
 .wunsch dd { margin: 0; white-space: normal; }
+.wunsch-aktionen { display: flex; align-items: center; gap: 12px; flex-wrap: wrap; }
+.wunsch-loeschen { margin-left: auto; background: transparent; color: #a3281f; border: 1px solid currentColor; padding: 4px 10px; font-size: 13px; cursor: pointer; }
 .wunsch-link { word-break: break-all; user-select: all; font-size: 12px; }
 @media (max-width: 640px) { .wunsch dl { grid-template-columns: 1fr; } }
