@@ -3,6 +3,9 @@ import BaseLayout from '../../layouts/BaseLayout.astro';
 import { ADRESSE, KONTAKT_EMAIL } from '../../config';
 // Nutzungsbedingungen der Plattform (Fassung vom 23.11.2026). Bei Aenderungen DE und EN
 // gemeinsam nachfuehren und den Stand oben anpassen.
+// Neue Fassung = neue Kennung in der Plattform (advanis-ai-paas, tenant_contracts.contract_version,
+// heute «nutzungsbedingungen-0.2»). Beides im selben Zug ausrollen, sonst speichert die
+// Registrierung die alte Kennung zu einem neuen Text.
 const abschnitte: [string, string][] = [
   ['geltungsbereich-und-b2b-ausrichtung', 'Geltungsbereich und B2B-Ausrichtung'],
   ['vertragsgegenstand-und-leistungsbeschreibung', 'Vertragsgegenstand und Leistungsbeschreibung'],
