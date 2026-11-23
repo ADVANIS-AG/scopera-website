@@ -14,7 +14,7 @@ Scheitert ein Workflow im Hintergrund mehrmals in Folge, hält SCOPERA ihn an, a
 
 - **Eine Nachricht je Fehlerserie**: Die Person, die den Workflow erstellt hat, bekommt genau eine Nachricht. Ist sie nicht mehr dabei, geht sie an die technischen Admins.
 - **Ein einzelner Aussetzer stört niemanden**: Ein erfolgreicher Lauf setzt den Zähler zurück.
-- **Wieder aktivieren**: Ist die Ursache behoben, schalten Sie den Workflow wieder ein. Auch das setzt den Zähler zurück.
+- **Wieder aktivieren**: Ist die Ursache behoben, schaltest du den Workflow wieder ein. Auch das setzt den Zähler zurück.
 
 Angehalten wird nur, was im Hintergrund läuft, wo niemand den Fehler direkt sieht. Prüfungen beim Speichern und Aktionen, auf deren Ergebnis jemand wartet, bleiben aktiv: Dort scheitert der Schritt sichtbar. Auch Eingangs-Webhooks werden nicht pausiert. Und eine bewusste Ablehnung durch eine Prüfregel zählt gar nicht als Fehler.
 
@@ -30,4 +30,4 @@ Wer einen Lauf selbst auslöst, sieht in der Glocke zudem eine Meldung «Fehlerh
 
 ## Womit anfangen?
 
-Öffnen Sie den Monitor und schauen Sie, welcher Workflow am häufigsten auftaucht. Oft steckt hinter vielen Einträgen eine einzige Ursache, etwa ein umbenanntes Feld.
+Öffne den Monitor und schau, welcher Workflow am häufigsten auftaucht. Oft steckt hinter vielen Einträgen eine einzige Ursache, etwa ein umbenanntes Feld.

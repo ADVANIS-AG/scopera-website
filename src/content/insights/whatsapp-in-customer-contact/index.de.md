@@ -16,8 +16,8 @@ Viele Kundinnen und Kunden schreiben lieber kurz eine Nachricht, als anzurufen o
 
 ## Service, Vertrieb und Marketing
 
-Im Service beantworten Sie Statusfragen und bestätigen Termine, ohne dass jemand zum Telefon greifen muss. Im Vertrieb kommen Rückfragen zu Offerten schneller zurück, weil die Hürde niedriger ist. Für Marketing gilt eine Einschränkung: Nachrichten brauchen die vorherige Zustimmung der Empfängerinnen und Empfänger. Wer das sauber löst, erreicht Menschen damit zuverlässiger als per E-Mail.
+Im Service beantwortest du Statusfragen und bestätigst Termine, ohne dass jemand zum Telefon greifen muss. Im Vertrieb kommen Rückfragen zu Offerten schneller zurück, weil die Hürde niedriger ist. Für Marketing gilt eine Einschränkung: Nachrichten brauchen die vorherige Zustimmung der Empfängerinnen und Empfänger. Wer das sauber löst, erreicht Menschen damit zuverlässiger als per E-Mail.
 
 ## Womit anfangen?
 
-Nehmen Sie den Kanal, über den heute schon inoffiziell Nachrichten hereinkommen. Meist ist das eine einzelne Nummer im Service. Diese eine Nummer offiziell anzubinden, macht aus einem blinden Fleck einen dokumentierten Kanal.
+Nimm den Kanal, über den heute schon inoffiziell Nachrichten hereinkommen. Meist ist das eine einzelne Nummer im Service. Diese eine Nummer offiziell anzubinden, macht aus einem blinden Fleck einen dokumentierten Kanal.

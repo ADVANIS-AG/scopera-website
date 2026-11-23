@@ -25,4 +25,4 @@ Die Agenten legt die Plattform fest. Mandanten legen keine eigenen an, sie könn
 
 ## Womit anfangen?
 
-Geben Sie im Kanal einen kleinen Auftrag, der zwei Schritte hat: etwas auswerten und daraus einen Vorschlag machen. Schauen Sie auf der Aufgabenkarte zu, wer was übernimmt.
+Gib im Kanal einen kleinen Auftrag, der zwei Schritte hat: etwas auswerten und daraus einen Vorschlag machen. Schau auf der Aufgabenkarte zu, wer was übernimmt.

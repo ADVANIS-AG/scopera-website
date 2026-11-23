@@ -3,16 +3,16 @@ import BaseLayout from '../../layouts/BaseLayout.astro';
 import CtaBanner from '../../components/CtaBanner.astro';
 import PlaygroundBanner from '../../components/PlaygroundBanner.astro';
 const faq = [
-  { id: 'tempo', f: 'Wie schnell geht es wirklich?', a: 'Erste sichtbare Resultate sehen Sie innert Stunden, einen funktionsfähigen Prototyp innert Tagen. Die produktive Anwendung folgt bei einfachen Use Cases ab ein bis zwei Wochen, typischerweise innerhalb von zwei bis sechs Wochen, je nach Umfang und Integrationen. Sie sehen von Anfang an Zwischenstände statt Statusberichte.' },
-  { id: 'lizenz', f: 'Bin ich an eine Lizenz gebunden?', a: 'Nein. Editionen wählen Sie nach Bedarf, monatlich anpassbar nach oben oder unten. Keine Jahresverträge, keine Lizenz-Zwangsjacke.' },
-  { id: 'code', f: 'Wem gehört der Code?', a: 'Das fachliche Wissen bleibt bei Ihnen. Individuelle Entwicklungen gehen in Ihr Eigentum über. Die Plattform nutzen Sie als Lizenz, bei White-Label auch unter Ihrer eigenen Marke.' },
-  { id: 'daten', f: 'Wo liegen unsere Daten?', a: 'Standardmässig in der Schweiz. Auf Wunsch in Ihrer eigenen Cloud oder On-Premises. Die Modellwahl (auch Schweizer und europäische Anbieter) treffen wir gemeinsam und dokumentieren sie.' },
-  { id: 'datenqualitaet', f: 'Korrigiert SCOPERA unsere Daten selbst?', a: 'Die Bereinigung bestehender Daten übernehmen wir im Projekt, nach Regeln, die Sie vorher freigegeben haben. Im Betrieb prüft die Plattform neue Eingaben beim Erfassen anhand von Feldregeln. Das Zusammenführen von zwei Kundendatensätzen entscheidet immer eine berechtigte Person, und es wird protokolliert.' },
-  { id: 'it', f: 'Ersetzt ihr unsere IT?', a: 'Nein, wir ergänzen sie. Wir integrieren uns in bestehende Systeme und übergeben so, dass Ihre IT jederzeit mitreden und übernehmen kann.' },
-  { id: 'agentic', f: 'Was ist Agentic Engineering?', a: 'Unsere Art zu arbeiten: Wir entwickeln mit AI, auf einer erprobten Plattform, in kurzen Zyklen mit täglich sichtbarem Fortschritt. Sie müssen den Begriff nicht kennen. Sie merken ihn am Tempo.' },
-  { id: 'weiterentwicklung', f: 'Wer entwickelt die Lösung nach dem Go-live weiter?', a: 'Sie entscheiden. Betrieb, Sicherheit und Monitoring liegen bei uns. Die fachliche Weiterentwicklung machen Sie im Fachbereich selbst, ohne Softwareentwickler zu sein, oder Sie geben sie an uns. Beides ist möglich und jederzeit änderbar.' },
-  { id: 'kosten', f: 'Was kostet der Einstieg?', a: 'Die Trial-Lizenz ist kostenlos und unverbindlich. Solo, Duett und Trio buchen Sie direkt online. Quartett gibt es auf Anfrage, mit einem Angebot, das zu Umfang und Sitzplatzbedarf passt. Assessments und Workshops haben feste Preise, die wir vor dem Start vereinbaren.' },
-  { id: 'automatisch', f: 'Ändert sich unsere Lösung von selbst?', a: 'Nein. SCOPERA erkennt Verbesserungspotenzial und schlägt es vor. Was umgesetzt wird, entscheiden autorisierte Personen bei Ihnen. Änderungen sind protokolliert, App-Versionen lassen sich zurücksetzen.' },
+  { id: 'tempo', f: 'Wie schnell geht es wirklich?', a: 'Erste sichtbare Resultate siehst du innert Stunden, einen funktionsfähigen Prototyp innert Tagen. Die produktive Anwendung folgt bei einfachen Use Cases ab ein bis zwei Wochen, typischerweise innerhalb von zwei bis sechs Wochen, je nach Umfang und Integrationen. Du siehst von Anfang an Zwischenstände statt Statusberichte.' },
+  { id: 'lizenz', f: 'Bin ich an eine Lizenz gebunden?', a: 'Nein. Editionen wählst du nach Bedarf, monatlich anpassbar nach oben oder unten. Keine Jahresverträge, keine Lizenz-Zwangsjacke.' },
+  { id: 'code', f: 'Wem gehört der Code?', a: 'Das fachliche Wissen bleibt bei dir. Individuelle Entwicklungen gehen in dein Eigentum über. Die Plattform nutzt du als Lizenz, bei White-Label auch unter deiner eigenen Marke.' },
+  { id: 'daten', f: 'Wo liegen unsere Daten?', a: 'Standardmässig in der Schweiz. Auf Wunsch in deiner eigenen Cloud oder On-Premises. Die Modellwahl (auch Schweizer und europäische Anbieter) treffen wir gemeinsam und dokumentieren sie.' },
+  { id: 'datenqualitaet', f: 'Korrigiert SCOPERA unsere Daten selbst?', a: 'Die Bereinigung bestehender Daten übernehmen wir im Projekt, nach Regeln, die du vorher freigegeben hast. Im Betrieb prüft die Plattform neue Eingaben beim Erfassen anhand von Feldregeln. Das Zusammenführen von zwei Kundendatensätzen entscheidet immer eine berechtigte Person, und es wird protokolliert.' },
+  { id: 'it', f: 'Ersetzt ihr unsere IT?', a: 'Nein, wir ergänzen sie. Wir integrieren uns in bestehende Systeme und übergeben so, dass deine IT jederzeit mitreden und übernehmen kann.' },
+  { id: 'agentic', f: 'Was ist Agentic Engineering?', a: 'Unsere Art zu arbeiten: Wir entwickeln mit AI, auf einer erprobten Plattform, in kurzen Zyklen mit täglich sichtbarem Fortschritt. Du musst den Begriff nicht kennen. Du merkst ihn am Tempo.' },
+  { id: 'weiterentwicklung', f: 'Wer entwickelt die Lösung nach dem Go-live weiter?', a: 'Du entscheidest. Betrieb, Sicherheit und Monitoring liegen bei uns. Die fachliche Weiterentwicklung machst du im Fachbereich selbst, ohne Softwareentwickler zu sein, oder du gibst sie an uns. Beides ist möglich und jederzeit änderbar.' },
+  { id: 'kosten', f: 'Was kostet der Einstieg?', a: 'Die Trial-Lizenz ist kostenlos und unverbindlich. Solo, Duett und Trio buchst du direkt online. Quartett gibt es auf Anfrage, mit einem Angebot, das zu Umfang und Sitzplatzbedarf passt. Assessments und Workshops haben feste Preise, die wir vor dem Start vereinbaren.' },
+  { id: 'automatisch', f: 'Ändert sich unsere Lösung von selbst?', a: 'Nein. SCOPERA erkennt Verbesserungspotenzial und schlägt es vor. Was umgesetzt wird, entscheiden autorisierte Personen bei dir. Änderungen sind protokolliert, App-Versionen lassen sich zurücksetzen.' },
 ];
 const lang = 'de';
 ---
@@ -21,7 +21,7 @@ const lang = 'de';
     <div class="wrap">
       <p class="eyebrow">FAQ</p>
       <h1>Klartext<span class="dot">.</span></h1>
-      <p class="lede">Die Fragen, die uns am häufigsten gestellt werden, ehrlich beantwortet. Fehlt etwas? Schreiben Sie uns.</p>
+      <p class="lede">Die Fragen, die uns am häufigsten gestellt werden, ehrlich beantwortet. Fehlt etwas? Schreib uns.</p>
     </div>
   </section>
   <section>
@@ -35,7 +35,7 @@ const lang = 'de';
     </div>
   </section>
   <PlaygroundBanner lang={lang} />
-  <CtaBanner lang={lang} titel="Frage nicht dabei?" text="Schreiben Sie uns direkt oder buchen Sie 30 Minuten. Wir antworten ehrlich, auch wenn die Antwort mal 'nein' ist." />
+  <CtaBanner lang={lang} titel="Frage nicht dabei?" text="Schreib uns direkt oder buch 30 Minuten. Wir antworten ehrlich, auch wenn die Antwort mal 'nein' ist." />
   <script type="application/ld+json" is:inline set:html={JSON.stringify({
     '@context': 'https://schema.org',
     '@type': 'FAQPage',

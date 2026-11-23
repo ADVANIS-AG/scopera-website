@@ -10,7 +10,7 @@ Dieselbe Firma steht dreimal im System, zweimal mit Tippfehler im Namen. Eine Po
 
 ## Was wir im Projekt prüfen
 
-Das klären wir mit Ihnen vor der Migration, je nach Datenbestand:
+Das klären wir mit dir vor der Migration, je nach Datenbestand:
 
 - **Vollständigkeit**: Pflichtfelder, die leer geblieben sind, und Datensätze ohne Bezug zu Kunde, Projekt oder Auftrag.
 - **Format**: Telefonnummern, IBAN, Postleitzahlen, Länder und Rechtsformen. Einheitlich geschrieben, damit Filter und Auswertungen überhaupt greifen.
@@ -27,8 +27,8 @@ Eine Bereinigung vor dem Go-live ist Pflichtarbeit. Der eigentliche Teil beginnt
 
 ## Wer entscheidet
 
-Die Regeln für die Bereinigung geben Sie frei, bevor wir sie anwenden. Alles Uneindeutige kommt als Vorschlag zu einer berechtigten Person. Das Zusammenführen von zwei Kundendatensätzen gehört immer dazu: Es wird protokolliert, und rückgängig machen lässt es sich nicht auf Knopfdruck. Darum entscheidet hier ein Mensch.
+Die Regeln für die Bereinigung gibst du frei, bevor wir sie anwenden. Alles Uneindeutige kommt als Vorschlag zu einer berechtigten Person. Das Zusammenführen von zwei Kundendatensätzen gehört immer dazu: Es wird protokolliert, und rückgängig machen lässt es sich nicht auf Knopfdruck. Darum entscheidet hier ein Mensch.
 
 ## Womit anfangen?
 
-Nehmen Sie das Feld, auf das sich Ihr Monatsrapport stützt. Wenn dort jede Zahl trägt, ist der Weg für den Rest klar.
+Nimm das Feld, auf das sich dein Monatsrapport stützt. Wenn dort jede Zahl trägt, ist der Weg für den Rest klar.

@@ -6,7 +6,7 @@ const formularAktiv = WORKER_ENDPOINT.length > 0;
 const emailAktiv = !KONTAKT_EMAIL.startsWith('PLATZHALTER');
 const base = import.meta.env.BASE_URL;
 ---
-<BaseLayout title="Kontakt | SCOPERA." description="Termin buchen oder Nachricht schreiben: Der erste Schritt zu Ihrer AI-Lösung dauert 30 Minuten.">
+<BaseLayout title="Kontakt | SCOPERA." description="Termin buchen oder Nachricht schreiben: Der erste Schritt zu deiner AI-Lösung dauert 30 Minuten.">
   <section style="padding: 88px 0 64px; border-bottom: none;">
     <div class="wrap">
       <p class="eyebrow">Kontakt</p>
@@ -17,7 +17,7 @@ const base = import.meta.env.BASE_URL;
   <HeroBild src={`${base}bilder/hero-kontakt.jpg`} alt="Goldverzierte Opernlogen mit Gästen, warm beleuchtet" />
   <section style="border-bottom: none; padding-bottom: 0;">
     <div class="wrap">
-      <p style="font-size:17px; font-weight:600; max-width:46em;">Bringen Sie Ihren Fachprozess mit. Gemeinsam prüfen wir, wie SCOPERA ihn digitalisiert.</p>
+      <p style="font-size:17px; font-weight:600; max-width:46em;">Bring deinen Fachprozess mit. Gemeinsam prüfen wir, wie SCOPERA ihn digitalisiert.</p>
     </div>
   </section>
   <section>
@@ -25,10 +25,10 @@ const base = import.meta.env.BASE_URL;
       <div class="karten-3">
         <div class="karte" style="padding: 26px;">
           <h3>Termin buchen</h3>
-          <p style="font-size:14px;" class="soft">Der direkteste Weg: Wählen Sie einen Termin, der Ihnen passt.</p>
+          <p style="font-size:14px;" class="soft">Der direkteste Weg: Wähle einen Termin, der dir passt.</p>
           {BOOKING_URL
             ? <a class="btn" href={BOOKING_URL} target="_blank" rel="noopener noreferrer">Termin wählen</a>
-            : <p class="soft" style="font-size:14px;"><strong>Online-Buchung folgt in Kürze.</strong> Bis dahin erreichen Sie uns über das Formular{emailAktiv ? ' oder per E-Mail' : ''}.</p>}
+            : <p class="soft" style="font-size:14px;"><strong>Online-Buchung folgt in Kürze.</strong> Bis dahin erreichst du uns über das Formular{emailAktiv ? ' oder per E-Mail' : ''}.</p>}
         </div>
         <div class="karte" style="padding: 26px;">
           <h3>Anrufen</h3>
@@ -75,15 +75,15 @@ const base = import.meta.env.BASE_URL;
                     const result = await res.json().catch(() => ({}));
                     if (res.ok && result.ok) {
                       form.reset();
-                      status.textContent = 'Danke für Ihre Nachricht. Wir melden uns in Kürze.';
+                      status.textContent = 'Danke für deine Nachricht. Wir melden uns in Kürze.';
                     } else if (res.status === 429) {
                       // Drossel im Worker: erneut senden hilft erst nach Ablauf des Fensters.
-                      status.textContent = 'Sie haben in kurzer Zeit mehrere Nachrichten gesendet. Bitte versuchen Sie es später erneut oder schreiben Sie uns direkt.';
+                      status.textContent = 'Du hast in kurzer Zeit mehrere Nachrichten gesendet. Bitte versuch es später erneut oder schreib uns direkt.';
                     } else {
-                      status.textContent = 'Das hat leider nicht geklappt. Bitte versuchen Sie es erneut oder schreiben Sie uns direkt.';
+                      status.textContent = 'Das hat leider nicht geklappt. Bitte versuch es erneut oder schreib uns direkt.';
                     }
                   } catch {
-                    status.textContent = 'Das hat leider nicht geklappt. Bitte versuchen Sie es erneut oder schreiben Sie uns direkt.';
+                    status.textContent = 'Das hat leider nicht geklappt. Bitte versuch es erneut oder schreib uns direkt.';
                   } finally {
                     button.removeAttribute('disabled');
                     status.hidden = false;
@@ -92,7 +92,7 @@ const base = import.meta.env.BASE_URL;
               </script>
             </>
           ) : (
-            <p class="soft" style="font-size:14px;"><strong>Das Formular wird gerade eingerichtet.</strong> {emailAktiv ? <>Schreiben Sie uns direkt: <a href={`mailto:${KONTAKT_EMAIL}`}>{KONTAKT_EMAIL}</a></> : 'Die Kontaktdaten folgen in Kürze.'}</p>
+            <p class="soft" style="font-size:14px;"><strong>Das Formular wird gerade eingerichtet.</strong> {emailAktiv ? <>Schreib uns direkt: <a href={`mailto:${KONTAKT_EMAIL}`}>{KONTAKT_EMAIL}</a></> : 'Die Kontaktdaten folgen in Kürze.'}</p>
           )}
         </div>
       </div>
@@ -106,7 +106,7 @@ const base = import.meta.env.BASE_URL;
       <div class="karten-3" style="margin-bottom:26px;">
         <div class="karte">
           <p class="tag">10 Minuten</p>
-          <p style="font-size:14px;" class="soft">Sie schildern den Fachprozess, der Sie stört.</p>
+          <p style="font-size:14px;" class="soft">Du schilderst den Fachprozess, der dich stört.</p>
         </div>
         <div class="karte">
           <p class="tag">10 Minuten</p>
@@ -120,7 +120,7 @@ const base = import.meta.env.BASE_URL;
       <div class="karten-2">
         <div class="karte">
           <h3>Danach</h3>
-          <p style="font-size:14px;" class="soft">Sie erhalten innert zwei Arbeitstagen eine schriftliche Kurzeinschätzung mit Grobkosten. Ob es weitergeht, entscheiden Sie.</p>
+          <p style="font-size:14px;" class="soft">Du erhältst innert zwei Arbeitstagen eine schriftliche Kurzeinschätzung mit Grobkosten. Ob es weitergeht, entscheidest du.</p>
         </div>
         <div class="karte">
           <h3>Dabei</h3>

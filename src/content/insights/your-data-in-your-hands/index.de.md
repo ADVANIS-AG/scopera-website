@@ -25,4 +25,4 @@ Die Funktionen nehmen Arbeit ab, ersetzen aber keine Rechtsberatung. Wie wir Dat
 
 ## Womit anfangen?
 
-Laden Sie Ihre eigenen Daten einmal herunter und sehen Sie hinein. Legen Sie danach eine Löschfrist für den Team-Chat fest, die Sie begründen können.
+Lade deine eigenen Daten einmal herunter und schau hinein. Leg danach eine Löschfrist für den Team-Chat fest, die du begründen kannst.

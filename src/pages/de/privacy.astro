@@ -11,7 +11,7 @@ const abschnitte: [string, string][] = [
   ['empfaenger', 'Empfänger und Dienstleister'],
   ['ausland', 'Bekanntgabe ins Ausland'],
   ['aufbewahrung', 'Wie lange wir Daten aufbewahren'],
-  ['rechte', 'Ihre Rechte'],
+  ['rechte', 'Deine Rechte'],
   ['sicherheit', 'Sicherheit'],
   ['automatisierte-entscheidungen', 'Automatisierte Entscheidungen'],
   ['aenderungen', 'Änderungen'],
@@ -23,9 +23,9 @@ const base = import.meta.env.BASE_URL;
     <div class="wrap rechtstext">
       <h1 style="font-size: clamp(30px, 5vw, 44px);">Datenschutzerklärung</h1>
       <p class="soft">Stand: November 2026</p>
-      <p>Diese Erklärung beschreibt, wie die ADVANIS AG Personendaten bearbeitet, wenn Sie unsere Webseite www.scopera.ai besuchen und wenn Sie die Plattform SCOPERA nutzen: die Webanwendung unter app.scopera.ai und die Adressen Ihres Arbeitsbereichs (z. B. ihre-firma.scopera.ai), das Kundenportal (portal.scopera.ai), die öffentliche Spielwiese (playground.scopera.ai), die Schnittstelle für KI-Clients (mcp.scopera.ai) und die mobile App. SCOPERA ist eine Marke der ADVANIS AG. Die Erklärung richtet sich nach dem Schweizer Datenschutzgesetz (DSG) und, soweit anwendbar, nach der EU-Datenschutz-Grundverordnung (DSGVO).</p>
+      <p>Diese Erklärung beschreibt, wie die ADVANIS AG Personendaten bearbeitet, wenn du unsere Webseite www.scopera.ai besuchst und wenn du die Plattform SCOPERA nutzt: die Webanwendung unter app.scopera.ai und die Adressen deines Arbeitsbereichs (z. B. deine-firma.scopera.ai), das Kundenportal (portal.scopera.ai), die öffentliche Spielwiese (playground.scopera.ai), die Schnittstelle für KI-Clients (mcp.scopera.ai) und die mobile App. SCOPERA ist eine Marke der ADVANIS AG. Die Erklärung richtet sich nach dem Schweizer Datenschutzgesetz (DSG) und, soweit anwendbar, nach der EU-Datenschutz-Grundverordnung (DSGVO).</p>
 
-      <p>Eine verständliche Übersicht dazu, wo Ihre Daten liegen, wer hineinsehen kann und was nachvollziehbar bleibt, finden Sie unter <a href={`${base}de/governance/`}>Governance</a>.</p>
+      <p>Eine verständliche Übersicht dazu, wo deine Daten liegen, wer hineinsehen kann und was nachvollziehbar bleibt, findest du unter <a href={`${base}de/governance/`}>Governance</a>.</p>
 
       <nav class="inhalt" aria-label="Inhaltsverzeichnis">
         <ol>
@@ -35,11 +35,11 @@ const base = import.meta.env.BASE_URL;
 
       <h2 id="verantwortliche-stelle">1. Verantwortliche Stelle</h2>
       <p>ADVANIS AG<br />{ADRESSE}<br />Schweiz<br />E-Mail: <a href={`mailto:${KONTAKT_EMAIL}`}>{KONTAKT_EMAIL}</a></p>
-      <p>Für Fragen zum Datenschutz und zur Ausübung Ihrer Rechte erreichen Sie uns unter dieser E-Mail-Adresse.</p>
+      <p>Für Fragen zum Datenschutz und zur Ausübung deiner Rechte erreichst du uns unter dieser E-Mail-Adresse.</p>
 
       <h2 id="geltungsbereich">2. Geltungsbereich und unsere Rollen</h2>
-      <p>Für den Besuch dieser Webseite, Ihr Benutzerkonto, die Registrierung, den Vertragsabschluss, die Sicherheit der Plattform, die Abrechnung, den Support und die Spielwiese sind wir verantwortlich. Diese Bearbeitungen beschreibt diese Erklärung.</p>
-      <p>Die Inhalte, die ein Unternehmen in seinem SCOPERA-Arbeitsbereich erfasst (Kunden, Kontakte, Projekte, Dateien, Nachrichten, Anfragen aus Formularen und alles Weitere), bearbeiten wir im Auftrag dieses Unternehmens. Verantwortlich ist dann das Unternehmen (unser Kunde); wir bearbeiten diese Daten nur nach seinen Weisungen und auf Grundlage eines Auftragsverarbeitungsvertrags. Fragen zu diesen Daten richten Sie bitte an das jeweilige Unternehmen.</p>
+      <p>Für den Besuch dieser Webseite, dein Benutzerkonto, die Registrierung, den Vertragsabschluss, die Sicherheit der Plattform, die Abrechnung, den Support und die Spielwiese sind wir verantwortlich. Diese Bearbeitungen beschreibt diese Erklärung.</p>
+      <p>Die Inhalte, die ein Unternehmen in seinem SCOPERA-Arbeitsbereich erfasst (Kunden, Kontakte, Projekte, Dateien, Nachrichten, Anfragen aus Formularen und alles Weitere), bearbeiten wir im Auftrag dieses Unternehmens. Verantwortlich ist dann das Unternehmen (unser Kunde); wir bearbeiten diese Daten nur nach seinen Weisungen und auf Grundlage eines Auftragsverarbeitungsvertrags. Fragen zu diesen Daten richte bitte an das jeweilige Unternehmen.</p>
       <p>Für die übrige Geschäftstätigkeit der ADVANIS AG, etwa Kundenbeziehungen ausserhalb von SCOPERA, Bewerbungen oder andere Webseiten der Gruppe, gilt deren eigene, umfassendere Datenschutzerklärung: <a href="https://advanis.ch/rechtliches/" target="_blank" rel="noopener noreferrer">advanis.ch/rechtliches</a>.</p>
 
       <h2 id="webseite">3. Besuch der Webseite www.scopera.ai</h2>
@@ -48,68 +48,68 @@ const base = import.meta.env.BASE_URL;
       <p>Beim Besuch dieser Webseite verarbeiten unsere Hosting-Anbieter technisch notwendige Daten (IP-Adresse, Zeitpunkt, abgerufene Seite) zur Auslieferung und Sicherheit. Diese Daten werden nicht mit anderen Quellen verknüpft.</p>
 
       <h3>Kontaktformular</h3>
-      <p>Wenn Sie uns über das Formular schreiben, werden die eingegebenen Daten (Name, Firma, E-Mail, Nachricht) über unsere eigene, bei Cloudflare betriebene Infrastruktur an uns übermittelt und dort bis zur Bearbeitung gespeichert, längstens 30 Tage. Sie werden ausschliesslich zur Bearbeitung Ihrer Anfrage verwendet. Sobald wir ein CRM angebunden haben, wird Ihre Anfrage dorthin übernommen und dabei geprüft, ob Ihre Firma oder Ihr Kontakt bereits erfasst ist, um Mehrfacheinträge zu vermeiden. Den Anbieter nennen wir dann an dieser Stelle und in der Tabelle in Abschnitt 6.</p>
+      <p>Wenn du uns über das Formular schreibst, werden die eingegebenen Daten (Name, Firma, E-Mail, Nachricht) über unsere eigene, bei Cloudflare betriebene Infrastruktur an uns übermittelt und dort bis zur Bearbeitung gespeichert, längstens 30 Tage. Sie werden ausschliesslich zur Bearbeitung deiner Anfrage verwendet. Sobald wir ein CRM angebunden haben, wird deine Anfrage dorthin übernommen und dabei geprüft, ob deine Firma oder dein Kontakt bereits erfasst ist, um Mehrfacheinträge zu vermeiden. Den Anbieter nennen wir dann an dieser Stelle und in der Tabelle in Abschnitt 6.</p>
       <p>Zum Schutz vor Massenversand begrenzen wir die Zahl der Absendungen je Internetanschluss. Dafür speichern wir eine Stunde lang einen Zählerwert; die IP-Adresse wird dabei nicht im Klartext abgelegt.</p>
 
       <h3>Terminbuchung</h3>
-      <p>Buchen Sie über die Webseite einen Termin, geschieht das über Microsoft Bookings. Ihre Angaben (Name, E-Mail-Adresse, gewählter Termin und allfällige Bemerkungen) gelangen in unser Microsoft-365-Konto und werden zur Durchführung des Termins verwendet.</p>
+      <p>Buchst du über die Webseite einen Termin, geschieht das über Microsoft Bookings. Deine Angaben (Name, E-Mail-Adresse, gewählter Termin und allfällige Bemerkungen) gelangen in unser Microsoft-365-Konto und werden zur Durchführung des Termins verwendet.</p>
 
       <h3>Besuchs- und Interessensdaten</h3>
-      <p>Wir erfassen über eine selbst betriebene, bei Cloudflare gehostete Infrastruktur, welche Seiten Sie besuchen und wie lange. Dafür wird eine zufällige, rein sitzungsgebundene Kennung im Sitzungsspeicher (sessionStorage) Ihres Browsers verwendet, kein dauerhaftes Cookie; die Kennung verschwindet beim Schliessen des Tabs. Zusammen mit Ihrer technisch übertragenen IP-Adresse dient das dazu, das geschäftliche Interesse von Besuchenden an unseren Leistungen einzuschätzen.</p>
-      <p>Die Sitzungsdaten werden 30 Minuten nach Ihrer letzten Aktivität gelöscht. Für die statistische Auswertung speichern wir zusätzlich je Besuch einen Datenpunkt. Die IP-Adresse wird dafür auf das Netz gekürzt (IPv4 auf /24, IPv6 auf /48) und ist damit keiner Person mehr zuzuordnen. Die Daten werden nicht mit Werbenetzwerken geteilt.</p>
-      <p>Zur Auswertung gehört ausserdem, wie weit eine Seite gelesen wurde (in Stufen von 25 Prozent) und welche Links und Knöpfe angeklickt wurden, erkennbar an ihrem Ziel. Klicks speichern wir ohne Bezug zu Ihrer Sitzung.</p>
-      <p>Für eine Auswertung, an welchen Stellen einer Seite geklickt wird, ordnen wir jeden Klick zusätzlich einem groben Raster zu: 20 Felder in der Breite, 50 in der Höhe. Gespeichert wird allein die Feldnummer, zusammen mit der Seite und einer von drei Bildschirmgrössenklassen (mobil, Tablet, Desktop). Der genaue Pixelwert wird nicht gespeichert und lässt sich aus der Feldnummer nicht zurückrechnen. Auch diese Angaben speichern wir ohne Bezug zu Ihrer Sitzung und ohne IP-Adresse, sie sind daher keiner Person zuzuordnen.</p>
+      <p>Wir erfassen über eine selbst betriebene, bei Cloudflare gehostete Infrastruktur, welche Seiten du besuchst und wie lange. Dafür wird eine zufällige, rein sitzungsgebundene Kennung im Sitzungsspeicher (sessionStorage) deines Browsers verwendet, kein dauerhaftes Cookie; die Kennung verschwindet beim Schliessen des Tabs. Zusammen mit deiner technisch übertragenen IP-Adresse dient das dazu, das geschäftliche Interesse von Besuchenden an unseren Leistungen einzuschätzen.</p>
+      <p>Die Sitzungsdaten werden 30 Minuten nach deiner letzten Aktivität gelöscht. Für die statistische Auswertung speichern wir zusätzlich je Besuch einen Datenpunkt. Die IP-Adresse wird dafür auf das Netz gekürzt (IPv4 auf /24, IPv6 auf /48) und ist damit keiner Person mehr zuzuordnen. Die Daten werden nicht mit Werbenetzwerken geteilt.</p>
+      <p>Zur Auswertung gehört ausserdem, wie weit eine Seite gelesen wurde (in Stufen von 25 Prozent) und welche Links und Knöpfe angeklickt wurden, erkennbar an ihrem Ziel. Klicks speichern wir ohne Bezug zu deiner Sitzung.</p>
+      <p>Für eine Auswertung, an welchen Stellen einer Seite geklickt wird, ordnen wir jeden Klick zusätzlich einem groben Raster zu: 20 Felder in der Breite, 50 in der Höhe. Gespeichert wird allein die Feldnummer, zusammen mit der Seite und einer von drei Bildschirmgrössenklassen (mobil, Tablet, Desktop). Der genaue Pixelwert wird nicht gespeichert und lässt sich aus der Feldnummer nicht zurückrechnen. Auch diese Angaben speichern wir ohne Bezug zu deiner Sitzung und ohne IP-Adresse, sie sind daher keiner Person zuzuordnen.</p>
       <p>Wir erfassen keine Mauszeigerbewegungen, keine Bildschirmaufzeichnungen und keine Eingaben in Formularfelder.</p>
 
-      <h3>Google Tag Manager und Firmenerkennung (nur mit Ihrer Einwilligung)</h3>
-      <p>Über Google Tag Manager binden wir bei Bedarf weitere Mess- und Marketing-Werkzeuge ein, aktuell den Dienst Apollo zur Erkennung, welche Firma unsere Seite besucht. Diese Werkzeuge laden erst, nachdem Sie im Cookie-Banner zugestimmt haben. Ihre Wahl speichern wir lokal in Ihrem Browser (localStorage), nicht als Cookie. Dabei können Daten ausserhalb der Schweiz und der EU bearbeitet werden. Sie können Ihre Zustimmung jederzeit über «Cookie-Einstellungen» im Footer erteilen oder widerrufen. Ein Widerruf wirkt für die Zukunft; bereits geladene Werkzeuge laufen bis zum nächsten Seitenaufruf weiter.</p>
+      <h3>Google Tag Manager und Firmenerkennung (nur mit deiner Einwilligung)</h3>
+      <p>Über Google Tag Manager binden wir bei Bedarf weitere Mess- und Marketing-Werkzeuge ein, aktuell den Dienst Apollo zur Erkennung, welche Firma unsere Seite besucht. Diese Werkzeuge laden erst, nachdem du im Cookie-Banner zugestimmt hast. Deine Wahl speichern wir lokal in deinem Browser (localStorage), nicht als Cookie. Dabei können Daten ausserhalb der Schweiz und der EU bearbeitet werden. Du kannst deine Zustimmung jederzeit über «Cookie-Einstellungen» im Footer erteilen oder widerrufen. Ein Widerruf wirkt für die Zukunft; bereits geladene Werkzeuge laufen bis zum nächsten Seitenaufruf weiter.</p>
 
-      <p>Erkennt Apollo eine Firma und erreicht deren Besuch eine festgelegte Schwelle an geschäftlichem Interesse, melden wir eine Zusammenfassung an das Firmenkonto in unserem Apollo-Bestand zurück: die errechnete Punktzahl, den Zeitpunkt des letzten Besuchs und die Liste der besuchten Seiten. Je Firma geschieht das höchstens einmal täglich. Nicht zurück fliessen Ihre IP-Adresse, die Sitzungskennung und die Angaben aus der Klickauswertung. Die Rückmeldung bezieht sich auf die Firma, nicht auf Sie als Person.</p>
+      <p>Erkennt Apollo eine Firma und erreicht deren Besuch eine festgelegte Schwelle an geschäftlichem Interesse, melden wir eine Zusammenfassung an das Firmenkonto in unserem Apollo-Bestand zurück: die errechnete Punktzahl, den Zeitpunkt des letzten Besuchs und die Liste der besuchten Seiten. Je Firma geschieht das höchstens einmal täglich. Nicht zurück fliessen deine IP-Adresse, die Sitzungskennung und die Angaben aus der Klickauswertung. Die Rückmeldung bezieht sich auf die Firma, nicht auf dich als Person.</p>
 
       <h3>Eingebettete Inhalte von der Plattform</h3>
-      <p>Einzelne Seiten binden Inhalte unserer Plattform in einem Rahmen ein: die Seite Editionen einen Vergleich von api.scopera.ai, die Produktseite ein Angebotsbanner von api.scopera.ai samt Bild aus unserem Azure-Speicher, die Seite Spielwiese die Spielwiese von playground.scopera.ai. Beim Laden dieser Inhalte wird Ihre IP-Adresse an den jeweiligen Dienst übermittelt. Alle drei gehören zu SCOPERA, die Hosting-Angaben stehen in Abschnitt 6.</p>
+      <p>Einzelne Seiten binden Inhalte unserer Plattform in einem Rahmen ein: die Seite Editionen einen Vergleich von api.scopera.ai, die Produktseite ein Angebotsbanner von api.scopera.ai samt Bild aus unserem Azure-Speicher, die Seite Spielwiese die Spielwiese von playground.scopera.ai. Beim Laden dieser Inhalte wird deine IP-Adresse an den jeweiligen Dienst übermittelt. Alle drei gehören zu SCOPERA, die Hosting-Angaben stehen in Abschnitt 6.</p>
 
       <h3>Spielwiese</h3>
-      <p>Auf der Webseite und unter playground.scopera.ai können Sie ohne Konto ausprobieren, wie SCOPERA aus einer Beschreibung eine App baut und den Ablauf dahinter zeichnet. Ihre Eingabe geht an einen KI-Anbieter (siehe Abschnitt 6). Damit Sie die App nachschärfen können, behalten wir Ihre Eingaben und die gebaute App höchstens zwei Stunden in einem Zwischenspeicher. Die gebaute App (Programmcode und erfundene Beispieldaten) liegt höchstens zwei Tage in unserem Speicher, damit sie angezeigt werden kann, und wird danach gelöscht. Länger, nämlich 12 Monate, speichern wir nur statistische Angaben (Länge, Ergebnis, Dauer) und Ihre IP-Adresse gekürzt; zum Schutz vor Missbrauch prüft Cloudflare Turnstile, ob ein Mensch die Seite nutzt. Wählen Sie «In SCOPERA weiterbauen», bewahren wir Beschreibung, App und Ablauf bis zu sieben Tage auf, damit sie nach der Bestätigung Ihrer E-Mail-Adresse in Ihrem neuen Arbeitsbereich bereitstehen; danach oder nach der Übernahme löschen wir diese Kopie.</p>
+      <p>Auf der Webseite und unter playground.scopera.ai kannst du ohne Konto ausprobieren, wie SCOPERA aus einer Beschreibung eine App baut und den Ablauf dahinter zeichnet. Deine Eingabe geht an einen KI-Anbieter (siehe Abschnitt 6). Damit du die App nachschärfen kannst, behalten wir deine Eingaben und die gebaute App höchstens zwei Stunden in einem Zwischenspeicher. Die gebaute App (Programmcode und erfundene Beispieldaten) liegt höchstens zwei Tage in unserem Speicher, damit sie angezeigt werden kann, und wird danach gelöscht. Länger, nämlich 12 Monate, speichern wir nur statistische Angaben (Länge, Ergebnis, Dauer) und deine IP-Adresse gekürzt; zum Schutz vor Missbrauch prüft Cloudflare Turnstile, ob ein Mensch die Seite nutzt. Wählst du «In SCOPERA weiterbauen», bewahren wir Beschreibung, App und Ablauf bis zu sieben Tage auf, damit sie nach der Bestätigung deiner E-Mail-Adresse in deinem neuen Arbeitsbereich bereitstehen; danach oder nach der Übernahme löschen wir diese Kopie.</p>
 
       <h3 id="weihnachtsaktion">Weihnachtsaktion «Wünsch dir was. Für 2027.»</h3>
-      <p>Unter www.scopera.ai/wunsch/ können Sie bis zum 15. Januar 2027 einen Wunschzettel einreichen. Bis zum Abschicken bleibt der Zettel in Ihrem Browser, für die Dauer der Sitzung. Mit dem Abschicken speichern wir Ihren Wunsch, Ihre Antworten auf die beiden Fragen, den bearbeiteten Wunschzettel, eine allfällige Bemerkung, Name, Firma und E-Mail-Adresse sowie Zeitpunkt und Sprachfassung Ihrer Zustimmung zu den Teilnahmebedingungen. Die Angaben gehen über unsere eigene, bei Cloudflare betriebene Infrastruktur an uns und werden dort gespeichert. Wir verwenden sie nur für die Aktion: um Ihnen den Zugang zu Ihrem Prototyp zu schicken, um den überzeugendsten Wunsch auszuwählen und um Sie über das Ergebnis zu informieren. Spätestens am 31. Dezember 2027 werden sie automatisch gelöscht. Zum Schutz vor Massenversand gilt dieselbe Drossel wie beim Kontaktformular.</p>
-      <p>Wenn Sie Ihren Wunsch per Mikrofon erzählen, wandelt die Spracherkennung Ihres Browsers die Sprache in Text um. Dafür übermittelt der Browser die Aufnahme an seinen Hersteller (zum Beispiel Google bei Chrome, Microsoft bei Edge, Apple bei Safari), der sie nach seinen eigenen Datenschutzbestimmungen bearbeitet, teils in den USA. Wir selbst erhalten und speichern keine Tonaufnahme, sondern nur den Text, und auch diesen erst, wenn Sie den Wunschzettel abschicken. Möchten Sie das nicht, schreiben Sie Ihren Wunsch einfach ins Feld.</p>
-      <p>Probieren Sie Ihren Wunsch auf der eingebetteten Spielwiese aus, gilt dafür der Abschnitt «Spielwiese». Hat die Spielwiese aus Ihrem Wunsch bereits einen Prototyp gebaut, bewahrt sie diese App ab dem Abschicken bis zu 30 Tage auf, damit wir Ihnen den Zugang dazu schicken können, ohne ihn neu zu bauen. Mit dem Wunschzettel speichern wir dafür einen Schlüssel zu dieser App. Richten wir Ihnen einen Arbeitsbereich für Ihren Prototyp ein, gelten dafür die Angaben in Abschnitt 4.</p>
+      <p>Unter www.scopera.ai/wunsch/ kannst du bis zum 15. Januar 2027 einen Wunschzettel einreichen. Bis zum Abschicken bleibt der Zettel in deinem Browser, für die Dauer der Sitzung. Mit dem Abschicken speichern wir deinen Wunsch, deine Antworten auf die beiden Fragen, den bearbeiteten Wunschzettel, eine allfällige Bemerkung, Name, Firma und E-Mail-Adresse sowie Zeitpunkt und Sprachfassung deiner Zustimmung zu den Teilnahmebedingungen. Die Angaben gehen über unsere eigene, bei Cloudflare betriebene Infrastruktur an uns und werden dort gespeichert. Wir verwenden sie nur für die Aktion: um dir den Zugang zu deinem Prototyp zu schicken, um den überzeugendsten Wunsch auszuwählen und um dich über das Ergebnis zu informieren. Spätestens am 31. Dezember 2027 werden sie automatisch gelöscht. Zum Schutz vor Massenversand gilt dieselbe Drossel wie beim Kontaktformular.</p>
+      <p>Wenn du deinen Wunsch per Mikrofon erzählst, wandelt die Spracherkennung deines Browsers die Sprache in Text um. Dafür übermittelt der Browser die Aufnahme an seinen Hersteller (zum Beispiel Google bei Chrome, Microsoft bei Edge, Apple bei Safari), der sie nach seinen eigenen Datenschutzbestimmungen bearbeitet, teils in den USA. Wir selbst erhalten und speichern nur den Text, keine Tonaufnahme, und auch den Text erst, wenn du den Wunschzettel abschickst. Möchtest du das nicht, schreib deinen Wunsch einfach ins Feld.</p>
+      <p>Probierst du deinen Wunsch auf der eingebetteten Spielwiese aus, gilt dafür der Abschnitt «Spielwiese». Hat die Spielwiese aus deinem Wunsch bereits einen Prototyp gebaut, bewahrt sie diese App ab dem Abschicken bis zu 30 Tage auf, damit wir dir den Zugang dazu schicken können, ohne ihn neu zu bauen. Mit dem Wunschzettel speichern wir dafür einen Schlüssel zu dieser App. Richten wir dir einen Arbeitsbereich für deinen Prototyp ein, gelten dafür die Angaben in Abschnitt 4.</p>
 
       <h2 id="plattform">4. Nutzung der Plattform SCOPERA</h2>
 
       <h3>Registrierung und Benutzerkonto</h3>
-      <p>Firma, Unternehmens-Identifikationsnummer und Land, Vor- und Nachname, E-Mail-Adresse, Passwort (nur als sicherer Hashwert), Sprache, Zeitzone, Rolle und Abteilung. Melden Sie sich über Microsoft, Google oder Apple an, erhalten wir von dort Ihre E-Mail-Adresse, Ihren Namen und eine Kennung. Die Angaben zur Firma prüfen wir gegen das Schweizer Handelsregister (Zefix). Zweck: Bereitstellung der Plattform und Vertragserfüllung.</p>
+      <p>Firma, Unternehmens-Identifikationsnummer und Land, Vor- und Nachname, E-Mail-Adresse, Passwort (nur als sicherer Hashwert), Sprache, Zeitzone, Rolle und Abteilung. Meldest du dich über Microsoft, Google oder Apple an, erhalten wir von dort deine E-Mail-Adresse, deinen Namen und eine Kennung. Die Angaben zur Firma prüfen wir gegen das Schweizer Handelsregister (Zefix). Zweck: Bereitstellung der Plattform und Vertragserfüllung.</p>
 
       <h3>Vertragsabschluss</h3>
-      <p>Wenn Sie die Nutzungsbedingungen bestätigen, speichern wir als Nachweis Ihren Namen, Ihre E-Mail-Adresse, den Zeitpunkt und Ihre IP-Adresse. Zweck: Nachweis des Vertragsschlusses.</p>
+      <p>Wenn du die <a href={`${base}de/terms/`}>Nutzungsbedingungen</a> bestätigst, speichern wir als Nachweis deinen Namen, deine E-Mail-Adresse, den Zeitpunkt und deine IP-Adresse. Zweck: Nachweis des Vertragsschlusses.</p>
 
       <h3>Anmeldung und Sicherheit</h3>
-      <p>Anmeldeversuche (E-Mail-Adresse, IP-Adresse, Zeitpunkt, Ergebnis), ein Änderungsprotokoll (wer hat wann was geändert, mit IP-Adresse und Browser-Kennung) sowie Zähler, mit denen wir zu viele Anfragen abwehren. Greift unser Support auf einen Arbeitsbereich zu (etwa zur Fehlerbehebung), ist das zeitlich begrenzt und wird mit Grund und Dauer protokolliert. Zweck: Schutz Ihres Kontos und der Plattform vor Missbrauch (berechtigtes Interesse).</p>
+      <p>Anmeldeversuche (E-Mail-Adresse, IP-Adresse, Zeitpunkt, Ergebnis), ein Änderungsprotokoll (wer hat wann was geändert, mit IP-Adresse und Browser-Kennung) sowie Zähler, mit denen wir zu viele Anfragen abwehren. Greift unser Support auf einen Arbeitsbereich zu (etwa zur Fehlerbehebung), ist das zeitlich begrenzt und wird mit Grund und Dauer protokolliert. Zweck: Schutz deines Kontos und der Plattform vor Missbrauch (berechtigtes Interesse).</p>
 
       <h3>Nutzung der Plattform</h3>
-      <p>Zeitpunkt Ihrer letzten Aktivität, Benachrichtigungen, Fortschritt in Einführungstouren sowie technische Protokolle (aufgerufene Funktion, Ergebnis, Dauer, ohne IP-Adresse). Suchanfragen in der Hilfe ohne Treffer speichern wir ohne Bezug zu Ihrer Person, um die Hilfe zu verbessern.</p>
+      <p>Zeitpunkt deiner letzten Aktivität, Benachrichtigungen, Fortschritt in Einführungstouren sowie technische Protokolle (aufgerufene Funktion, Ergebnis, Dauer, ohne IP-Adresse). Suchanfragen in der Hilfe ohne Treffer speichern wir ohne Bezug zu deiner Person, um die Hilfe zu verbessern.</p>
 
       <h3>KI-Funktionen</h3>
-      <p>Nutzen Sie den KI-Assistenten oder andere KI-Funktionen, senden wir Ihre Eingabe und die dafür benötigten Daten aus Ihrem Arbeitsbereich an einen KI-Anbieter (siehe Abschnitt 6). Spracheingaben werden dort in Text umgewandelt, Belege per Bilderkennung ausgelesen. Vor dem Versand entfernen wir erkennbare Muster wie E-Mail-Adressen, AHV-, IBAN-, Telefon- und Kartennummern; als besonders schützenswert eingestufte Felder werden maskiert. Gespräche mit dem Assistenten speichern wir, damit Sie sie fortsetzen können, und ein Protokoll der KI-Aufrufe (gekürzte Anfrage, Werkzeuge, Verbrauch) zur Abrechnung und Fehlersuche. Über die Programmierschnittstellen übermittelte Daten verwenden die KI-Anbieter gemäss ihren Geschäftsbedingungen nicht zum Training ihrer Modelle.</p>
+      <p>Nutzt du den KI-Assistenten oder andere KI-Funktionen, senden wir deine Eingabe und die dafür benötigten Daten aus deinem Arbeitsbereich an einen KI-Anbieter (siehe Abschnitt 6). Spracheingaben werden dort in Text umgewandelt, Belege per Bilderkennung ausgelesen. Vor dem Versand entfernen wir erkennbare Muster wie E-Mail-Adressen, AHV-, IBAN-, Telefon- und Kartennummern; als besonders schützenswert eingestufte Felder werden maskiert. Gespräche mit dem Assistenten speichern wir, damit du sie fortsetzen kannst, und ein Protokoll der KI-Aufrufe (gekürzte Anfrage, Werkzeuge, Verbrauch) zur Abrechnung und Fehlersuche. Über die Programmierschnittstellen übermittelte Daten verwenden die KI-Anbieter gemäss ihren Geschäftsbedingungen nicht zum Training ihrer Modelle.</p>
 
       <h3>KI-Verbindungen (MCP)</h3>
-      <p>Schaltet Ihr Unternehmen KI-Verbindungen ein, können Sie SCOPERA aus einem eigenen KI-Client (z. B. Claude, ChatGPT, Microsoft Copilot) nutzen. Was dieser Client in Ihrem Auftrag liest, geht an den Anbieter des Clients; dafür gelten dessen Bedingungen. Wir speichern Ihre Verbindungen (Client, Rechte, Ablauf) und je Aufruf nur Werkzeug, Ergebnis, Dauer und Umfang, also keine Eingaben und keine Antworten.</p>
+      <p>Schaltet dein Unternehmen KI-Verbindungen ein, kannst du SCOPERA aus einem eigenen KI-Client (z. B. Claude, ChatGPT, Microsoft Copilot) nutzen. Was dieser Client in deinem Auftrag liest, geht an den Anbieter des Clients; dafür gelten dessen Bedingungen. Wir speichern deine Verbindungen (Client, Rechte, Ablauf) und je Aufruf nur Werkzeug, Ergebnis, Dauer und Umfang, also keine Eingaben und keine Antworten.</p>
 
       <h3>Abrechnung</h3>
-      <p>Tarif, Nutzung, Guthaben und Provisionen sowie die Kunden- und Abonnements-Kennung beim Zahlungsdienstleister Stripe. Ihre Zahlungsdaten geben Sie direkt bei Stripe ein; wir erhalten sie nicht.</p>
+      <p>Tarif, Nutzung, Guthaben und Provisionen sowie die Kunden- und Abonnements-Kennung beim Zahlungsdienstleister Stripe. Deine Zahlungsdaten gibst du direkt bei Stripe ein; wir erhalten sie nicht.</p>
 
       <h3>Support, Ideen und E-Mails</h3>
-      <p>Nachrichten an unseren Support und gemeldete Ideen oder Fehler (Titel und Beschreibung, die wir in unserem Ticketsystem bearbeiten). Für E-Mails der Plattform (Einladungen, Passwort-Rücksetzung, Benachrichtigungen) verwenden wir Ihre E-Mail-Adresse.</p>
+      <p>Nachrichten an unseren Support und gemeldete Ideen oder Fehler (Titel und Beschreibung, die wir in unserem Ticketsystem bearbeiten). Für E-Mails der Plattform (Einladungen, Passwort-Rücksetzung, Benachrichtigungen) verwenden wir deine E-Mail-Adresse.</p>
 
       <h3>Mobile App</h3>
-      <p>Die App nutzt die Kamera nur, wenn Sie es wünschen: für Fotos, das AR-Lineal, den Raumscan und das Scannen von QR-Codes; Aufnahmen werden in Ihren Arbeitsbereich hochgeladen. Ihre Anmeldung bleibt auf dem Gerät gespeichert, bis Sie sich abmelden. Die App enthält keine Werbe-, Analyse- oder Absturz-Dienste Dritter und nutzt keine Ortung.</p>
+      <p>Die App nutzt die Kamera nur, wenn du es wünschst: für Fotos, das AR-Lineal, den Raumscan und das Scannen von QR-Codes; Aufnahmen werden in deinen Arbeitsbereich hochgeladen. Deine Anmeldung bleibt auf dem Gerät gespeichert, bis du dich abmeldest. Die App enthält keine Werbe-, Analyse- oder Absturz-Dienste Dritter und nutzt keine Ortung.</p>
 
       <h2 id="cookies">5. Cookies und Speicher im Browser</h2>
 
       <h3>Webseite</h3>
-      <p>Die Webseite selbst setzt keine Cookies. Im lokalen Speicher Ihres Browsers merken wir uns Ihre Wahl im Cookie-Banner und das helle oder dunkle Design, im Sitzungsspeicher die Kennung für die Besuchsdaten (siehe Abschnitt 3). Erst nach Ihrer Zustimmung laden Google Tag Manager und Apollo; diese können eigene Cookies setzen.</p>
+      <p>Die Webseite selbst setzt keine Cookies. Im lokalen Speicher deines Browsers merken wir uns deine Wahl im Cookie-Banner und das helle oder dunkle Design, im Sitzungsspeicher die Kennung für die Besuchsdaten (siehe Abschnitt 3). Erst nach deiner Zustimmung laden Google Tag Manager und Apollo; diese können eigene Cookies setzen.</p>
 
       <h3>Plattform</h3>
       <p>Auf der Plattform setzen wir nur Cookies, die für den Betrieb nötig sind, und keine zur Analyse oder Werbung:</p>
@@ -125,7 +125,7 @@ const base = import.meta.env.BASE_URL;
           </tbody>
         </table>
       </div>
-      <p>Im lokalen Speicher Ihres Browsers merken wir uns Darstellungseinstellungen (z. B. Seitenleiste, Spaltenbreiten, helles oder dunkles Design). Damit die Anwendung schnell lädt, legt der Browser Teile davon zwischen. Auf öffentlichen Formularen und der Spielwiese lädt Cloudflare Turnstile einen Prüfrahmen. Verwenden Sie in Ihrem Arbeitsbereich die Kartenansicht, lädt Ihr Browser Kartenkacheln von OpenStreetMap.</p>
+      <p>Im lokalen Speicher deines Browsers merken wir uns Darstellungseinstellungen (z. B. Seitenleiste, Spaltenbreiten, helles oder dunkles Design). Damit die Anwendung schnell lädt, legt der Browser Teile davon zwischen. Auf öffentlichen Formularen und der Spielwiese lädt Cloudflare Turnstile einen Prüfrahmen. Verwendest du in deinem Arbeitsbereich die Kartenansicht, lädt dein Browser Kartenkacheln von OpenStreetMap.</p>
 
       <h2 id="empfaenger">6. Empfänger und Dienstleister</h2>
       <p>Wir geben Personendaten nur an Dienstleister weiter, die wir für den Betrieb brauchen und vertraglich auf den Datenschutz verpflichtet haben:</p>
@@ -141,7 +141,7 @@ const base = import.meta.env.BASE_URL;
             <tr><td>OpenAI</td><td>KI-Funktionen, Spracherkennung, Hilfe-Suche</td><td>USA</td></tr>
             <tr><td>Anthropic</td><td>KI-Funktionen</td><td>USA</td></tr>
             <tr><td>Microsoft 365</td><td>Versand von E-Mails, Terminbuchung</td><td>Schweiz/EU</td></tr>
-            <tr><td>Microsoft, Google, Apple</td><td>Anmeldung, wenn Sie diese wählen</td><td>USA/EU</td></tr>
+            <tr><td>Microsoft, Google, Apple</td><td>Anmeldung, wenn du diese wählst</td><td>USA/EU</td></tr>
             <tr><td>Stripe</td><td>Zahlungsabwicklung</td><td>USA/Irland</td></tr>
             <tr><td>Atlassian (Jira)</td><td>Bearbeitung gemeldeter Ideen und Fehler</td><td>EU/USA</td></tr>
             <tr><td>Schweizer Handelsregister (Zefix)</td><td>Prüfung der Firmenangaben bei der Registrierung</td><td>Schweiz</td></tr>
@@ -149,17 +149,17 @@ const base = import.meta.env.BASE_URL;
           </tbody>
         </table>
       </div>
-      <p>Richtet Ihr Unternehmen weitere Dienste ein, etwa WhatsApp, Microsoft Teams, einen eigenen E-Mail-Server, einen eigenen KI-Anbieter, externe KI-Werkzeuge (MCP-Server) oder Schnittstellen zu anderen Systemen, fliessen Daten auf Veranlassung Ihres Unternehmens auch dorthin. Behörden geben wir Daten nur heraus, wenn wir gesetzlich dazu verpflichtet sind.</p>
+      <p>Richtet dein Unternehmen weitere Dienste ein, etwa WhatsApp, Microsoft Teams, einen eigenen E-Mail-Server, einen eigenen KI-Anbieter, externe KI-Werkzeuge (MCP-Server) oder Schnittstellen zu anderen Systemen, fliessen Daten auf Veranlassung deines Unternehmens auch dorthin. Behörden geben wir Daten nur heraus, wenn wir gesetzlich dazu verpflichtet sind.</p>
 
       <h2 id="ausland">7. Bekanntgabe ins Ausland</h2>
-      <p>Die Plattform-Daten liegen in der Schweiz. Einige Dienstleister (insbesondere die KI-Anbieter sowie, mit Ihrer Einwilligung, Google und Apollo) bearbeiten Daten in den USA oder weiteren Ländern ohne angemessenes Datenschutzniveau. Wir stellen den Schutz dort durch die vom EDÖB anerkannten Standardvertragsklauseln der EU-Kommission oder, wo der Anbieter zertifiziert ist, durch das Swiss-U.S. bzw. EU-U.S. Data Privacy Framework sicher.</p>
+      <p>Die Plattform-Daten liegen in der Schweiz. Einige Dienstleister (insbesondere die KI-Anbieter sowie, mit deiner Einwilligung, Google und Apollo) bearbeiten Daten in den USA oder weiteren Ländern ohne angemessenes Datenschutzniveau. Wir stellen den Schutz dort durch die vom EDÖB anerkannten Standardvertragsklauseln der EU-Kommission oder, wo der Anbieter zertifiziert ist, durch das Swiss-U.S. bzw. EU-U.S. Data Privacy Framework sicher.</p>
 
       <h2 id="aufbewahrung">8. Wie lange wir Daten aufbewahren</h2>
       <div class="tabelle">
         <table>
           <thead><tr><th>Daten</th><th>Aufbewahrung</th></tr></thead>
           <tbody>
-            <tr><td>Benutzerkonto</td><td>solange es besteht; nach dem Entfernen aus einem Arbeitsbereich 30 Tage, danach werden Ihre Angaben gelöscht bzw. anonymisiert</td></tr>
+            <tr><td>Benutzerkonto</td><td>solange es besteht; nach dem Entfernen aus einem Arbeitsbereich 30 Tage, danach werden deine Angaben gelöscht bzw. anonymisiert</td></tr>
             <tr><td>Daten eines Arbeitsbereichs nach Vertragsende</td><td>30 Tage nach der Löschung bzw. 90 Tage nach der Archivierung, danach vollständig gelöscht, einschliesslich Dateien</td></tr>
             <tr><td>Nachweis des Vertragsschlusses, Rechnungs- und Abrechnungsdaten</td><td>10 Jahre (gesetzliche Aufbewahrungspflicht)</td></tr>
             <tr><td>Kontaktanfragen über das Formular</td><td>30 Tage bis zur Bearbeitung</td></tr>
@@ -168,7 +168,7 @@ const base = import.meta.env.BASE_URL;
             <tr><td>Zähler der Formular-Drossel (IP-Adresse nur als Hashwert)</td><td>1 Stunde</td></tr>
             <tr><td>Anmeldeversuche</td><td>90 Tage</td></tr>
             <tr><td>Änderungsprotokoll (mit IP-Adresse)</td><td>12 Monate</td></tr>
-            <tr><td>Nachrichten im Team-Chat, samt Dateien</td><td>365 Tage, sofern Ihr Unternehmen keine andere Frist festlegt</td></tr>
+            <tr><td>Nachrichten im Team-Chat, samt Dateien</td><td>365 Tage, sofern dein Unternehmen keine andere Frist festlegt</td></tr>
             <tr><td>Gespräche mit dem KI-Assistenten</td><td>90 Tage nach der letzten Änderung</td></tr>
             <tr><td>Protokoll der KI-Aufrufe</td><td>12 Monate</td></tr>
             <tr><td>Protokoll der KI-Verbindungen (MCP)</td><td>12 Monate</td></tr>
@@ -183,24 +183,24 @@ const base = import.meta.env.BASE_URL;
           </tbody>
         </table>
       </div>
-      <p>Wie lange Nachrichten im Team-Chat aufbewahrt werden, kann Ihr Unternehmen selbst festlegen. Datensätze in den Apps Ihres Unternehmens bleiben gespeichert, bis sie gelöscht werden oder der Vertrag endet.</p>
+      <p>Wie lange Nachrichten im Team-Chat aufbewahrt werden, kann dein Unternehmen selbst festlegen. Datensätze in den Apps deines Unternehmens bleiben gespeichert, bis sie gelöscht werden oder der Vertrag endet.</p>
 
-      <h2 id="rechte">9. Ihre Rechte</h2>
+      <h2 id="rechte">9. Deine Rechte</h2>
       <ul>
-        <li>Auskunft darüber, welche Daten wir über Sie bearbeiten</li>
+        <li>Auskunft darüber, welche Daten wir über dich bearbeiten</li>
         <li>Berichtigung unrichtiger Daten</li>
         <li>Löschung oder Einschränkung der Bearbeitung</li>
-        <li>Herausgabe oder Übertragung Ihrer Daten in einem gängigen Format</li>
+        <li>Herausgabe oder Übertragung deiner Daten in einem gängigen Format</li>
         <li>Widerspruch gegen Bearbeitungen, die auf unserem berechtigten Interesse beruhen</li>
         <li>Widerruf einer Einwilligung mit Wirkung für die Zukunft</li>
       </ul>
-      <p>Schreiben Sie uns dafür an die oben genannte E-Mail-Adresse. Betreffen Ihre Anliegen Inhalte eines Arbeitsbereichs, leiten wir sie an das verantwortliche Unternehmen weiter. Sie können sich zudem beim Eidgenössischen Datenschutz- und Öffentlichkeitsbeauftragten (EDÖB) oder, soweit die DSGVO gilt, bei der Aufsichtsbehörde Ihres Wohnsitzlandes beschweren.</p>
+      <p>Schreib uns dafür an die oben genannte E-Mail-Adresse. Betreffen deine Anliegen Inhalte eines Arbeitsbereichs, leiten wir sie an das verantwortliche Unternehmen weiter. Du kannst dich zudem beim Eidgenössischen Datenschutz- und Öffentlichkeitsbeauftragten (EDÖB) oder, soweit die DSGVO gilt, bei der Aufsichtsbehörde deines Wohnsitzlandes beschweren.</p>
 
       <h2 id="sicherheit">10. Sicherheit</h2>
       <p>Verbindungen sind verschlüsselt (TLS). Datenbank und Zwischenspeicher der Plattform sind nicht aus dem Internet erreichbar; Zugangsdaten zu angebundenen Diensten speichern wir verschlüsselt. Zugriffe sind auf das Nötige beschränkt und werden protokolliert. Unternehmen können ihren Arbeitsbereich zusätzlich in einem eigenen, getrennten Datenbank-Schema betreiben.</p>
 
       <h2 id="automatisierte-entscheidungen">11. Automatisierte Entscheidungen</h2>
-      <p>Wir treffen keine Entscheidungen, die ausschliesslich auf automatisierter Bearbeitung beruhen und Ihnen gegenüber rechtliche Wirkung entfalten. Vorschläge der KI sind Hilfen; Änderungen, die eine KI vorschlägt, bestätigen Sie selbst.</p>
+      <p>Wir treffen keine Entscheidungen, die ausschliesslich auf automatisierter Bearbeitung beruhen und dir gegenüber rechtliche Wirkung entfalten. Vorschläge der KI sind Hilfen; Änderungen, die eine KI vorschlägt, bestätigst du selbst.</p>
 
       <h2 id="aenderungen">12. Änderungen</h2>
       <p>Wir passen diese Erklärung an, wenn sich unsere Bearbeitungen oder die Rechtslage ändern. Es gilt die jeweils hier veröffentlichte Fassung.</p>

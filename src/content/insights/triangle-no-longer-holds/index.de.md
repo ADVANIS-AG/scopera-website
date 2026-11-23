@@ -16,7 +16,7 @@ AI-natives Entwickeln bedeutet: Ein grosser Teil der Arbeit, die früher Wochen 
 
 Dazu kommt der zweite Hebel: die Plattform. Wer jedes Projekt bei null beginnt, bezahlt jedes Mal das Fundament neu. Wer auf einer erprobten Plattform baut, bezahlt nur noch das, was sein Unternehmen einzigartig macht.
 
-## Woran Sie seriöse Anbieter erkennen
+## Woran du seriöse Anbieter erkennst
 
 Tempo allein ist kein Qualitätsmerkmal. Drei Fragen helfen:
 

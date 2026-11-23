@@ -35,4 +35,4 @@ Bevor eine Anfrage an ein KI-Modell geht, werden Felder der KI-Datenklasse «Reg
 
 ## Womit anfangen?
 
-Öffnen Sie die «Zugriffe» und gehen Sie die Liste einmal mit der Person durch, die für den Datenschutz zuständig ist. Stellen Sie dann die Kategorie auf «Bestätigen», bei der Ihnen eine zweite Prüfung am wichtigsten ist.
+Öffne die «Zugriffe» und geh die Liste einmal mit der Person durch, die für den Datenschutz zuständig ist. Stell dann die Kategorie auf «Bestätigen», bei der dir eine zweite Prüfung am wichtigsten ist.

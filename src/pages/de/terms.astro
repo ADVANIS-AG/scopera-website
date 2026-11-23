@@ -1,0 +1,217 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { ADRESSE, KONTAKT_EMAIL } from '../../config';
+// Nutzungsbedingungen der Plattform (Fassung vom 23.11.2026). Bei Aenderungen DE und EN
+// gemeinsam nachfuehren und den Stand oben anpassen.
+const abschnitte: [string, string][] = [
+  ['geltungsbereich-und-b2b-ausrichtung', 'Geltungsbereich und B2B-Ausrichtung'],
+  ['vertragsgegenstand-und-leistungsbeschreibung', 'Vertragsgegenstand und Leistungsbeschreibung'],
+  ['trial-und-editionen', 'Trial und Editionen'],
+  ['registrierung-und-nutzerkonten', 'Registrierung und Nutzerkonten'],
+  ['nutzungsrechte', 'Nutzungsrechte'],
+  ['zulaessige-nutzung', 'Zulässige Nutzung'],
+  ['ki-funktionen-und-automatisierte-aktionen', 'KI-Funktionen und automatisierte Aktionen'],
+  ['kundendaten', 'Kundendaten'],
+  ['datenschutz-und-auftragsbearbeitung', 'Datenschutz und Auftragsbearbeitung'],
+  ['informationssicherheit', 'Informationssicherheit'],
+  ['verfuegbarkeit-wartung-und-support', 'Verfügbarkeit, Wartung und Support'],
+  ['geistiges-eigentum-und-feedback', 'Geistiges Eigentum und Feedback'],
+  ['entgelte-und-kostenpflichtige-editionen', 'Entgelte und kostenpflichtige Editionen'],
+  ['laufzeit-sperrung-kuendigung-und-datenexport', 'Laufzeit, Sperrung, Kündigung und Datenexport'],
+  ['gewaehrleistung-und-haftung', 'Gewährleistung und Haftung'],
+  ['aenderungen-anwendbares-recht-und-gerichtsstand', 'Änderungen, anwendbares Recht und Gerichtsstand'],
+  ['kontakt', 'Kontakt'],
+];
+const base = import.meta.env.BASE_URL;
+---
+<BaseLayout title="Nutzungsbedingungen | SCOPERA." description="Nutzungsbedingungen der Plattform SCOPERA der ADVANIS AG: Trial und Editionen, KI-Funktionen, Kundendaten, Haftung und anwendbares Recht.">
+  <section style="padding: 88px 0;">
+    <div class="wrap rechtstext">
+      <h1 style="font-size: clamp(30px, 5vw, 44px);">Nutzungsbedingungen</h1>
+      <p class="soft">Stand: 23. November 2026, Version 0.2</p>
+      <p>Diese Bedingungen gelten für die Plattform SCOPERA. Für den Besuch dieser Webseite und die Bearbeitung von Personendaten gilt die <a href={`${base}de/privacy/`}>Datenschutzerklärung</a>.</p>
+
+      <nav class="inhalt" aria-label="Inhaltsverzeichnis">
+        <ol>
+          {abschnitte.map(([id, titel]) => <li><a href={`#${id}`}>{titel}</a></li>)}
+        </ol>
+      </nav>
+
+      <h2 id="geltungsbereich-und-b2b-ausrichtung">1. Geltungsbereich und B2B-Ausrichtung</h2>
+
+      <p>Diese Nutzungsbedingungen regeln die Nutzung der SCOPERA-Plattform («SCOPERA», «Plattform»), betrieben von der ADVANIS AG («ADVANIS»), durch registrierte Kunden und deren Nutzerinnen und Nutzer.</p>
+
+      <p>SCOPERA richtet sich ausschliesslich an Unternehmen, Organisationen und Personen, die im Rahmen ihrer beruflichen oder gewerblichen Tätigkeit handeln. Eine Nutzung zu privaten Zwecken durch Konsumentinnen und Konsumenten ist nicht vorgesehen.</p>
+
+      <p>Mit der Registrierung eines Mandanten akzeptiert der Kunde diese Nutzungsbedingungen. Die Person, welche einen Mandanten im Namen einer Organisation registriert, bestätigt, zur entsprechenden Registrierung und Annahme dieser Bedingungen berechtigt zu sein.</p>
+
+      <h2 id="vertragsgegenstand-und-leistungsbeschreibung">2. Vertragsgegenstand und Leistungsbeschreibung</h2>
+
+      <p>SCOPERA ist eine meta-getriebene, KI-gestützte Business-Plattform zur Abbildung von Entitäten, Business Apps, Workflows, Automatisierungen und KI-gestützten Funktionen einschliesslich KI-Assistenten und angebundener Werkzeuge.</p>
+
+      <p>Der konkrete Funktionsumfang richtet sich nach der jeweils gewählten Edition, insbesondere Trial, Starter, Pro oder Enterprise, sowie nach allfälligen individuellen Vereinbarungen.</p>
+
+      <p>ADVANIS entwickelt SCOPERA kontinuierlich weiter und kann Funktionen ändern, ergänzen oder ersetzen. Bei kostenpflichtigen Editionen sollen solche Änderungen die wesentlichen vereinbarten Funktionalitäten während der Vertragslaufzeit nicht wesentlich beeinträchtigen, sofern nicht technische, sicherheitsbezogene oder rechtliche Gründe eine Änderung erfordern.</p>
+
+      <h2 id="trial-und-editionen">3. Trial und Editionen</h2>
+
+      <p>Eine kostenlose Trial-Registrierung dient dem unverbindlichen Testen von SCOPERA während des bei der Registrierung angegebenen Testzeitraums.</p>
+
+      <p>Der Trial endet automatisch nach Ablauf der Trial-Frist und wird nicht ohne ausdrückliche Bestellung oder Vereinbarung in eine kostenpflichtige Edition umgewandelt.</p>
+
+      <p>ADVANIS kann Funktionsumfang, Kapazitäten, Support und Verfügbarkeit einer Trial-Version gegenüber kostenpflichtigen Editionen einschränken.</p>
+
+      <p>ADVANIS kann einen Trial bei missbräuchlicher, rechtswidriger oder sicherheitsgefährdender Nutzung sperren oder vorzeitig beenden.</p>
+
+      <p>Nach Ablauf des Trials kann der Zugriff auf den Mandanten und dessen Inhalte gesperrt werden. Soweit keine andere Vereinbarung oder gesetzliche Aufbewahrungspflicht besteht, kann ADVANIS Kundendaten nach einer angemessenen Übergangsfrist löschen. Die konkrete Übergangsfrist und Möglichkeiten zum Datenexport können im jeweiligen Trial-Angebot oder in der Plattform ausgewiesen werden.</p>
+
+      <h2 id="registrierung-und-nutzerkonten">4. Registrierung und Nutzerkonten</h2>
+
+      <p>Für die Registrierung sind vollständige und wahrheitsgemässe Angaben erforderlich.</p>
+
+      <p>Der Kunde ist dafür verantwortlich, dass nur berechtigte Personen Zugriff auf seinen Mandanten erhalten. Zugangsdaten sind vertraulich zu behandeln und dürfen nicht unberechtigt weitergegeben werden.</p>
+
+      <p>Der Kunde ist für Aktivitäten verantwortlich, die über seine Nutzerkonten oder über von ihm konfigurierte Integrationen und Berechtigungen ausgeführt werden, soweit diese seinem Verantwortungsbereich zuzurechnen sind.</p>
+
+      <p>Verdächtige oder unbefugte Zugriffe sind ADVANIS unverzüglich zu melden.</p>
+
+      <h2 id="nutzungsrechte">5. Nutzungsrechte</h2>
+
+      <p>ADVANIS gewährt dem Kunden für die Dauer der jeweiligen Trial- oder Vertragslaufzeit ein nicht ausschliessliches, nicht übertragbares und auf die vereinbarte Nutzung beschränktes Recht, SCOPERA für interne geschäftliche Zwecke zu nutzen.</p>
+
+      <p>Eine Weitervermietung, Weiterlizenzierung oder Bereitstellung der Plattform an Dritte ist nur zulässig, wenn dies ausdrücklich vereinbart oder Bestandteil der jeweiligen Edition ist.</p>
+
+      <h2 id="zulaessige-nutzung">6. Zulässige Nutzung</h2>
+
+      <p>SCOPERA darf nicht verwendet werden:</p>
+
+      <ul>
+        <li>für rechtswidrige Zwecke oder zur Verletzung von Rechten Dritter;</li>
+        <li>zur Verbreitung von Schadsoftware oder zur Durchführung unbefugter Sicherheitsangriffe;</li>
+        <li>zur Umgehung technischer Schutz-, Berechtigungs- oder Nutzungskontrollen;</li>
+        <li>zur vorsätzlichen Beeinträchtigung der Verfügbarkeit, Integrität oder Sicherheit der Plattform;</li>
+        <li>zur unbefugten Verarbeitung oder Offenlegung vertraulicher oder personenbezogener Daten;</li>
+        <li>für automatisierte Zugriffe oder Lasten, welche die vereinbarte oder übliche Nutzung erheblich überschreiten und den Betrieb beeinträchtigen können.</li>
+      </ul>
+
+      <p>Diese Regeln gelten insbesondere auch für den KI-Assistenten, Agenten, Automatisierungen, Schnittstellen und angebundene Werkzeuge.</p>
+
+      <h2 id="ki-funktionen-und-automatisierte-aktionen">7. KI-Funktionen und automatisierte Aktionen</h2>
+
+      <p>SCOPERA kann Funktionen auf Basis künstlicher Intelligenz bereitstellen. KI-generierte Inhalte und Ergebnisse können trotz technischer Schutzmassnahmen fehlerhaft, unvollständig, unerwartet oder für einen bestimmten Zweck ungeeignet sein.</p>
+
+      <p>Der Kunde ist dafür verantwortlich, KI-generierte Ergebnisse vor einer geschäftlich, rechtlich, finanziell, sicherheitsbezogen oder anderweitig relevanten Verwendung angemessen zu prüfen.</p>
+
+      <p>Der Kunde darf keine Inhalte oder Daten als Eingabe für KI-Funktionen verwenden, zu deren Verarbeitung oder Übermittlung er nicht berechtigt ist.</p>
+
+      <p>Soweit KI-Funktionen, Agenten oder Assistenten Werkzeuge und Integrationen verwenden und dadurch Aktionen in SCOPERA oder angebundenen Drittsystemen auslösen können, ist der Kunde für die Konfiguration der entsprechenden Berechtigungen, Freigaben und Kontrollmechanismen verantwortlich.</p>
+
+      <p>Ob und in welchem Umfang Daten für die Bereitstellung von KI-Funktionen an externe KI-Dienstleister übermittelt werden, richtet sich nach der jeweils eingesetzten Funktion, der Datenschutzerklärung und gegebenenfalls einer Auftragsbearbeitungsvereinbarung.</p>
+
+      <p>Kundendaten werden nicht allein aufgrund ihrer Nutzung innerhalb von SCOPERA für das Training allgemeiner KI-Modelle von ADVANIS verwendet, sofern nicht ausdrücklich etwas anderes vereinbart wurde.</p>
+
+      <h2 id="kundendaten">8. Kundendaten</h2>
+
+      <p>Der Kunde behält sämtliche Rechte an Daten und Inhalten, die durch ihn oder seine Nutzer in SCOPERA eingebracht, erzeugt oder verwaltet werden, soweit diese Rechte beim Kunden liegen.</p>
+
+      <p>Der Kunde räumt ADVANIS für die Dauer der Nutzung diejenigen Rechte ein, die erforderlich sind, um Kundendaten zum Zweck der Bereitstellung, Verarbeitung, Sicherung, Wartung und Unterstützung der vereinbarten SCOPERA-Leistungen zu verarbeiten.</p>
+
+      <p>Der Kunde ist dafür verantwortlich, dass er über die erforderlichen Rechte und Rechtsgrundlagen für die in SCOPERA eingebrachten Daten und Inhalte verfügt.</p>
+
+      <p>Soweit technisch und vertraglich vorgesehen, stellt ADVANIS Möglichkeiten zum Export von Kundendaten zur Verfügung. Details können je nach Edition oder individueller Vereinbarung variieren.</p>
+
+      <h2 id="datenschutz-und-auftragsbearbeitung">9. Datenschutz und Auftragsbearbeitung</h2>
+
+      <p>Die Bearbeitung personenbezogener Daten durch ADVANIS richtet sich nach der jeweils aktuellen <a href={`${base}de/privacy/`}>Datenschutzerklärung von SCOPERA</a>.</p>
+
+      <p>Soweit ADVANIS im Rahmen der Nutzung von SCOPERA personenbezogene Daten im Auftrag des Kunden bearbeitet, gelten ergänzend die vereinbarten Bedingungen zur Auftragsbearbeitung beziehungsweise ein entsprechendes Data Processing Agreement (DPA).</p>
+
+      <p>Soweit erforderlich, können darin insbesondere Zweck und Umfang der Bearbeitung, technische und organisatorische Massnahmen, Subprozessoren, internationale Datenübermittlungen sowie Unterstützungs- und Löschpflichten geregelt werden.</p>
+
+      <h2 id="informationssicherheit">10. Informationssicherheit</h2>
+
+      <p>ADVANIS setzt angemessene technische und organisatorische Massnahmen ein, um die Plattform und die im Rahmen des Dienstes verarbeiteten Daten gegen unbefugten Zugriff, Verlust, Veränderung oder missbräuchliche Verwendung zu schützen.</p>
+
+      <p>Der Kunde bleibt für die sichere Konfiguration seines Mandanten, die Vergabe von Benutzerrechten, die Verwaltung seiner Zugangsdaten sowie die Sicherheit von durch ihn angebundenen Drittsystemen verantwortlich.</p>
+
+      <p>Spezifische Sicherheitsanforderungen und Zusicherungen für Enterprise-Nutzungen können separat vereinbart werden.</p>
+
+      <h2 id="verfuegbarkeit-wartung-und-support">11. Verfügbarkeit, Wartung und Support</h2>
+
+      <p>ADVANIS bemüht sich um eine hohe Verfügbarkeit von SCOPERA.</p>
+
+      <p>Während einer kostenlosen Trial-Phase wird jedoch keine bestimmte Verfügbarkeit zugesichert, sofern nicht ausdrücklich etwas anderes vereinbart wurde.</p>
+
+      <p>Wartungsarbeiten, Sicherheitsupdates und technische Änderungen können zu vorübergehenden Einschränkungen führen. Geplante Wartungsfenster werden nach Möglichkeit vorab angekündigt.</p>
+
+      <p>Für kostenpflichtige Editionen können Verfügbarkeiten, Supportzeiten, Reaktionszeiten oder Service Levels separat vereinbart werden.</p>
+
+      <h2 id="geistiges-eigentum-und-feedback">12. Geistiges Eigentum und Feedback</h2>
+
+      <p>Sämtliche Rechte an SCOPERA selbst, insbesondere an Software, Quellcode, Plattformarchitektur, Design, Dokumentation, Marken und sonstigen geschützten Bestandteilen, verbleiben bei ADVANIS beziehungsweise den jeweiligen Rechteinhabern.</p>
+
+      <p>An Kundendaten und kundeneigenen Inhalten erwirbt ADVANIS keine Eigentumsrechte.</p>
+
+      <p>Soweit Kunden freiwillig Ideen, Verbesserungsvorschläge oder allgemeines Feedback zu SCOPERA übermitteln, darf ADVANIS dieses zur Verbesserung und Weiterentwicklung der Plattform verwenden, sofern dadurch keine vertraulichen Informationen oder Rechte des Kunden verletzt werden.</p>
+
+      <p>Rechte an KI-generierten Ergebnissen richten sich nach dem anwendbaren Recht sowie gegebenenfalls nach den Bedingungen der jeweils eingesetzten Drittanbieter. ADVANIS gibt keine Garantie dafür ab, dass KI-generierte Ergebnisse exklusiv sind oder eigenständige Schutzrechte begründen.</p>
+
+      <h2 id="entgelte-und-kostenpflichtige-editionen">13. Entgelte und kostenpflichtige Editionen</h2>
+
+      <p>Für kostenpflichtige Editionen gelten die bei Bestellung ausgewiesenen oder individuell vereinbarten Preise, Zahlungsbedingungen, Leistungsumfänge und Vertragslaufzeiten.</p>
+
+      <p>Soweit individuelle Angebote, Bestellungen oder Verträge von diesen Nutzungsbedingungen abweichende Regelungen enthalten, gehen die individuell vereinbarten Regelungen vor.</p>
+
+      <p>Steuern und sonstige gesetzliche Abgaben werden entsprechend den jeweils anwendbaren gesetzlichen Bestimmungen behandelt.</p>
+
+      <h2 id="laufzeit-sperrung-kuendigung-und-datenexport">14. Laufzeit, Sperrung, Kündigung und Datenexport</h2>
+
+      <p>Trials enden gemäss Ziffer 3 automatisch.</p>
+
+      <p>Für kostenpflichtige Editionen gelten die im jeweiligen Angebot, Auftrag oder Vertrag vereinbarten Laufzeiten und Kündigungsfristen.</p>
+
+      <p>ADVANIS kann den Zugriff vorübergehend sperren, wenn dies zur Abwehr erheblicher Sicherheitsrisiken erforderlich ist, ein begründeter Verdacht auf rechtswidrige oder missbräuchliche Nutzung besteht oder wesentliche Vertragspflichten trotz angemessener Aufforderung nicht erfüllt werden.</p>
+
+      <p>Nach Vertragsende richten sich Zugriff, Datenexport, Aufbewahrung und Löschung nach der jeweiligen Vereinbarung, den technischen Möglichkeiten und gesetzlichen Aufbewahrungspflichten.</p>
+
+      <h2 id="gewaehrleistung-und-haftung">15. Gewährleistung und Haftung</h2>
+
+      <p>SCOPERA wird nach dem jeweils vereinbarten Leistungsumfang bereitgestellt. Bei Trial-Nutzung erfolgt die Bereitstellung zu Test- und Evaluationszwecken und ohne Zusicherung einer bestimmten Verfügbarkeit oder Eignung für einen bestimmten Geschäftszweck, soweit gesetzlich zulässig.</p>
+
+      <p>ADVANIS haftet unbeschränkt, soweit eine Beschränkung oder ein Ausschluss der Haftung gesetzlich nicht zulässig ist.</p>
+
+      <p>Soweit gesetzlich zulässig, ist eine Haftung für leichte Fahrlässigkeit sowie für indirekte Schäden, Folgeschäden und entgangenen Gewinn ausgeschlossen.</p>
+
+      <p>Soweit bei kostenpflichtigen Leistungen eine Haftung von ADVANIS besteht und gesetzlich eine Begrenzung zulässig ist, kann die Haftung gemäss individueller Vereinbarung auf einen angemessenen Betrag, beispielsweise die für die betroffene Leistung während eines definierten Zeitraums entrichteten Entgelte, begrenzt werden.</p>
+
+      <p>Die endgültige Haftungsregelung einer kostenpflichtigen Edition kann im jeweiligen Vertrag oder Angebot konkretisiert werden.</p>
+
+      <h2 id="aenderungen-anwendbares-recht-und-gerichtsstand">16. Änderungen, anwendbares Recht und Gerichtsstand</h2>
+
+      <p>ADVANIS kann diese Nutzungsbedingungen anpassen, wenn dies aufgrund technischer, geschäftlicher, rechtlicher oder regulatorischer Entwicklungen erforderlich oder sachgerecht ist.</p>
+
+      <p>Wesentliche Änderungen für bestehende kostenpflichtige Vertragsverhältnisse werden dem Kunden grundsätzlich mit angemessener Vorankündigung mitgeteilt. Soweit möglich, soll die Information mindestens 30 Tage vor Inkrafttreten erfolgen.</p>
+
+      <p>Es gilt schweizerisches Recht unter Ausschluss des UN-Kaufrechts.</p>
+
+      <p>Gerichtsstand ist, soweit gesetzlich zulässig, der Sitz der ADVANIS AG in Winterthur, Schweiz.</p>
+
+      <h2 id="kontakt">17. Kontakt</h2>
+
+      <p>Bei Fragen zu diesen Nutzungsbedingungen:</p>
+
+      <p><strong>ADVANIS AG</strong><br />{ADRESSE}<br />Schweiz<br />E-Mail: <a href={`mailto:${KONTAKT_EMAIL}`}>{KONTAKT_EMAIL}</a></p>
+    </div>
+  </section>
+</BaseLayout>
+<style>
+  .rechtstext { max-width: 820px; }
+  .rechtstext h2 { font-size: clamp(21px, 2.6vw, 26px); margin: 44px 0 12px; scroll-margin-top: 90px; }
+  .rechtstext ul { margin: 0 0 14px; padding-left: 22px; }
+  .rechtstext li { padding: 3px 0; }
+  .rechtstext a { text-decoration: underline; text-underline-offset: 2px; }
+  .rechtstext a:hover { color: var(--accent-text); }
+  .inhalt { border: 1px solid var(--line); border-radius: var(--radius); background: var(--card); padding: 16px 22px; margin: 28px 0 8px; }
+  .inhalt ol { margin: 0; padding-left: 20px; }
+  .inhalt li { padding: 3px 0; font-size: 15px; }
+</style>

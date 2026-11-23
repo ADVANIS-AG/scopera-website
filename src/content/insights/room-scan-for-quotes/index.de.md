@@ -10,9 +10,9 @@ Aufmass nehmen heisst oft noch: Zollstock, Notizblock, Fotos, und am Abend alles
 
 ## Wie es abläuft
 
-- **Scannen vor Ort**: Mit der SCOPERA-App und dem LiDAR-Sensor von iPad oder iPhone nehmen Sie den Raum auf. Kein Spezialgerät, kein zusätzliches Stativ. Die App stellen wir auf Einladung bereit, der Raumscan hängt von Ihrer Edition ab.
+- **Scannen vor Ort**: Mit der SCOPERA-App und dem LiDAR-Sensor von iPad oder iPhone nimmst du den Raum auf. Kein Spezialgerät, kein zusätzliches Stativ. Die App stellen wir auf Einladung bereit, der Raumscan hängt von deiner Edition ab.
 - **Masse übernehmen**: Aus dem Scan entstehen Flächen, Längen und Mengen, direkt in der Anwendung.
-- **Offerte erstellen**: Die Mengen fliessen in die Kalkulation. Positionen und Preise stehen, bevor Sie die Baustelle verlassen.
+- **Offerte erstellen**: Die Mengen fliessen in die Kalkulation. Positionen und Preise stehen, bevor du die Baustelle verlässt.
 
 ## Warum das im Alltag zählt
 
@@ -20,4 +20,4 @@ Der grösste Gewinn ist nicht die gesparte Minute beim Messen. Es ist der Wegfal
 
 ## Womit anfangen?
 
-Nehmen Sie eine Objektart, die bei Ihnen häufig vorkommt. Ein Raumtyp, eine Standardleistung. Wenn der Ablauf dort sitzt, lässt er sich auf weitere Fälle ausweiten.
+Nimm eine Objektart, die bei dir häufig vorkommt. Ein Raumtyp, eine Standardleistung. Wenn der Ablauf dort sitzt, lässt er sich auf weitere Fälle ausweiten.

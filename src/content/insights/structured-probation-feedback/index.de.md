@@ -20,4 +20,4 @@ Die Entscheidung über die Probezeit trifft die Führungskraft. Der Agent sammel
 
 ## Womit anfangen?
 
-Beginnen Sie mit zwei Zeitpunkten, etwa nach vier und nach zehn Wochen. Das genügt, um den Unterschied zur blossen Erinnerung zu merken.
+Beginne mit zwei Zeitpunkten, etwa nach vier und nach zehn Wochen. Das genügt, um den Unterschied zur blossen Erinnerung zu merken.

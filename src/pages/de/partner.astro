@@ -10,19 +10,19 @@ import IconPartition from '../../components/icons/IconPartition.astro';
 import IconTicket from '../../components/icons/IconTicket.astro';
 
 const nutzen = [
-  { titel: 'White-Label', Icon: IconLayer, text: 'Eigene Marke, eigene Domain, eigenes Pricing. Ihre Kundschaft sieht Sie, nicht uns.' },
+  { titel: 'White-Label', Icon: IconLayer, text: 'Eigene Marke, eigene Domain, eigenes Pricing. Deine Kundschaft sieht dich, nicht uns.' },
   { titel: 'Mandantentrennung', Icon: IconPartition, text: 'Gemeinsame Plattform, sauber getrennte Mandantendaten. Verschlüsselt, indexiert, mit Backup nach Wunsch.' },
-  { titel: 'Eine Lizenz', Icon: IconTicket, text: 'Eine Lizenz für ADVANIS, Sie als Provider und Ihre Mandanten gemeinsam. Monatlich abgerechnet, ohne Überraschungen.' },
+  { titel: 'Eine Lizenz', Icon: IconTicket, text: 'Eine gemeinsame Lizenz für ADVANIS, für dich als Provider und für deine Mandanten. Monatlich abgerechnet, ohne Überraschungen.' },
 ];
 const base = import.meta.env.BASE_URL;
 const lang = 'de';
 ---
-<BaseLayout title="Partner | SCOPERA." description="Werden Sie Provider auf der SCOPERA-Plattform: eigene Marke, eigene Kundschaft, unsere Technologie im Hintergrund.">
+<BaseLayout title="Partner | SCOPERA." description="Werde Provider auf der SCOPERA-Plattform: eigene Marke, eigene Kundschaft, unsere Technologie im Hintergrund.">
   <section style="padding: 88px 0 64px; border-bottom: none;">
     <div class="wrap">
       <p class="eyebrow">Für Provider &amp; Dienstleister</p>
-      <h1>Ihre Marke. Unsere Plattform<span class="dot">.</span></h1>
-      <p class="lede">Sie haben die Kundschaft, wir liefern die Technologie: eine Enterprise-AI-Plattform im Hintergrund, White-Label unter Ihrem Namen im Vordergrund.</p>
+      <h1>Deine Marke. Unsere Plattform<span class="dot">.</span></h1>
+      <p class="lede">Du hast die Kundschaft, wir liefern die Technologie: eine Enterprise-AI-Plattform im Hintergrund, White-Label unter deinem Namen im Vordergrund.</p>
     </div>
   </section>
   <HeroBild src={`${base}bilder/hero-partner.jpg`} alt="Goldverzierter Zuschauerraum eines Opernhauses mit mehreren Rängen und Logen übereinander" />
@@ -30,14 +30,14 @@ const lang = 'de';
     <div class="wrap">
       <p class="eyebrow">Das Modell</p>
       <h2>Eine Plattform, mehrfach genutzt.</h2>
-      <div style="margin: 8px 0 26px;"><LichtNetz variante="kaskade" labels={['Plattform (ADVANIS)', 'Ihre Marke (Provider)', 'Ihre Kundschaft (Mandanten)']}><KaskadeGrafik /></LichtNetz></div>
-      <p class="soft" style="max-width: 46em;">ADVANIS betreibt SCOPERA. Sie nutzen die Plattform als Provider für Ihre eigene Kundschaft: mit eigener Marke, eigener Domain und eigenem Preismodell. Ihre Mandanten sehen Sie, nicht uns.</p>
+      <div style="margin: 8px 0 26px;"><LichtNetz variante="kaskade" labels={['Plattform (ADVANIS)', 'Deine Marke (Provider)', 'Deine Kundschaft (Mandanten)']}><KaskadeGrafik /></LichtNetz></div>
+      <p class="soft" style="max-width: 46em;">ADVANIS betreibt SCOPERA. Du nutzt die Plattform als Provider für deine eigene Kundschaft: mit eigener Marke, eigener Domain und eigenem Preismodell. Deine Mandanten sehen dich, nicht uns.</p>
     </div>
   </section>
   <section>
     <div class="wrap">
       <p class="eyebrow">Konkret</p>
-      <h2>Was Sie als Provider erhalten.</h2>
+      <h2>Was du als Provider erhältst.</h2>
       <div class="karten-3">
         {nutzen.map(n => (
           <div class="karte">
@@ -52,11 +52,11 @@ const lang = 'de';
   <section style="border-bottom: none;">
     <div class="wrap">
       <blockquote class="pull-quote">
-        <p>Sie verkaufen die Lösung. Wir sorgen dafür, dass sie läuft, heute und in einem Jahr.</p>
+        <p>Du verkaufst die Lösung. Wir sorgen dafür, dass sie läuft, heute und in einem Jahr.</p>
         <cite>ADVANIS, AI Trusted Advisor</cite>
       </blockquote>
     </div>
   </section>
-  <CtaBanner lang={lang} titel="Werden Sie Provider." text="Erzählen Sie uns von Ihrer Kundschaft. Wir zeigen Ihnen, wie White-Label für Sie konkret aussehen könnte." />
+  <CtaBanner lang={lang} titel="Werde Provider." text="Erzähl uns von deiner Kundschaft. Wir zeigen dir, wie White-Label für dich konkret aussehen könnte." />
   <SignupBanner lang={lang} />
 </BaseLayout>

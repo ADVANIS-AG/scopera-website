@@ -20,4 +20,4 @@ Es gibt Anwendungsfälle, die weiterhin eine native App verlangen. Der Raumscan 
 
 ## Womit anfangen?
 
-Prüfen Sie, welche Ihrer mobilen Abläufe wirklich Gerätefunktionen brauchen. Meist ist es die Kamera, und die ist abgedeckt. Für alles Weitere klären wir mit Ihnen den passenden Weg.
+Prüf, welche deiner mobilen Abläufe wirklich Gerätefunktionen brauchen. Meist ist es die Kamera, und die ist abgedeckt. Für alles Weitere klären wir mit dir den passenden Weg.

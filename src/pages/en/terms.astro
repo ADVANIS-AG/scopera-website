@@ -1,0 +1,217 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { ADRESSE, KONTAKT_EMAIL } from '../../config';
+// Nutzungsbedingungen der Plattform (Fassung vom 23.11.2026). Bei Aenderungen DE und EN
+// gemeinsam nachfuehren und den Stand oben anpassen.
+const abschnitte: [string, string][] = [
+  ['scope-and-b2b-use', 'Scope and B2B Use'],
+  ['subject-matter-and-service-description', 'Subject Matter and Service Description'],
+  ['trial-and-editions', 'Trial and Editions'],
+  ['registration-and-user-accounts', 'Registration and User Accounts'],
+  ['rights-of-use', 'Rights of Use'],
+  ['acceptable-use', 'Acceptable Use'],
+  ['ai-functions-and-automated-actions', 'AI Functions and Automated Actions'],
+  ['customer-data', 'Customer Data'],
+  ['data-protection-and-data-processing', 'Data Protection and Data Processing'],
+  ['information-security', 'Information Security'],
+  ['availability-maintenance-and-support', 'Availability, Maintenance and Support'],
+  ['intellectual-property-and-feedback', 'Intellectual Property and Feedback'],
+  ['fees-and-paid-editions', 'Fees and Paid Editions'],
+  ['term-suspension-termination-and-data-export', 'Term, Suspension, Termination and Data Export'],
+  ['warranty-and-liability', 'Warranty and Liability'],
+  ['amendments-governing-law-and-jurisdiction', 'Amendments, Governing Law and Jurisdiction'],
+  ['contact', 'Contact'],
+];
+const base = import.meta.env.BASE_URL;
+---
+<BaseLayout title="Terms of Use | SCOPERA." description="Terms of use of the SCOPERA platform by ADVANIS AG: trial and editions, AI functions, customer data, liability and governing law.">
+  <section style="padding: 88px 0;">
+    <div class="wrap rechtstext">
+      <h1 style="font-size: clamp(30px, 5vw, 44px);">Terms of Use</h1>
+      <p class="soft">Last updated: 23 November 2026, version 0.2</p>
+      <p>These terms apply to the SCOPERA platform. Visiting this website and the processing of personal data are covered by the <a href={`${base}en/privacy/`}>Privacy Policy</a>.</p>
+
+      <nav class="inhalt" aria-label="Table of contents">
+        <ol>
+          {abschnitte.map(([id, titel]) => <li><a href={`#${id}`}>{titel}</a></li>)}
+        </ol>
+      </nav>
+
+      <h2 id="scope-and-b2b-use">1. Scope and B2B Use</h2>
+
+      <p>These Terms of Use govern the use of the SCOPERA platform (“SCOPERA”, the “Platform”), operated by ADVANIS AG (“ADVANIS”), by registered customers and their users.</p>
+
+      <p>SCOPERA is intended exclusively for companies, organisations and individuals acting in the course of their professional or commercial activities. SCOPERA is not intended for private consumer use.</p>
+
+      <p>By registering a tenant, the customer accepts these Terms of Use. A person registering a tenant on behalf of an organisation confirms that they are authorised to register the organisation and accept these terms on its behalf.</p>
+
+      <h2 id="subject-matter-and-service-description">2. Subject Matter and Service Description</h2>
+
+      <p>SCOPERA is a metadata-driven, AI-enabled business platform for managing entities, business apps, workflows, automation and AI-enabled functionality, including AI assistants and connected tools.</p>
+
+      <p>The specific scope of functionality depends on the selected edition, including Trial, Starter, Pro or Enterprise, as well as any individual agreement between the parties.</p>
+
+      <p>ADVANIS continuously develops SCOPERA and may modify, add, replace or discontinue individual functions. For paid editions, such changes should not materially impair the essential agreed functionality during the contractual term unless required for technical, security or legal reasons.</p>
+
+      <h2 id="trial-and-editions">3. Trial and Editions</h2>
+
+      <p>A free Trial registration is provided for the non-binding evaluation of SCOPERA for the Trial period specified during registration.</p>
+
+      <p>The Trial ends automatically when the Trial period expires and will not convert into a paid edition without an explicit order or agreement by the customer.</p>
+
+      <p>ADVANIS may restrict the functionality, capacity, support and availability of the Trial compared with paid editions.</p>
+
+      <p>ADVANIS may suspend or terminate a Trial in the event of abusive, unlawful or security-threatening use.</p>
+
+      <p>After the Trial expires, access to the tenant and its content may be disabled. Unless otherwise agreed or subject to statutory retention obligations, ADVANIS may delete customer data after a reasonable transition period. The applicable transition period and available data export options may be specified in the relevant Trial offering or within the Platform.</p>
+
+      <h2 id="registration-and-user-accounts">4. Registration and User Accounts</h2>
+
+      <p>Registration requires complete and accurate information.</p>
+
+      <p>The customer is responsible for ensuring that only authorised persons have access to its tenant. Login credentials must be kept confidential and must not be disclosed to unauthorised persons.</p>
+
+      <p>The customer is responsible for activities performed through its user accounts or through integrations and permissions configured by the customer to the extent that such activities fall within the customer's area of responsibility.</p>
+
+      <p>Suspected or unauthorised access must be reported to ADVANIS without undue delay.</p>
+
+      <h2 id="rights-of-use">5. Rights of Use</h2>
+
+      <p>For the duration of the applicable Trial or contractual term, ADVANIS grants the customer a non-exclusive, non-transferable right to use SCOPERA for its internal business purposes within the agreed scope.</p>
+
+      <p>Reselling, sublicensing or making the Platform available to third parties is permitted only if explicitly agreed or included in the relevant edition.</p>
+
+      <h2 id="acceptable-use">6. Acceptable Use</h2>
+
+      <p>SCOPERA must not be used:</p>
+
+      <ul>
+        <li>for unlawful purposes or to infringe third-party rights;</li>
+        <li>to distribute malware or conduct unauthorised security attacks;</li>
+        <li>to circumvent technical protection, permission or usage controls;</li>
+        <li>to intentionally impair the availability, integrity or security of the Platform;</li>
+        <li>to process or disclose confidential or personal data without appropriate authorisation;</li>
+        <li>for automated access patterns or workloads that materially exceed the agreed or customary use and may adversely affect the operation of the Platform.</li>
+      </ul>
+
+      <p>These requirements also apply to AI assistants, agents, automations, interfaces and connected tools.</p>
+
+      <h2 id="ai-functions-and-automated-actions">7. AI Functions and Automated Actions</h2>
+
+      <p>SCOPERA may provide functionality based on artificial intelligence. Despite technical safeguards, AI-generated content and results may be inaccurate, incomplete, unexpected or unsuitable for a particular purpose.</p>
+
+      <p>The customer is responsible for appropriately reviewing AI-generated results before using them for business-critical, legal, financial, security-related or otherwise significant purposes.</p>
+
+      <p>The customer must not submit content or data to AI functions unless it is authorised to process and transmit such content or data.</p>
+
+      <p>Where AI functions, agents or assistants use tools or integrations and can trigger actions within SCOPERA or connected third-party systems, the customer is responsible for configuring the relevant permissions, approvals and control mechanisms.</p>
+
+      <p>Whether and to what extent data is transmitted to external AI service providers for the provision of AI functions depends on the respective functionality, the Privacy Policy and, where applicable, a Data Processing Agreement.</p>
+
+      <p>Customer data will not be used solely by virtue of its use within SCOPERA to train ADVANIS general-purpose AI models unless expressly agreed otherwise.</p>
+
+      <h2 id="customer-data">8. Customer Data</h2>
+
+      <p>The customer retains all rights to data and content entered, generated or managed by the customer or its users within SCOPERA to the extent those rights are held by the customer.</p>
+
+      <p>For the duration of the service, the customer grants ADVANIS the rights necessary to process customer data for the purpose of providing, operating, securing, maintaining and supporting the agreed SCOPERA services.</p>
+
+      <p>The customer is responsible for ensuring that it has the necessary rights and legal bases for all data and content entered into SCOPERA.</p>
+
+      <p>Where technically and contractually available, ADVANIS provides mechanisms for exporting customer data. Details may vary depending on the selected edition or individual agreement.</p>
+
+      <h2 id="data-protection-and-data-processing">9. Data Protection and Data Processing</h2>
+
+      <p>ADVANIS processes personal data in accordance with the applicable <a href={`${base}en/privacy/`}>SCOPERA Privacy Policy</a>.</p>
+
+      <p>Where ADVANIS processes personal data on behalf of the customer in connection with SCOPERA, the agreed data processing terms or a separate Data Processing Agreement (DPA) apply in addition to these Terms of Use.</p>
+
+      <p>Where required, such terms may address the purpose and scope of processing, technical and organisational measures, subprocessors, international data transfers, assistance obligations and deletion requirements.</p>
+
+      <h2 id="information-security">10. Information Security</h2>
+
+      <p>ADVANIS applies appropriate technical and organisational measures designed to protect the Platform and data processed within the service against unauthorised access, loss, modification or misuse.</p>
+
+      <p>The customer remains responsible for securely configuring its tenant, assigning user permissions, protecting its credentials and securing third-party systems connected by the customer.</p>
+
+      <p>Specific security requirements and commitments for Enterprise use may be agreed separately.</p>
+
+      <h2 id="availability-maintenance-and-support">11. Availability, Maintenance and Support</h2>
+
+      <p>ADVANIS aims to provide a high level of availability for SCOPERA.</p>
+
+      <p>However, no specific availability level is guaranteed during a free Trial unless expressly agreed otherwise.</p>
+
+      <p>Maintenance, security updates and technical changes may result in temporary service restrictions. Planned maintenance windows will, where reasonably possible, be announced in advance.</p>
+
+      <p>For paid editions, availability commitments, support hours, response times or service levels may be agreed separately.</p>
+
+      <h2 id="intellectual-property-and-feedback">12. Intellectual Property and Feedback</h2>
+
+      <p>All rights in SCOPERA itself, including software, source code, platform architecture, design, documentation, trademarks and other protected elements, remain with ADVANIS or the respective rights holders.</p>
+
+      <p>ADVANIS does not acquire ownership rights in customer data or customer-owned content.</p>
+
+      <p>Where customers voluntarily provide ideas, suggestions for improvement or general feedback concerning SCOPERA, ADVANIS may use such feedback to improve and further develop the Platform, provided that this does not infringe the customer's confidential information or rights.</p>
+
+      <p>Rights in AI-generated outputs are subject to applicable law and, where relevant, the terms of the applicable third-party providers. ADVANIS does not warrant that AI-generated outputs are exclusive or capable of establishing independent intellectual property rights.</p>
+
+      <h2 id="fees-and-paid-editions">13. Fees and Paid Editions</h2>
+
+      <p>Paid editions are subject to the prices, payment terms, scope of services and contractual terms displayed when ordering or individually agreed between the parties.</p>
+
+      <p>Where an individual offer, order or contract contains provisions that differ from these Terms of Use, the individually agreed provisions take precedence.</p>
+
+      <p>Taxes and other statutory charges will be handled in accordance with the applicable legal requirements.</p>
+
+      <h2 id="term-suspension-termination-and-data-export">14. Term, Suspension, Termination and Data Export</h2>
+
+      <p>Trials end automatically in accordance with Section 3.</p>
+
+      <p>Paid editions are subject to the contractual terms and notice periods specified in the applicable offer, order or contract.</p>
+
+      <p>ADVANIS may temporarily suspend access where necessary to address significant security risks, where there is reasonable suspicion of unlawful or abusive use, or where material contractual obligations remain unfulfilled despite reasonable notice.</p>
+
+      <p>Following termination, access, data export, retention and deletion are governed by the applicable agreement, available technical capabilities and statutory retention obligations.</p>
+
+      <h2 id="warranty-and-liability">15. Warranty and Liability</h2>
+
+      <p>SCOPERA is provided in accordance with the agreed scope of services. During a Trial, SCOPERA is provided for testing and evaluation purposes without any guarantee of a specific level of availability or fitness for a particular business purpose, to the extent permitted by law.</p>
+
+      <p>ADVANIS remains fully liable where limitation or exclusion of liability is not permitted by applicable law.</p>
+
+      <p>To the extent permitted by law, liability for slight negligence and for indirect or consequential damages and loss of profit is excluded.</p>
+
+      <p>Where ADVANIS is liable in connection with paid services and a limitation is permitted by law, liability may be limited by individual agreement to an appropriate amount, for example the fees paid for the affected service during a defined period.</p>
+
+      <p>The final liability provisions for a paid edition may be further specified in the applicable contract or offer.</p>
+
+      <h2 id="amendments-governing-law-and-jurisdiction">16. Amendments, Governing Law and Jurisdiction</h2>
+
+      <p>ADVANIS may amend these Terms of Use where appropriate or necessary due to technical, business, legal or regulatory developments.</p>
+
+      <p>Material changes affecting existing paid contractual relationships will generally be communicated to the customer with reasonable advance notice. Where reasonably possible, such notification should be provided at least 30 days before the changes take effect.</p>
+
+      <p>These Terms of Use are governed by Swiss law, excluding the United Nations Convention on Contracts for the International Sale of Goods (CISG).</p>
+
+      <p>To the extent legally permissible, the place of jurisdiction is the registered office of ADVANIS AG in Winterthur, Switzerland.</p>
+
+      <h2 id="contact">17. Contact</h2>
+
+      <p>For questions regarding these Terms of Use:</p>
+
+      <p><strong>ADVANIS AG</strong><br />{ADRESSE}<br />Switzerland<br />Email: <a href={`mailto:${KONTAKT_EMAIL}`}>{KONTAKT_EMAIL}</a></p>
+    </div>
+  </section>
+</BaseLayout>
+<style>
+  .rechtstext { max-width: 820px; }
+  .rechtstext h2 { font-size: clamp(21px, 2.6vw, 26px); margin: 44px 0 12px; scroll-margin-top: 90px; }
+  .rechtstext ul { margin: 0 0 14px; padding-left: 22px; }
+  .rechtstext li { padding: 3px 0; }
+  .rechtstext a { text-decoration: underline; text-underline-offset: 2px; }
+  .rechtstext a:hover { color: var(--accent-text); }
+  .inhalt { border: 1px solid var(--line); border-radius: var(--radius); background: var(--card); padding: 16px 22px; margin: 28px 0 8px; }
+  .inhalt ol { margin: 0; padding-left: 20px; }
+  .inhalt li { padding: 3px 0; font-size: 15px; }
+</style>

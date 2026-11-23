@@ -10,16 +10,16 @@ Der Kundentermin steht in Outlook, der Besuchsbericht in SCOPERA, und dazwischen
 
 ## Was die Verbindung übernimmt
 
-- **Termine automatisch**: Unter «Verbindungen» verbinden Sie Ihren Outlook-Kalender. Mit «Termine aus Outlook übernehmen» kommen Ihre Termine alle 15 Minuten in SCOPERA, sofern Ihre E-Mail-Adresse zu einem Mitarbeitenden-Eintrag gehört.
-- **Private Termine nur auf Wunsch**: Sie werden nur übernommen, wenn Ihr Unternehmen das erlaubt und Sie es selbst einschalten.
-- **Ein Posteingang ohne Inhalte**: Der «Posteingang» zeigt Absender, Betreff und Zeit Ihrer eigenen Mails, nie den Inhalt. «In Outlook öffnen» führt direkt zur Mail.
+- **Termine automatisch**: Unter «Verbindungen» verbindest du deinen Outlook-Kalender. Mit «Termine aus Outlook übernehmen» kommen deine Termine alle 15 Minuten in SCOPERA, sofern deine E-Mail-Adresse zu einem Mitarbeitenden-Eintrag gehört.
+- **Private Termine nur auf Wunsch**: Sie werden nur übernommen, wenn dein Unternehmen das erlaubt und du es selbst einschaltest.
+- **Ein Posteingang ohne Inhalte**: Der «Posteingang» zeigt Absender, Betreff und Zeit deiner eigenen Mails, nie den Inhalt. «In Outlook öffnen» führt direkt zur Mail.
 
 ## Ein Termin gehört einer Person
 
 Ein Termin ist jetzt grundsätzlich persönlich. Kolleginnen und Kollegen sehen ihn nur, wenn er mit einem Kunden, Lead, einer Opportunity oder einem Angebot verknüpft ist oder ausdrücklich für die Abteilung freigegeben wurde. Ein in Outlook als privat markierter Termin bleibt immer privat. Wer bei anderen weniger Termine sieht als früher, sieht die Absicht dahinter: Geteilt wird, was einen geschäftlichen Bezug hat.
 
-Voraussetzung ist, dass Ihr Unternehmen die Microsoft-Verbindung eingerichtet hat. Welche weiteren Systeme sich anbinden lassen, steht auf der Seite [Produkt](/de/product/).
+Voraussetzung ist, dass dein Unternehmen die Microsoft-Verbindung eingerichtet hat. Welche weiteren Systeme sich anbinden lassen, steht auf der Seite [Produkt](/de/product/).
 
 ## Womit anfangen?
 
-Verbinden Sie zuerst nur den Kalender und verknüpfen Sie in der ersten Woche jeden Kundentermin mit dem passenden Kunden. Dann sieht das Team genau die Termine, die es für die Zusammenarbeit braucht.
+Verbinde zuerst nur den Kalender und verknüpfe in der ersten Woche jeden Kundentermin mit dem passenden Kunden. Dann sieht das Team genau die Termine, die es für die Zusammenarbeit braucht.

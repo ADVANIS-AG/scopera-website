@@ -13,7 +13,7 @@ export const stufen: Stufe[] = [
     nr: 1,
     titel: { de: 'Potenziale erkennen', en: 'Identify potential' },
     wasPassiert: {
-      de: 'Wir schauen uns Ihre Prozesse an und zeigen, wo AI den grössten Hebel hat.',
+      de: 'Wir schauen uns deine Prozesse an und zeigen, wo AI den grössten Hebel hat.',
       en: 'We look at your processes and show where AI has the biggest impact.',
     },
     ergebnis: {
@@ -43,7 +43,7 @@ export const stufen: Stufe[] = [
     nr: 3,
     titel: { de: 'Prototyp entwickeln', en: 'Build a prototype' },
     wasPassiert: {
-      de: 'Wir entwickeln live mit AI-nativer Entwicklung an Ihrem echten Prozess.',
+      de: 'Wir entwickeln live mit AI-nativer Entwicklung an deinem echten Prozess.',
       en: 'We develop live, AI-native, on your real process.',
     },
     ergebnis: {
@@ -73,7 +73,7 @@ export const stufen: Stufe[] = [
     nr: 5,
     titel: { de: 'Betreiben und optimieren', en: 'Operate and optimize' },
     wasPassiert: {
-      de: 'Wir übernehmen Betrieb, Sicherheit und Monitoring. Die fachliche Weiterentwicklung machen Sie selbst oder Sie geben sie an uns. Sie entscheiden, und Sie können die Entscheidung jederzeit ändern.',
+      de: 'Wir übernehmen Betrieb, Sicherheit und Monitoring. Die fachliche Weiterentwicklung machst du selbst oder du gibst sie an uns. Du entscheidest, und du kannst die Entscheidung jederzeit ändern.',
       en: 'We take care of operations, security and monitoring. You handle further development yourself, or hand it to us. You decide, and you can change that decision anytime.',
     },
     ergebnis: {

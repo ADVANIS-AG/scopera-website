@@ -24,4 +24,4 @@ Gute Lösungen erkennt man daran, dass Nutzerinnen und Nutzer nach einer Woche n
 
 ## Womit anfangen?
 
-Melden Sie sich mit einem Testkonto an, als wären Sie neu, und gehen Sie die vier Stationen selbst durch. Wo Sie stocken, stocken auch Ihre Mitarbeitenden.
+Melde dich mit einem Testkonto an, als wärst du neu, und geh die vier Stationen selbst durch. Wo du stockst, stocken auch deine Mitarbeitenden.

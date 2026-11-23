@@ -13,19 +13,19 @@ import PortalGrafik from '../../components/PortalGrafik.astro';
 // eine allein. Bleibt eine Karte allein in der letzten Reihe, geht sie per CSS
 // (siehe <style> unten) ueber die volle Breite.
 const features: [string, string, boolean?][] = [
-  ['AI Agents', 'Assistenten, die Aufgaben erledigen statt nur antworten: mit Zugriff auf Ihre Daten, Regeln und Systeme.'],
-  ['Workflows', 'Automatisierte Abläufe über Systemgrenzen hinweg, von Ihrem Fachbereich selbst konfiguriert, mit Freigaben durch Menschen, wo es darauf ankommt. Scheitert ein Ablauf, sehen Admins den Fehler im Workflow-Monitor.'],
-  ['Knowledge', 'Ihr Firmenwissen, durchsuchbar und nutzbar: Dokumente, Systeme und Erfahrung an einem Ort.'],
-  ['Integrationen', 'Microsoft 365 mit Outlook-Kalender und Posteingang, Dynamics 365, SAP, Salesforce und mehr: angebunden an das, was Sie schon haben, statt neue Excel-Inseln.'],
+  ['AI Agents', 'Assistenten, die Aufgaben erledigen statt nur antworten: mit Zugriff auf deine Daten, Regeln und Systeme.'],
+  ['Workflows', 'Automatisierte Abläufe über Systemgrenzen hinweg, von deinem Fachbereich selbst konfiguriert, mit Freigaben durch Menschen, wo es darauf ankommt. Scheitert ein Ablauf, sehen Admins den Fehler im Workflow-Monitor.'],
+  ['Knowledge', 'Dein Firmenwissen, durchsuchbar und nutzbar: Dokumente, Systeme und Erfahrung an einem Ort.'],
+  ['Integrationen', 'Microsoft 365 mit Outlook-Kalender und Posteingang, Dynamics 365, SAP, Salesforce und mehr: angebunden an das, was du schon hast, statt neue Excel-Inseln.'],
   ['Analytics', 'Nutzung, Qualität und Kosten jeder AI-Funktion, transparent im Dashboard.'],
   ['Governance', 'Rollen, Abteilungstrennung, Feldverschlüsselung, revDSG und DSGVO-Werkzeuge. Automatisierte Tests, Backups und Audit-Log inklusive.'],
-  ['Portal', 'Gezielt Informationen mit Kundschaft und Partnern teilen, ohne Sitzplätze zu vergeben. Sie entscheiden, was sichtbar ist und wer Zugang hat.'],
+  ['Portal', 'Gezielt Informationen mit Kundschaft und Partnern teilen, ohne Sitzplätze zu vergeben. Du entscheidest, was sichtbar ist und wer Zugang hat.'],
   ['WhatsApp', 'Nachrichten empfangen und direkt aus der Plattform beantworten, mit eigener Nummer pro Mandant und KI-Unterstützung auf Zuruf.'],
   ['Raumscanner', 'Räume mit der SCOPERA-App auf iPad oder iPhone per LiDAR erfassen. Aus dem Scan entstehen Flächen und Mengen, direkt in der Offerte. Die App gibt es auf Einladung, den Raumscan je nach Edition.', true],
-  ['Datenqualität', 'Bei der Migration bereinigen wir Ihre Daten im Projekt: Prüfregeln, Abgleich mit der Quelle und Erkennung von Mehrfacheinträgen. Im Betrieb prüft die Plattform neue Eingaben beim Erfassen.', true],
+  ['Datenqualität', 'Bei der Migration bereinigen wir deine Daten im Projekt: Prüfregeln, Abgleich mit der Quelle und Erkennung von Mehrfacheinträgen. Im Betrieb prüft die Plattform neue Eingaben beim Erfassen.', true],
   ['Gespräche', 'KI, Personen und Kanäle an einer Stelle. Privat mit der KI fragen und gute Antworten als Karte im Team teilen.', true],
   ['Geführter Einstieg', 'Neue Mitglieder finden sich in vier Stationen zurecht, mit kurzen Touren, Beispieldaten zum Ausprobieren und einem eigenen Pfad für Admins.', true],
-  ['KI App Builder', 'Apps im Gespräch beschreiben. Jede Änderung entsteht als Plan, den technische Admins prüfen, anwenden oder verwerfen. Unter «Eigenschaften» sehen Sie, was eine App enthält.', true],
+  ['KI App Builder', 'Apps im Gespräch beschreiben. Jede Änderung entsteht als Plan, den technische Admins prüfen, anwenden oder verwerfen. Unter «Eigenschaften» siehst du, was eine App enthält.', true],
   ['Agenten im Kanal', 'Im Team-Chat führt die SCOPERA KI, der Daten-Agent liest nur, der Bau-Agent erstellt Entwürfe. Jede Aufgabe läuft mit den Rechten der Person, die sie gegeben hat.', true],
   ['Werkzeuge', 'Einzelne Hilfsmittel, ohne App nutzbar und je nach Lizenz: QR-Scanner, Kamera-Lineal und Dokumentenabgleich, in der iOS-App auch der Raumscan.', true],
   ['KI-Verbindungen (MCP)', 'Als Add-on: SCOPERA aus Claude, ChatGPT, Copilot Studio oder VS Code nutzen. Der Client sieht genau das, was auch die Person sehen darf, und ist ab Werk nur lesend. Admins bauen darüber auch Apps, Workflows und Oberflächen, mit dem eigenen KI-Abo. SCOPERA prüft jeden Plan vor dem Anwenden.', true],
@@ -64,7 +64,7 @@ try {
   <section style="padding: 88px 0 64px; border-bottom: none;">
     <div class="wrap">
       <p class="eyebrow">Produkt</p>
-      <h1>Sie fangen nie bei null an<span class="dot">.</span></h1>
+      <h1>Du fängst nie bei null an<span class="dot">.</span></h1>
       <p class="lede">Jede SCOPERA-Lösung steht auf unserer Enterprise AI Platform: erprobt, sicher, White-Label-fähig. Darum geht es schnell, ohne leichtfertig zu sein.</p>
     </div>
   </section>
@@ -77,7 +77,7 @@ try {
     <div class="wrap">
       <p class="eyebrow">Was die Plattform mitbringt</p>
       <h2>Das Fundament jeder Lösung.</h2>
-      <p class="soft" style="max-width: 46em;">Jede Funktion ist so gebaut, dass Ihr Fachbereich sie direkt nutzen und anpassen kann, nicht nur die IT.</p>
+      <p class="soft" style="max-width: 46em;">Jede Funktion ist so gebaut, dass dein Fachbereich sie direkt nutzen und anpassen kann, nicht nur die IT.</p>
       <div style="margin: 8px 0 26px;"><LichtNetz variante="fundament" labels={features.map(([t]) => t)}><NetzGrafik /></LichtNetz></div>
       <div class="karten-3">
         {features.map(([t, x, neu]) => (
@@ -103,7 +103,7 @@ try {
     <div class="wrap">
       <p class="eyebrow">Portal</p>
       <h2>Zusammenarbeiten, ohne Sitzplätze zu verteilen.</h2>
-      <p class="soft" style="max-width: 46em; margin-bottom: 26px;">Kundschaft, Partner und Lieferanten brauchen oft nur einen Ausschnitt: den Stand eines Auftrags, eine Offerte, eine Bestellmöglichkeit. Das Portal gibt genau diesen Ausschnitt frei. Sie bestimmen, was sichtbar ist und wer Zugang erhält. Auch Provider können das Portal für ihre eigenen Mandanten nutzen.</p>
+      <p class="soft" style="max-width: 46em; margin-bottom: 26px;">Kundschaft, Partner und Lieferanten brauchen oft nur einen Ausschnitt: den Stand eines Auftrags, eine Offerte, eine Bestellmöglichkeit. Das Portal gibt genau diesen Ausschnitt frei. Du bestimmst, was sichtbar ist und wer Zugang erhält. Auch Provider können das Portal für ihre eigenen Mandanten nutzen.</p>
       <PortalGrafik lang={lang} />
       <p class="soft" style="margin-top:18px; font-size:13px;">Typische Anwendungen: Serviceaufträge verfolgen, Offerten freigeben, einfache Bestellprozesse abbilden.</p>
     </div>
@@ -141,7 +141,7 @@ try {
       <p class="soft" style="margin-top:16px; font-size:13px;">Aus Diskretion nennen wir hier keine Kundennamen. Im Gespräch zeigen wir gerne mehr.</p>
     </div>
   </section>
-  <CtaBanner lang={lang} titel="Sehen statt glauben." text="Wir zeigen Ihnen die Plattform und ein Fallbeispiel aus Ihrer Branche. Live, nicht auf Folien." />
+  <CtaBanner lang={lang} titel="Sehen statt glauben." text="Wir zeigen dir die Plattform und ein Fallbeispiel aus deiner Branche. Live, nicht auf Folien." />
   
   {angebotVerfuegbar && (
     <div class="wrap">

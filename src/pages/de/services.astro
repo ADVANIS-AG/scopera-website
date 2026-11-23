@@ -21,12 +21,12 @@ const angebote = [
     Icon: IconMagnify,
     bild: 'leistungen-assessment.jpg',
     alt: 'Hände spielen Klavier, im Hintergrund ein aufgeschlagenes Notenheft',
-    text: 'Wir schauen uns Ihre Prozesse an und zeigen konkret, wo AI den grössten Hebel hat — mit Aufwand-Wirkung-Einschätzung, nicht mit Buzzwords. In einem halben Tag erhalten Sie eine priorisierte Liste möglicher Use Cases samt grober Aufwandschätzung.',
+    text: 'Wir schauen uns deine Prozesse an und zeigen konkret, wo AI den grössten Hebel hat — mit Aufwand-Wirkung-Einschätzung, nicht mit Buzzwords. In einem halben Tag erhältst du eine priorisierte Liste möglicher Use Cases samt grober Aufwandschätzung.',
     ctaText: 'Assessment anfragen',
     kontakt: { name: 'PLATZHALTER_NAME_ASSESSMENT', rolle: 'PLATZHALTER_ROLLE_ASSESSMENT', bookingUrl: '' },
     zusatz: {
       titel: 'Zusatzbaustein: AI Readiness Assessment',
-      text: 'Ergänzend zum Potenzial-Assessment, wenn unklar ist, ob Ihre Daten und Systeme heute schon tragen. Ein halber Tag.',
+      text: 'Ergänzend zum Potenzial-Assessment, wenn unklar ist, ob deine Daten und Systeme heute schon tragen. Ein halber Tag.',
       ctaText: 'Bereitschaft prüfen lassen',
     },
   },
@@ -35,7 +35,7 @@ const angebote = [
     Icon: IconTogether,
     bild: 'leistungen-workshop.jpg',
     alt: 'Geigerinnen und Geiger spielen im Ensemble, Hände und Instrumente im Zusammenspiel',
-    text: 'Ein Tag, ein Raum, eine Roadmap: Wir erarbeiten gemeinsam mit Ihrem Team, welche AI-Initiativen zuerst Sinn ergeben. Sie verlassen den Workshop mit einer priorisierten Liste und einem realistischen Zeitplan, nicht mit einer Präsentation.',
+    text: 'Ein Tag, ein Raum, eine Roadmap: Wir erarbeiten gemeinsam mit deinem Team, welche AI-Initiativen zuerst Sinn ergeben. Du verlässt den Workshop mit einer priorisierten Liste und einem realistischen Zeitplan, nicht mit einer Präsentation.',
     ctaText: 'Workshop buchen',
     kontakt: { name: 'PLATZHALTER_NAME_WORKSHOP', rolle: 'PLATZHALTER_ROLLE_WORKSHOP', bookingUrl: '' },
   },
@@ -44,7 +44,7 @@ const angebote = [
     Icon: IconSpark,
     bild: 'leistungen-vibe.jpg',
     alt: 'Saxophon in dynamischem Bühnenlicht, warme Farben',
-    text: 'Bringen Sie ein konkretes Problem mit, wir entwickeln gemeinsam live mit AI-nativer Entwicklung — Sie sehen in Stunden, nicht Wochen, ob und wie es geht. Kein Angebot, keine Vorlaufzeit: wir setzen uns hin und probieren es zusammen.',
+    text: 'Bring ein konkretes Problem mit, wir entwickeln gemeinsam live mit AI-nativer Entwicklung — du siehst in Stunden, nicht Wochen, ob und wie es geht. Kein Angebot, keine Vorlaufzeit: wir setzen uns hin und probieren es zusammen.',
     ctaText: 'Issue einreichen',
     kontakt: { name: 'PLATZHALTER_NAME_VIBE', rolle: 'PLATZHALTER_ROLLE_VIBE', bookingUrl: '' },
   },
@@ -53,12 +53,12 @@ const base = import.meta.env.BASE_URL;
 const lang = 'de';
 const terminZielFallback = BOOKING_URL || `${base}de/contact/`;
 ---
-<BaseLayout title="Leistungen | SCOPERA." description="Beratung, die auch ohne unsere Plattform trägt: Assessments, Workshops und Formate, die Klarheit schaffen, bevor Sie investieren.">
+<BaseLayout title="Leistungen | SCOPERA." description="Beratung, die auch ohne unsere Plattform trägt: Assessments, Workshops und Formate, die Klarheit schaffen, bevor du investierst.">
   <section style="padding: 88px 0 64px; border-bottom: none;">
     <div class="wrap">
       <p class="eyebrow">Leistungen</p>
       <h1>Beratung, die auch ohne unsere Plattform trägt<span class="dot">.</span></h1>
-      <p class="lede">Strategie, Assessments, Workshops: Sie können unsere Beratung parallel zur Plattform nutzen oder unabhängig davon buchen. Beides schafft Klarheit, bevor Sie investieren.</p>
+      <p class="lede">Strategie, Assessments, Workshops: du kannst unsere Beratung parallel zur Plattform nutzen oder unabhängig davon buchen. Beides schafft Klarheit, bevor du investierst.</p>
     </div>
   </section>
   <div class="wrap">
@@ -106,5 +106,5 @@ const terminZielFallback = BOOKING_URL || `${base}de/contact/`;
     </div>
   </section>
   <PlaygroundBanner lang={lang} />
-  <CtaBanner lang={lang} titel="Welcher Use Case zuerst?" text="Bringen Sie einen Prozess mit, der Sie nervt. Wir klären in 30 Minuten, wie SCOPERA ihn digitalisieren, automatisieren oder unterstützen kann." />
+  <CtaBanner lang={lang} titel="Welcher Use Case zuerst?" text="Bring einen Prozess mit, der dich nervt. Wir klären in 30 Minuten, wie SCOPERA ihn digitalisieren, automatisieren oder unterstützen kann." />
 </BaseLayout>

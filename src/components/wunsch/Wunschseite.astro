@@ -20,7 +20,7 @@ const spielwieseUrl = `https://playground.scopera.ai/playground?mode=wunsch&lang
 const teilnahmeUrl = `${base}${lang}/wunsch/teilnahme/`;
 const datenschutzUrl = `${base}${lang}/privacy/#${lang === 'de' ? 'weihnachtsaktion' : 'christmas-campaign'}`;
 const startseite = `${base}${lang}/`;
-const nutzungUrl = 'https://app.scopera.ai/legal/terms';
+const nutzungUrl = `${base}${lang}/terms/`;
 
 // Nur was das Skript zur Laufzeit braucht, als JSON in die Seite. So bleibt das Skript fuer
 // beide Sprachen dasselbe gebuendelte Modul.
@@ -277,7 +277,7 @@ const pfeil = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke
       </div>
     </div>
 
-    <p class="wz-recht"><a href={teilnahmeUrl}>{t.recht.teilnahme}</a><a href={nutzungUrl} target="_blank" rel="noopener noreferrer">{t.recht.nutzung}</a><a href={datenschutzUrl}>{t.recht.datenschutz}</a></p>
+    <p class="wz-recht"><a href={teilnahmeUrl}>{t.recht.teilnahme}</a><a href={nutzungUrl}>{t.recht.nutzung}</a><a href={datenschutzUrl}>{t.recht.datenschutz}</a></p>
   </div>
 </div>
 

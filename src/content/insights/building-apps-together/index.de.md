@@ -6,13 +6,13 @@ cover: ./gemeinsam-am-tisch.jpg
 coverAlt: "Zwei Personen an einem Schreibtisch, sichtbar sind nur ihre Hände über Unterlagen"
 ---
 
-Ein allgemeiner Chat-Assistent kann erstaunlich viel. Er erklärt, formuliert, schreibt Code. Eines kann er nicht: Ihr Team an denselben Stand bringen. Jede Person führt ihr eigenes Gespräch, mit eigenem Kontext und eigenem Ergebnis. Am Ende liegen fünf Varianten vor und keine läuft.
+Ein allgemeiner Chat-Assistent kann erstaunlich viel. Er erklärt, formuliert, schreibt Code. Eines kann er nicht: dein Team an denselben Stand bringen. Jede Person führt ihr eigenes Gespräch, mit eigenem Kontext und eigenem Ergebnis. Am Ende liegen fünf Varianten vor und keine läuft.
 
 ## Was gemeinsames Bauen ausmacht
 
 - **Ein gemeinsamer Stand**: Alle arbeiten an derselben Anwendung. Was jemand ändert, sehen die anderen.
 - **Das Ergebnis läuft**: Am Ende steht eine Anwendung auf der Plattform, mit Rollen, Daten und Berechtigungen. Kein Codeschnipsel, der noch ein Zuhause sucht.
-- **Der Kontext ist schon da**: Die KI kennt Ihre Datenstruktur und Ihre Regeln, weil sie im selben System arbeitet.
+- **Der Kontext ist schon da**: Die KI kennt deine Datenstruktur und deine Regeln, weil sie im selben System arbeitet.
 - **Nachvollziehbar**: Änderungen sind protokolliert, App-Versionen lassen sich zurücksetzen.
 
 ## Warum das den Unterschied macht
@@ -21,4 +21,4 @@ Ein Chatfenster ist ein Werkzeug für eine Person. Eine Fachanwendung entsteht i
 
 ## Womit anfangen?
 
-Nehmen Sie einen Ablauf, bei dem heute schon mehrere Leute mitreden. Genau dort zeigt sich der Unterschied am deutlichsten.
+Nimm einen Ablauf, bei dem heute schon mehrere Leute mitreden. Genau dort zeigt sich der Unterschied am deutlichsten.
