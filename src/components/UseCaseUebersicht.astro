@@ -1,0 +1,66 @@
+---
+// Übersicht der Anwendungsfälle, für beide Sprachen. Die Seiten unter
+// src/pages/{de,en}/use-cases/index.astro sind nur Hüllen.
+import BaseLayout from '../layouts/BaseLayout.astro';
+import SignupBanner from './SignupBanner.astro';
+import { BEISPIELE, GEMEINSAM } from '../data/beispiele';
+import type { Lang } from '../i18n/ui';
+interface Props { lang: Lang }
+const { lang } = Astro.props;
+const base = import.meta.env.BASE_URL;
+const g = GEMEINSAM[lang];
+const seite = new URL(`${base}${lang}/use-cases/`, Astro.site).href;
+---
+<BaseLayout title={`${g.eyebrow} | SCOPERA.`} description={g.uebersichtBeschreibung}>
+  <section style="padding: 88px 0 64px; border-bottom: none;">
+    <div class="wrap">
+      <p class="eyebrow">{g.eyebrow}</p>
+      <h1>{g.uebersichtTitel}<span class="dot">.</span></h1>
+      <p class="lede">{g.uebersichtLede}</p>
+    </div>
+  </section>
+  <section>
+    <div class="wrap">
+      <div class="karten-3">
+        {BEISPIELE.map((b) => (
+          <a class="karte fall" href={`${base}${lang}/use-cases/${b.slug}/`}>
+            <h2>{b[lang].titel}</h2>
+            <p class="soft">{b[lang].beschreibung}</p>
+            <p class="mehr">{g.ansehen} →</p>
+          </a>
+        ))}
+      </div>
+      <p class="soft" style="margin-top: 22px;"><a href={`${base}${lang}/playground/`}>{g.eigener} →</a></p>
+    </div>
+  </section>
+  <section>
+    <div class="wrap">
+      <p class="eyebrow">{g.schattenEyebrow}</p>
+      <h2>{g.schattenTitel}</h2>
+      {g.schatten.map((absatz, i) => (
+        <p class="soft" style={`max-width: 46em;${i ? ' margin-top: 14px;' : ''}`}>{absatz}</p>
+      ))}
+      <p style="margin-top: 16px;"><a href={`${base}${lang}/governance/`}>Governance →</a></p>
+    </div>
+  </section>
+  <SignupBanner lang={lang} quelle="use-cases" />
+  <script type="application/ld+json" is:inline set:html={JSON.stringify({
+    '@context': 'https://schema.org',
+    '@type': 'ItemList',
+    name: g.uebersichtTitel,
+    url: seite,
+    itemListElement: BEISPIELE.map((b, i) => ({
+      '@type': 'ListItem',
+      position: i + 1,
+      name: b[lang].titel,
+      url: `${seite}${b.slug}/`,
+    })),
+  })} />
+</BaseLayout>
+<style>
+  .fall { display: flex; flex-direction: column; gap: 10px; text-decoration: none; color: inherit; transition: border-color .2s; }
+  .fall:hover { border-color: var(--accent); }
+  .fall h2 { font-size: 19px; margin: 0; }
+  .fall p { font-size: 14px; margin: 0; }
+  .fall .mehr { margin-top: auto; padding-top: 6px; color: var(--accent-text); }
+</style>

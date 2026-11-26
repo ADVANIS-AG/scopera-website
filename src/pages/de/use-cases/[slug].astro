@@ -1,0 +1,10 @@
+---
+import UseCaseSeite from '../../../components/UseCaseSeite.astro';
+import { BEISPIELE, type Beispiel } from '../../../data/beispiele';
+export function getStaticPaths() {
+  return BEISPIELE.map((beispiel) => ({ params: { slug: beispiel.slug }, props: { beispiel } }));
+}
+interface Props { beispiel: Beispiel }
+const { beispiel } = Astro.props;
+---
+<UseCaseSeite lang="de" beispiel={beispiel} />

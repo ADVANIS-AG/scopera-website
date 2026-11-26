@@ -1,9 +1,11 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import SignupBanner from '../../components/SignupBanner.astro';
+import { BEISPIELE } from '../../data/beispiele';
 const base = import.meta.env.BASE_URL;
 const lang = 'de';
 const spielwieseUrl = 'https://playground.scopera.ai/playground?lang=de';
+const seitenUrl = new URL(`${import.meta.env.BASE_URL}de/playground/`, Astro.site).href;
 ---
 <BaseLayout title="Spielwiese | SCOPERA." description="Beschreib eine Aufgabe aus deinem Alltag. Die Spielwiese baut daraus eine App, die du gleich bedienen kannst, und zeichnet den Ablauf dahinter. Ohne Registrierung.">
   <section style="padding: 88px 0 64px; border-bottom: none;">
@@ -38,7 +40,34 @@ const spielwieseUrl = 'https://playground.scopera.ai/playground?lang=de';
       <p style="margin-top:16px;"><a href={`${base}de/product/`}>Was die Plattform sonst mitbringt →</a></p>
     </div>
   </section>
+  <section>
+    <div class="wrap">
+      <p class="eyebrow">Beispiele</p>
+      <h2>Womit andere anfangen.</h2>
+      <p class="soft" style="max-width: 46em;">Die Spielwiese steigt mit einem dieser Abläufe ein. Jeder zeigt, wie aus Excel, Mail und Papier ein digitaler Prozess wird, auf einer gesicherten Plattform und ohne Schatten-KI.</p>
+      <div class="karten-3" style="margin-top: 22px;">
+        {BEISPIELE.map((b) => (
+          <a class="karte beispiel" href={`${base}de/use-cases/${b.slug}/`}>
+            <h3>{b.de.titel}</h3>
+            <p class="soft">«{b.de.prompt}»</p>
+          </a>
+        ))}
+      </div>
+      <p style="margin-top:16px;"><a href={`${base}de/use-cases/`}>Alle Anwendungsfälle →</a></p>
+    </div>
+  </section>
   <SignupBanner lang={lang} quelle="playground" />
+  <script type="application/ld+json" is:inline set:html={JSON.stringify({
+    '@context': 'https://schema.org',
+    '@type': 'SoftwareApplication',
+    name: 'SCOPERA',
+    applicationCategory: 'BusinessApplication',
+    applicationSubCategory: 'Unternehmensplattform für KI-gestützte Geschäftsprozesse',
+    operatingSystem: 'Web',
+    url: seitenUrl,
+    description: 'Beschreib einen Ablauf aus deinem Alltag in eigenen Worten. SCOPERA baut daraus eine App und den Prozess dahinter, auf einer gesicherten Plattform statt in einem privaten KI-Konto.',
+    publisher: { '@type': 'Organization', name: 'ADVANIS AG', url: 'https://www.advanis.ch' },
+  })} />
 </BaseLayout>
 <script>
   const URSPRUNG = 'https://playground.scopera.ai';
@@ -51,7 +80,11 @@ const spielwieseUrl = 'https://playground.scopera.ai/playground?lang=de';
     // Das Theme muss immer mitgegeben werden. Ohne den Parameter folgt die Spielwiese dem
     // Betriebssystem, waehrend die Seite ringsum dem eigenen Umschalter folgt. Das Setzen
     // per Skript stellt sicher, dass der Rahmen von Anfang an richtig rendert.
-    rahmen.src = `${rahmen.dataset.src}&theme=${theme()}`;
+    // Die Seiten der Anwendungsfälle verlinken mit ?example=<id>: die Bühne beginnt dann mit
+    // diesem Beispiel. Nur Kleinbuchstaben, alles andere fällt weg.
+    const beispiel = new URLSearchParams(window.location.search).get('example') ?? '';
+    const mitBeispiel = /^[a-z]{1,24}$/.test(beispiel) ? `&example=${beispiel}` : '';
+    rahmen.src = `${rahmen.dataset.src}&theme=${theme()}${mitBeispiel}`;
 
     const senden = () => {
       rahmen.contentWindow?.postMessage(
@@ -95,4 +128,8 @@ const spielwieseUrl = 'https://playground.scopera.ai/playground?lang=de';
     setzt sie. min-height haelt bis zur ersten Meldung den Platz und wird dann aufgehoben.
   */
   .spielwiese-embed iframe { display: block; width: 100%; border: 0; min-height: 820px; }
+  .beispiel { display: block; text-decoration: none; color: inherit; transition: border-color .2s; }
+  .beispiel:hover { border-color: var(--accent); }
+  .beispiel h3 { font-size: 17px; margin: 0 0 8px; }
+  .beispiel p { font-size: 14px; margin: 0; }
 </style>
