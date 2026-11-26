@@ -10,6 +10,7 @@ Key facts:
 - How it works: you describe a process in plain language; SCOPERA builds a working app and the workflow behind it; you refine it, connect real data and add roles, permissions and approvals.
 - Governance: roles and permissions down to row filters, a change log, AI models approved by the company, pattern removal and masking before AI calls, human approval steps in workflows. Details: https://www.scopera.ai/en/governance/
 - Hosting: platform data is stored in Switzerland by default; on request SCOPERA runs in the customer's own cloud or on premises.
+- AI in Switzerland: the choice of AI models is made together with the customer and documented. On request the AI stays in Switzerland as well, with Swiss or European providers or with models the customer operates (including locally run models). Which providers are in use by default, and where they process data, is listed in the privacy policy: https://www.scopera.ai/en/privacy/
 - Integration: existing systems connect through MCP (Model Context Protocol), APIs and standard adapters. SCOPERA is also an MCP server, so Claude, ChatGPT, Microsoft Copilot and other AI clients can work with SCOPERA data under the user's permissions.
 - Try it without sign-up: https://www.scopera.ai/en/playground/
 

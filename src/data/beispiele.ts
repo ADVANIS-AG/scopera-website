@@ -254,7 +254,7 @@ export const GEMEINSAM: Record<Lang, {
   de: {
     eyebrow: 'Anwendungsfälle',
     uebersichtTitel: 'Vom manuellen Ablauf zum digitalen Prozess',
-    uebersichtBeschreibung: 'Sechs Beispiele, wie Fachabteilungen manuelle Abläufe aus Excel, Mail und Papier in digitale, intelligente Prozesse umwandeln. Auf einer gesicherten Plattform, ohne Schatten-KI.',
+    uebersichtBeschreibung: 'Sechs Beispiele, wie Fachabteilungen manuelle Abläufe aus Excel, Mail und Papier in digitale, intelligente Prozesse umwandeln. Auf einer gesicherten Plattform, ohne Schatten-KI. Hosting in der Schweiz, auf Wunsch auch die KI.',
     uebersichtLede: 'Als Fachanwender wandelst du heutige manuelle Abläufe in digitale, intelligente Prozesse um. Du beschreibst sie in eigenen Worten, wie du es von einem KI-Chat gewohnt bist. Der Unterschied: Der Ablauf läuft danach auf einer gesicherten Plattform und nicht in einem privaten Konto.',
     heuteEyebrow: 'Ausgangslage',
     heute: 'Wie es heute läuft.',
@@ -269,7 +269,7 @@ export const GEMEINSAM: Record<Lang, {
     schattenTitel: 'Prompten wie gewohnt. Nur nicht mehr im Schatten.',
     schatten: [
       'Viele Fachabteilungen lösen solche Aufgaben heute mit privaten KI-Konten. Das geht schnell. Aber die Daten verlassen das Unternehmen, niemand sieht, was damit passiert, und das Ergebnis lebt in einem Chatfenster.',
-      'Auf SCOPERA läuft derselbe Ablauf mit Rollen und Rechten, einem Änderungsprotokoll und KI-Modellen, die dein Unternehmen freigegeben hat. Die Plattformdaten liegen standardmässig in der Schweiz. Auf Wunsch läuft SCOPERA in deiner eigenen Cloud oder bei dir im Haus. Bestehende Systeme bindest du über MCP, APIs und Standardadapter an.',
+      'Auf SCOPERA läuft derselbe Ablauf mit Rollen und Rechten, einem Änderungsprotokoll und KI-Modellen, die dein Unternehmen freigegeben hat. Die Plattformdaten liegen standardmässig in der Schweiz. Auf Wunsch bleibt auch die KI in der Schweiz: mit Schweizer Anbietern oder mit Modellen, die du selbst betreibst. SCOPERA läuft als SaaS, in deiner eigenen Cloud oder bei dir im Haus. Bestehende Systeme bindest du über MCP, APIs und Standardadapter an.',
     ],
     ausprobieren: 'In der Spielwiese ausprobieren',
     ansehen: 'Ablauf ansehen',
@@ -281,7 +281,7 @@ export const GEMEINSAM: Record<Lang, {
   en: {
     eyebrow: 'Use cases',
     uebersichtTitel: 'From a manual routine to a digital process',
-    uebersichtBeschreibung: 'Six examples of how business teams turn manual routines in Excel, email and paper into digital, intelligent processes. On a secured platform, without shadow AI.',
+    uebersichtBeschreibung: 'Six examples of how business teams turn manual routines in Excel, email and paper into digital, intelligent processes. On a secured platform, without shadow AI. Hosted in Switzerland, on request the AI too.',
     uebersichtLede: 'As a business user you turn today’s manual routines into digital, intelligent processes. You describe them in your own words, the way you are used to from an AI chat. The difference: the process then runs on a secured platform and not in a private account.',
     heuteEyebrow: 'Starting point',
     heute: 'How it works today.',
@@ -296,7 +296,7 @@ export const GEMEINSAM: Record<Lang, {
     schattenTitel: 'Prompt the way you always do. Just not in the shadows.',
     schatten: [
       'Many business teams solve tasks like this with private AI accounts today. It is quick. But the data leaves the company, nobody sees what happens to it, and the result lives in a chat window.',
-      'On SCOPERA the same process runs with roles and permissions, a change log and AI models your company has approved. Platform data is stored in Switzerland by default. On request, SCOPERA runs in your own cloud or on your premises. You connect existing systems through MCP, APIs and standard adapters.',
+      'On SCOPERA the same process runs with roles and permissions, a change log and AI models your company has approved. Platform data is stored in Switzerland by default. On request the AI stays in Switzerland too: with Swiss providers or with models you run yourself. SCOPERA runs as SaaS, in your own cloud or on your premises. You connect existing systems through MCP, APIs and standard adapters.',
     ],
     ausprobieren: 'Try it in the playground',
     ansehen: 'See the process',
