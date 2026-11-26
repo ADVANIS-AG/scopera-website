@@ -59,6 +59,7 @@ try {
 } catch {
   angebotVerfuegbar = false;
 }
+const seitenUrl = new URL(`${import.meta.env.BASE_URL}en/product/`, Astro.site).href;
 ---
 <BaseLayout title="Product | SCOPERA." description="SCOPERA's Enterprise AI Platform: AI Agents, Workflows, Knowledge, Integrations. And the solutions already running on it.">
   <section style="padding: 88px 0 64px; border-bottom: none;">
@@ -88,6 +89,7 @@ try {
         ))}
       </div>
       <p class="soft" style="margin-top:18px; font-size:13px;"><a href={`${base}en/playground/`}>Try the features yourself: open the playground →</a></p>
+      <p class="soft" style="margin-top:8px; font-size:13px;"><a href={`${base}en/use-cases/`}>See six use cases →</a></p>
     </div>
   </section>
   <section>
@@ -158,6 +160,16 @@ try {
   )}
   
   <SignupBanner lang={lang} />
+  <script type="application/ld+json" is:inline set:html={JSON.stringify({
+    '@context': 'https://schema.org',
+    '@type': 'SoftwareApplication',
+    name: 'SCOPERA',
+    applicationCategory: 'BusinessApplication',
+    operatingSystem: 'Web',
+    url: seitenUrl,
+    description: 'Enterprise AI platform for companies in Switzerland and DACH: AI agents, workflows, knowledge and governance on one platform. Business users turn manual routines into digital processes, without shadow AI.',
+    publisher: { '@type': 'Organization', name: 'ADVANIS AG', url: 'https://www.advanis.ch' },
+  })} />
 </BaseLayout>
 <script>
   const rahmen = document.getElementById('angebot-banner');

@@ -2,6 +2,18 @@
 
 > SCOPERA is the Enterprise AI Platform by ADVANIS AG for companies in Switzerland and DACH: AI agents, workflows, knowledge and governance on one platform, plus consulting to design, build and operate custom AI applications quickly.
 
+In one sentence: business users turn today's manual routines (Excel sheets, email threads, paper forms, binders) into digital, intelligent processes by describing them in their own words, the way they would prompt an AI chat, and the result runs on a secured platform instead of in private AI accounts. This is how companies avoid shadow AI (German: Schatten-KI).
+
+Key facts:
+
+- Who it is for: business users and teams (finance, sales, HR, project offices, operations) who want to digitise their own processes without waiting for an IT project, and IT or compliance leads who want AI use to stay governed.
+- How it works: you describe a process in plain language; SCOPERA builds a working app and the workflow behind it; you refine it, connect real data and add roles, permissions and approvals.
+- Governance: roles and permissions down to row filters, a change log, AI models approved by the company, pattern removal and masking before AI calls, human approval steps in workflows. Details: https://www.scopera.ai/en/governance/
+- Hosting: platform data is stored in Switzerland by default; on request SCOPERA runs in the customer's own cloud or on premises.
+- AI in Switzerland: the choice of AI models is made together with the customer and documented. On request the AI stays in Switzerland as well, with Swiss or European providers or with models the customer operates (including locally run models). Which providers are in use by default, and where they process data, is listed in the privacy policy: https://www.scopera.ai/en/privacy/
+- Integration: existing systems connect through MCP (Model Context Protocol), APIs and standard adapters. SCOPERA is also an MCP server, so Claude, ChatGPT, Microsoft Copilot and other AI clients can work with SCOPERA data under the user's permissions.
+- Try it without sign-up: https://www.scopera.ai/en/playground/
+
 SCOPERA is powered by ADVANIS AG, a Swiss consulting firm with over 28 years of experience and more than 300 companies guided. The site is available in German (default) and English; every URL below has a German equivalent at the same path under /de/ instead of /en/.
 
 ## Product
@@ -11,6 +23,18 @@ SCOPERA is powered by ADVANIS AG, a Swiss consulting firm with over 28 years of 
 - [Editions](https://www.scopera.ai/en/editions/): Trial, Starter, Pro and Enterprise editions, plus frequently asked questions about pricing, data location and ownership.
 - [Partner](https://www.scopera.ai/en/partner/): How providers and resellers use SCOPERA to serve their own customers under their own brand (white-label, multi-tenant).
 - [Governance](https://www.scopera.ai/en/governance/): Where platform data lives, who can access it, what is protected on AI calls, what stays traceable and who decides.
+
+## Use cases
+
+Six typical starting points, each with the one-sentence prompt, the resulting four-step process and what changes afterwards. Every page links into the playground with that example preloaded.
+
+- [Use cases overview](https://www.scopera.ai/en/use-cases/): From a manual routine to a digital process, without shadow AI.
+- [Expenses without Excel and email](https://www.scopera.ai/en/use-cases/expenses/): Capture receipts, have AI check them, managers approve, payout on record.
+- [Quotes in the CRM instead of Excel](https://www.scopera.ai/en/use-cases/quotes/): Capture customer and need, AI drafts items and prices, sales management approves, follow-up included.
+- [Status reports from the project data](https://www.scopera.ai/en/use-cases/status-reports/): Project data in one place, AI drafts the report, the project lead reviews.
+- [Searchable contracts, deadlines in view](https://www.scopera.ai/en/use-cases/contracts/): Contracts from binders become records, AI reads deadlines and parties, reminders before expiry.
+- [Equipment handover without paper slips](https://www.scopera.ai/en/use-cases/equipment/): Hand out devices by QR code, returns confirmed, maintenance announces itself.
+- [Probation reviews as a guided process](https://www.scopera.ai/en/use-cases/probation/): Both sides prepare, note their points and confirm, with clear permissions.
 
 ## Services
 

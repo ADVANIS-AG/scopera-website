@@ -1,0 +1,125 @@
+---
+// Ein Anwendungsfall, für beide Sprachen. Die Seiten unter
+// src/pages/{de,en}/use-cases/[slug].astro sind nur Hüllen.
+import BaseLayout from '../layouts/BaseLayout.astro';
+import SignupBanner from './SignupBanner.astro';
+import { BEISPIELE, GEMEINSAM, type Beispiel } from '../data/beispiele';
+import type { Lang } from '../i18n/ui';
+interface Props { lang: Lang; beispiel: Beispiel }
+const { lang, beispiel } = Astro.props;
+const base = import.meta.env.BASE_URL;
+const g = GEMEINSAM[lang];
+const b = beispiel[lang];
+const spielwiese = `${base}${lang}/playground/?example=${beispiel.id}`;
+const uebersicht = new URL(`${base}${lang}/use-cases/`, Astro.site).href;
+const andere = BEISPIELE.filter((x) => x.id !== beispiel.id);
+---
+<BaseLayout title={`${b.titel} | SCOPERA.`} description={b.beschreibung}>
+  <section style="padding: 88px 0 64px; border-bottom: none;">
+    <div class="wrap">
+      <p class="eyebrow"><a href={`${base}${lang}/use-cases/`} style="color:inherit; text-decoration:none;">{g.eyebrow}</a></p>
+      <h1>{b.titel}<span class="dot">.</span></h1>
+      <p class="lede">{b.beschreibung}</p>
+      <p style="margin-top: 22px;"><a class="btn" href={spielwiese}>{g.ausprobieren}</a></p>
+    </div>
+  </section>
+  <section>
+    <div class="wrap">
+      <p class="eyebrow">{g.heuteEyebrow}</p>
+      <h2>{g.heute}</h2>
+      <p class="soft" style="max-width: 46em;">{b.heute}</p>
+      <p class="soft" style="max-width: 46em; margin-top: 14px;">{g.unterlagen}: {b.unterlagen}</p>
+    </div>
+  </section>
+  <section>
+    <div class="wrap">
+      <p class="eyebrow">{g.promptEyebrow}</p>
+      <h2>{g.promptTitel}</h2>
+      <blockquote class="prompt">{b.prompt}</blockquote>
+      <p class="soft" style="max-width: 46em;">{g.promptText}</p>
+    </div>
+  </section>
+  <section>
+    <div class="wrap">
+      <p class="eyebrow">{g.schritteEyebrow}</p>
+      <h2>{g.schritteTitel}</h2>
+      <ol class="schritte">
+        {b.schritte.map((s) => (
+          <li>
+            <h3>{s.titel}</h3>
+            <p class="soft">{s.text}</p>
+          </li>
+        ))}
+      </ol>
+    </div>
+  </section>
+  <section>
+    <div class="wrap">
+      <p class="eyebrow">{g.danachEyebrow}</p>
+      <h2>{g.danachTitel}</h2>
+      <p class="soft" style="max-width: 46em;">{b.danach}</p>
+      <p style="margin-top: 22px;"><a class="btn" href={spielwiese}>{g.ausprobieren}</a></p>
+    </div>
+  </section>
+  <section>
+    <div class="wrap">
+      <p class="eyebrow">{g.schattenEyebrow}</p>
+      <h2>{g.schattenTitel}</h2>
+      {g.schatten.map((absatz, i) => (
+        <p class="soft" style={`max-width: 46em;${i ? ' margin-top: 14px;' : ''}`}>{absatz}</p>
+      ))}
+      <p style="margin-top: 16px;"><a href={`${base}${lang}/governance/`}>Governance →</a></p>
+    </div>
+  </section>
+  <section>
+    <div class="wrap">
+      <p class="eyebrow">{g.weitere}</p>
+      <ul class="weitere">
+        {andere.map((x) => (
+          <li><a href={`${base}${lang}/use-cases/${x.slug}/`}>{x[lang].titel}</a></li>
+        ))}
+        <li><a href={`${base}${lang}/use-cases/`}>{g.alle} →</a></li>
+      </ul>
+    </div>
+  </section>
+  <SignupBanner lang={lang} quelle={`use-case-${beispiel.slug}`} />
+  <script type="application/ld+json" is:inline set:html={JSON.stringify({
+    '@context': 'https://schema.org',
+    '@graph': [
+      {
+        '@type': 'HowTo',
+        name: b.titel,
+        description: b.beschreibung,
+        inLanguage: lang === 'de' ? 'de-CH' : 'en',
+        tool: { '@type': 'HowToTool', name: 'SCOPERA' },
+        step: b.schritte.map((s, i) => ({
+          '@type': 'HowToStep',
+          position: i + 1,
+          name: s.titel,
+          text: s.text,
+        })),
+      },
+      {
+        '@type': 'BreadcrumbList',
+        itemListElement: [
+          { '@type': 'ListItem', position: 1, name: g.eyebrow, item: uebersicht },
+          { '@type': 'ListItem', position: 2, name: b.titel, item: `${uebersicht}${beispiel.slug}/` },
+        ],
+      },
+    ],
+  })} />
+</BaseLayout>
+<style>
+  .prompt {
+    margin: 18px 0; padding: 18px 22px; max-width: 40em;
+    border-left: 3px solid var(--accent); background: var(--card); border-radius: 0 var(--radius) var(--radius) 0;
+    font-size: 20px; line-height: 1.35;
+  }
+  .schritte { list-style: none; counter-reset: schritt; margin: 18px 0 0; padding: 0; display: grid; grid-template-columns: repeat(2, 1fr); gap: 14px; }
+  .schritte li { counter-increment: schritt; background: var(--card); border: 1px solid var(--line); border-radius: var(--radius); padding: 20px 18px; }
+  .schritte li::before { content: counter(schritt); display: block; font-size: 12px; letter-spacing: .14em; color: var(--accent-text); margin-bottom: 8px; }
+  .schritte h3 { font-size: 17px; margin: 0 0 6px; }
+  .schritte p { font-size: 14px; margin: 0; }
+  .weitere { list-style: none; margin: 14px 0 0; padding: 0; display: flex; flex-wrap: wrap; gap: 10px 22px; font-size: 15px; }
+  @media (max-width: 640px) { .schritte { grid-template-columns: 1fr; } }
+</style>

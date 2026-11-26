@@ -31,6 +31,14 @@ npm run check      # Typ- und Template-Pruefung
 - `docs/superpowers/` — Design-Spec und Implementierungsplan
 - `worker/` — eigenstaendiges Cloudflare-Worker-Projekt (Lead-Gateway: Tracking-Beacon, Kontaktformular, CRM-Anbindung), eigenes `package.json`/Deploy, siehe `worker/README.md`
 
+## Auffindbarkeit (Suchmaschinen und KI-Suchen)
+
+- **Anwendungsfälle** (`/de/use-cases/`, `/en/use-cases/`): sechs Beispiele aus [src/data/beispiele.ts](src/data/beispiele.ts), je mit eigener Seite. Es sind dieselben, mit denen die Bühne der Spielwiese einsteigt. Dort liest sie kein Crawler (Rahmen, im Browser gerendert), darum stehen sie hier als Text. Prompt und Schritte stammen aus der Plattform (`advanis-ai-paas`, `playground.stage.examples.*`): Wer ein Beispiel ändert oder ergänzt, zieht beide Repos nach.
+- **Sprung in die Spielwiese:** `/de/playground/?example=<id>` reicht das Beispiel an den Rahmen weiter, die Bühne beginnt damit.
+- **Strukturierte Daten:** `Organization` im BaseLayout, `SoftwareApplication` auf Produkt und Spielwiese, `HowTo` und `BreadcrumbList` je Anwendungsfall, `ItemList` in der Übersicht, `FAQPage` auf der FAQ.
+- **[public/llms.txt](public/llms.txt)** fasst die Seite für KI-Crawler zusammen (Englisch). Eine neue Seite gehört dort hinein.
+- Die Spielwiese selbst (`playground.scopera.ai`) verweist per Canonical auf die Spielwiese-Seite hier.
+
 ## Bewegung und 3D
 
 - **Sitewide** ([src/scripts/motion.ts](src/scripts/motion.ts)): Lenis glättet das Scrollen, Überschriften und Karten blenden beim Erscheinen ein, die KlangLinie zeichnet sich. Bei `prefers-reduced-motion` passiert nichts davon.
