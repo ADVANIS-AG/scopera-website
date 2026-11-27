@@ -1,0 +1,134 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import CtaBanner from '../../components/CtaBanner.astro';
+import HeroBild from '../../components/HeroBild.astro';
+import StufenKompakt from '../../components/StufenKompakt.astro';
+import { BOOKING_URL } from '../../config';
+
+// Second path next to the platform: own code, own hosting. Contact person follows the pattern
+// in services.astro: empty `bookingUrl` = general booking link, a `rolle` starting with
+// "PLATZHALTER" is not shown.
+const kontakt = { name: 'Sven Brenner', rolle: 'CTO and AI Strategist', bookingUrl: '' };
+const base = import.meta.env.BASE_URL;
+const lang = 'en';
+const terminZiel = kontakt.bookingUrl || BOOKING_URL || `${base}en/contact/`;
+const terminExtern = Boolean(kontakt.bookingUrl || BOOKING_URL);
+
+const vergleich = [
+  { kriterium: 'Code', plattform: 'Runs on SCOPERA, you use a license', mass: 'You own the source code' },
+  { kriterium: 'Hosting', plattform: 'We operate it, in Switzerland by default', mass: 'Wherever you want: your cloud, your data center, inside your product' },
+  { kriterium: 'Price', plattform: 'Edition with a base price, adjustable monthly', mass: 'Scoping and workshops free, implementation at a fixed contract price' },
+  { kriterium: 'Time to live', plattform: 'One to six weeks', mass: 'Depends on scope, with working increments from the first days' },
+  { kriterium: 'Afterwards', plattform: 'Operations, security and updates included', mass: 'You take over, or we maintain it under contract' },
+];
+
+const passtWenn = [
+  'You want to own the source code and be free to develop it further on your own.',
+  'The solution has to run on your infrastructure, for regulatory or strategic reasons.',
+  'It becomes part of your own product that you sell to your customers.',
+  'A specific tech stack is set, or your IT wants to maintain the code itself.',
+  'It is about data at scale: migrations, interfaces, background processing.',
+];
+
+const ablauf = [
+  { titel: 'Scoping', text: 'We clarify goal, scope, interfaces and operations. Free of charge, so you know what you are getting into.' },
+  { titel: 'Workshops and prototype', text: 'We work on your real case and build a first running version with AI. Also free of charge.' },
+  { titel: 'Fixed offer', text: 'You get a fixed contract price for the implementation. No open-ended hourly budget.' },
+  { titel: 'Build and handover', text: 'We develop AI-native, people review code and tests. At the end you get source code, documentation and a handover to your IT.' },
+  { titel: 'Maintenance, if you want', text: 'You run it yourself, or we take over maintenance and further development under contract.' },
+];
+---
+<BaseLayout title="Custom development | SCOPERA." description="Custom software, built with AI: your code, your hosting. Scoping and workshops free, implementation at a fixed price. From the team behind SCOPERA.">
+  <section style="padding: 88px 0 64px; border-bottom: none;">
+    <div class="wrap">
+      <p class="eyebrow">Custom development</p>
+      <h1>Custom software, built with AI. Your code, your hosting<span class="dot">.</span></h1>
+      <p class="lede">Sometimes a platform isn't the right answer, because you want to own the code, host it yourself or build it into your own product. Then we develop your system, with the same team and the same AI-native method as SCOPERA.</p>
+      <p style="display:flex; gap:12px; flex-wrap:wrap; margin-top:26px;">
+        <a class="btn" href={terminZiel} target={terminExtern ? '_blank' : undefined} rel={terminExtern ? 'noopener noreferrer' : undefined}>Request free scoping →</a>
+        <a class="btn-ghost" href={`${base}en/editions/`}>Rather on the platform</a>
+      </p>
+    </div>
+  </section>
+  <div class="wrap">
+    <StufenKompakt lang={lang} aktivPfad="development" einordnung="Stages 1 to 3 are the same as for the platform. From stage 4 on, they turn into your own system." />
+  </div>
+  <HeroBild src={`${base}bilder/hero-entwicklung.jpg`} alt="Measuring tape, thread and scissors on fine fabric" />
+
+  <section>
+    <div class="wrap">
+      <p class="eyebrow">Two paths</p>
+      <h2>Platform or custom?</h2>
+      <p class="soft" style="max-width:46em;">Both paths share the same way of working. The difference is who owns the system and who runs it.</p>
+      <div class="karten-2" style="margin-top:18px;">
+        <div class="karte">
+          <span class="tag">Platform</span>
+          <h3>SCOPERA editions<span class="dot">.</span></h3>
+          <ul>
+            {vergleich.map(v => <li><strong style="color:var(--ink);">{v.kriterium}:</strong> {v.plattform}</li>)}
+          </ul>
+          <p style="margin-top:14px;"><a href={`${base}en/editions/`} style="font-size:13px; font-weight:600;">View editions →</a></p>
+        </div>
+        <div class="karte">
+          <span class="tag">Custom</span>
+          <h3>Your own system<span class="dot">.</span></h3>
+          <ul>
+            {vergleich.map(v => <li><strong style="color:var(--ink);">{v.kriterium}:</strong> {v.mass}</li>)}
+          </ul>
+          <p style="margin-top:14px;"><a href={terminZiel} target={terminExtern ? '_blank' : undefined} rel={terminExtern ? 'noopener noreferrer' : undefined} style="font-size:13px; font-weight:600;">Request scoping →</a></p>
+        </div>
+      </div>
+      <p class="soft" style="margin-top:14px; font-size:14px;">Not sure which path fits? We clarify that in the free scoping, and we'll tell you honestly if the platform is enough.</p>
+    </div>
+  </section>
+
+  <section>
+    <div class="wrap">
+      <p class="eyebrow">When it fits</p>
+      <h2>Custom pays off when …</h2>
+      <div class="karte" style="max-width:760px;">
+        <ul style="margin-top:0;">
+          {passtWenn.map(p => <li>{p}</li>)}
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <div class="wrap">
+      <p class="eyebrow">How it works</p>
+      <h2>Clarify for free, pay a fixed price.</h2>
+      <div class="karten-5" style="margin-top:18px;">
+        {ablauf.map((a, i) => (
+          <div class="karte">
+            <span class="tag">Step {i + 1}</span>
+            <h3 style="font-size:17px;">{a.titel}</h3>
+            <p class="soft" style="font-size:13px;">{a.text}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <div class="wrap">
+      <p class="eyebrow">Proof, not promises</p>
+      <h2>Already running.</h2>
+      <div class="karten-2">
+        <div class="karte">
+          <span class="tag">Case study</span>
+          <h3>Retail: data migration platform for mass data</h3>
+          <p style="font-size:14px;" class="soft">For a Swiss retail and trading company, we built a dedicated platform that migrates mass data reliably. Custom-built with AI, owned by the customer.</p>
+        </div>
+        <div class="karte">
+          <span class="tag">Experience</span>
+          <h3>In business since 1997</h3>
+          <p style="font-size:14px;" class="soft">The same people who deliver CRM and ERP projects for over 300 Swiss companies develop your system. Faster with AI, reliable through experience.</p>
+        </div>
+      </div>
+      <p class="soft" style="margin-top:18px; font-size:14px;">Contact: {kontakt.name}{!kontakt.rolle.startsWith('PLATZHALTER') ? `, ${kontakt.rolle}` : ''}</p>
+    </div>
+  </section>
+
+  <CtaBanner lang={lang} titel="Tell us about your project." text="In 30 minutes we'll work out whether the platform or custom development fits better. The scoping afterwards is free." />
+</BaseLayout>

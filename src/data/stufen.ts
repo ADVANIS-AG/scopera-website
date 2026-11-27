@@ -6,6 +6,8 @@ export interface Stufe {
   dauer: { de: string; en: string };
   angebot: { de: string; en: string };
   pfad: string;
+  /** Zweiter Weg ab Stufe 4: eigener Code, eigenes Hosting (/development/). */
+  alternativ?: { angebot: { de: string; en: string }; pfad: string };
 }
 
 export const stufen: Stufe[] = [
@@ -68,6 +70,7 @@ export const stufen: Stufe[] = [
     dauer: { de: 'Ein bis sechs Wochen', en: 'One to six weeks' },
     angebot: { de: 'Solo, Duett', en: 'Solo, Duett' },
     pfad: 'editions',
+    alternativ: { angebot: { de: 'Entwicklung auf Mass', en: 'Custom development' }, pfad: 'development' },
   },
   {
     nr: 5,
@@ -83,5 +86,6 @@ export const stufen: Stufe[] = [
     dauer: { de: 'Laufend', en: 'Ongoing' },
     angebot: { de: 'Trio, Quartett, Managed AI, White-Label', en: 'Trio, Quartett, Managed AI, White-Label' },
     pfad: 'editions',
+    alternativ: { angebot: { de: 'Wartung auf Mass', en: 'Custom maintenance' }, pfad: 'development' },
   },
 ];

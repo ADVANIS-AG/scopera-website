@@ -13,4 +13,7 @@ const danachLabel = lang === 'de' ? 'Danach hast du' : 'You end up with';
   <p style="font-size:12px; font-weight:700; margin-top:8px;">{danachLabel}: {s.ergebnis[lang]}</p>
   <p class="soft" style="font-size:12px;">{s.dauer[lang]}</p>
   <p style="margin-top:8px;"><a href={`${base}${lang}/${s.pfad}/`} style="font-size:13px; font-weight:600;">{s.angebot[lang]} →</a></p>
+  {s.alternativ && (
+    <p class="soft" style="font-size:12px; margin-top:2px;">{lang === 'de' ? 'oder' : 'or'}: <a href={`${base}${lang}/${s.alternativ.pfad}/`} style="font-weight:600;">{s.alternativ.angebot[lang]} →</a></p>
+  )}
 </div>

@@ -16,7 +16,8 @@ const t = texte[lang];
 const base = import.meta.env.BASE_URL;
 // mode=wunsch: Wunsch-Modus der Spielwiese (übernimmt den Wunsch und baut sofort, ohne Werbekarten).
 // Kennt die Plattform ihn noch nicht, ignoriert sie den Parameter, und die Kopierhilfe springt ein.
-const spielwieseUrl = `https://playground.scopera.ai/playground?mode=wunsch&lang=${lang}`;
+// variant=app: Den Wunsch-Modus gibt es nur in der App-Variante (seit 27.11. wählbar neben «entwurf»).
+const spielwieseUrl = `https://playground.scopera.ai/playground?mode=wunsch&variant=app&lang=${lang}`;
 const teilnahmeUrl = `${base}${lang}/wunsch/teilnahme/`;
 const datenschutzUrl = `${base}${lang}/privacy/#${lang === 'de' ? 'weihnachtsaktion' : 'christmas-campaign'}`;
 const startseite = `${base}${lang}/`;

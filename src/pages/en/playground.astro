@@ -4,15 +4,15 @@ import SignupBanner from '../../components/SignupBanner.astro';
 import { BEISPIELE } from '../../data/beispiele';
 const base = import.meta.env.BASE_URL;
 const lang = 'en';
-const spielwieseUrl = 'https://playground.scopera.ai/playground?lang=en';
+const spielwieseUrl = 'https://playground.scopera.ai/playground?lang=en&variant=entwurf';
 const seitenUrl = new URL(`${import.meta.env.BASE_URL}en/playground/`, Astro.site).href;
 ---
-<BaseLayout title="Playground | SCOPERA." description="Describe a task from your daily work. The playground builds an app from it that you can use right away, and draws the process behind it. No sign-up required.">
+<BaseLayout title="Playground | SCOPERA." description="Describe a task from your daily work. The playground drafts a data model, views, roles and a process from it. No sign-up required.">
   <section style="padding: 88px 0 64px; border-bottom: none;">
     <div class="wrap">
       <p class="eyebrow">Playground</p>
       <h1>Try it before you decide<span class="dot">.</span></h1>
-      <p class="lede">Describe a task from your daily work. The playground builds an app from it that you can use right here, and draws the process behind it. Then you refine it. No sign-up and no tenant of your own.</p>
+      <p class="lede">Describe a task from your daily work. The playground drafts a data model, views, roles and a process from it. No sign-up and no tenant of your own.</p>
     </div>
   </section>
   <section>
@@ -35,8 +35,8 @@ const seitenUrl = new URL(`${import.meta.env.BASE_URL}en/playground/`, Astro.sit
   <section>
     <div class="wrap">
       <p class="eyebrow">What happens next</p>
-      <h2>From the playground to your own workspace.</h2>
-      <p class="soft" style="max-width: 46em;">If you like what you see, take it over into your own workspace with “Keep building in SCOPERA”. The app and the process are ready there once you have confirmed your email address. Then you connect real data and keep building with your team, with roles, permissions and workflows.</p>
+      <h2>From draft to application.</h2>
+      <p class="soft" style="max-width: 46em;">What you see here is a draft. In your own tenant it becomes an application your team can use, with permissions, history and reporting.</p>
       <p style="margin-top:16px;"><a href={`${base}en/product/`}>What else the platform brings →</a></p>
     </div>
   </section>

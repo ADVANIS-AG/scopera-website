@@ -1,0 +1,134 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import CtaBanner from '../../components/CtaBanner.astro';
+import HeroBild from '../../components/HeroBild.astro';
+import StufenKompakt from '../../components/StufenKompakt.astro';
+import { BOOKING_URL } from '../../config';
+
+// Zweiter Weg neben der Plattform: eigener Code, eigenes Hosting. Ansprechperson nach dem Muster
+// von services.astro: `bookingUrl` leer = allgemeiner Buchungslink, `rolle` mit "PLATZHALTER"
+// wird nicht angezeigt.
+const kontakt = { name: 'Sven Brenner', rolle: 'CTO und AI Strategist', bookingUrl: '' };
+const base = import.meta.env.BASE_URL;
+const lang = 'de';
+const terminZiel = kontakt.bookingUrl || BOOKING_URL || `${base}de/contact/`;
+const terminExtern = Boolean(kontakt.bookingUrl || BOOKING_URL);
+
+const vergleich = [
+  { kriterium: 'Code', plattform: 'Läuft auf SCOPERA, du nutzt eine Lizenz', mass: 'Der Quellcode gehört dir' },
+  { kriterium: 'Hosting', plattform: 'Wir betreiben, standardmässig in der Schweiz', mass: 'Wo du willst: eigene Cloud, eigenes Rechenzentrum, in deinem Produkt' },
+  { kriterium: 'Preis', plattform: 'Edition mit Grundpreis, monatlich anpassbar', mass: 'Scoping und Workshops kostenlos, Umsetzung zum fixen Auftragspreis' },
+  { kriterium: 'Bis live', plattform: 'Ein bis sechs Wochen', mass: 'Je nach Umfang, mit Zwischenständen ab den ersten Tagen' },
+  { kriterium: 'Danach', plattform: 'Betrieb, Sicherheit und Updates sind inklusive', mass: 'Du übernimmst, oder wir warten per Vertrag' },
+];
+
+const passtWenn = [
+  'Du willst den Quellcode besitzen und unabhängig weiterentwickeln können.',
+  'Die Lösung muss auf deiner Infrastruktur laufen, aus regulatorischen oder strategischen Gründen.',
+  'Die Software wird Teil deines eigenen Produkts, das du an deine Kunden verkaufst.',
+  'Ein bestimmter Tech-Stack ist gesetzt, oder deine IT will den Code selbst betreuen.',
+  'Es geht um Daten in grossen Mengen: Migrationen, Schnittstellen, Verarbeitung im Hintergrund.',
+];
+
+const ablauf = [
+  { titel: 'Scoping', text: 'Wir klären Ziel, Umfang, Schnittstellen und Betrieb. Kostenlos, damit du weisst, worauf du dich einlässt.' },
+  { titel: 'Workshops und Prototyp', text: 'Wir arbeiten an deinem echten Fall und bauen mit KI einen ersten lauffähigen Stand. Ebenfalls kostenlos.' },
+  { titel: 'Fixes Angebot', text: 'Du erhältst einen fixen Auftragspreis für die Umsetzung. Kein offenes Stundenbudget.' },
+  { titel: 'Umsetzung und Übergabe', text: 'Wir entwickeln KI-nativ, Menschen prüfen Code und Tests. Am Schluss bekommst du Quellcode, Dokumentation und eine Übergabe an deine IT.' },
+  { titel: 'Wartung, wenn du willst', text: 'Du betreibst selbst, oder wir übernehmen Wartung und Weiterentwicklung per Vertrag.' },
+];
+---
+<BaseLayout title="Entwicklung auf Mass | SCOPERA." description="Software auf Mass, mit KI gebaut: dein Code, dein Hosting. Scoping und Workshops kostenlos, Umsetzung zum Fixpreis. Vom Team hinter SCOPERA.">
+  <section style="padding: 88px 0 64px; border-bottom: none;">
+    <div class="wrap">
+      <p class="eyebrow">Entwicklung auf Mass</p>
+      <h1>Software auf Mass, mit KI gebaut. Dein Code, dein Hosting<span class="dot">.</span></h1>
+      <p class="lede">Manchmal ist eine Plattform nicht die richtige Antwort, weil du den Code besitzen, selbst hosten oder in dein eigenes Produkt einbauen willst. Dann entwickeln wir dein System, mit demselben Team und derselben KI-nativen Methode wie SCOPERA.</p>
+      <p style="display:flex; gap:12px; flex-wrap:wrap; margin-top:26px;">
+        <a class="btn" href={terminZiel} target={terminExtern ? '_blank' : undefined} rel={terminExtern ? 'noopener noreferrer' : undefined}>Kostenloses Scoping anfragen →</a>
+        <a class="btn-ghost" href={`${base}de/editions/`}>Lieber auf der Plattform</a>
+      </p>
+    </div>
+  </section>
+  <div class="wrap">
+    <StufenKompakt lang={lang} aktivPfad="development" einordnung="Die Stufen 1 bis 3 sind dieselben wie bei der Plattform. Ab Stufe 4 wird dein eigenes System daraus." />
+  </div>
+  <HeroBild src={`${base}bilder/hero-entwicklung.jpg`} alt="Massband, Faden und Schere auf edlem Stoff" />
+
+  <section>
+    <div class="wrap">
+      <p class="eyebrow">Zwei Wege</p>
+      <h2>Plattform oder auf Mass?</h2>
+      <p class="soft" style="max-width:46em;">Beide Wege bauen auf dieselbe Arbeitsweise. Der Unterschied liegt darin, wem das System gehört und wer es betreibt.</p>
+      <div class="karten-2" style="margin-top:18px;">
+        <div class="karte">
+          <span class="tag">Plattform</span>
+          <h3>SCOPERA-Editionen<span class="dot">.</span></h3>
+          <ul>
+            {vergleich.map(v => <li><strong style="color:var(--ink);">{v.kriterium}:</strong> {v.plattform}</li>)}
+          </ul>
+          <p style="margin-top:14px;"><a href={`${base}de/editions/`} style="font-size:13px; font-weight:600;">Editionen ansehen →</a></p>
+        </div>
+        <div class="karte">
+          <span class="tag">Auf Mass</span>
+          <h3>Dein eigenes System<span class="dot">.</span></h3>
+          <ul>
+            {vergleich.map(v => <li><strong style="color:var(--ink);">{v.kriterium}:</strong> {v.mass}</li>)}
+          </ul>
+          <p style="margin-top:14px;"><a href={terminZiel} target={terminExtern ? '_blank' : undefined} rel={terminExtern ? 'noopener noreferrer' : undefined} style="font-size:13px; font-weight:600;">Scoping anfragen →</a></p>
+        </div>
+      </div>
+      <p class="soft" style="margin-top:14px; font-size:14px;">Unsicher, welcher Weg passt? Im kostenlosen Scoping klären wir das, und wir sagen es dir ehrlich, wenn die Plattform reicht.</p>
+    </div>
+  </section>
+
+  <section>
+    <div class="wrap">
+      <p class="eyebrow">Wann es passt</p>
+      <h2>Auf Mass lohnt sich, wenn …</h2>
+      <div class="karte" style="max-width:760px;">
+        <ul style="margin-top:0;">
+          {passtWenn.map(p => <li>{p}</li>)}
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <div class="wrap">
+      <p class="eyebrow">Ablauf</p>
+      <h2>Kostenlos klären, fix bezahlen.</h2>
+      <div class="karten-5" style="margin-top:18px;">
+        {ablauf.map((a, i) => (
+          <div class="karte">
+            <span class="tag">Schritt {i + 1}</span>
+            <h3 style="font-size:17px;">{a.titel}</h3>
+            <p class="soft" style="font-size:13px;">{a.text}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <div class="wrap">
+      <p class="eyebrow">Beweise statt Versprechen</p>
+      <h2>Läuft bereits.</h2>
+      <div class="karten-2">
+        <div class="karte">
+          <span class="tag">Fallbeispiel</span>
+          <h3>Handel: Data Migration Platform für Massendaten</h3>
+          <p style="font-size:14px;" class="soft">Für ein Schweizer Handelsunternehmen haben wir eine eigene Plattform entwickelt, die Massendaten zuverlässig migriert. Auf Mass mit KI gebaut, im Besitz des Kunden.</p>
+        </div>
+        <div class="karte">
+          <span class="tag">Erfahrung</span>
+          <h3>Seit 1997 im Geschäft</h3>
+          <p style="font-size:14px;" class="soft">Dieselben Leute, die CRM- und ERP-Projekte für über 300 Schweizer Unternehmen liefern, entwickeln dein System. Mit KI schneller, mit Erfahrung verlässlich.</p>
+        </div>
+      </div>
+      <p class="soft" style="margin-top:18px; font-size:14px;">Ansprechperson: {kontakt.name}{!kontakt.rolle.startsWith('PLATZHALTER') ? `, ${kontakt.rolle}` : ''}</p>
+    </div>
+  </section>
+
+  <CtaBanner lang={lang} titel="Erzähl uns von deinem Vorhaben." text="In 30 Minuten klären wir, ob Plattform oder Entwicklung auf Mass besser passt. Das Scoping danach ist kostenlos." />
+</BaseLayout>

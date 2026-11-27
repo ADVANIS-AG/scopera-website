@@ -8,6 +8,7 @@ import type { PageVisit } from "./types";
 const PAGE_SCORES: Record<string, number> = {
   "/contact": 40,
   "/editions": 40,
+  "/development": 40,
   "/packages": 40, // alte Adresse, leitet auf /editions um
   "/playground": 30,
   "/product": 20,
